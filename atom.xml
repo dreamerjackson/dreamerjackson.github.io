@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Hexo</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://dreamerjackson.github.io/"/>
+  <updated>2018-11-05T02:54:47.007Z</updated>
+  <id>https://dreamerjackson.github.io/</id>
+  
+  <author>
+    <name>John Doe</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>solidity</title>
+    <link href="https://dreamerjackson.github.io/2018/11/04/solidity/"/>
+    <id>https://dreamerjackson.github.io/2018/11/04/solidity/</id>
+    <published>2018-11-04T12:31:15.000Z</published>
+    <updated>2018-11-05T02:54:47.007Z</updated>
+    
+    <content type="html"><![CDATA[<p>😔😂</p><h2 id="solidity介绍"><a class="markdownIt-Anchor" href="#solidity介绍"></a> solidity介绍</h2><p>以太坊拥有多种高级语言，可用于编写智能合约，每种语言都受到另一种广泛使用的语言的启发。最流行的一种叫做，它基于<code>JavaScript</code>。由于<code>Solidity</code>是迄今为止最成熟的以太坊语言，因此它是社区大力鼓励开发人员现在使用的语言。<br>Solidity与其它语言相关的特点？<br>它的语法接近于Javascript，是一种面向对象的语言。但作为一种真正意义上运行在网络上的去中心合约，它又有很多的不同，下面列举一些😉：</p><ol><li>以太坊底层是基于帐户，而非UTXO的，所以有一个特殊的Address的类型。用于定位用户，定位合约，定位合约的代码（合约本身也是一个帐户）。</li><li>由于语言内嵌框架是支持支付的，所以提供了一些关键字，如payable，可以在语言层面直接支持支付，而且超级简单。</li><li>存储是使用网络上的区块链，数据的每一个状态都可以永久存储，所以需要确定变量使用内存，还是区块链。</li><li>运行环境是在去中心化的网络上，会比较强调合约或函数执行的调用的方式。因为原来一个简单的函数调用变为了一个网络上的节点中的代码执行，分布式的感觉。</li><li>最后一个非常大的不同则是它的异常机制，一旦出现异常，所有的执行都将会被回撤，这主要是为了保证合约执行的原子性，以避免中间状态出现的数据不一致。</li></ol><p><a href="https://solidity.readthedocs.io/en/develop/units-and-global-variables.html" target="_blank" rel="noopener">solidity官方文档</a></p><p>由于在本地计算机上开始使用Solidity有点复杂，因此我们将使用名为Remix的在线IDE 作为DApp程序员的第一步。<br><a href="https://remix.ethereum.org" target="_blank" rel="noopener">在线remix编译器</a></p><p>Solidity是一种智能合约高级语言，运行在Ethereum虚拟机（EVM）之上。</p><img src="/2018/11/04/solidity/solidity.png" title="This is an example image"><p>如果你第一次进入这个网站，你会看到有一个名为ballot.sol的虚拟合约。让我们忽略这一点，而是从头开始，在左侧导航菜单中创建一个名为HelloWorld.sol的新文件。</p><img src="/2018/11/04/solidity/createNew.png" title="This is an example image"><img src="/2018/11/04/solidity/createNew2.png" title="This is an example image"><p>现在我们有一个完全空白的文件，让我们来看看Solidity的工作原理。<br>我们需要指定的第一件事是我们的程序应该解释为什么版本的Solidity。这是通过第一行的版本编译指示完成的：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.4.0;</span><br></pre></td></tr></table></figure><p>此行意味着我们正在阻止我们的程序被一个比0.4.0更老的编译器编译<br>^表示向上兼容，但是不能够被0.5.0及其以上的编译器编译。我们这样做是为了尽量减少代码以意想不到或不兼容的方式编译时可能发生的错误的风险。接下来，是时候编写实际的合同代码了！我们通过使用声明新合同的特殊关键字contract来做到这一点。如果你习惯了面向对象的语言，你会注意到它和类的定义类似。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.0</span>;</span><br><span class="line">contract HelloWorld &#123;</span><br><span class="line">  <span class="comment">//从这里放置合约代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>合约名字是随意指定的，为了当前的目的相契合，我们命名为HellowWorld，在合约内部，我们添加一个状态变量，用字符串来存储一串汉字，我们将变量名定义为firstTest,</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">contract HelloWorld &#123;</span><br><span class="line">  <span class="comment">// 放置你喜欢的字符串</span></span><br><span class="line">  string myName = <span class="string">"jonson"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>请注意，Solidity是静态类型的，因此在为其分配值之前，您总是需要定义变量的类型。所有类型的列表可以在Solidity的文档中找到。<br>最后，我们希望能够通过调用函数从我们的合约中查询出这个值。我们将调用这个函数getIt：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">contract HelloWorld &#123;</span><br><span class="line">  string firstTest = <span class="string">"jonson"</span>;</span><br><span class="line">     <span class="comment">//添加函数:</span></span><br><span class="line">     <span class="function"><span class="keyword">function</span> <span class="title">getIt</span>(<span class="params"></span>) <span class="title">returns</span>(<span class="params">string</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> firstTest;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>请注意，我们需要在Solidity中指定函数的返回值。由于在这种情况下我们只是返回myName字符串，所以我们编写了<code>returns (string)</code></p><h2 id="解决编译器警告"><a class="markdownIt-Anchor" href="#解决编译器警告"></a> 解决编译器警告</h2><p>如果您一直沿用这种方式并将代码放在Remix中，那么您可能已经注意到窗口右侧存在一些警告。 😢</p><img src="/2018/11/04/solidity/warning.png" title="This is an example image"><p>如果勾上了右侧的自动编译,每当你改变代码中的某些东西时，Remix就会自动尝试编译它。红色字段表示代码编译失败（由于语法错误），黄色字段表示编译时有一些警告。<br>第一个警告告诉我们，我们函数的可见性没有被指定（因此默认为“public”）。以太坊实际上有4种可见度类型：</p><ul><li>public：任何人都可以调用该函数，包括DApp的使用者。</li><li>private：只有合约本身可以调用该函数（在另一个函数中）。</li><li>internal：只有这份合同以及由此产生的所有合同才能称之为合同。</li><li>external：只有外部可以调用该函数，而合约内部不能调用。</li></ul><p>根据经验，public 与 private 是最常用的类型。<br>由于我们现在只是在测试，所以我们不介意将函数的可见性设置为public。请注意，尽管Solidity设置为public，但始终明确指定函数的可见性被认为是一种良好习惯，以避免潜在的灾难性疏忽。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在函数名称后加上public修饰符</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">getIt</span>(<span class="params"></span>) <span class="title">public</span>  <span class="title">returns</span>(<span class="params">string</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> firstTest;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure><blockquote><p>Classic markup: 😉  😢  😆 😋<br>Shortcuts (emoticons): 😃 😦 😎 😉</p></blockquote><p>这样做后，只剩下一个警告。这一个很难理解：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Warning: Function state mutability can be restricted to view</span><br></pre></td></tr></table></figure><p>编译器真正在说的是它检测到我们的函数从不改变区块链上的任何状态变量 -而仅仅读取。因此，我们可以使用view修饰符来使其更加清晰：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">//在public后添加view</span></span><br><span class="line">   <span class="function"><span class="keyword">function</span> <span class="title">getIt</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">view</span>  <span class="title">returns</span>(<span class="params">string</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> firstTest;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>当一个函数有一个“view”修饰符时，你不需要花费任何gas来调用它们（即使它们使用了消耗气体的操作），因为不需要进行事务处理。它们基本上是“免费使用”的。<br>有3种内置的函数修饰符会影响花费gas的量:</p><ul><li>view: 可以自由调用，因为它只是“查看”区块链的状态而不改变它</li><li>pure: 也可以自由调用，既不读取也不写入区块链</li><li>payable:常常用于将代币发送给合约地址。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;😔😂&lt;/p&gt;
+&lt;h2 id=&quot;solidity介绍&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#solidity介绍&quot;&gt;&lt;/a&gt; solidity介绍&lt;/h2&gt;
+&lt;p&gt;以太坊拥有多种高级语言，可用于编写智能合约，每种语言都受到另一种广泛使用
+      
+    
+    </summary>
+    
+      <category term="智能合约 solidity语法" scheme="https://dreamerjackson.github.io/categories/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-solidity%E8%AF%AD%E6%B3%95/"/>
+    
+    
+      <category term="solidity" scheme="https://dreamerjackson.github.io/tags/solidity/"/>
+    
+      <category term="智能合约" scheme="https://dreamerjackson.github.io/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/"/>
+    
+      <category term="以太坊" scheme="https://dreamerjackson.github.io/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/"/>
+    
+  </entry>
+  
+</feed>
