@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>go语言数据结构[1]--go实现快速排序的两种方式 | 郑建勋的个人网站</title>
+  <meta name="description" content="前言 go实现快速排序的两种方式。借助Go语言slice本身的特点以及切割时的特性，在快速排序递归时，参数不用传递开始与结尾参数。  快速排序第一种方式 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465/">
+<meta name="keywords" content="go">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go语言数据结构[1]--go实现快速排序的两种方式">
+<meta property="og:url" content="https://dreamerjonson.com/2019/02/08/golang-1-structure-quicksort/index.html">
+<meta property="og:site_name" content="Jonson">
+<meta property="og:description" content="前言 go实现快速排序的两种方式。借助Go语言slice本身的特点以及切割时的特性，在快速排序递归时，参数不用传递开始与结尾参数。  快速排序第一种方式 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465/">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-10T05:31:33.090Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="go语言数据结构[1]--go实现快速排序的两种方式">
+<meta name="twitter:description" content="前言 go实现快速排序的两种方式。借助Go语言slice本身的特点以及切割时的特性，在快速排序递归时，参数不用传递开始与结尾参数。  快速排序第一种方式 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465/">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://dreamerjonson.com/2019/02/08/golang-1-structure-quicksort/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Jonson" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css">
+  
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+
+
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/dreamerjackson" target="_blank">
+          <img class="img-circle img-rotate" src="/images/jonson.png" width="992" height="1532">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">郑建勋（jonson）</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">区块链工程师 &amp; Web工程师</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-bitcoin">
+          <a href="/bitcoin">
+            
+            <i class="icon fab fa-bitcoin"></i>
+            
+            <span class="menu-title">比特币文献</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-aboutme">
+          <a href="/aboutme">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">关于我</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/dreamerjackson" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+          <div id="mrmy" style="padding-bottom:30px"></div>
+              <div class="content">
+                  <!-- <p>I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.</p> -->
+                  <!--  -->
+                  <!-- 我们绝对要过一个无悔的人生！总有一天，我们要踏上这片海洋，按照自己的梦想去闯荡！我们要过上最自由的人生！ &lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--艾斯&lt;/p&gt; -->
+                    <!-- 我们绝对要过一个无悔的人生！总有一天，我们要踏上这片海洋，按照自己的梦想去闯荡！我们要过上最自由的人生！ <br/><p align="right">--艾斯</p> -->
+                商业合作微信：dreamerjonson<br><br>
+                51CTO区块链交流群：837814276<br><br>
+                go语言交流2群：713385260<br>
+                <!-- <div><img src="/images/xingqiu-qrcode.jpg" width="150" height="150"></div> -->
+              </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">109</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/数据结构/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-数据结构/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链原理/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发配置/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/智能合约-solidity语法/">智能合约 solidity语法</a><span class="category-list-count">59</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/置顶/">置顶</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">109</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-数据结构/">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-前端/">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链原理/">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发配置/">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置顶/">置顶</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/bootstrap/" style="font-size: 13.13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.25px;">docker</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-数据结构/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-前端/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/以太坊/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/前端/" style="font-size: 13.38px;">前端</a> <a href="/tags/区块链原理/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/开发配置/" style="font-size: 13px;">开发配置</a> <a href="/tags/数据结构/" style="font-size: 13px;">数据结构</a> <a href="/tags/智能合约/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/置顶/" style="font-size: 13px;">置顶</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/开发配置/">开发配置</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/04/25/tmux/" class="title">tmux</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-04-25T05:44:19.000Z" itemprop="datePublished">2019-04-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/04/02/connect-github-gitlab/" class="title">git操作github-gitlab</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-04-02T07:43:32.000Z" itemprop="datePublished">2019-04-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/04/01/go-sql/" class="title">golang[70]-golang操作数据库</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-04-01T09:38:37.000Z" itemprop="datePublished">2019-04-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/03/14/k8s/" class="title">k8s</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-03-14T03:29:49.000Z" itemprop="datePublished">2019-03-14</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/03/11/go-struture-15-merge-sort/" class="title">go-数据结构[15]-归并排序</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-03-11T14:01:51.000Z" itemprop="datePublished">2019-03-11</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text"> 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速排序第一种方式"><span class="toc-number">2.</span> <span class="toc-text"> 快速排序第一种方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速排序第二种方式"><span class="toc-number">3.</span> <span class="toc-text"> 快速排序第二种方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#c语言实现1"><span class="toc-number">4.</span> <span class="toc-text"> c语言实现1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#c语言实现2"><span class="toc-number">5.</span> <span class="toc-text"> c语言实现2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#javascript-语言实现"><span class="toc-number">6.</span> <span class="toc-text"> JavaScript 语言实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#javascript-语言实现2"><span class="toc-number">7.</span> <span class="toc-text"> JavaScript 语言实现2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#javascript-语言实现3"><span class="toc-number">8.</span> <span class="toc-text"> JavaScript 语言实现3</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-golang-1-structure-quicksort" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      go语言数据结构[1]--go实现快速排序的两种方式
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/02/08/golang-1-structure-quicksort/" class="article-date">
+	  <time datetime="2019-02-08T05:29:28.000Z" itemprop="datePublished">2019-02-08</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/go/">go</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/go/">go</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/02/08/golang-1-structure-quicksort/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.6k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 8(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>go实现快速排序的两种方式。借助Go语言slice本身的特点以及切割时的特性，在快速排序递归时，参数不用传递开始与结尾参数。</p>
+<h2 id="快速排序第一种方式"><a class="markdownIt-Anchor" href="#快速排序第一种方式"></a> 快速排序第一种方式</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Copyright © 2018 jonson</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="comment">//打印</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">show</span><span class="params">(arr []<span class="keyword">int</span>)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="built_in">len</span>(arr);i++&#123;</span><br><span class="line">		fmt.Println(arr[i])</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(<span class="string">"----------------------------------------------"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">   k := []<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">9</span>,<span class="number">2</span>,<span class="number">6</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">8</span>&#125;</span><br><span class="line">	show(k)</span><br><span class="line">	quicksort(k)</span><br><span class="line">	show(k)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">quicksort</span><span class="params">(arr []<span class="keyword">int</span>)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(arr) &gt;<span class="number">1</span>&#123;<span class="comment">//必须要长度大于1才有意义。</span></span><br><span class="line"></span><br><span class="line">		end := <span class="built_in">len</span>(arr)</span><br><span class="line">		i := <span class="number">0</span></span><br><span class="line">		j := <span class="built_in">len</span>(arr)</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> i&lt;j&#123;</span><br><span class="line">			<span class="keyword">for</span> i &lt; end<span class="number">-1</span>&#123;</span><br><span class="line">				i++</span><br><span class="line">				<span class="keyword">if</span> arr[i] &lt;= arr[<span class="number">0</span>]&#123;</span><br><span class="line">					<span class="keyword">break</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">for</span> j&gt;<span class="number">0</span>&#123;</span><br><span class="line">				j--</span><br><span class="line">				<span class="keyword">if</span> arr[j]&gt;=arr[<span class="number">0</span>]&#123;</span><br><span class="line">					<span class="keyword">break</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">//如果i&lt;j，说明要将这两个元素交换</span></span><br><span class="line">			<span class="keyword">if</span> i &lt; j&#123;</span><br><span class="line">				temp :=arr[i]</span><br><span class="line">				arr[i] = arr[j]</span><br><span class="line">				arr[j] = temp</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//交换start和 j  。 到此为止， j之前为小于start元素的，j之后为大于start元素的。</span></span><br><span class="line">		tmp := arr[j]</span><br><span class="line">		arr[j] = arr[<span class="number">0</span>]</span><br><span class="line">		arr[<span class="number">0</span>] = tmp</span><br><span class="line"></span><br><span class="line">		<span class="comment">//递归下去</span></span><br><span class="line">		<span class="keyword">if</span> j &gt;<span class="number">0</span> &#123;</span><br><span class="line">			quicksort(arr[<span class="number">0</span>:j])</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> j+<span class="number">1</span> &lt; end&#123;</span><br><span class="line">			quicksort(arr[j+<span class="number">1</span>:end])</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="快速排序第二种方式"><a class="markdownIt-Anchor" href="#快速排序第二种方式"></a> 快速排序第二种方式</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Copyright © 2018 jonson</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="comment">//打印</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">show</span><span class="params">(arr []<span class="keyword">int</span>)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="built_in">len</span>(arr);i++&#123;</span><br><span class="line">		fmt.Println(arr[i])</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(<span class="string">"----------------------------------------------"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">   k := []<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">9</span>,<span class="number">2</span>,<span class="number">6</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">8</span>&#125;</span><br><span class="line">	show(k)</span><br><span class="line">	quicksort(k)</span><br><span class="line">	show(k)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">quicksort</span><span class="params">(arr []<span class="keyword">int</span>)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(arr) &gt;<span class="number">1</span>&#123;<span class="comment">//必须要长度大于1才有意义。</span></span><br><span class="line"></span><br><span class="line">		end := <span class="built_in">len</span>(arr)</span><br><span class="line">		i := <span class="number">0</span></span><br><span class="line">		j := <span class="built_in">len</span>(arr)</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> i&lt;j&#123;</span><br><span class="line">			<span class="keyword">for</span> i &lt; end<span class="number">-1</span>&#123;</span><br><span class="line">				i++</span><br><span class="line">				<span class="keyword">if</span> arr[i] &lt;= arr[<span class="number">0</span>]&#123;</span><br><span class="line">					<span class="keyword">break</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">for</span> j&gt;<span class="number">0</span>&#123;</span><br><span class="line">				j--</span><br><span class="line">				<span class="keyword">if</span> arr[j]&gt;=arr[<span class="number">0</span>]&#123;</span><br><span class="line">					<span class="keyword">break</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">//如果i&lt;j，说明要将这两个元素交换</span></span><br><span class="line">			<span class="keyword">if</span> i &lt; j&#123;</span><br><span class="line">				temp :=arr[i]</span><br><span class="line">				arr[i] = arr[j]</span><br><span class="line">				arr[j] = temp</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//交换start和 j  。 到此为止， j之前为小于start元素的，j之后为大于start元素的。</span></span><br><span class="line">		tmp := arr[j]</span><br><span class="line">		arr[j] = arr[<span class="number">0</span>]</span><br><span class="line">		arr[<span class="number">0</span>] = tmp</span><br><span class="line"></span><br><span class="line">		<span class="comment">//递归下去</span></span><br><span class="line">		<span class="keyword">if</span> j &gt;<span class="number">0</span> &#123;</span><br><span class="line">			quicksort(arr[<span class="number">0</span>:j])</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> j+<span class="number">1</span> &lt; end&#123;</span><br><span class="line">			quicksort(arr[j+<span class="number">1</span>:end])</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="c语言实现1"><a class="markdownIt-Anchor" href="#c语言实现1"></a> c语言实现1</h2>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="comment">//打印</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">(<span class="keyword">int</span> *a,<span class="keyword">int</span> length)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, a[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"---------------------------\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//快速排序,不仅要写出来，而且要优美</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//arr 为数组</span></span><br><span class="line"><span class="comment">//start 为开始的元素的下标</span></span><br><span class="line"><span class="comment">//end  为结束的元素的下标+1</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quick_sort</span><span class="params">(<span class="keyword">int</span> *arr, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (start &lt; end) <span class="comment">//必须要开始的元素 &lt;结束的元素才有意义。</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//赋值</span></span><br><span class="line">		<span class="keyword">int</span> i = start;</span><br><span class="line">		<span class="keyword">int</span> j = end;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//i在++，j在--。第一个do为当i&lt;j时就继续下去。</span></span><br><span class="line">		<span class="keyword">do</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">do</span> <span class="comment">//此do一直让i++，直到，发现大于start的</span></span><br><span class="line">			&#123;</span><br><span class="line">				i++;</span><br><span class="line">			&#125; <span class="keyword">while</span> (i &lt; end  &amp;&amp; arr[i] &lt; arr[start]);</span><br><span class="line"></span><br><span class="line">			<span class="keyword">do</span><span class="comment">//此do一直让j--，直到，发现小于start的元素</span></span><br><span class="line">			&#123;</span><br><span class="line">				j--;</span><br><span class="line">			&#125; <span class="keyword">while</span> (j&gt;start &amp;&amp; arr[j]&gt;arr[start]);</span><br><span class="line">			<span class="comment">//如果i&lt;j，说明要将这两个元素交换</span></span><br><span class="line">			<span class="keyword">if</span> (i &lt; j)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">int</span> temp = arr[i];</span><br><span class="line">				arr[i] = arr[j];</span><br><span class="line">				arr[j] = temp;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">while</span> (i&lt;j);</span><br><span class="line">		<span class="comment">//交换start和 j  。 到此为止， j之前为小于start元素的，j之后为大于start元素的。</span></span><br><span class="line">		<span class="keyword">int</span> temp = arr[j];</span><br><span class="line">		arr[j] = arr[start];</span><br><span class="line">		arr[start] = temp;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//递归下去</span></span><br><span class="line">		quick_sort(arr, start, j);</span><br><span class="line">		quick_sort(arr, j + <span class="number">1</span>, end);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a[<span class="number">10</span>] = &#123; <span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">9</span>,<span class="number">2</span>,<span class="number">6</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">8</span> &#125;;</span><br><span class="line">	show(a, <span class="number">10</span>);</span><br><span class="line">	quick_sort(a, <span class="number">0</span>,<span class="number">10</span>);</span><br><span class="line">	show(a, <span class="number">10</span>);</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="c语言实现2"><a class="markdownIt-Anchor" href="#c语言实现2"></a> c语言实现2</h2>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="comment">//打印</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">(<span class="keyword">int</span> *a,<span class="keyword">int</span> length)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, a[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"---------------------------\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//快速排序,不仅要写出来，而且要优美</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//arr 为数组</span></span><br><span class="line"><span class="comment">//start 为开始的元素的下标</span></span><br><span class="line"><span class="comment">//end  为结束的元素的下标+1</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quick_sort2</span><span class="params">(<span class="keyword">int</span> *arr, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (start &lt; end) &#123; <span class="comment">//start &lt; end 才有进新下去的意义。</span></span><br><span class="line">		<span class="comment">//i从第一个开始，记录下标。</span></span><br><span class="line">		<span class="keyword">int</span>  i = start;</span><br><span class="line">		<span class="comment">//从第二个元素开始，循环到末尾</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = start+<span class="number">1</span>; j &lt; end; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">//一旦发现比其start小的</span></span><br><span class="line">			<span class="keyword">if</span> (arr[j] &gt; arr[start])</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="comment">//i++,很重要的一步，也就是让发现的小于start的数，依次放置在第2个，第3个....位置上。</span></span><br><span class="line">				i++;</span><br><span class="line">				<span class="comment">//交换</span></span><br><span class="line">				<span class="keyword">int</span> temp = arr[i];</span><br><span class="line">				arr[i] = arr[j];</span><br><span class="line">				arr[j] = temp;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">////交换start和i  。 到此为止， i之前为小于start元素的，i之后为大于start元素的。</span></span><br><span class="line">		<span class="keyword">int</span> temp = arr[i];</span><br><span class="line">		arr[i] = arr[start];</span><br><span class="line">		arr[start] = temp;</span><br><span class="line">		<span class="comment">//递归</span></span><br><span class="line">		quick_sort2(arr, start, i);</span><br><span class="line">		quick_sort2(arr, i+<span class="number">1</span>, end);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a[<span class="number">10</span>] = &#123; <span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">9</span>,<span class="number">2</span>,<span class="number">6</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">8</span> &#125;;</span><br><span class="line">	show(a, <span class="number">10</span>);</span><br><span class="line">	quick_sort2(a, <span class="number">0</span>,<span class="number">10</span>);</span><br><span class="line">	show(a, <span class="number">10</span>);</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="javascript-语言实现"><a class="markdownIt-Anchor" href="#javascript-语言实现"></a> JavaScript 语言实现</h2>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">quickSort</span>(<span class="params">arr</span>) </span>&#123;　　</span><br><span class="line">    <span class="keyword">if</span> (arr.length &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;　　</span><br><span class="line">    <span class="keyword">var</span> pivotIndex = <span class="built_in">Math</span>.floor(arr.length / <span class="number">2</span>);　　</span><br><span class="line">    <span class="keyword">var</span> pivot = arr.splice(pivotIndex, <span class="number">1</span>)[<span class="number">0</span>];　　</span><br><span class="line">    <span class="keyword">var</span> left = [];　　</span><br><span class="line">    <span class="keyword">var</span> right = [];　　</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;　　　　</span><br><span class="line">        <span class="keyword">if</span> (arr[i] &lt; pivot) &#123;　　　　　　</span><br><span class="line">            left.push(arr[i]);　　　　</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;　　　　　　</span><br><span class="line">            right.push(arr[i]);　　　　</span><br><span class="line">        &#125;　　</span><br><span class="line">    &#125;　　</span><br><span class="line">    <span class="keyword">return</span> quickSort(left).concat([pivot], quickSort(right));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="javascript-语言实现2"><a class="markdownIt-Anchor" href="#javascript-语言实现2"></a> JavaScript 语言实现2</h2>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//上面简单版本的缺点是，它需要Ω(n)的额外存储空间，也就跟归并排序一样不好。额外需要的存储器空间配置，在实际上的实现，也会极度影响速度和高速缓存的性能。</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">quickSort</span>(<span class="params">array</span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 交换元素位置</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">swap</span>(<span class="params">array, i, k</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">var</span> temp = array[i];</span><br><span class="line">		array[i] = array[k];</span><br><span class="line">		array[k] = temp;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 数组分区，左小右大</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">partition</span>(<span class="params">array, left, right</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">var</span> storeIndex = left;        </span><br><span class="line">		<span class="keyword">var</span> pivot = array[right]; <span class="comment">// 直接选最右边的元素为基准元素</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">var</span> i = left; i &lt; right; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (array[i] &lt; pivot) &#123;</span><br><span class="line">				swap(array, storeIndex, i);</span><br><span class="line">				storeIndex++; <span class="comment">// 交换位置后，storeIndex 自增 1，代表下一个可能要交换的位置</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		swap(array, right, storeIndex); <span class="comment">// 将基准元素放置到最后的正确位置上</span></span><br><span class="line">		<span class="keyword">return</span> storeIndex;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">sort</span>(<span class="params">array, left, right</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (left &gt; right) &#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">var</span> storeIndex = partition(array, left, right);</span><br><span class="line">		sort(array, left, storeIndex - <span class="number">1</span>);</span><br><span class="line">		sort(array, storeIndex + <span class="number">1</span>, right);</span><br><span class="line">	&#125;</span><br><span class="line">	sort(array, <span class="number">0</span>, array.length - <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">return</span> array;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="javascript-语言实现3"><a class="markdownIt-Anchor" href="#javascript-语言实现3"></a> JavaScript 语言实现3</h2>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">quickSort</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> sort(arr, <span class="number">0</span>, arr.length - <span class="number">1</span>);</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">swap</span>(<span class="params">arr, i, k</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> temp = arr[i];</span><br><span class="line">        arr[i] = arr[k];</span><br><span class="line">        arr[k] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">sort</span>(<span class="params">arr, start, end</span>) </span>&#123;</span><br><span class="line">        sort(arr, <span class="number">0</span>, arr.length - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">swap</span>(<span class="params">arr, i, k</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> temp = arr[i];</span><br><span class="line">            arr[i] = arr[k];</span><br><span class="line">            arr[k] = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">sort</span>(<span class="params">arr, start, end</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (start &gt;= end) <span class="keyword">return</span>;</span><br><span class="line">            <span class="keyword">var</span> pivot = arr[start],</span><br><span class="line">                i = start + <span class="number">1</span>,</span><br><span class="line">                k = end;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                <span class="keyword">while</span> (arr[i] &lt; pivot) &#123;</span><br><span class="line">                    i++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">while</span> (arr[k] &gt; pivot) &#123;</span><br><span class="line">                    k--;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (i &gt;= k) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                swap(arr, i, k);</span><br><span class="line">            &#125;</span><br><span class="line">            swap(arr, start, k);</span><br><span class="line">            sort(arr, start, <span class="built_in">Math</span>.max(<span class="number">0</span>, k - <span class="number">1</span>));</span><br><span class="line">            sort(arr, <span class="built_in">Math</span>.min(end, k + <span class="number">1</span>), end);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://dreamerjonson.com/2019/02/08/golang-1-structure-quicksort/" title="go语言数据结构[1]--go实现快速排序的两种方式" target="_blank" rel="external">https://dreamerjonson.com/2019/02/08/golang-1-structure-quicksort/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/dreamerjackson" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/jonson.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/dreamerjackson" target="_blank"><span class="text-dark">郑建勋（jonson）</span><small class="ml-1x">区块链工程师 &amp; Web工程师</small></a></h3>
+        <div>灾难总是接踵而至，这正是世间的常理。你以为只要哭诉一下，就会有谁来救你？如果失败了，就只能说明我不过是如此程度的男人</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+           
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2019/02/11/golang-60-viper/" title="golang[60]-viper"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2019/01/25/golang-59-crawler-rpcitemserver/" title="go语言渐入佳境[60]-分布式爬虫-jsonrpc抽离存储数据引擎"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫">
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫">
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/dreamerjackson" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	<!-- Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>. -->
+						天下风云出我辈，一入江湖岁月催。<br>皇图霸业谈笑中，不胜人生一场醉 
+			  </div>
+    </div>
+</footer>
+
+  <!-- <script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>　
+<script src="https://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
+
+<script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+
+<script src="/js/mrmy.js"></script>
+
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+  <script src="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: 'c22fa591ad87e1b03638',
+    clientSecret: '0646579e4dd8a301be7a42bcf3f5dd39ce803dcb',
+    repo: 'dreamerjackson.github.io',
+    owner: 'dreamerjackson',
+    admin: ['dreamerjackson'],
+    id: md5(location.pathname),
+    distractionFreeMode: true
+  })
+  gitalk.render('comments')
+  </script>
+
+      
+
+
+
+
+
+
+
+
+</body>
+</html>

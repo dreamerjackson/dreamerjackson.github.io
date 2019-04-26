@@ -2,21 +2,1673 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://dreamerjackson.github.io/2018/11/04/solidity/</loc>
+    <loc>https://dreamerjonson.com/2019/04/25/tmux/</loc>
     
-    <lastmod>2018-11-05T02:54:47.007Z</lastmod>
+    <lastmod>2019-04-25T12:30:14.026Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://dreamerjackson.github.io/tags/index.html</loc>
+    <loc>https://dreamerjonson.com/2019/04/02/connect-github-gitlab/</loc>
+    
+    <lastmod>2019-04-21T15:12:53.124Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/04/01/go-sql/</loc>
+    
+    <lastmod>2019-04-01T09:57:43.919Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/02/24/golang-63-concurrent/</loc>
+    
+    <lastmod>2019-03-31T07:52:28.054Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/26/golang-15-struct/</loc>
+    
+    <lastmod>2019-03-19T09:27:17.666Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/17/golang-3-variables/</loc>
+    
+    <lastmod>2019-03-19T00:25:15.142Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/03/11/go-struture-13-binary-sort/</loc>
+    
+    <lastmod>2019-03-18T13:30:01.616Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/03/14/k8s/</loc>
+    
+    <lastmod>2019-03-18T13:29:32.931Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/02/25/docker-webserver/</loc>
+    
+    <lastmod>2019-03-14T14:13:15.152Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/03/11/go-struture-14-shell-sort/</loc>
+    
+    <lastmod>2019-03-11T14:19:14.462Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/03/11/go-struture-15-merge-sort/</loc>
+    
+    <lastmod>2019-03-11T14:19:02.441Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/03/10/go-struture-12-binary-search/</loc>
+    
+    <lastmod>2019-03-11T10:28:17.806Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/03/10/kali-shadow/</loc>
+    
+    <lastmod>2019-03-10T13:32:02.118Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/03/10/go-struture-11-Insertion-Sort/</loc>
+    
+    <lastmod>2019-03-10T09:48:53.868Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/03/09/go-structure-6-Selection-Sort/</loc>
+    
+    <lastmod>2019-03-10T09:05:15.558Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/03/10/go-struture-10-quicksort/</loc>
+    
+    <lastmod>2019-03-10T05:35:30.288Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/02/08/golang-1-structure-quicksort/</loc>
+    
+    <lastmod>2019-03-10T05:31:33.090Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/03/09/go-struture-8-select/</loc>
+    
+    <lastmod>2019-03-10T04:30:01.608Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/03/05/golang-70-web/</loc>
+    
+    <lastmod>2019-03-09T10:59:04.473Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/02/26/docker-front/</loc>
+    
+    <lastmod>2019-03-05T08:16:56.996Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/02/26/golang-65-package/</loc>
+    
+    <lastmod>2019-03-05T03:39:05.763Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/03/01/golang-66-test/</loc>
+    
+    <lastmod>2019-03-05T03:39:00.246Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/03/05/golang-69-shortkey/</loc>
+    
+    <lastmod>2019-03-05T02:34:27.513Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/19/go-network-10-json/</loc>
+    
+    <lastmod>2019-03-04T15:50:52.666Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/03/04/golang-67-regexp/</loc>
+    
+    <lastmod>2019-03-04T15:46:39.898Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/03/04/kali-linux/</loc>
+    
+    <lastmod>2019-03-04T13:55:06.935Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/03/03/golang-7-structure-tree/</loc>
+    
+    <lastmod>2019-03-03T04:01:37.921Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/03/02/golang-67-document/</loc>
+    
+    <lastmod>2019-03-02T09:25:44.434Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/01/golang-31-error-handle/</loc>
+    
+    <lastmod>2019-03-02T08:33:29.335Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/02/12/docker-3-dockerrun/</loc>
+    
+    <lastmod>2019-03-01T12:21:30.400Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/02/24/golang-6-structure-fib/</loc>
+    
+    <lastmod>2019-02-28T13:11:46.378Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/02/17/golang-62-defer-function/</loc>
+    
+    <lastmod>2019-02-28T13:09:51.184Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/02/25/golang-63-concurrentandlock/</loc>
+    
+    <lastmod>2019-02-25T15:00:17.365Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/02/16/golang-5-structure-Breadth-first-search/</loc>
+    
+    <lastmod>2019-02-24T13:55:06.295Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/27/golang-18-interface/</loc>
+    
+    <lastmod>2019-02-23T15:27:16.200Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/19/golang-10-function/</loc>
+    
+    <lastmod>2019-02-23T09:12:30.718Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/02/16/golang-4-structure-topsort/</loc>
+    
+    <lastmod>2019-02-16T04:38:00.875Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/02/16/golang-61-parsehtml/</loc>
+    
+    <lastmod>2019-02-16T04:03:21.070Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/26/golang-17-mapping/</loc>
+    
+    <lastmod>2019-02-15T15:24:51.956Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/20/golang-13-slice/</loc>
+    
+    <lastmod>2019-02-15T15:03:28.102Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/19/golang-12-array/</loc>
+    
+    <lastmod>2019-02-15T14:42:22.021Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/24/docker-mirror/</loc>
+    
+    <lastmod>2019-02-12T14:55:54.834Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/02/12/golang-3-structure-Recursive-tree/</loc>
+    
+    <lastmod>2019-02-12T10:31:56.978Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/02/11/golang-2-structure-prime/</loc>
+    
+    <lastmod>2019-02-11T08:41:42.094Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/02/11/golang-60-viper/</loc>
+    
+    <lastmod>2019-02-11T06:06:58.198Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/aboutme/index.html</loc>
+    
+    <lastmod>2019-02-06T13:41:04.416Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/19/go-network-17-p2p-chat/</loc>
+    
+    <lastmod>2019-02-04T08:39:19.565Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/19/go-network-16-http/</loc>
+    
+    <lastmod>2019-02-04T08:39:13.915Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/19/go-network-15-tls/</loc>
+    
+    <lastmod>2019-02-04T08:39:09.378Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/19/go-network-13-x509/</loc>
+    
+    <lastmod>2019-02-04T08:39:03.782Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/19/go-network-13-rsa/</loc>
+    
+    <lastmod>2019-02-04T08:38:58.886Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/19/go-network-12-ascii/</loc>
+    
+    <lastmod>2019-02-04T08:38:53.924Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/19/go-network-11-gob/</loc>
+    
+    <lastmod>2019-02-04T08:38:48.801Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/19/go-network-9-asn-1/</loc>
+    
+    <lastmod>2019-02-04T08:38:37.814Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/19/go-network-8-conn/</loc>
+    
+    <lastmod>2019-02-04T08:38:32.903Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/19/go-network-7-udp/</loc>
+    
+    <lastmod>2019-02-04T08:38:26.659Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/18/go-network-6-TCPConn/</loc>
+    
+    <lastmod>2019-02-04T08:38:21.326Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/18/go-network-5-tcpaddr/</loc>
+    
+    <lastmod>2019-02-04T08:38:16.420Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/18/go-network-4-port/</loc>
+    
+    <lastmod>2019-02-04T08:38:11.498Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/18/go-network-3-IPAddr/</loc>
+    
+    <lastmod>2019-02-04T08:38:07.092Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/18/go-network-2-ipmask/</loc>
+    
+    <lastmod>2019-02-04T08:38:02.361Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/18/go-network-1-ipaddress/</loc>
+    
+    <lastmod>2019-02-04T08:37:52.825Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/14/Whisper/</loc>
+    
+    <lastmod>2019-02-04T08:36:36.711Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/25/golang-59-crawler-rpcitemserver/</loc>
+    
+    <lastmod>2019-02-04T08:34:57.813Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/25/golang-58-crawler-elastersearch/</loc>
+    
+    <lastmod>2019-02-04T08:34:46.077Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/24/golang-57-crawler-schedulerup/</loc>
+    
+    <lastmod>2019-02-04T08:34:39.772Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/24/golang-57-crawler-scheduler/</loc>
+    
+    <lastmod>2019-02-04T08:34:27.576Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/24/golang-56-crawler-queue/</loc>
+    
+    <lastmod>2019-02-04T08:34:22.045Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/24/golang-55-crawler-Concurrent/</loc>
+    
+    <lastmod>2019-02-04T08:34:16.171Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/23/golang-54-crawler-zhengai/</loc>
+    
+    <lastmod>2019-02-04T08:34:11.717Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/23/golang-53-crawler-403/</loc>
+    
+    <lastmod>2019-02-04T08:34:05.302Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/22/golang-52-crawler-group/</loc>
+    
+    <lastmod>2019-02-04T08:34:00.534Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/22/golang-51-crawler/</loc>
+    
+    <lastmod>2019-02-04T08:33:55.781Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/22/golang-49-gopm/</loc>
+    
+    <lastmod>2019-02-04T08:33:51.191Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/22/golang-48-gbkatoUtf8/</loc>
+    
+    <lastmod>2019-02-04T08:33:46.272Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/13/golang-47-blockchain-transation/</loc>
+    
+    <lastmod>2019-02-04T08:33:38.202Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/12/golang-46-blockchain-pow/</loc>
+    
+    <lastmod>2019-02-04T08:33:32.925Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/12/golang-45-blockchain-difficulty/</loc>
+    
+    <lastmod>2019-02-04T08:33:26.869Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/12/golang-44-blockchain-targetHash/</loc>
+    
+    <lastmod>2019-02-04T08:33:22.155Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/12/golang-43-blockchain-serialize/</loc>
+    
+    <lastmod>2019-02-04T08:33:16.651Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/11/golang-42-blockchain-merkletree2/</loc>
+    
+    <lastmod>2019-02-04T08:33:11.252Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/10/golang-41-blockchain-merkletree/</loc>
+    
+    <lastmod>2019-02-04T08:33:06.170Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/09/golang-40-blockchain-verifyprivatekeywif/</loc>
+    
+    <lastmod>2019-02-04T08:33:00.451Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/09/golang-39-blockchain-generateprivatekeywif/</loc>
+    
+    <lastmod>2019-02-04T08:32:55.523Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/07/golang-38-blockchain-generateAddress/</loc>
+    
+    <lastmod>2019-02-04T08:32:51.042Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/07/golang-37-blockchain-verifysign/</loc>
+    
+    <lastmod>2019-02-04T08:32:46.352Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/07/golang-36-blockchain-signature/</loc>
+    
+    <lastmod>2019-02-04T08:32:41.726Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/07/golang-35-blockchain-publickey/</loc>
+    
+    <lastmod>2019-02-04T08:32:37.261Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/07/golang-34-blockchain-privatekey/</loc>
+    
+    <lastmod>2019-02-04T08:32:32.774Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/05/golang-33-blockchain-hash/</loc>
+    
+    <lastmod>2019-02-04T08:32:27.329Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/05/golang-32-base58/</loc>
+    
+    <lastmod>2019-02-04T08:32:21.122Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/18/jquery/</loc>
+    
+    <lastmod>2019-01-29T10:49:42.017Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/30/golang-21-string/</loc>
+    
+    <lastmod>2019-01-26T02:06:05.785Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/17/golang-1-basic/</loc>
+    
+    <lastmod>2019-01-21T08:40:18.931Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/20/golang-14-pointer/</loc>
+    
+    <lastmod>2019-01-21T06:21:09.655Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/17/golang-2-args/</loc>
+    
+    <lastmod>2019-01-21T03:50:18.788Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/17/golang-5-printf/</loc>
+    
+    <lastmod>2019-01-20T05:20:32.049Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/31/node-socket-io/</loc>
+    
+    <lastmod>2019-01-17T15:59:53.314Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/11/javascript/</loc>
+    
+    <lastmod>2019-01-16T14:56:09.911Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/12/bitocin-attact/</loc>
+    
+    <lastmod>2019-01-12T13:43:11.952Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/27/bootstrap3-install/</loc>
+    
+    <lastmod>2019-01-10T09:29:36.445Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/29/2018-bitcoin/</loc>
+    
+    <lastmod>2018-12-30T16:12:31.961Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/16/css-font/</loc>
+    
+    <lastmod>2018-12-30T13:15:31.769Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/30/explication-bitcoin/</loc>
+    
+    <lastmod>2018-12-30T10:28:32.795Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/24/use-blockchain/</loc>
+    
+    <lastmod>2018-12-24T15:53:34.553Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/16/gobuildblockchain-2-merklePOW/</loc>
+    
+    <lastmod>2018-12-16T14:30:49.333Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/16/gobuildblockchain-4-iterator/</loc>
+    
+    <lastmod>2018-12-16T14:30:09.253Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/16/gobuildblockchain-3-boltDB/</loc>
+    
+    <lastmod>2018-12-16T14:26:28.543Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/16/gobuildblockchain-1-block/</loc>
+    
+    <lastmod>2018-12-16T14:16:47.171Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/13/uninstall-go-mac/</loc>
+    
+    <lastmod>2018-12-14T03:41:55.639Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/07/14/hexo-excerpt/</loc>
+    
+    <lastmod>2018-12-14T02:19:02.784Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/20/solidity-26-mapping/</loc>
+    
+    <lastmod>2018-12-06T00:59:04.915Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/01/solidity-56-node-compile-contract/</loc>
+    
+    <lastmod>2018-12-04T01:40:10.764Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/01/solidity-57-test-web3j/</loc>
+    
+    <lastmod>2018-12-03T10:53:11.438Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/23/solidity-44-test-network/</loc>
+    
+    <lastmod>2018-12-03T10:09:21.010Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/bitcoin/index.html</loc>
+    
+    <lastmod>2018-12-03T02:09:56.283Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/02/solidity-60-lottery-project-contract/</loc>
+    
+    <lastmod>2018-12-02T02:12:44.238Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/02/solidity-61-lottery-project-create-react-app/</loc>
+    
+    <lastmod>2018-12-02T02:12:28.002Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/02/solidity-62-lottery-project-react-state-manager/</loc>
+    
+    <lastmod>2018-12-02T02:12:23.357Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/02/solidity-63-lottery-project-show-page/</loc>
+    
+    <lastmod>2018-12-02T02:12:19.470Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/02/solidity-64-lottery-project-button-submit/</loc>
+    
+    <lastmod>2018-12-02T02:12:15.363Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/04/solidity-HelloWorld/</loc>
+    
+    <lastmod>2018-12-02T02:06:51.677Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/01/solidity-59-infura-deploy/</loc>
+    
+    <lastmod>2018-12-01T15:06:33.826Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/01/solidity-58-test-deploy-contract/</loc>
+    
+    <lastmod>2018-12-01T14:56:58.505Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/26/solidity-55-token/</loc>
+    
+    <lastmod>2018-12-01T14:00:06.385Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/01/node-33-test-app/</loc>
+    
+    <lastmod>2018-12-01T10:24:02.592Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/01/node-32-auto-heroku/</loc>
+    
+    <lastmod>2018-12-01T10:23:27.850Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/01/node-31-bind-user-auth2/</loc>
+    
+    <lastmod>2018-12-01T10:23:24.009Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/30/node-30-bind-user-auth/</loc>
+    
+    <lastmod>2018-12-01T10:23:20.103Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/01/golang-30-rand-package/</loc>
+    
+    <lastmod>2018-12-01T08:20:24.685Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/01/golang-29-math-package/</loc>
+    
+    <lastmod>2018-12-01T08:20:19.147Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/12/01/golang-28-time-package/</loc>
+    
+    <lastmod>2018-12-01T08:20:15.449Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/30/golang-27-string-package6/</loc>
+    
+    <lastmod>2018-11-30T10:07:38.629Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/30/golang-26-string-package5/</loc>
+    
+    <lastmod>2018-11-30T09:38:53.615Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/30/golang-25-string-package4/</loc>
+    
+    <lastmod>2018-11-30T09:38:49.773Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/30/golang-24-string-package3/</loc>
+    
+    <lastmod>2018-11-30T09:38:46.078Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/30/golang-23-string-package2/</loc>
+    
+    <lastmod>2018-11-30T09:38:42.534Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/30/golang-22-string-package/</loc>
+    
+    <lastmod>2018-11-30T09:38:39.312Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/29/node-27-mongodb-password-hash/</loc>
+    
+    <lastmod>2018-11-30T03:11:40.710Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/29/node-28-mongodb-user-login/</loc>
+    
+    <lastmod>2018-11-30T03:11:37.428Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/30/node-29-user-delete-token/</loc>
+    
+    <lastmod>2018-11-30T03:11:20.571Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/29/node-26-password-hash/</loc>
+    
+    <lastmod>2018-11-29T03:17:23.107Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/29/node-25-auth-middleware/</loc>
+    
+    <lastmod>2018-11-29T03:16:48.440Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/28/node-24-auth-token/</loc>
+    
+    <lastmod>2018-11-29T03:15:46.326Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/28/node-23-hash/</loc>
+    
+    <lastmod>2018-11-29T03:14:56.578Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/28/node-22-mongoose-validate/</loc>
+    
+    <lastmod>2018-11-29T03:14:45.230Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/18/node-21-deploy-heroku/</loc>
+    
+    <lastmod>2018-11-29T03:14:40.180Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/18/node-20-postman/</loc>
+    
+    <lastmod>2018-11-29T03:13:59.357Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/18/node-19-mongoose/</loc>
+    
+    <lastmod>2018-11-29T03:12:51.445Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/16/node-17-mongodb/</loc>
+    
+    <lastmod>2018-11-29T03:12:34.773Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/16/node-18-mongodb-node/</loc>
+    
+    <lastmod>2018-11-29T03:12:26.737Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/16/node-16-heroku-deploy/</loc>
+    
+    <lastmod>2018-11-29T03:12:11.312Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/15/node-15-express/</loc>
+    
+    <lastmod>2018-11-29T03:11:37.907Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/15/node-14-promise/</loc>
+    
+    <lastmod>2018-11-29T03:11:29.212Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/15/node-13/</loc>
+    
+    <lastmod>2018-11-29T03:11:14.692Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/15/node-12/</loc>
+    
+    <lastmod>2018-11-29T03:11:02.502Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/14/node-11-yargs/</loc>
+    
+    <lastmod>2018-11-29T03:10:51.579Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/14/node-10/</loc>
+    
+    <lastmod>2018-11-29T03:10:29.940Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/13/node-9/</loc>
+    
+    <lastmod>2018-11-29T03:09:13.036Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/13/node-8-json/</loc>
+    
+    <lastmod>2018-11-29T03:05:17.090Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/13/node-7-yargs/</loc>
+    
+    <lastmod>2018-11-29T03:05:07.426Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/13/node-6/</loc>
+    
+    <lastmod>2018-11-29T03:04:53.943Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/13/node-5-nodemon/</loc>
+    
+    <lastmod>2018-11-29T03:04:44.819Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/13/node-4/</loc>
+    
+    <lastmod>2018-11-29T03:04:34.214Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/13/node-3-require/</loc>
+    
+    <lastmod>2018-11-29T03:04:26.331Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/13/node-2-Helloworld/</loc>
+    
+    <lastmod>2018-11-29T03:04:04.581Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/27/golang-20-channel/</loc>
+    
+    <lastmod>2018-11-28T08:28:34.437Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/25/solidity-54-negation/</loc>
+    
+    <lastmod>2018-11-27T15:31:56.725Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/25/solidity-53-security-reentrancy/</loc>
+    
+    <lastmod>2018-11-27T15:31:52.557Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/25/solidity-52-security-storage/</loc>
+    
+    <lastmod>2018-11-27T15:31:47.750Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/24/solidity-51-dos-attrack/</loc>
+    
+    <lastmod>2018-11-27T15:31:43.730Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/24/solidity-50-assembly/</loc>
+    
+    <lastmod>2018-11-27T15:31:39.724Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/23/solidity-48-call/</loc>
+    
+    <lastmod>2018-11-27T15:31:32.805Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/23/solidity-47-interface/</loc>
+    
+    <lastmod>2018-11-27T15:31:28.802Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/27/golang-19-source-interface/</loc>
+    
+    <lastmod>2018-11-27T15:30:15.867Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/26/golang-16-struct-copy/</loc>
+    
+    <lastmod>2018-11-27T15:29:25.588Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/24/solidity-49-overflow/</loc>
+    
+    <lastmod>2018-11-26T08:35:31.801Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/23/solidity-45-library/</loc>
+    
+    <lastmod>2018-11-23T14:39:42.569Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/23/solidity-46-random/</loc>
+    
+    <lastmod>2018-11-23T14:38:14.830Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/23/solidity-43-campaign/</loc>
+    
+    <lastmod>2018-11-23T13:00:00.454Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/23/solidity-42-memory-storage/</loc>
+    
+    <lastmod>2018-11-23T12:59:43.753Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/23/solidity-41-structdeep/</loc>
+    
+    <lastmod>2018-11-23T12:59:38.809Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/23/solidity-40-memory/</loc>
+    
+    <lastmod>2018-11-23T12:59:31.787Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/23/solidity-39-struct/</loc>
+    
+    <lastmod>2018-11-23T12:59:16.963Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/23/solidity-38-storage/</loc>
+    
+    <lastmod>2018-11-23T12:59:07.629Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/22/solidity-37-evm-datastorage/</loc>
+    
+    <lastmod>2018-11-23T12:58:47.968Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/22/solidity-36-inheritdeep/</loc>
+    
+    <lastmod>2018-11-23T12:58:25.227Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/22/solidity-35-function-automatic/</loc>
+    
+    <lastmod>2018-11-23T12:58:20.391Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/22/solidity-34-inherit/</loc>
+    
+    <lastmod>2018-11-23T12:58:15.601Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/22/solidity-33-modifire-deep/</loc>
+    
+    <lastmod>2018-11-23T12:58:10.123Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/22/solidity-30-value-copy/</loc>
+    
+    <lastmod>2018-11-23T12:58:03.276Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/22/solidity-31-constructor/</loc>
+    
+    <lastmod>2018-11-23T12:57:59.047Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/22/solidity-32-modifire/</loc>
+    
+    <lastmod>2018-11-23T12:57:55.381Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/22/solidity-29-function-scpoe/</loc>
+    
+    <lastmod>2018-11-23T12:57:17.759Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/22/solidity-28-function-return/</loc>
+    
+    <lastmod>2018-11-23T12:57:02.217Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/07/solidity-2-helloworld/</loc>
+    
+    <lastmod>2018-11-20T16:38:18.592Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/09/solidity-3-/</loc>
+    
+    <lastmod>2018-11-20T16:38:05.186Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/09/solidity-4/</loc>
+    
+    <lastmod>2018-11-20T16:38:01.616Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/09/solidity-5/</loc>
+    
+    <lastmod>2018-11-20T16:37:57.652Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/10/solidity-6/</loc>
+    
+    <lastmod>2018-11-20T16:37:54.328Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/10/solidity-7/</loc>
+    
+    <lastmod>2018-11-20T16:37:50.635Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/10/solidity-8/</loc>
+    
+    <lastmod>2018-11-20T16:37:46.932Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/14/solidity-9/</loc>
+    
+    <lastmod>2018-11-20T16:37:42.418Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/14/solidity-10/</loc>
+    
+    <lastmod>2018-11-20T16:37:39.224Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/15/solidity-11/</loc>
+    
+    <lastmod>2018-11-20T16:37:35.067Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/19/solidity-12-fixByteConvertion/</loc>
+    
+    <lastmod>2018-11-20T16:37:31.871Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/19/solidity-13-fixtodynamic/</loc>
+    
+    <lastmod>2018-11-20T16:37:27.818Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/19/solidity-14-dynamictostring/</loc>
+    
+    <lastmod>2018-11-20T16:37:22.966Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/19/solidity-15-fixtostring/</loc>
+    
+    <lastmod>2018-11-20T16:37:19.032Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/19/solidity-16-fixarray/</loc>
+    
+    <lastmod>2018-11-20T16:37:15.352Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/19/solidity-17-dynamicarray/</loc>
+    
+    <lastmod>2018-11-20T16:37:11.790Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/19/solidity-18-twoarray/</loc>
+    
+    <lastmod>2018-11-20T16:37:08.105Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/20/solidity-19-for/</loc>
+    
+    <lastmod>2018-11-20T16:37:04.578Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/20/solidity-20-dynamictwoarray/</loc>
+    
+    <lastmod>2018-11-20T16:37:00.208Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/20/solidity-21-arrayiterator/</loc>
+    
+    <lastmod>2018-11-20T16:36:56.517Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/20/solidity-22-addressAndPayable/</loc>
+    
+    <lastmod>2018-11-20T16:36:52.755Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/20/solidity-24-global/</loc>
+    
+    <lastmod>2018-11-20T16:36:42.657Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/20/solidity-25-thansfer2/</loc>
+    
+    <lastmod>2018-11-20T16:36:38.297Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/21/solidity-27-function-overload/</loc>
+    
+    <lastmod>2018-11-20T16:36:23.104Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/20/solidity-23-payable/</loc>
+    
+    <lastmod>2018-11-20T15:13:43.941Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/19/golang-11-function2/</loc>
+    
+    <lastmod>2018-11-20T02:43:42.178Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/18/golang-9-doubleloop/</loc>
+    
+    <lastmod>2018-11-20T02:43:37.442Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/17/golang-4-scope/</loc>
+    
+    <lastmod>2018-11-20T02:17:13.182Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/17/golang-6-operator/</loc>
+    
+    <lastmod>2018-11-20T02:17:01.109Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/17/golang-7-if/</loc>
+    
+    <lastmod>2018-11-20T02:16:56.185Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/17/golang-8-loop/</loc>
+    
+    <lastmod>2018-11-20T02:16:49.288Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/16/node-http-socket5/</loc>
+    
+    <lastmod>2018-11-16T15:55:24.348Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/links/index.html</loc>
+    
+    <lastmod>2018-11-13T15:32:53.109Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/08/%E6%B7%B1%E5%BA%A6%E7%90%86%E8%A7%A3nodejs/</loc>
+    
+    <lastmod>2018-11-13T09:50:42.020Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/10/%E6%B7%B1%E5%BA%A6%E7%90%86%E8%A7%A3nodejs-4-cluster%E5%A4%9A%E7%BA%BF%E7%A8%8Bnode/</loc>
+    
+    <lastmod>2018-11-10T14:00:47.842Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/09/%E6%B7%B1%E5%BA%A6%E7%90%86%E8%A7%A3nodejs-2/</loc>
+    
+    <lastmod>2018-11-09T05:33:06.264Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/09/%E6%B7%B1%E5%BA%A6%E7%90%86%E8%A7%A3nodejs-3-%E2%80%94%E7%96%AF%E7%8B%82%E4%BA%8B%E4%BB%B6%E4%BB%A3%E7%A0%81/</loc>
+    
+    <lastmod>2018-11-09T05:28:08.781Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/03/google-cloud-storage%E6%89%98%E7%AE%A1%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2/</loc>
+    
+    <lastmod>2018-11-08T16:04:52.481Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/07/%E6%B7%BB%E5%8A%A0%E7%BD%91%E7%AB%99https%E7%9A%84%E8%AF%81%E4%B9%A6/</loc>
+    
+    <lastmod>2018-11-07T16:05:52.931Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/11/04/wsxl-origin/</loc>
+    
+    <lastmod>2018-11-06T12:53:46.514Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/06/06/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%B8%B8%E6%88%8F%E7%9A%84%E9%9D%A9%E5%91%BD/</loc>
+    
+    <lastmod>2018-11-06T12:53:43.413Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2018/06/06/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%B8%B8%E6%88%8F%E7%9A%84%E9%9D%A9%E5%91%BD-%E4%B8%8B/</loc>
+    
+    <lastmod>2018-11-06T12:53:40.049Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/tags/index.html</loc>
     
     <lastmod>2018-11-04T16:56:25.053Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://dreamerjackson.github.io/categories/index.html</loc>
+    <loc>https://dreamerjonson.com/categories/index.html</loc>
     
     <lastmod>2018-11-04T16:55:54.345Z</lastmod>
     

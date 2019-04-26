@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>go语言渐入佳境[13]-切片 | 郑建勋的个人网站</title>
+  <meta name="description" content="切片 Slice（切片）代表变长的序列，序列中每个元素都有相同的类型。一个slice类型一般写作[]T，其中T代表slice中元素的类型；slice的语法和数组很像，只是没有固定长度而已。 数组和slice之间有着紧密的联系。一个slice是一个轻量级的数据结构，提供了访问数组子序列（或者全部）元素的功能，而且slice的底层确实引用一个数组对象。一个slice由三个部分构成：指针、长度和容量。">
+<meta name="keywords" content="go">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go语言渐入佳境[13]-切片">
+<meta property="og:url" content="https://dreamerjonson.com/2018/11/20/golang-13-slice/index.html">
+<meta property="og:site_name" content="Jonson">
+<meta property="og:description" content="切片 Slice（切片）代表变长的序列，序列中每个元素都有相同的类型。一个slice类型一般写作[]T，其中T代表slice中元素的类型；slice的语法和数组很像，只是没有固定长度而已。 数组和slice之间有着紧密的联系。一个slice是一个轻量级的数据结构，提供了访问数组子序列（或者全部）元素的功能，而且slice的底层确实引用一个数组对象。一个slice由三个部分构成：指针、长度和容量。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-15T15:03:28.102Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="go语言渐入佳境[13]-切片">
+<meta name="twitter:description" content="切片 Slice（切片）代表变长的序列，序列中每个元素都有相同的类型。一个slice类型一般写作[]T，其中T代表slice中元素的类型；slice的语法和数组很像，只是没有固定长度而已。 数组和slice之间有着紧密的联系。一个slice是一个轻量级的数据结构，提供了访问数组子序列（或者全部）元素的功能，而且slice的底层确实引用一个数组对象。一个slice由三个部分构成：指针、长度和容量。">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://dreamerjonson.com/2018/11/20/golang-13-slice/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Jonson" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css">
+  
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+
+
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/dreamerjackson" target="_blank">
+          <img class="img-circle img-rotate" src="/images/jonson.png" width="992" height="1532">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">郑建勋（jonson）</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">区块链工程师 &amp; Web工程师</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-bitcoin">
+          <a href="/bitcoin">
+            
+            <i class="icon fab fa-bitcoin"></i>
+            
+            <span class="menu-title">比特币文献</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-aboutme">
+          <a href="/aboutme">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">关于我</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/dreamerjackson" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+          <div id="mrmy" style="padding-bottom:30px"></div>
+              <div class="content">
+                  <!-- <p>I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.</p> -->
+                  <!--  -->
+                  <!-- 我们绝对要过一个无悔的人生！总有一天，我们要踏上这片海洋，按照自己的梦想去闯荡！我们要过上最自由的人生！ &lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--艾斯&lt;/p&gt; -->
+                    <!-- 我们绝对要过一个无悔的人生！总有一天，我们要踏上这片海洋，按照自己的梦想去闯荡！我们要过上最自由的人生！ <br/><p align="right">--艾斯</p> -->
+                商业合作微信：dreamerjonson<br><br>
+                51CTO区块链交流群：837814276<br><br>
+                go语言交流2群：713385260<br>
+                <!-- <div><img src="/images/xingqiu-qrcode.jpg" width="150" height="150"></div> -->
+              </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">109</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/数据结构/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-数据结构/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链原理/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发配置/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/智能合约-solidity语法/">智能合约 solidity语法</a><span class="category-list-count">59</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/置顶/">置顶</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">109</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-数据结构/">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-前端/">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链原理/">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发配置/">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置顶/">置顶</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/bootstrap/" style="font-size: 13.13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.25px;">docker</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-数据结构/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-前端/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/以太坊/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/前端/" style="font-size: 13.38px;">前端</a> <a href="/tags/区块链原理/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/开发配置/" style="font-size: 13px;">开发配置</a> <a href="/tags/数据结构/" style="font-size: 13px;">数据结构</a> <a href="/tags/智能合约/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/置顶/" style="font-size: 13px;">置顶</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/开发配置/">开发配置</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/04/25/tmux/" class="title">tmux</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-04-25T05:44:19.000Z" itemprop="datePublished">2019-04-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/04/02/connect-github-gitlab/" class="title">git操作github-gitlab</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-04-02T07:43:32.000Z" itemprop="datePublished">2019-04-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/04/01/go-sql/" class="title">golang[70]-golang操作数据库</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-04-01T09:38:37.000Z" itemprop="datePublished">2019-04-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/03/14/k8s/" class="title">k8s</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-03-14T03:29:49.000Z" itemprop="datePublished">2019-03-14</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/03/11/go-struture-15-merge-sort/" class="title">go-数据结构[15]-归并排序</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-03-11T14:01:51.000Z" itemprop="datePublished">2019-03-11</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#切片"><span class="toc-number">1.</span> <span class="toc-text"> 切片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#切片的声明"><span class="toc-number">2.</span> <span class="toc-text"> 切片的声明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#切片截取"><span class="toc-number">3.</span> <span class="toc-text"> 切片截取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#切片截取例子"><span class="toc-number">4.</span> <span class="toc-text"> 切片截取例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用切片截取进行删除"><span class="toc-number">5.</span> <span class="toc-text"> 利用切片截取进行删除</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#切片与数组的拷贝对比"><span class="toc-number">6.</span> <span class="toc-text"> 切片与数组的拷贝对比</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#append添加元素"><span class="toc-number">7.</span> <span class="toc-text"> append添加元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#copy"><span class="toc-number">8.</span> <span class="toc-text"> copy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#slice-转array"><span class="toc-number">9.</span> <span class="toc-text"> slice 转array</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例子2"><span class="toc-number">10.</span> <span class="toc-text"> 例子2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#疯狂切片原理"><span class="toc-number">11.</span> <span class="toc-text"> 疯狂切片原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#append函数深入"><span class="toc-number">12.</span> <span class="toc-text"> append函数深入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#slice内存技巧"><span class="toc-number">13.</span> <span class="toc-text"> Slice内存技巧</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-golang-13-slice" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      go语言渐入佳境[13]-切片
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/11/20/golang-13-slice/" class="article-date">
+	  <time datetime="2018-11-20T01:32:36.000Z" itemprop="datePublished">2018-11-20</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/go/">go</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/go/">go</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/11/20/golang-13-slice/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 5.3k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 22(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="切片"><a class="markdownIt-Anchor" href="#切片"></a> 切片</h2>
+<p>Slice（切片）代表变长的序列，序列中每个元素都有相同的类型。一个slice类型一般写作[]T，其中T代表slice中元素的类型；slice的语法和数组很像，只是没有固定长度而已。<br>
+数组和slice之间有着紧密的联系。一个slice是一个轻量级的数据结构，提供了访问数组子序列（或者全部）元素的功能，而且slice的底层确实引用一个数组对象。一个slice由三个部分构成：指针、长度和容量。指针指向第一个slice元素对应的底层数组元素的地址，要注意的是slice的第一个元素并不一定就是数组的第一个元素。长度对应slice中元素的数目；长度不能超过容量，容量一般是从slice的开始位置到底层数据的结尾位置。内置的len和cap函数分别返回slice的长度和容量。<br>
+多个slice之间可以共享底层的数据，并且引用的数组部分区间可能重叠。图4.1显示了表示一年中每个月份名字的字符串数组，还有重叠引用了该数组的两个slice。数组这样定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">months := [...]string&#123;1: &quot;January&quot;, /* ... */, 12: &quot;December&quot;&#125;</span><br></pre></td></tr></table></figure>
+<p>因此一月份是months[1]，十二月份是months[12]。通常，数组的第一个元素从索引0开始，但是月份一般是从1开始的，因此我们声明数组时直接第0个元素，第0个元素会被自动初始化为空字符串。<br>
+slice的切片操作s[i:j]，其中0 ≤ i≤ j≤ cap(s)，用于创建一个新的slice，引用s的从第i个元素开始到第j-1个元素的子序列。新的slice将只有ji个元素。如果i位置的索引被省略的话将使用0代替，如果j位置的索引被省略的话将使用len(s)代替。因此，months[1:13]切片操作将引用全部有效的月份，和months[1:]操作等价；months[:]切片操作则是引用整个数组。让我们分别定义表示第二季度和北方夏天月份的slice，它们有重叠部分：<br>
+1、切片可以修改大小<br>
+2、切片的拷贝不是单纯值的拷贝，一个切片指向了一个数组</p>
+
+<center><div>slice</div></center>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Q2 := months[4:7]</span><br><span class="line">summer := months[6:9]</span><br><span class="line">fmt.Println(Q2)     // [&quot;April&quot; &quot;May&quot; &quot;June&quot;]</span><br><span class="line">fmt.Println(summer) // [&quot;June&quot; &quot;July&quot; &quot;August&quot;]</span><br><span class="line">两个slice都包含了六月份，下面的代码是一个包含相同月份的测试（性能较低）：</span><br><span class="line">for _, s := range summer &#123;</span><br><span class="line">    for _, q := range Q2 &#123;</span><br><span class="line">        if s == q &#123;</span><br><span class="line">            fmt.Printf(&quot;%s appears in both\n&quot;, s)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果切片操作超出cap(s)的上限将导致一个panic异常，但是超出len(s)则是意味着扩展了slice，因为新slice的长度会变大：<br>
+fmt.Println(summer[:20]) // panic: out of range</p>
+<p>endlessSummer := summer[:5] // extend a slice (within capacity)<br>
+fmt.Println(endlessSummer)  // “[June July August September October]”<br>
+另外，字符串的切片操作和[]byte字节类型切片的切片操作是类似的。它们都写作x[m:n]，并且都是返回一个原始字节系列的子序列，底层都是共享之前的底层数组，因此切片操作对应常量时间复杂度。x[m:n]切片操作对于字符串则生成一个新字符串，如果x是[]byte的话则生成一个新的[]byte。<br>
+因为slice值包含指向第一个slice元素的指针，因此向函数传递slice将允许在函数内部修改底层数组的元素。换句话说，复制一个slice只是对底层的数组创建了一个新的slice别名（§2.3.2）。下面的reverse函数在原内存空间将[]int类型的slice反转，而且它可以用于任意长度的slice。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// reverse reverses a slice of ints in place.</span><br><span class="line">func reverse(s []int) &#123;</span><br><span class="line">    for i, j := 0, len(s)-1; i &lt; j; i, j = i+1, j-1 &#123;</span><br><span class="line">        s[i], s[j] = s[j], s[i]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我们反转数组的应用：<br>
+a := […]int{0, 1, 2, 3, 4, 5}<br>
+reverse(a[:])<br>
+fmt.Println(a) // “[5 4 3 2 1 0]”<br>
+一种将slice元素循环向左旋转n个元素的方法是三次调用reverse反转函数，第一次是反转开头的n个元素，然后是反转剩下的元素，最后是反转整个slice的元素。（如果是向右循环旋转，则将第三个函数调用移到第一个调用位置就可以了。）<br>
+s := []int{0, 1, 2, 3, 4, 5}<br>
+// Rotate s left by two positions.<br>
+reverse(s[:2])<br>
+reverse(s[2:])<br>
+reverse(s)<br>
+fmt.Println(s) // “[2 3 4 5 0 1]”<br>
+要注意的是slice类型的变量s和数组类型的变量a的初始化语法的差异。slice和数组的字面值语法很类似，它们都是用花括弧包含一系列的初始化元素，但是对于slice并没有指明序列的长度。这会隐式地创建一个合适大小的数组，然后slice的指针指向底层的数组。就像数组字面值一样，slice的字面值也可以按顺序指定初始化值序列，或者是通过索引和元素值指定，或者的两种风格的混合语法初始化。<br>
+和数组不同的是，slice之间不能比较，因此我们不能使用==操作符来判断两个slice是否含有全部相等元素。不过标准库提供了高度优化的bytes.Equal函数来判断两个字节型slice是否相等（[]byte），但是对于其他类型的slice，我们必须自己展开每个元素进行比较：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">equal</span><span class="params">(x, y []<span class="keyword">string</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(x) != <span class="built_in">len</span>(y) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> i := <span class="keyword">range</span> x &#123;</span><br><span class="line">        <span class="keyword">if</span> x[i] != y[i] &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面关于两个slice的深度相等测试，运行的时间并不比支持==操作的数组或字符串更多，但是为何slice不直接支持比较运算符呢？这方面有两个原因。第一个原因，一个slice的元素是间接引用的，一个slice甚至可以包含自身。虽然有很多办法处理这种情形，但是没有一个是简单有效的。<br>
+第二个原因，因为slice的元素是间接引用的，一个固定值的slice在不同的时间可能包含不同的元素，因为底层数组的元素可能会被修改。并且Go语言中map等哈希表之类的数据结构的key只做简单的浅拷贝，它要求在整个声明周期中相等的key必须对相同的元素。对于像指针或chan之类的引用类型，<mark>相等测试可以判断两个是否是引用相同的对象。一个针对slice的浅相等测试的</mark>操作符可能是有一定用处的，也能临时解决map类型的key问题，但是slice和数组不同的相等测试行为会让人困惑。因此，安全的做饭是直接禁止slice之间的比较操作。<br>
+slice唯一合法的比较操作是和nil比较，例如：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> summer == <span class="literal">nil</span> &#123; <span class="comment">/* ... */</span> &#125;</span><br><span class="line">一个零值的slice等于<span class="literal">nil</span>。一个<span class="literal">nil</span>值的slice并没有底层数组。一个<span class="literal">nil</span>值的slice的长度和容量都是<span class="number">0</span>，但是也有非<span class="literal">nil</span>值的slice的长度和容量也是<span class="number">0</span>的，例如[]<span class="keyword">int</span>&#123;&#125;或<span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">3</span>)[<span class="number">3</span>:]。与任意类型的<span class="literal">nil</span>值一样，我们可以用[]<span class="keyword">int</span>(<span class="literal">nil</span>)类型转换表达式来生成一个对应类型slice的<span class="literal">nil</span>值。</span><br><span class="line"><span class="keyword">var</span> s []<span class="keyword">int</span>    <span class="comment">// len(s) == 0, s == nil</span></span><br><span class="line">s = <span class="literal">nil</span>        <span class="comment">// len(s) == 0, s == nil</span></span><br><span class="line">s = []<span class="keyword">int</span>(<span class="literal">nil</span>) <span class="comment">// len(s) == 0, s == nil</span></span><br><span class="line">s = []<span class="keyword">int</span>&#123;&#125;    <span class="comment">// len(s) == 0, s != nil</span></span><br></pre></td></tr></table></figure>
+<p>如果你需要测试一个slice是否是空的，使用len(s) == 0来判断，而不应该用s == nil来判断。除了和nil相等比较外，一个nil值的slice的行为和其它任意0产长度的slice一样；例如reverse(nil)也是安全的。除了文档已经明确说明的地方，所有的Go语言函数应该以相同的方式对待nil值的slice和0长度的slice。<br>
+内置的make函数创建一个指定元素类型、长度和容量的slice。容量部分可以省略，在这种情况下，容量将等于长度。<br>
+make([]T, len)<br>
+make([]T, len, cap) // same as make([]T, cap)[:len]<br>
+在底层，make创建了一个匿名的数组变量，然后返回一个slice；只有通过返回的slice才能引用底层匿名的数组变量。在第一种语句中，slice是整个数组的view。在第二个语句中，slice只引用了底层数组的前len个元素，但是容量将包含整个的数组。额外的元素是留给未来的增长用的。</p>
+<h2 id="切片的声明"><a class="markdownIt-Anchor" href="#切片的声明"></a> 切片的声明</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//切片的声明1  //nil</span><br><span class="line">var slice1 []int  </span><br><span class="line"></span><br><span class="line">//切片的声明2</span><br><span class="line">var slice2 []int = make([]int,5)</span><br><span class="line">var slice3 []int = make([]int,5,7)</span><br><span class="line">numbers:= []int&#123;1,2,3,4,5,6,7,8&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="切片截取"><a class="markdownIt-Anchor" href="#切片截取"></a> 切片截取</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">numbers:= []<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>&#125;</span><br><span class="line"><span class="comment">//从下标1一直到下标4，但是不包括下标4</span></span><br><span class="line">numbers1 :=numbers[<span class="number">1</span>:<span class="number">4</span>]</span><br><span class="line"><span class="comment">//从下标0一直到下标3，但是不包括下标3</span></span><br><span class="line">numbers2 :=numbers[:<span class="number">3</span>]</span><br><span class="line"><span class="comment">//从下标3一直到结束</span></span><br><span class="line">numbers3 :=numbers[<span class="number">3</span>:]</span><br></pre></td></tr></table></figure>
+<h2 id="切片截取例子"><a class="markdownIt-Anchor" href="#切片截取例子"></a> 切片截取例子</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//1、切片可以修改大小</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//2、切片的拷贝不是单纯值的拷贝，一个切片指向了一个数组</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//切片的声明1</span></span><br><span class="line"><span class="keyword">var</span> slice1 []<span class="keyword">int</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//切片的声明2</span></span><br><span class="line"><span class="keyword">var</span> slice2 []<span class="keyword">int</span> = <span class="built_in">make</span>([]<span class="keyword">int</span>,<span class="number">5</span>)</span><br><span class="line"><span class="keyword">var</span> slice3 []<span class="keyword">int</span> = <span class="built_in">make</span>([]<span class="keyword">int</span>,<span class="number">5</span>,<span class="number">7</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	slice4 := <span class="built_in">make</span>([]<span class="keyword">int</span>,<span class="number">5</span>)</span><br><span class="line">	slice5 := <span class="built_in">make</span>([]<span class="keyword">int</span>,<span class="number">5</span>,<span class="number">7</span>)</span><br><span class="line"></span><br><span class="line">	slice6 := <span class="built_in">make</span>([]<span class="keyword">int</span>,<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	fmt.Printf(<span class="string">"len=%d,cap=%d,slice=%v\n"</span>,<span class="built_in">len</span>(slice4),<span class="built_in">cap</span>(slice4),slice4)</span><br><span class="line">	fmt.Printf(<span class="string">"len=%d,cap=%d,slice=%v"</span>,<span class="built_in">len</span>(slice5),<span class="built_in">cap</span>(slice5),slice5)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> slice4 ==<span class="literal">nil</span>&#123;</span><br><span class="line">		fmt.Printf(<span class="string">"len=%d,cap=%d,slice=%v\n"</span>,<span class="built_in">len</span>(slice4),<span class="built_in">cap</span>(slice4),slice4)</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//	slice6 := make([]int,0)不为nil</span></span><br><span class="line">	<span class="keyword">if</span> slice6 !=<span class="literal">nil</span>&#123;</span><br><span class="line">		fmt.Printf(<span class="string">"len=%d,cap=%d,slice=%v\n"</span>,<span class="built_in">len</span>(slice6),<span class="built_in">cap</span>(slice6),slice6)</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//var slice1 []int为nil</span></span><br><span class="line">	<span class="keyword">if</span> slice1 ==<span class="literal">nil</span>&#123;</span><br><span class="line">		fmt.Printf(<span class="string">"len=%d,cap=%d,slice=%v\n"</span>,<span class="built_in">len</span>(slice1),<span class="built_in">cap</span>(slice1),slice1)</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	sliceTest()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//截取</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sliceTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">	numbers:= []<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>&#125;</span><br><span class="line">	printSliceInfo(numbers)</span><br><span class="line"></span><br><span class="line">	numbers1 :=numbers[<span class="number">1</span>:<span class="number">4</span>]</span><br><span class="line">	printSliceInfo(numbers1)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	numbers2 :=numbers[:<span class="number">3</span>]</span><br><span class="line">	printSliceInfo(numbers2)</span><br><span class="line"></span><br><span class="line">	numbers3 :=numbers[<span class="number">3</span>:]</span><br><span class="line">	printSliceInfo(numbers3)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//打印切片</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printSliceInfo</span><span class="params">(x []<span class="keyword">int</span>)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	fmt.Printf(<span class="string">"len=%d,cap=%d,slice=%v\n"</span>,<span class="built_in">len</span>(x),<span class="built_in">cap</span>(x),x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="利用切片截取进行删除"><a class="markdownIt-Anchor" href="#利用切片截取进行删除"></a> 利用切片截取进行删除</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//	切片删除</span></span><br><span class="line"><span class="comment">//	删除第一个元素</span></span><br><span class="line">numbers = numbers[<span class="number">1</span>:]   </span><br><span class="line"></span><br><span class="line"><span class="comment">//	删除最后一个</span></span><br><span class="line">numbers = numbers[:<span class="built_in">len</span>(numbers)<span class="number">-1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">//删除中间一个元素</span></span><br><span class="line">a := <span class="keyword">int</span>(<span class="built_in">len</span>(numbers) / <span class="number">2</span>)</span><br><span class="line">numbers = <span class="built_in">append</span>(numbers[:a], numbers[a+<span class="number">1</span>:]...)</span><br></pre></td></tr></table></figure>
+<h2 id="切片与数组的拷贝对比"><a class="markdownIt-Anchor" href="#切片与数组的拷贝对比"></a> 切片与数组的拷贝对比</h2>
+<p>数组的拷贝是副本拷贝。对于副本的改变不会影响到<br>
+切片的拷贝很特殊，切片的副本仍然指向了相同的数组。所以，对于副本的修改会影响到相同的数组。</p>
+<p>下面的例子说明</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">//数组是值类型</span></span><br><span class="line">	a := [<span class="number">4</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//切片是引用类型</span></span><br><span class="line">	b := []<span class="keyword">int</span>&#123;<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>&#125;</span><br><span class="line"></span><br><span class="line">	c := a</span><br><span class="line">	d := b</span><br><span class="line"></span><br><span class="line">	c[<span class="number">1</span>] = <span class="number">200</span></span><br><span class="line">	d[<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">"a="</span>, a, <span class="string">"c="</span>, c)</span><br><span class="line">	<span class="comment">//c[1 200 3 4] a[1 2 3 4]</span></span><br><span class="line">	fmt.Println(<span class="string">"b="</span>, b, <span class="string">"d="</span>, d)</span><br><span class="line">	<span class="comment">//d[1 200 300]  b[1 200 300]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="append添加元素"><a class="markdownIt-Anchor" href="#append添加元素"></a> append添加元素</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">numbers := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">0</span>, <span class="number">20</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//append一个元素</span></span><br><span class="line">numbers = <span class="built_in">append</span>(numbers, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//append多个元素</span></span><br><span class="line">numbers = <span class="built_in">append</span>(numbers, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//append添加切片</span></span><br><span class="line">s1 := []<span class="keyword">int</span>&#123;<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>, <span class="number">500</span>, <span class="number">600</span>, <span class="number">700</span>&#125;</span><br><span class="line">numbers = <span class="built_in">append</span>(numbers, s1...) <span class="comment">//[0 1 2 3 4 5 6 7 100 200 300 400 500 600 700]</span></span><br></pre></td></tr></table></figure>
+<h2 id="copy"><a class="markdownIt-Anchor" href="#copy"></a> copy</h2>
+<p>毫无疑问，创建新的目标切片就会有新的指向的数组。数组的copy是对于不同的数组的值的拷贝</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建目标切片</span></span><br><span class="line">numbers1 := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="built_in">len</span>(numbers), <span class="built_in">cap</span>(numbers)*<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//	将numbers的元素拷贝到numbers1中</span></span><br><span class="line">count := <span class="built_in">copy</span>(numbers1, numbers)</span><br></pre></td></tr></table></figure>
+<h2 id="slice-转array"><a class="markdownIt-Anchor" href="#slice-转array"></a> slice 转array</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">You need to use copy:</span><br><span class="line"></span><br><span class="line">slice := []byte(&quot;abcdefgh&quot;)</span><br><span class="line"></span><br><span class="line">var arr [4]byte</span><br><span class="line"></span><br><span class="line">copy(arr[:], slice[:4])</span><br><span class="line"></span><br><span class="line">fmt.Println(arr)</span><br><span class="line">As Aedolon notes you can also just use</span><br><span class="line"></span><br><span class="line">copy(arr[:], slice)</span><br><span class="line">as copy will always only copy the minimum of len(src) and len(dst) bytes.</span><br></pre></td></tr></table></figure>
+<h2 id="例子2"><a class="markdownIt-Anchor" href="#例子2"></a> 例子2</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"1、--------------"</span>)</span><br><span class="line">	<span class="comment">//var numbers []int</span></span><br><span class="line">	numbers := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">0</span>, <span class="number">20</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">//append一个元素</span></span><br><span class="line">	numbers = <span class="built_in">append</span>(numbers, <span class="number">0</span>)</span><br><span class="line">	printSlice(<span class="string">"numbers:"</span>, numbers) <span class="comment">//[0]</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//append多个元素</span></span><br><span class="line">	numbers = <span class="built_in">append</span>(numbers, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>)</span><br><span class="line">	printSlice(<span class="string">"numbers:"</span>, numbers) <span class="comment">//[0 1 2 3 4 5 6 7]</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//append添加切片</span></span><br><span class="line">	s1 := []<span class="keyword">int</span>&#123;<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>, <span class="number">500</span>, <span class="number">600</span>, <span class="number">700</span>&#125;</span><br><span class="line">	numbers = <span class="built_in">append</span>(numbers, s1...) <span class="comment">//[0 1 2 3 4 5 6 7 100 200 300 400 500 600 700]</span></span><br><span class="line">	printSlice(<span class="string">"numbers:"</span>, numbers)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">"2、--------------"</span>)</span><br><span class="line">	<span class="comment">//	切片删除</span></span><br><span class="line">	<span class="comment">//	删除第一个元素</span></span><br><span class="line">	numbers = numbers[<span class="number">1</span>:]</span><br><span class="line">	printSlice(<span class="string">"numbers:"</span>, numbers) <span class="comment">//[ 1 2 3 4 5 6 7 100 200 300 400 500 600 700]</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//	删除最后一个</span></span><br><span class="line">	numbers = numbers[:<span class="built_in">len</span>(numbers)<span class="number">-1</span>]</span><br><span class="line">	printSlice(<span class="string">"numbers:"</span>, numbers) <span class="comment">//[ 1 2 3 4 5 6 7 100 200 300 400 500 600]</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//删除中间一个元素</span></span><br><span class="line">	a := <span class="keyword">int</span>(<span class="built_in">len</span>(numbers) / <span class="number">2</span>)</span><br><span class="line">	fmt.Println(<span class="string">"中间下标："</span>, a)</span><br><span class="line">	numbers = <span class="built_in">append</span>(numbers[:a], numbers[a+<span class="number">1</span>:]...)</span><br><span class="line">	printSlice(<span class="string">"numbers:"</span>, numbers) <span class="comment">//[1 2 3 4 5 6 100 200 300 400 500 600]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">"3、--------------"</span>)</span><br><span class="line">	<span class="comment">//创建目标切片</span></span><br><span class="line">	numbers1 := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="built_in">len</span>(numbers), <span class="built_in">cap</span>(numbers)*<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//	将numbers的元素拷贝到numbers1中</span></span><br><span class="line">	count := <span class="built_in">copy</span>(numbers1, numbers)</span><br><span class="line">	fmt.Println(<span class="string">"拷贝的个数："</span>, count)</span><br><span class="line">	printSlice(<span class="string">"numbers1:"</span>, numbers1)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//拷贝的两个切片是否有关联</span></span><br><span class="line">	numbers[<span class="number">0</span>] = <span class="number">99</span></span><br><span class="line">	numbers1[<span class="built_in">len</span>(numbers1)<span class="number">-1</span>] = <span class="number">100</span></span><br><span class="line"></span><br><span class="line">	printSlice(<span class="string">"numbers"</span>, numbers)</span><br><span class="line">	printSlice(<span class="string">"numbers1"</span>, numbers1)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printSlice</span><span class="params">(name <span class="keyword">string</span>, x []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	fmt.Print(name, <span class="string">"\t"</span>)</span><br><span class="line">	fmt.Printf(<span class="string">"地址：%p \t len=%d \t cap=%d \t value=%v \n"</span>, x, <span class="built_in">len</span>(x), <span class="built_in">cap</span>(x), x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="疯狂切片原理"><a class="markdownIt-Anchor" href="#疯狂切片原理"></a> 疯狂切片原理</h2>
+<p>理解了下面代码到底输出什么，就理解了切片的原理。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">f</span><span class="params">(s []<span class="keyword">string</span>, level <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> level &gt; <span class="number">5</span> &#123;</span><br><span class="line">               <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        s = <span class="built_in">append</span>(s, fmt.Sprint(level))</span><br><span class="line">        f(s, level+<span class="number">1</span>)</span><br><span class="line">        fmt.Println(<span class="string">"level:"</span>, level, <span class="string">"slice:"</span>, s)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">        f(<span class="literal">nil</span>, <span class="number">0</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">level: 5 slice: [0 1 2 3 4 5]</span><br><span class="line">level: 4 slice: [0 1 2 3 4]</span><br><span class="line">level: 3 slice: [0 1 2 3]</span><br><span class="line">level: 2 slice: [0 1 2]</span><br><span class="line">level: 1 slice: [0 1]</span><br><span class="line">level: 0 slice: [0]</span><br></pre></td></tr></table></figure>
+<p>参考资料：<br>
+<a href="https://dave.cheney.net/2018/07/12/slices-from-the-ground-up" target="_blank" rel="noopener">https://dave.cheney.net/2018/07/12/slices-from-the-ground-up</a></p>
+<h2 id="append函数深入"><a class="markdownIt-Anchor" href="#append函数深入"></a> append函数深入</h2>
+<p>内置的append函数用于向slice追加元素：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> runes []<span class="keyword">rune</span></span><br><span class="line"><span class="keyword">for</span> _, r := <span class="keyword">range</span> <span class="string">"Hello, 世界"</span> &#123;</span><br><span class="line">    runes = <span class="built_in">append</span>(runes, r)</span><br><span class="line">&#125;</span><br><span class="line">fmt.Printf(<span class="string">"%q\n"</span>, runes) <span class="comment">// "['H' 'e' 'l' 'l' 'o' ',' ' ' '世' '界']"</span></span><br></pre></td></tr></table></figure>
+<p>在循环中使用append函数构建一个由九个rune字符构成的slice，当然对应这个特殊的问题我们可以通过Go语言内置的[]rune(“Hello, 世界”)转换操作完成。<br>
+append函数对于理解slice底层是如何工作的非常重要，所以让我们仔细查看究竟是发生了什么。下面是第一个版本的appendInt函数，专门用于处理[]int类型的slice：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">appendInt</span><span class="params">(x []<span class="keyword">int</span>, y <span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> z []<span class="keyword">int</span></span><br><span class="line">    zlen := <span class="built_in">len</span>(x) + <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> zlen &lt;= <span class="built_in">cap</span>(x) &#123;</span><br><span class="line">        <span class="comment">// There is room to grow.  Extend the slice.</span></span><br><span class="line">        z = x[:zlen]</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// There is insufficient space.  Allocate a new array.</span></span><br><span class="line">        <span class="comment">// Grow by doubling, for amortized linear complexity.</span></span><br><span class="line">        zcap := zlen</span><br><span class="line">        <span class="keyword">if</span> zcap &lt; <span class="number">2</span>*<span class="built_in">len</span>(x) &#123;</span><br><span class="line">            zcap = <span class="number">2</span> * <span class="built_in">len</span>(x)</span><br><span class="line">        &#125;</span><br><span class="line">        z = <span class="built_in">make</span>([]<span class="keyword">int</span>, zlen, zcap)</span><br><span class="line">        <span class="built_in">copy</span>(z, x) <span class="comment">// a built-in function; see text</span></span><br><span class="line">    &#125;</span><br><span class="line">    z[<span class="built_in">len</span>(x)] = y</span><br><span class="line">    <span class="keyword">return</span> z</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每次调用appendInt函数，必须先检测slice底层数组是否有足够的容量来保存新添加的元素。如果有足够空间的话，直接扩展slice（依然在原有的底层数组之上），将新添加的y元素复制到新扩展的空间，并返回slice。因此，输入的x和输出的z共享相同的底层数组。<br>
+如果没有足够的增长空间的话，appendInt函数则会先分配一个足够大的slice用于保存新的结果，先将输入的x复制到新的空间，然后添加y元素。结果z和输入的x引用的将是不同的底层数组。<br>
+虽然通过循环复制元素更直接，不过内置的copy函数可以方便地将一个slice复制另一个相同类型的slice。copy函数的第一个参数是要复制的目标slice，第二个参数是源slice，目标和源的位置顺序和dst = src赋值语句是一致的。两个slice可以共享同一个底层数组，甚至有重叠也没有问题。copy函数将返回成功复制的元素的个数（我们这里没有用到），等于两个slice中较小的长度，所以我们不用担心覆盖会超出目标slice的范围。<br>
+为了提高内存使用效率，新分配的数组一般略大于保存x和y所需要的最低大小。通过在每次扩展数组时直接将长度翻倍从而避免了多次内存分配，也确保了添加单个元素操的平均时间是一个常数时间。这个程序演示了效果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">func main() &#123;</span><br><span class="line">    var x, y []int</span><br><span class="line">    for i := 0; i &lt; 10; i++ &#123;</span><br><span class="line">        y = appendInt(x, i)</span><br><span class="line">        fmt.Printf(&quot;%d cap=%d\t%v\n&quot;, i, cap(y), y)</span><br><span class="line">        x = y</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每一次容量的变化都会导致重新分配内存和copy操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">0  cap=1    [0]</span><br><span class="line">1  cap=2    [0 1]</span><br><span class="line">2  cap=4    [0 1 2]</span><br><span class="line">3  cap=4    [0 1 2 3]</span><br><span class="line">4  cap=8    [0 1 2 3 4]</span><br><span class="line">5  cap=8    [0 1 2 3 4 5]</span><br><span class="line">6  cap=8    [0 1 2 3 4 5 6]</span><br><span class="line">7  cap=8    [0 1 2 3 4 5 6 7]</span><br><span class="line">8  cap=16   [0 1 2 3 4 5 6 7 8]</span><br><span class="line">9  cap=16   [0 1 2 3 4 5 6 7 8 9]</span><br></pre></td></tr></table></figure>
+<p>内置的append函数可能使用比a​​ppendInt更复杂的内存扩展策略。因此，通常我们并不知道append调用是否导致了内存的重新分配，因此我们也不能确认新的slice和原始的slice是否引用的是相同的底层数组空间。同样，我们不能确认在原先的slice上的操作是否会影响到新的slice。因此，通常是将append返回的结果直接赋值给输入的slice变量：<br>
+runes = append(runes, r)<br>
+更新slice变量不仅对调用append函数是必要的，实际上对应任何可能导致长度、容量或底层数组变化的操作都是必要的。要正确地使用slice，需要记住尽管底层数组的元素是间接访问的，但是slice对应结构体本身的指针、长度和容量部分是直接访问的。要更新这些信息需要像上面例子那样一个显式的赋值操作。从这个角度看，slice并不是一个纯粹的引用类型，它实际上是一个类似下面结构体的聚合类型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">type IntSlice struct &#123;</span><br><span class="line">    ptr      *int</span><br><span class="line">    len, cap int</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们的appendInt函数每次只能向slice追加一个元素，但是内置的append函数则可以追加多个元素，甚至追加一个slice。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var x []int</span><br><span class="line">x = append(x, 1)</span><br><span class="line">x = append(x, 2, 3)</span><br><span class="line">x = append(x, 4, 5, 6)</span><br><span class="line">x = append(x, x...) // append the slice x</span><br><span class="line">fmt.Println(x)      // &quot;[1 2 3 4 5 6 1 2 3 4 5 6]&quot;</span><br></pre></td></tr></table></figure>
+<p>通过下面的小修改，我们可以可以达到append函数类似的功能。其中在appendInt函数参数中的最后的“…”省略号表示接收变长的参数为slice。我们将在5.7节详细解释这个特性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">func appendInt(x []int, y ...int) []int &#123;</span><br><span class="line">    var z []int</span><br><span class="line">    zlen := len(x) + len(y)</span><br><span class="line">    // ...expand z to at least zlen...</span><br><span class="line">    copy(z[len(x):], y)</span><br><span class="line">    return z</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了避免重复，和前面相同的代码并没有显示。</p>
+<h2 id="slice内存技巧"><a class="markdownIt-Anchor" href="#slice内存技巧"></a> Slice内存技巧</h2>
+<p>让我们看看更多的例子，比如旋转slice、反转slice或在slice原有内存空间修改元素。给定一个字符串列表，下面的nonempty函数将在原有slice内存空间之上返回不包含空字符串的列表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// Nonempty is an example of an in-place slice algorithm.</span><br><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">// nonempty returns a slice holding only the non-empty strings.</span><br><span class="line">// The underlying array is modified during the call.</span><br><span class="line">func nonempty(strings []string) []string &#123;</span><br><span class="line">    i := 0</span><br><span class="line">    for _, s := range strings &#123;</span><br><span class="line">        if s != &quot;&quot; &#123;</span><br><span class="line">            strings[i] = s</span><br><span class="line">            i++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return strings[:i]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>比较微妙的地方是，输入的slice和输出的slice共享一个底层数组。这可以避免分配另一个数组，不过原来的数据将可能会被覆盖，正如下面两个打印语句看到的那样：<br>
+data := []string{“one”, “”, “three”}<br>
+fmt.Printf(&quot;%q\n&quot;, nonempty(data)) // <code>[&quot;one&quot; &quot;three&quot;]</code><br>
+fmt.Printf(&quot;%q\n&quot;, data)           // <code>[&quot;one&quot; &quot;three&quot; &quot;three&quot;]</code><br>
+因此我们通常会这样使用nonempty函数：data = nonempty(data)。<br>
+nonempty函数也可以使用append函数实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">func nonempty2(strings []string) []string &#123;</span><br><span class="line">    out := strings[:0] // zero-length slice of original</span><br><span class="line">    for _, s := range strings &#123;</span><br><span class="line">        if s != &quot;&quot; &#123;</span><br><span class="line">            out = append(out, s)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return out</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>无论如何实现，以这种方式重用一个slice一般都要求最多为每个输入值产生一个输出值，事实上很多这类算法都是用来过滤或合并序列中相邻的元素。这种slice用法是比较复杂的技巧，虽然使用到了slice的一些技巧，但是对于某些场合是比较清晰和有效的。<br>
+一个slice可以用来模拟一个stack。最初给定的空slice对应一个空的stack，然后可以使用append函数将新的值压入stack：<br>
+stack = append(stack, v) // push v<br>
+stack的顶部位置对应slice的最后一个元素：<br>
+top := stack[len(stack)-1] // top of stack<br>
+通过收缩stack可以弹出栈顶的元素<br>
+stack = stack[:len(stack)-1] // pop<br>
+要删除slice中间的某个元素并保存原有的元素顺序，可以通过内置的copy函数将后面的子slice向前依次移动一位完成：<br>
+func remove(slice []int, i int) []int {<br>
+copy(slice[i:], slice[i+1:])<br>
+return slice[:len(slice)-1]<br>
+}</p>
+<p>func main() {<br>
+s := []int{5, 6, 7, 8, 9}<br>
+fmt.Println(remove(s, 2)) // “[5 6 8 9]”<br>
+}<br>
+如果删除元素后不用保持原来顺序的话，我们可以简单的用最后一个元素覆盖被删除的元素：<br>
+func remove(slice []int, i int) []int {<br>
+slice[i] = slice[len(slice)-1]<br>
+return slice[:len(slice)-1]<br>
+}</p>
+<p>func main() {<br>
+s := []int{5, 6, 7, 8, 9}<br>
+fmt.Println(remove(s, 2)) // &quot;[5 6 9 8]<br>
+}</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://dreamerjonson.com/2018/11/20/golang-13-slice/" title="go语言渐入佳境[13]-切片" target="_blank" rel="external">https://dreamerjonson.com/2018/11/20/golang-13-slice/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/dreamerjackson" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/jonson.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/dreamerjackson" target="_blank"><span class="text-dark">郑建勋（jonson）</span><small class="ml-1x">区块链工程师 &amp; Web工程师</small></a></h3>
+        <div>灾难总是接踵而至，这正是世间的常理。你以为只要哭诉一下，就会有谁来救你？如果失败了，就只能说明我不过是如此程度的男人</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+           
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2018/11/20/golang-14-pointer/" title="go语言渐入佳境[14]-指针"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2018/11/20/solidity-22-addressAndPayable/" title="solidity智能合约[22]-地址"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫">
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫">
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/dreamerjackson" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	<!-- Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>. -->
+						天下风云出我辈，一入江湖岁月催。<br>皇图霸业谈笑中，不胜人生一场醉 
+			  </div>
+    </div>
+</footer>
+
+  <!-- <script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>　
+<script src="https://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
+
+<script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+
+<script src="/js/mrmy.js"></script>
+
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+  <script src="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: 'c22fa591ad87e1b03638',
+    clientSecret: '0646579e4dd8a301be7a42bcf3f5dd39ce803dcb',
+    repo: 'dreamerjackson.github.io',
+    owner: 'dreamerjackson',
+    admin: ['dreamerjackson'],
+    id: md5(location.pathname),
+    distractionFreeMode: true
+  })
+  gitalk.render('comments')
+  </script>
+
+      
+
+
+
+
+
+
+
+
+</body>
+</html>

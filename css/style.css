@@ -23,6 +23,27 @@
  * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+
+
+ .main img{
+   max-width: 80%;margin: 0 10%;
+ }
+ .main{
+   font-size: 15px;
+ }
+ .main pre{
+    font-size: 14px;
+ }
+ /* .main center{
+   border-bottom:1px solid #eeeeee;
+   margin-bottom: 2%;
+ } */
+
+ .main center div{
+   width:30%;
+   border-bottom:1px solid #91CFED;
+   margin-bottom: 2%;
+ }
 #title{
   color: #9a7373;
 }
@@ -5763,8 +5784,8 @@ body.no-sidebar .sidebar {
 }
 
 #avatar {
-  width: 248px;
-  height: 383px;
+  width: 150px;
+  height: 171px;
   display: inline-block;
 }
 
@@ -8834,7 +8855,7 @@ body.okayNav-loaded {
 
   .header #avatar {
     width: 32px;
-    height: 32px;
+    height: 35px;
   }
 
   .header #name,

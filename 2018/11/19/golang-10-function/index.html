@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>go语言渐入佳境[10]-function | 郑建勋的个人网站</title>
+  <meta name="description" content="函数的开括号{必须与函数的结尾在同一行，不是在一行上  无参函数 123func printstring()&amp;#123;	fmt.Println(&quot;hello jonson&quot;)&amp;#125;  带参函数 123func add(a,b int)&amp;#123;	fmt.Println(&quot;a+b=&quot;,a+b)&amp;#125;  返回值 123func addres(a,b int) int&amp;#123;	ret">
+<meta name="keywords" content="go">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go语言渐入佳境[10]-function">
+<meta property="og:url" content="https://dreamerjonson.com/2018/11/19/golang-10-function/index.html">
+<meta property="og:site_name" content="Jonson">
+<meta property="og:description" content="函数的开括号{必须与函数的结尾在同一行，不是在一行上  无参函数 123func printstring()&amp;#123;	fmt.Println(&quot;hello jonson&quot;)&amp;#125;  带参函数 123func add(a,b int)&amp;#123;	fmt.Println(&quot;a+b=&quot;,a+b)&amp;#125;  返回值 123func addres(a,b int) int&amp;#123;	ret">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-23T09:12:30.718Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="go语言渐入佳境[10]-function">
+<meta name="twitter:description" content="函数的开括号{必须与函数的结尾在同一行，不是在一行上  无参函数 123func printstring()&amp;#123;	fmt.Println(&quot;hello jonson&quot;)&amp;#125;  带参函数 123func add(a,b int)&amp;#123;	fmt.Println(&quot;a+b=&quot;,a+b)&amp;#125;  返回值 123func addres(a,b int) int&amp;#123;	ret">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://dreamerjonson.com/2018/11/19/golang-10-function/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Jonson" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css">
+  
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+
+
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/dreamerjackson" target="_blank">
+          <img class="img-circle img-rotate" src="/images/jonson.png" width="992" height="1532">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">郑建勋（jonson）</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">区块链工程师 &amp; Web工程师</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-bitcoin">
+          <a href="/bitcoin">
+            
+            <i class="icon fab fa-bitcoin"></i>
+            
+            <span class="menu-title">比特币文献</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-aboutme">
+          <a href="/aboutme">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">关于我</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/dreamerjackson" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+          <div id="mrmy" style="padding-bottom:30px"></div>
+              <div class="content">
+                  <!-- <p>I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.</p> -->
+                  <!--  -->
+                  <!-- 我们绝对要过一个无悔的人生！总有一天，我们要踏上这片海洋，按照自己的梦想去闯荡！我们要过上最自由的人生！ &lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--艾斯&lt;/p&gt; -->
+                    <!-- 我们绝对要过一个无悔的人生！总有一天，我们要踏上这片海洋，按照自己的梦想去闯荡！我们要过上最自由的人生！ <br/><p align="right">--艾斯</p> -->
+                商业合作微信：dreamerjonson<br><br>
+                51CTO区块链交流群：837814276<br><br>
+                go语言交流2群：713385260<br>
+                <!-- <div><img src="/images/xingqiu-qrcode.jpg" width="150" height="150"></div> -->
+              </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">109</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/数据结构/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-数据结构/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链原理/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发配置/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/智能合约-solidity语法/">智能合约 solidity语法</a><span class="category-list-count">59</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/置顶/">置顶</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">109</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-数据结构/">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-前端/">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链原理/">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发配置/">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置顶/">置顶</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/bootstrap/" style="font-size: 13.13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.25px;">docker</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-数据结构/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-前端/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/以太坊/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/前端/" style="font-size: 13.38px;">前端</a> <a href="/tags/区块链原理/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/开发配置/" style="font-size: 13px;">开发配置</a> <a href="/tags/数据结构/" style="font-size: 13px;">数据结构</a> <a href="/tags/智能合约/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/置顶/" style="font-size: 13px;">置顶</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/开发配置/">开发配置</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/04/25/tmux/" class="title">tmux</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-04-25T05:44:19.000Z" itemprop="datePublished">2019-04-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/04/02/connect-github-gitlab/" class="title">git操作github-gitlab</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-04-02T07:43:32.000Z" itemprop="datePublished">2019-04-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/04/01/go-sql/" class="title">golang[70]-golang操作数据库</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-04-01T09:38:37.000Z" itemprop="datePublished">2019-04-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/03/14/k8s/" class="title">k8s</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-03-14T03:29:49.000Z" itemprop="datePublished">2019-03-14</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/03/11/go-struture-15-merge-sort/" class="title">go-数据结构[15]-归并排序</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-03-11T14:01:51.000Z" itemprop="datePublished">2019-03-11</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#无参函数"><span class="toc-number">1.</span> <span class="toc-text"> 无参函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#带参函数"><span class="toc-number">2.</span> <span class="toc-text"> 带参函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#返回值"><span class="toc-number">3.</span> <span class="toc-text"> 返回值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#有名字的返回值"><span class="toc-number">4.</span> <span class="toc-text"> 有名字的返回值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多返回值"><span class="toc-number">5.</span> <span class="toc-text"> 多返回值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不定个数参数"><span class="toc-number">6.</span> <span class="toc-text"> 不定个数参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例子"><span class="toc-number">7.</span> <span class="toc-text"> 例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#递归"><span class="toc-number">8.</span> <span class="toc-text"> 递归</span></a></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number"></span> <span class="toc-text"> </span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#递归案例-获取链接"><span class="toc-number">1.</span> <span class="toc-text"> 递归案例 获取链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可变参数"><span class="toc-number">2.</span> <span class="toc-text"> 可变参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法"><span class="toc-number">3.</span> <span class="toc-text"> 方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基于指针对象的方法"><span class="toc-number">4.</span> <span class="toc-text"> 基于指针对象的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过嵌入结构体来扩展类型"><span class="toc-number">5.</span> <span class="toc-text"> 通过嵌入结构体来扩展类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法值和方法表达式"><span class="toc-number">6.</span> <span class="toc-text"> 方法值和方法表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#封装"><span class="toc-number">7.</span> <span class="toc-text"> 封装</span></a></li></ol>
+    </li></nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-golang-10-function" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      go语言渐入佳境[10]-function
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/11/19/golang-10-function/" class="article-date">
+	  <time datetime="2018-11-19T07:13:43.000Z" itemprop="datePublished">2018-11-19</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/go/">go</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/go/">go</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/11/19/golang-10-function/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 9.8k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 40(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>函数的开括号{必须与函数的结尾在同一行，不是在一行上</p>
+<h2 id="无参函数"><a class="markdownIt-Anchor" href="#无参函数"></a> 无参函数</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printstring</span><span class="params">()</span></span>&#123;</span><br><span class="line">	fmt.Println(<span class="string">"hello jonson"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="带参函数"><a class="markdownIt-Anchor" href="#带参函数"></a> 带参函数</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">add</span><span class="params">(a,b <span class="keyword">int</span>)</span></span>&#123;</span><br><span class="line">	fmt.Println(<span class="string">"a+b="</span>,a+b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="返回值"><a class="markdownIt-Anchor" href="#返回值"></a> 返回值</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addres</span><span class="params">(a,b <span class="keyword">int</span>)</span> <span class="title">int</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a+b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="有名字的返回值"><a class="markdownIt-Anchor" href="#有名字的返回值"></a> 有名字的返回值</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addresname</span><span class="params">(a,b <span class="keyword">int</span>)</span><span class="params">(sum <span class="keyword">int</span>)</span></span>&#123;</span><br><span class="line">	sum = a+b</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="多返回值"><a class="markdownIt-Anchor" href="#多返回值"></a> 多返回值</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addmuti</span><span class="params">(a,b <span class="keyword">int</span>)</span><span class="params">(<span class="keyword">int</span>,<span class="keyword">int</span>)</span></span>&#123;</span><br><span class="line">	add := a+b</span><br><span class="line">	mul:= a*b</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> add,mul</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="不定个数参数"><a class="markdownIt-Anchor" href="#不定个数参数"></a> 不定个数参数</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addsum</span><span class="params">(nums ... <span class="keyword">int</span>)</span> <span class="title">int</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> sum <span class="keyword">int</span></span><br><span class="line">	<span class="keyword">for</span> _,value :=<span class="keyword">range</span> nums&#123;</span><br><span class="line">		sum +=value</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> sum</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="例子"><a class="markdownIt-Anchor" href="#例子"></a> 例子</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	printstring()</span><br><span class="line">	add(<span class="number">2</span>,<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">"addres 6+7 = "</span>,addres(<span class="number">6</span>,<span class="number">7</span>))</span><br><span class="line">	fmt.Println(<span class="string">"addresname 3+4 = "</span>,addresname(<span class="number">3</span>,<span class="number">4</span>))</span><br><span class="line"></span><br><span class="line">	add,sum :=addmuti(<span class="number">5</span>,<span class="number">6</span>)</span><br><span class="line">	fmt.Printf(<span class="string">"addmuti 5+6=%d,5*6=%d\n"</span>,add,sum)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	ADDsum :=  addsum(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>)</span><br><span class="line">	fmt.Println(<span class="string">"addsum = "</span>,ADDsum)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//无参函数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printstring</span><span class="params">()</span></span>&#123;</span><br><span class="line">	fmt.Println(<span class="string">"hello jonson"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//带参函数</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="title">add</span><span class="params">(a,b <span class="keyword">int</span>)</span></span>&#123;</span><br><span class="line">		fmt.Println(<span class="string">"a+b="</span>,a+b)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//返回值</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addres</span><span class="params">(a,b <span class="keyword">int</span>)</span> <span class="title">int</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a+b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 有名字的返回值</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addresname</span><span class="params">(a,b <span class="keyword">int</span>)</span><span class="params">(sum <span class="keyword">int</span>)</span></span>&#123;</span><br><span class="line">	sum = a+b</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//多返回值</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addmuti</span><span class="params">(a,b <span class="keyword">int</span>)</span><span class="params">(<span class="keyword">int</span>,<span class="keyword">int</span>)</span></span>&#123;</span><br><span class="line">	add := a+b</span><br><span class="line">	mul:= a*b</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> add,mul</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//不定个数参数</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addsum</span><span class="params">(nums ... <span class="keyword">int</span>)</span> <span class="title">int</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> sum <span class="keyword">int</span></span><br><span class="line">	<span class="keyword">for</span> _,value :=<span class="keyword">range</span> nums&#123;</span><br><span class="line">		sum +=value</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> sum</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">函数声明包括函数名、形式参数列表、返回值列表（可省略）以及函数体。</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">name</span><span class="params">(parameter-list)</span> <span class="params">(result-list)</span></span> &#123;</span><br><span class="line">    body</span><br><span class="line">&#125;</span><br><span class="line">形式参数列表描述了函数的参数名以及参数类型。这些参数作为局部变量，其值由参数调用者提供。返回值列表描述了函数返回值的变量名以及类型。如果函数返回一个无名变量或者没有返回值，返回值列表的括号是可以省略的。如果一个函数声明不包括返回值列表，那么函数体执行完毕后，不会返回任何值。在hypot函数中,</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">hypot</span><span class="params">(x, y <span class="keyword">float64</span>)</span> <span class="title">float64</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> math.Sqrt(x*x + y*y)</span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(hypot(<span class="number">3</span>,<span class="number">4</span>)) <span class="comment">// "5"</span></span><br><span class="line">x和y是形参名,<span class="number">3</span>和<span class="number">4</span>是调用时的传入的实数，函数返回了一个<span class="keyword">float64</span>类型的值。返回值也可以像形式参数一样被命名。在这种情况下，每个返回值被声明成一个局部变量，并根据该返回值的类型，将其初始化为<span class="number">0</span>。如果一个函数在声明时，包含返回值列表，该函数必须以<span class="keyword">return</span>语句结尾，除非函数明显无法运行到结尾处。例如函数在结尾时调用了<span class="built_in">panic</span>异常或函数中存在无限循环。</span><br><span class="line">正如hypot一样，如果一组形参或返回值有相同的类型，我们不必为每个形参都写出参数类型。下面<span class="number">2</span>个声明是等价的：</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">f</span><span class="params">(i, j, k <span class="keyword">int</span>, s, t <span class="keyword">string</span>)</span></span>                 &#123; <span class="comment">/* ... */</span> &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">f</span><span class="params">(i <span class="keyword">int</span>, j <span class="keyword">int</span>, k <span class="keyword">int</span>,  s <span class="keyword">string</span>, t <span class="keyword">string</span>)</span></span> &#123; <span class="comment">/* ... */</span> &#125;</span><br><span class="line">下面，我们给出<span class="number">4</span>种方法声明拥有<span class="number">2</span>个<span class="keyword">int</span>型参数和<span class="number">1</span>个<span class="keyword">int</span>型返回值的函数.blank identifier(译者注：卽下文的_符号)可以强调某个参数未被使用。</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">add</span><span class="params">(x <span class="keyword">int</span>, y <span class="keyword">int</span>)</span> <span class="title">int</span></span>   &#123;<span class="keyword">return</span> x + y&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sub</span><span class="params">(x, y <span class="keyword">int</span>)</span> <span class="params">(z <span class="keyword">int</span>)</span></span>   &#123; z = x - y; <span class="keyword">return</span>&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">first</span><span class="params">(x <span class="keyword">int</span>, _ <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123; <span class="keyword">return</span> x &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">zero</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>)</span> <span class="title">int</span></span>      &#123; <span class="keyword">return</span> <span class="number">0</span> &#125;</span><br><span class="line"></span><br><span class="line">fmt.Printf(<span class="string">"%T\n"</span>, add)   <span class="comment">// "func(int, int) int"</span></span><br><span class="line">fmt.Printf(<span class="string">"%T\n"</span>, sub)   <span class="comment">// "func(int, int) int"</span></span><br><span class="line">fmt.Printf(<span class="string">"%T\n"</span>, first) <span class="comment">// "func(int, int) int"</span></span><br><span class="line">fmt.Printf(<span class="string">"%T\n"</span>, zero)  <span class="comment">// "func(int, int) int"</span></span><br><span class="line">函数的类型被称为函数的标识符。如果两个函数形式参数列表和返回值列表中的变量类型一一对应，那么这两个函数被认为有相同的类型和标识符。形参和返回值的变量名不影响函数标识符也不影响它们是否可以以省略参数类型的形式表示。</span><br><span class="line">每一次函数调用都必须按照声明顺序为所有参数提供实参（参数值）。在函数调用时，Go语言没有默认参数值，也没有任何方法可以通过参数名指定形参，因此形参和返回值的变量名对于函数调用者而言没有意义。</span><br><span class="line">在函数体中，函数的形参作为局部变量，被初始化为调用者提供的值。函数的形参和有名返回值作为函数最外层的局部变量，被存储在相同的词法块中。</span><br><span class="line">实参通过值的方式传递，因此函数的形参是实参的拷贝。对形参进行修改不会影响实参。但是，如果实参包括引用类型，如指针，slice(切片)、<span class="keyword">map</span>、function、channel等类型，实参可能会由于函数的简介引用被修改。</span><br><span class="line">你可能会偶尔遇到没有函数体的函数声明，这表示该函数不是以Go实现的。这样的声明定义了函数标识符。</span><br><span class="line"><span class="keyword">package</span> math</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Sin</span><span class="params">(x <span class="keyword">float64</span>)</span> <span class="title">float</span> //<span class="title">implemented</span> <span class="title">in</span> <span class="title">assembly</span> <span class="title">language</span></span></span><br></pre></td></tr></table></figure>
+<p>函数可以是递归的，这意味着函数可以直接或间接的调用自身。对许多问题而言，递归是一种强有力的技术，例如处理递归的数据结构。</p>
+<h2 id="递归"><a class="markdownIt-Anchor" href="#递归"></a> 递归</h2>
+<p>函数可以是递归的，这意味着函数可以直接或间接的调用自身。对许多问题而言，递归是一种强有力的技术，例如处理递归的数据结构。在4.4节，我们通过遍历二叉树来实现简单的插入排序，在本章节，我们再次使用它来处理HTML文件。</p>
+<p><a href="http://xn--golang-hp7iy6a5xu8bzdy11aroebz9fo3hoy8c62e9uh3ngl89o.org/x/net/html" target="_blank" rel="noopener">下文的示例代码使用了非标准包golang.org/x/net/html</a> ，解析HTML。<a href="http://golang.org/x/" target="_blank" rel="noopener">golang.org/x/</a>… 目录下存储了一些由Go团队设计、维护，对网络编程、国际化文件处理、移动平台、图像处理、加密解密、开发者工具提供支持的扩展包。未将这些扩展包加入到标准库原因有二，一是部分包仍在开发中，二是对大多数Go语言的开发者而言，扩展包提供的功能很少被使用。<br>
+<a href="http://xn--golang-9v7ij7g173blj1d4swc.org/x/net/html%E7%9A%84%E9%83%A8%E5%88%86api%E5%A6%82%E4%B8%8B%E6%89%80%E7%A4%BA%E3%80%82html.Parse%E5%87%BD%E6%95%B0%E8%AF%BB%E5%85%A5%E4%B8%80%E7%BB%84bytes.%E8%A7%A3%E6%9E%90%E5%90%8E%EF%BC%8C%E8%BF%94%E5%9B%9Ehtml.node%E7%B1%BB%E5%9E%8B%E7%9A%84HTML%E9%A1%B5%E9%9D%A2%E6%A0%91%E7%8A%B6%E7%BB%93%E6%9E%84%E6%A0%B9%E8%8A%82%E7%82%B9%E3%80%82HTML%E6%8B%A5%E6%9C%89%E5%BE%88%E5%A4%9A%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%BB%93%E7%82%B9%E5%A6%82text%EF%BC%88%E6%96%87%E6%9C%AC%EF%BC%89,commnets%EF%BC%88%E6%B3%A8%E9%87%8A%EF%BC%89%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%9C%A8%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BE%8B%E5%AD%90%E4%B8%AD%EF%BC%8C%E6%88%91%E4%BB%AC%E5%8F%AA%E5%85%B3%E6%B3%A8" target="_blank" rel="noopener">例子中调用golang.org/x/net/html的部分api如下所示。html.Parse函数读入一组bytes.解析后，返回html.node类型的HTML页面树状结构根节点。HTML拥有很多类型的结点如text（文本）,commnets（注释）类型，在下面的例子中，我们只关注</a>&lt; name key=‘value’ &gt;形式的结点。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">package html</span><br><span class="line"></span><br><span class="line">type Node struct &#123;</span><br><span class="line">    Type                    NodeType</span><br><span class="line">    Data                    string</span><br><span class="line">    Attr                    []Attribute</span><br><span class="line">    FirstChild, NextSibling *Node</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type NodeType int32</span><br><span class="line"></span><br><span class="line">const (</span><br><span class="line">    ErrorNode NodeType = iota</span><br><span class="line">    TextNode</span><br><span class="line">    DocumentNode</span><br><span class="line">    ElementNode</span><br><span class="line">    CommentNode</span><br><span class="line">    DoctypeNode</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">type Attribute struct &#123;</span><br><span class="line">    Key, Val string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func Parse(r io.Reader) (*Node, error)</span><br></pre></td></tr></table></figure>
+<p>main函数解析HTML标准输入，通过递归函数visit获得links（链接），并打印出这些links：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// Findlinks1 prints the links in an HTML document read from standard input.</span><br><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    &quot;fmt&quot;</span><br><span class="line">    &quot;os&quot;</span><br><span class="line"></span><br><span class="line">    &quot;golang.org/x/net/html&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    doc, err := html.Parse(os.Stdin)</span><br><span class="line">    if err != nil &#123;</span><br><span class="line">        fmt.Fprintf(os.Stderr, &quot;findlinks1: %v\n&quot;, err)</span><br><span class="line">        os.Exit(1)</span><br><span class="line">    &#125;</span><br><span class="line">    for _, link := range visit(nil, doc) &#123;</span><br><span class="line">        fmt.Println(link)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>visit函数遍历HTML的节点树，从每一个anchor元素的href属性获得link,将这些links存入字符串数组中，并返回这个字符串数组。<br>
+// visit appends to links each link found in n and returns the result.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">func visit(links []string, n *html.Node) []string &#123;</span><br><span class="line">    if n.Type == html.ElementNode &amp;&amp; n.Data == &quot;a&quot; &#123;</span><br><span class="line">        for _, a := range n.Attr &#123;</span><br><span class="line">            if a.Key == &quot;href&quot; &#123;</span><br><span class="line">                links = append(links, a.Val)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    for c := n.FirstChild; c != nil; c = c.NextSibling &#123;</span><br><span class="line">        links = visit(links, c)</span><br><span class="line">    &#125;</span><br><span class="line">    return links</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了遍历结点n的所有后代结点，每次遇到n的孩子结点时，visit递归的调用自身。这些孩子结点存放在FirstChild链表中。<br>
+让我们以Go的主页（<a href="http://golang.org" target="_blank" rel="noopener">golang.org</a>）作为目标，运行findlinks。我们以fetch（1.5章）的输出作为findlinks的输入。下面的输出做了简化处理。<br>
+$ go build <a href="http://gopl.io/ch1/fetch" target="_blank" rel="noopener">gopl.io/ch1/fetch</a><br>
+$ go build <a href="http://gopl.io/ch5/findlinks1" target="_blank" rel="noopener">gopl.io/ch5/findlinks1</a><br>
+$ ./fetch <a href="https://golang.org" target="_blank" rel="noopener">https://golang.org</a> | ./findlinks1</p>
+<h1 id=""><a class="markdownIt-Anchor" href="#"></a> </h1>
+<p>/doc/<br>
+/pkg/<br>
+/help/<br>
+/blog/<br>
+<a href="http://play.golang.org/" target="_blank" rel="noopener">http://play.golang.org/</a><br>
+<a href="//tour.golang.org/">//tour.golang.org/</a><br>
+<a href="https://golang.org/dl/" target="_blank" rel="noopener">https://golang.org/dl/</a><br>
+<a href="//blog.golang.org/">//blog.golang.org/</a><br>
+/LICENSE<br>
+/doc/tos.html<br>
+<a href="http://www.google.com/intl/en/policies/privacy/" target="_blank" rel="noopener">http://www.google.com/intl/en/policies/privacy/</a><br>
+注意在页面中出现的链接格式，在之后我们会介绍如何将这些链接，根据根路径（<a href="https://golang.org" target="_blank" rel="noopener">https://golang.org</a>）生成可以直接访问的url。<br>
+在函数outline中，我们通过递归的方式遍历整个HTML结点树，并输出树的结构。在outline内部，每遇到一个HTML元素标签，就将其入栈，并输出。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">func main() &#123;</span><br><span class="line">    doc, err := html.Parse(os.Stdin)</span><br><span class="line">    if err != nil &#123;</span><br><span class="line">        fmt.Fprintf(os.Stderr, &quot;outline: %v\n&quot;, err)</span><br><span class="line">        os.Exit(1)</span><br><span class="line">    &#125;</span><br><span class="line">    outline(nil, doc)</span><br><span class="line">&#125;</span><br><span class="line">func outline(stack []string, n *html.Node) &#123;</span><br><span class="line">    if n.Type == html.ElementNode &#123;</span><br><span class="line">        stack = append(stack, n.Data) // push tag</span><br><span class="line">        fmt.Println(stack)</span><br><span class="line">    &#125;</span><br><span class="line">    for c := n.FirstChild; c != nil; c = c.NextSibling &#123;</span><br><span class="line">        outline(stack, c)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有一点值得注意：outline有入栈操作，但没有相对应的出栈操作。当outline调用自身时，被调用者接收的是stack的拷贝。被调用者的入栈操作，修改的是stack的拷贝，而不是调用者的stack,因对当函数返回时,调用者的stack并未被修改。<br>
+下面是https://golang.org页面的简要结构:<br>
+$ go build <a href="http://gopl.io/ch5/outline" target="_blank" rel="noopener">gopl.io/ch5/outline</a><br>
+$ ./fetch <a href="https://golang.org" target="_blank" rel="noopener">https://golang.org</a> | ./outline<br>
+[html]<br>
+[html head]<br>
+[html head meta]<br>
+[html head title]<br>
+[html head link]<br>
+[html body]<br>
+[html body div]<br>
+[html body div]<br>
+[html body div div]<br>
+[html body div div form]<br>
+[html body div div form div]<br>
+[html body div div form div a]<br>
+…<br>
+正如你在上面实验中所见，大部分HTML页面只需几层递归就能被处理，但仍然有些页面需要深层次的递归。<br>
+大部分编程语言使用固定大小的函数调用栈，常见的大小从64KB到2MB不等。固定大小栈会限制递归的深度，当你用递归处理大量数据时，需要避免栈溢出；除此之外，还会导致安全性问题。与相反,Go语言使用可变栈，栈的大小按需增加(初始时很小)。这使得我们使用递归时不必考虑溢出和安全问题。</p>
+<h2 id="递归案例-获取链接"><a class="markdownIt-Anchor" href="#递归案例-获取链接"></a> 递归案例 获取链接</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"os"</span></span><br><span class="line"></span><br><span class="line">	<span class="string">"golang.org/x/net/html"</span></span><br><span class="line">	<span class="string">"io/ioutil"</span></span><br><span class="line">	<span class="string">"bytes"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	allbyte,_:= ioutil.ReadFile(<span class="string">"index.html"</span>)</span><br><span class="line">	fmt.Println(allbyte)</span><br><span class="line">	doc, err := html.Parse(	bytes.NewReader(allbyte))</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Fprintf(os.Stderr, <span class="string">"findlinks1: %v\n"</span>, err)</span><br><span class="line">		os.Exit(<span class="number">1</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> _, link := <span class="keyword">range</span> visit(<span class="literal">nil</span>, doc) &#123;</span><br><span class="line">		fmt.Println(link)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//!-main</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//!+visit</span></span><br><span class="line"><span class="comment">// visit appends to links each link found in n and returns the result.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">visit</span><span class="params">(links []<span class="keyword">string</span>, n *html.Node)</span> []<span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> n.Type == html.ElementNode &amp;&amp; n.Data == <span class="string">"a"</span> &#123;</span><br><span class="line">		<span class="keyword">for</span> _, a := <span class="keyword">range</span> n.Attr &#123;</span><br><span class="line">			<span class="keyword">if</span> a.Key == <span class="string">"href"</span> &#123;</span><br><span class="line">				links = <span class="built_in">append</span>(links, a.Val)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> c := n.FirstChild; c != <span class="literal">nil</span>; c = c.NextSibling &#123;</span><br><span class="line">		links = visit(links, c)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> links</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//!-visit</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">//!+html</span></span><br><span class="line"><span class="comment">package html</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">type Node struct &#123;</span></span><br><span class="line"><span class="comment">	Type                    NodeType</span></span><br><span class="line"><span class="comment">	Data                    string</span></span><br><span class="line"><span class="comment">	Attr                    []Attribute</span></span><br><span class="line"><span class="comment">	FirstChild, NextSibling *Node</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">type NodeType int32</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">const (</span></span><br><span class="line"><span class="comment">	ErrorNode NodeType = iota</span></span><br><span class="line"><span class="comment">	TextNode</span></span><br><span class="line"><span class="comment">	DocumentNode</span></span><br><span class="line"><span class="comment">	ElementNode</span></span><br><span class="line"><span class="comment">	CommentNode</span></span><br><span class="line"><span class="comment">	DoctypeNode</span></span><br><span class="line"><span class="comment">)</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">type Attribute struct &#123;</span></span><br><span class="line"><span class="comment">	Key, Val string</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">func Parse(r io.Reader) (*Node, error)</span></span><br><span class="line"><span class="comment">//!-html</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>在Go中，函数被看作第一类值（first-class values）：函数像其他值一样，拥有类型，可以被赋值给其他变量，传递给函数，从函数返回。对函数值（function value）的调用类似函数调用。例子如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">    func square(n int) int &#123; return n * n &#125;</span><br><span class="line">    func negative(n int) int &#123; return -n &#125;</span><br><span class="line">    func product(m, n int) int &#123; return m * n &#125;</span><br><span class="line"></span><br><span class="line">    f := square</span><br><span class="line">    fmt.Println(f(3)) // &quot;9&quot;</span><br><span class="line"></span><br><span class="line">    f = negative</span><br><span class="line">    fmt.Println(f(3))     // &quot;-3&quot;</span><br><span class="line">    fmt.Printf(&quot;%T\n&quot;, f) // &quot;func(int) int&quot;</span><br><span class="line"></span><br><span class="line">    f = product // compile error: can&apos;t assign func(int, int) int to func(int) int</span><br><span class="line">函数类型的零值是nil。调用值为nil的函数值会引起panic错误：</span><br><span class="line">    var f func(int) int</span><br><span class="line">    f(3) // 此處f的值爲nil,會引起panic錯誤</span><br><span class="line">函数值可以与nil比较：</span><br><span class="line">    var f func(int) int</span><br><span class="line">    if f != nil &#123;</span><br><span class="line">        f(3)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>但是函数值之间是不可比较的，也不能用函数值作为map的key。<br>
+函数值使得我们不仅仅可以通过数据来参数化函数，亦可通过行为。标准库中包含许多这样的例子。下面的代码展示了如何使用这个技巧。string.Map对字符串中的每个字符调用add1函数，并将每个add1函数的返回值组成一个新的字符串返回给调用者。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">func add1(r rune) rune &#123; return r + 1 &#125;</span><br><span class="line"></span><br><span class="line">fmt.Println(strings.Map(add1, &quot;HAL-9000&quot;)) // &quot;IBM.:111&quot;</span><br><span class="line">fmt.Println(strings.Map(add1, &quot;VMS&quot;))      // &quot;WNT&quot;</span><br><span class="line">fmt.Println(strings.Map(add1, &quot;Admix&quot;))    // &quot;Benjy&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="可变参数"><a class="markdownIt-Anchor" href="#可变参数"></a> 可变参数</h2>
+<p>参数数量可变的函数称为为可变参数函数。典型的例子就是fmt.Printf和类似函数。Printf首先接收一个的必备参数，之后接收任意个数的后续参数。<br>
+在声明可变参数函数时，需要在参数列表的最后一个参数类型之前加上省略符号“…”，这表示该函数会接收任意数量的该类型参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">func sum(vals...int) int &#123;</span><br><span class="line">    total := 0</span><br><span class="line">    for _, val := range vals &#123;</span><br><span class="line">        total += val</span><br><span class="line">    &#125;</span><br><span class="line">    return total</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>sum函数返回任意个int型参数的和。在函数体中,vals被看作是类型为[] int的切片。sum可以接收任意数量的int型参数：<br>
+fmt.Println(sum()) // “0”<br>
+fmt.Println(sum(3)) // “3”<br>
+fmt.Println(sum(1, 2, 3, 4)) // “10”<br>
+在上面的代码中，调用者隐式的创建一个数组，并将原始参数复制到数组中，再把数组的一个切片作为参数传给被调函数。如果原始参数已经是切片类型，我们该如何传递给sum？只需在最后一个参数后加上省略符。下面的代码功能与上个例子中最后一条语句相同。<br>
+values := []int{1, 2, 3, 4}<br>
+fmt.Println(sum(values…)) // “10”<br>
+虽然在可变参数函数内部，…int 型参数的行为看起来很像切片类型，但实际上，可变参数函数和以切片作为参数的函数是不同的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">func f(...int) &#123;&#125;</span><br><span class="line">func g([]int) &#123;&#125;</span><br><span class="line">fmt.Printf(&quot;%T\n&quot;, f) // &quot;func(...int)&quot;</span><br><span class="line">fmt.Printf(&quot;%T\n&quot;, g) // &quot;func([]int)&quot;</span><br></pre></td></tr></table></figure>
+<p>可变参数函数经常被用于格式化字符串。下面的errorf函数构造了一个以行号开头的，经过格式化的错误信息。函数名的后缀f是一种通用的命名规范，代表该可变参数函数可以接收Printf风格的格式化字符串。<br>
+func errorf(linenum int, format string, args…interface{})<br>
+{<br>
+fmt.Fprintf(os.Stderr, &quot;Line %d: &quot;, linenum)<br>
+fmt.Fprintf(os.Stderr, format, args…)<br>
+fmt.Fprintln(os.Stderr)<br>
+}<br>
+linenum, name := 12, “count”<br>
+errorf(linenum, “undefined: %s”, name) // “Line 12:<br>
+undefined: count”</p>
+<h2 id="方法"><a class="markdownIt-Anchor" href="#方法"></a> 方法</h2>
+<p>在函数声明时，在其名字之前放上一个变量，卽是一个方法。这个附加的参数会将该函数附加到这种类型上，卽相当于为这种类型定义了一个独占的方法。<br>
+下面来写我们第一个方法的例子，这个例子在package geometry下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package geometry</span><br><span class="line"></span><br><span class="line">import &quot;math&quot;</span><br><span class="line"></span><br><span class="line">type Point struct&#123; X, Y float64 &#125;</span><br><span class="line"></span><br><span class="line">// traditional function</span><br><span class="line">func Distance(p, q Point) float64 &#123;</span><br><span class="line">    return math.Hypot(q.X-p.X, q.Y-p.Y)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// same thing, but as a method of the Point type</span><br><span class="line">func (p Point) Distance(q Point) float64 &#123;</span><br><span class="line">    return math.Hypot(q.X-p.X, q.Y-p.Y)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码里那个附加的参数p，叫做方法的接收器(receiver)，早期的面向对象语言留下的遗产将调用一个方法称为“向一个对象发送消息”。<br>
+在Go语言中，我们并不会像其它语言那样用this或者self作为接收器；我们可以任意的选择接收器的名字。由于接收器的名字经常会被使用到，所以保持其在方法间传递时的一致性和简短性是不错的主意。这里的建议是可以使用其类型的第一个字母，比如这里使用了Point的首字母p。<br>
+在方法调用过程中，接收器参数一般会在方法名之前出现。这和方法声明是一样的，都是接收器参数在方法名字之前。下面是例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">p := Point&#123;1, 2&#125;</span><br><span class="line">q := Point&#123;4, 6&#125;</span><br><span class="line">fmt.Println(Distance(p, q)) // &quot;5&quot;, function call</span><br><span class="line">fmt.Println(p.Distance(q))  // &quot;5&quot;, method call</span><br></pre></td></tr></table></figure>
+<p>可以看到，上面的两个函数调用都是Distance，但是却没有发生冲突。第一个Distance的调用实际上用的是包级别的函数geometry.Distance，而第二个则是使用刚刚声明的Point，调用的是Point类下声明的Point.Distance方法。<br>
+这种p.Distance的表达式叫做选择器，因为他会选择合适的对应p这个对象的Distance方法来执行。选择器也会被用来选择一个struct类型的字段，比如pX。由于方法和字段都是在同一命名空间，所以如果我们在这里声明一个X方法的话，编译器会报错，因为在调用pX时会有歧义(译注：这里确实挺奇怪的)。<br>
+因为每种类型都有其方法的命名空间，我们在用Distance这个名字的时候，不同的Distance调用指向了不同类型里的Distance方法。让我们来定义一个Path类型，这个Path代表一个线段的集合，并且也给这个Path定义一个叫Distance的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// A Path is a journey connecting the points with straight lines.</span><br><span class="line">type Path []Point</span><br><span class="line">// Distance returns the distance traveled along the path.</span><br><span class="line">func (path Path) Distance() float64 &#123;</span><br><span class="line">    sum := 0.0</span><br><span class="line">    for i := range path &#123;</span><br><span class="line">        if i &gt; 0 &#123;</span><br><span class="line">            sum += path[i-1].Distance(path[i])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return sum</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Path是一个命名的slice类型，而不是Point那样的struct类型，然而我们依然可以为它定义方法。在能够给任意类型定义方法这一点上，Go和很多其它的面向对象的语言不太一样。因此在Go语言里，我们为一些简单的数值、字符串、slice、map来定义一些附加行为很方便。方法可以被声明到任意类型，只要不是一个指针或者一个interface。<br>
+两个Distance方法有不同的类型。他们两个方法之间没有任何关系，尽管Path的Distance方法会在内部调用Point.Distance方法来计算每个连接邻接点的线段的长度。<br>
+让我们来调用一个新方法，计算三角形的周长：<br>
+perim := Path{<br>
+{1, 1},<br>
+{5, 1},<br>
+{5, 4},<br>
+{1, 1},<br>
+}<br>
+fmt.Println(perim.Distance()) // “12”<br>
+在上面两个对Distance名字的方法的调用中，编译器会根据方法的名字以及接收器来决定具体调用的是哪一个函数。第一个例子中path[i-1]数组中的类型是Point，因此Point.Distance这个方法被调用；在第二个例子中perim的类型是Path，因此Distance调用的是Path.Distance。<br>
+对于一个给定的类型，其内部的方法都必须有唯一的方法名，但是不同的类型却可以有同样的方法名，比如我们这里Point和Path就都有Distance这个名字的方法；所以我们没有必要非在方法名之前加类型名来消除歧义，比如PathDistance。这里我们已经看到了方法比之函数的一些好处：方法名可以简短。当我们在包外调用的时候这种好处就会被放大，因为我们可以使用这个短名字，而可以省略掉包的名字，下面是例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import &quot;gopl.io/ch6/geometry&quot;</span><br><span class="line"></span><br><span class="line">perim := geometry.Path&#123;&#123;1, 1&#125;, &#123;5, 1&#125;, &#123;5, 4&#125;, &#123;1, 1&#125;&#125;</span><br><span class="line">fmt.Println(geometry.PathDistance(perim)) // &quot;12&quot;, standalone function</span><br><span class="line">fmt.Println(perim.Distance())             // &quot;12&quot;, method of geometry.Path</span><br></pre></td></tr></table></figure>
+<p>译注：如果我们要用方法去计算perim的distance，还需要去写全geometry的包名，和其函数名，但是因为Path这个变量定义了一个可以直接用的Distance方法，所以我们可以直接写perim. Distance()。相当于可以少打很多字，作者应该是这个意思。因为在Go里包外调用函数需要带上包名，还是挺麻烦的。</p>
+<h2 id="基于指针对象的方法"><a class="markdownIt-Anchor" href="#基于指针对象的方法"></a> 基于指针对象的方法</h2>
+<p>当调用一个函数时，会对其每一个参数值进行拷贝，如果一个函数需要更新一个变量，或者函数的其中一个参数实在太大我们希望能够避免进行这种默认的拷贝，这种情况下我们就需要用到指针了。对应到我们这里用来更新接收器的对象的方法，当这个接受者变量本身比较大时，我们就可以用其指针而不是对象来声明方法，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">func (p *Point) ScaleBy(factor float64) &#123;</span><br><span class="line">    p.X *= factor</span><br><span class="line">    p.Y *= factor</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个方法的名字是<code>(*Point).ScaleBy</code>。这里的括号是必须的；没有括号的话这个表达式可能会被理解为*(Point.ScaleBy)。<br>
+在现实的程序里，一般会约定如果Point这个类有一个指针作为接收器的方法，那么所有Point的方法都必须有一个指针接收器，卽使是那些并不需要这个指针接收器的函数。我们在这里打破了这个约定只是为了展示一下两种方法的异同而已。<br>
+只有类型(Point)和指向他们的指针<code>(*Point)</code>，才是可能会出现在接收器声明里的两种接收器。此外，为了避免歧义，在声明方法时，如果一个类型名本身是一个指针的话，是不允许其出现在接收器中的，比如下面这个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">type P *int</span><br><span class="line">func (P) f() &#123; /* ... */ &#125; // compile error: invalid receiver type</span><br></pre></td></tr></table></figure>
+<p>想要调用指针类型方法<code>(*Point).ScaleBy</code>，只要提供一个Point类型的指针卽可，像下面这样。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">r := &amp;Point&#123;1, 2&#125;</span><br><span class="line">r.ScaleBy(2)</span><br><span class="line">fmt.Println(*r) // &quot;&#123;2, 4&#125;&quot;</span><br><span class="line">或者这样：</span><br><span class="line">p := Point&#123;1, 2&#125;</span><br><span class="line">pptr := &amp;p</span><br><span class="line">pptr.ScaleBy(2)</span><br><span class="line">fmt.Println(p) // &quot;&#123;2, 4&#125;&quot;</span><br><span class="line">或者这样:</span><br><span class="line">p := Point&#123;1, 2&#125;</span><br><span class="line">(&amp;p).ScaleBy(2)</span><br><span class="line">fmt.Println(p) // &quot;&#123;2, 4&#125;&quot;</span><br></pre></td></tr></table></figure>
+<p>不过后面两种方法有些笨拙。幸运的是，go语言本身在这种地方会帮到我们。如果接收器p是一个Point类型的变量，并且其方法需要一个Point指针作为接收器，我们可以用下面这种简短的写法：<br>
+p.ScaleBy(2)<br>
+编译器会隐式地帮我们用&amp;p去调用ScaleBy这个方法。这种简写方法只适用于“变量”，包括struct里的字段比如pX，以及array和slice内的元素比如perim[0]。我们不能通过一个无法取到地址的接收器来调用指针方法，比如临时变量的内存地址就无法获取得到：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Point&#123;1, 2&#125;.ScaleBy(2) // compile error: can&apos;t take address of Point literal</span><br></pre></td></tr></table></figure>
+<p>但是我们可以用一个<em>Point这样的接收器来调用Point的方法，因为我们可以通过地址来找到这个变量，只要用解引用符号</em>来取到该变量卽可。编译器在这里也会给我们隐式地插入*这个操作符，所以下面这两种写法等价的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pptr.Distance(q)</span><br><span class="line">(*pptr).Distance(q)</span><br></pre></td></tr></table></figure>
+<p>这里的几个例子可能让你有些困惑，所以我们总结一下：在每一个合法的方法调用表达式中，也就是下面三种情况里的任意一种情况都是可以的：<br>
+不论是接收器的实际参数和其接收器的形式参数相同，比如两者都是类型T或者都是类型*T：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Point&#123;1, 2&#125;.Distance(q) //  Point</span><br><span class="line">pptr.ScaleBy(2)         // *Point</span><br></pre></td></tr></table></figure>
+<p>或者接收器形参是类型T，但接收器实参是类型<em>T，这种情况下编译器会隐式地为我们取变量的地址：<br>
+p.ScaleBy(2) // implicit (&amp;p)<br>
+或者接收器形参是类型</em>T，实参是类型T。编译器会隐式地为我们解引用，取到指针指向的实际变量：<br>
+<code>pptr.Distance(q) // implicit (*pptr)</code></p>
+<p>如果类型T的所有方法都是用T类型自己来做接收器(而不是*T)，那么拷贝这种类型的实例就是安全的；调用他的任何一个方法也就会产生一个值的拷贝。比如time.Duration的这个类型，在调用其方法时就会被全部拷贝一份，包括在作为参数传入函数的时候。但是如果一个方法使用指针作为接收器，你需要避免对其进行拷贝，因为这样可能会破坏掉该类型内部的不变性。比如你对bytes.Buffer对象进行了拷贝，那么可能会引起原始对象和拷贝对象只是别名而已，但实际上其指向的对象是一致的。紧接着对拷贝后的变量进行修改可能会有让你意外的结果。<br>
+译注：作者这里说的比较绕，其实有两点：<br>
+1.不管你的method的receiver是指针类型还是非指针类型，都是可以通过指针/非指针类型进行调用的，编译器会帮你做类型转换2.在声明一个method的receiver该是指针还是非指针类型时，你需要考虑两方面的内部，第一方面是这个对象本身是不是特别大，如果声明为非指针变量时，调用会产生一次拷贝；第二方面是如果你用指针类型作为receiver，那么你一定要注意，这种指针类型指向的始终是一块内存地址，就算你对其进行了拷贝。熟悉C或者C艹的人这里应该很快能明白。</p>
+<h2 id="通过嵌入结构体来扩展类型"><a class="markdownIt-Anchor" href="#通过嵌入结构体来扩展类型"></a> 通过嵌入结构体来扩展类型</h2>
+<p>来看看ColoredPoint这个类型：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// type RGBA struct &#123;</span></span><br><span class="line"><span class="comment">// 	R, G, B, A uint8</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"image/color"</span></span><br><span class="line"><span class="keyword">type</span> Point <span class="keyword">struct</span>&#123; X, Y <span class="keyword">float64</span> &#125;</span><br><span class="line"><span class="keyword">type</span> ColoredPoint <span class="keyword">struct</span> &#123;</span><br><span class="line">    Point</span><br><span class="line">    Color color.RGBA</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们完全可以将ColoredPoint定义为一个有三个字段的struct，但是我们却将Point这个类型嵌入到ColoredPoint来提供X和Y这两个字段。内嵌可以使我们在定义ColoredPoint时得到一种句法上的简写形式，并使其包含Point类型所具有的一切字段，然后再定义一些自己的。如果我们想要的话，我们可以直接认为通过嵌入的字段就是ColoredPoint自身的字段，而完全不需要在调用时指出Point，比如下面这样。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var cp ColoredPoint</span><br><span class="line">cp.X = 1</span><br><span class="line">fmt.Println(cp.Point.X) // &quot;1&quot;</span><br><span class="line">cp.Point.Y = 2</span><br><span class="line">fmt.Println(cp.Y) // &quot;2&quot;</span><br></pre></td></tr></table></figure>
+<p>对于Point中的方法我们也有类似的用法，我们可以把ColoredPoint类型当作接收器来调用Point里的方法，卽使ColoredPoint里没有声明这些方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">red := color.RGBA&#123;255, 0, 0, 255&#125;</span><br><span class="line">blue := color.RGBA&#123;0, 0, 255, 255&#125;</span><br><span class="line">var p = ColoredPoint&#123;Point&#123;1, 1&#125;, red&#125;</span><br><span class="line">var q = ColoredPoint&#123;Point&#123;5, 4&#125;, blue&#125;</span><br><span class="line">fmt.Println(p.Distance(q.Point)) // &quot;5&quot;</span><br><span class="line">p.ScaleBy(2)</span><br><span class="line">q.ScaleBy(2)</span><br><span class="line">fmt.Println(p.Distance(q.Point)) // &quot;10&quot;</span><br></pre></td></tr></table></figure>
+<p>Point类的方法也被引入了ColoredPoint。用这种方式，内嵌可以使我们定义字段特别多的复杂类型，我们可以将字段先按小类型分组，然后定义小类型的方法，之后再把它们组合起来。<br>
+读者如果对基于类来实现面向对象的语言比较熟悉的话，可能会倾向于将Point看作一个基类，而ColoredPoint看作其子类或者继承类，或者将ColoredPoint看作&quot;is a&quot; Point类型。但这是错误的理解。请注意上面例子中对Distance方法的调用。Distance有一个参数是Point类型，但q并不是一个Point类，所以尽管q有着Point这个内嵌类型，我们也必须要显式地选择它。尝试直接传q的话你会看到下面这样的错误：<br>
+p.Distance(q) // compile error: cannot use q (ColoredPoint) as Point<br>
+一个ColoredPoint并不是一个Point，但他&quot;has a&quot;Point，并且它有从Point类里引入的Distance和ScaleBy方法。如果你喜欢从实现的角度来考虑问题，内嵌字段会指导编译器去生成额外的包装方法来委托已经声明好的方法，和下面的形式是等价的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">func (p ColoredPoint) Distance(q Point) float64 &#123;</span><br><span class="line">    return p.Point.Distance(q)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (p *ColoredPoint) ScaleBy(factor float64) &#123;</span><br><span class="line">    p.Point.ScaleBy(factor)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当Point.Distance被第一个包装方法调用时，它的接收器值是p.Point，而不是p，当然了，在Point类的方法里，你是访问不到ColoredPoint的任何字段的。<br>
+在类型中内嵌的匿名字段也可能是一个命名类型的指针，这种情况下字段和方法会被间接地引入到当前的类型中(译注：访问需要通过该指针指向的对象去取)。添加这一层间接关系让我们可以共享通用的结构并动态地改变对象之间的关系。下面这个ColoredPoint的声明内嵌了一个*Point的指针。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">type ColoredPoint struct &#123;</span><br><span class="line">    *Point</span><br><span class="line">    Color color.RGBA</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">p := ColoredPoint&#123;&amp;Point&#123;1, 1&#125;, red&#125;</span><br><span class="line">q := ColoredPoint&#123;&amp;Point&#123;5, 4&#125;, blue&#125;</span><br><span class="line">fmt.Println(p.Distance(*q.Point)) // &quot;5&quot;</span><br><span class="line">q.Point = p.Point                 // p and q now share the same Point</span><br><span class="line">p.ScaleBy(2)</span><br><span class="line">fmt.Println(*p.Point, *q.Point) // &quot;&#123;2 2&#125; &#123;2 2&#125;&quot;</span><br></pre></td></tr></table></figure>
+<p>一个struct类型也可能会有多个匿名字段。我们将ColoredPoint定义为下面这样：<br>
+type ColoredPoint struct {<br>
+Point<br>
+color.RGBA<br>
+}<br>
+然后这种类型的值便会拥有Point和RGBA类型的所有方法，以及直接定义在ColoredPoint中的方法。当编译器解析一个选择器到方法时，比如p.ScaleBy，它会首先去找直接定义在这个类型里的ScaleBy方法，然后找被ColoredPoint的内嵌字段们引入的方法，然后去找Point和RGBA的内嵌字段引入的方法，然后一直递归向下找。如果选择器有二义性的话编译器会报错，比如你在同一级里有两个同名的方法。<br>
+方法只能在命名类型(像Point)或者指向类型的指针上定义，但是多亏了内嵌，有些时候我们给匿名struct类型来定义方法也有了手段。<br>
+下面是一个小trick。这个例子展示了简单的cache，其使用两个包级别的变量来实现，一个mutex互斥量(§9.2)和它所操作的cache：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var (</span><br><span class="line">    mu sync.Mutex // guards mapping</span><br><span class="line">    mapping = make(map[string]string)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func Lookup(key string) string &#123;</span><br><span class="line">    mu.Lock()</span><br><span class="line">    v := mapping[key]</span><br><span class="line">    mu.Unlock()</span><br><span class="line">    return v</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面这个版本在功能上是一致的，但将两个包级吧的变量放在了cache这个struct一组内：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var cache = struct &#123;</span><br><span class="line">    sync.Mutex</span><br><span class="line">    mapping map[string]string</span><br><span class="line">&#125;&#123;</span><br><span class="line">    mapping: make(map[string]string),</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">func Lookup(key string) string &#123;</span><br><span class="line">    cache.Lock()</span><br><span class="line">    v := cache.mapping[key]</span><br><span class="line">    cache.Unlock()</span><br><span class="line">    return v</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们给新的变量起了一个更具表达性的名字：cache。因为sync.Mutex字段也被嵌入到了这个struct里，其Lock和Unlock方法也就都被引入到了这个匿名结构中了，这让我们能够以一个简单明了的语法来对其进行加锁解锁操作。</p>
+<h2 id="方法值和方法表达式"><a class="markdownIt-Anchor" href="#方法值和方法表达式"></a> 方法值和方法表达式</h2>
+<p>我们经常选择一个方法，并且在同一个表达式里执行，比如常见的p.Distance()形式，实际上将其分成两步来执行也是可能的。p.Distance叫作“选择器”，选择器会返回一个方法&quot;值&quot;-&gt;一个将方法(Point.Distance)绑定到特定接收器变量的函数。这个函数可以不通过指定其接收器卽可被调用；卽调用时不需要指定接收器(译注：因为已经在前文中指定过了)，只要传入函数的参数卽可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">p := Point&#123;1, 2&#125;</span><br><span class="line">q := Point&#123;4, 6&#125;</span><br><span class="line"></span><br><span class="line">distanceFromP := p.Distance        // method value</span><br><span class="line">fmt.Println(distanceFromP(q))      // &quot;5&quot;</span><br><span class="line">var origin Point                   // &#123;0, 0&#125;</span><br><span class="line">fmt.Println(distanceFromP(origin)) // &quot;2.23606797749979&quot;, sqrt(5)</span><br><span class="line"></span><br><span class="line">scaleP := p.ScaleBy // method value</span><br><span class="line">scaleP(2)           // p becomes (2, 4)</span><br><span class="line">scaleP(3)           //      then (6, 12)</span><br><span class="line">scaleP(10)          //      then (60, 120)</span><br></pre></td></tr></table></figure>
+<p>在一个包的API需要一个函数值、且调用方希望操作的是某一个绑定了对象的方法的话，方法&quot;值&quot;会非常实用。举例来说，下面例子中的time.AfterFunc这个函数的功能是在指定的延迟时间之后来执行一个(译注：另外的)函数。且这个函数操作的是一个Rocket对象r</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">type Rocket struct &#123; /* ... */ &#125;</span><br><span class="line">func (r *Rocket) Launch() &#123; /* ... */ &#125;</span><br><span class="line">r := new(Rocket)</span><br><span class="line">time.AfterFunc(10 * time.Second, func() &#123; r.Launch() &#125;)</span><br></pre></td></tr></table></figure>
+<p>直接用方法&quot;值&quot;传入AfterFunc的话可以更为简短：<br>
+time.AfterFunc(10 * time.Second, r.Launch)<br>
+译注：省掉了上面那个例子里的匿名函数。<br>
+和方法&quot;值&quot;相关的还有方法表达式。当调用一个方法时，与调用一个普通的函数相比，我们必须要用选择器(p.Distance)语法来指定方法的接收器。<br>
+当T是一个类型时，方法表达式可能会写作<code>Tf或者(*T).f</code>，会返回一个函数&quot;值&quot;，这种函数会将其第一个参数用作接收器，所以可以用通常(译注：不写选择器)的方式来对其进行调用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">p := Point&#123;1, 2&#125;</span><br><span class="line">q := Point&#123;4, 6&#125;</span><br><span class="line"></span><br><span class="line">distance := Point.Distance   // method expression</span><br><span class="line">fmt.Println(distance(p, q))  // &quot;5&quot;</span><br><span class="line">fmt.Printf(&quot;%T\n&quot;, distance) // &quot;func(Point, Point) float64&quot;</span><br><span class="line"></span><br><span class="line">scale := (*Point).ScaleBy</span><br><span class="line">scale(&amp;p, 2)</span><br><span class="line">fmt.Println(p)            // &quot;&#123;2 4&#125;&quot;</span><br><span class="line">fmt.Printf(&quot;%T\n&quot;, scale) // &quot;func(*Point, float64)&quot;</span><br></pre></td></tr></table></figure>
+<p>// 譯註：這個Distance實際上是指定了Point對象爲接收器的一個方法func (p Point) Distance()，<br>
+// 但通過Point.Distance得到的函數需要比實際的Distance方法多一個參數，<br>
+// 卽其需要用第一個額外參數指定接收器，後面排列Distance方法的參數。<br>
+// 看起來本書中函數和方法的區别是指有沒有接收器，而不像其他語言那樣是指有沒有返迴值。<br>
+当你根据一个变量来决定调用同一个类型的哪个函数时，方法表达式就显得很有用了。你可以根据选择来调用接收器各不相同的方法。下面的例子，变量op代表Point类型的addition或者subtraction方法，Path.TranslateBy方法会为其Path数组中的每一个Point来调用对应的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">type Point struct&#123; X, Y float64 &#125;</span><br><span class="line"></span><br><span class="line">func (p Point) Add(q Point) Point &#123; return Point&#123;p.X + q.X, p.Y + q.Y&#125; &#125;</span><br><span class="line">func (p Point) Sub(q Point) Point &#123; return Point&#123;p.X - q.X, p.Y - q.Y&#125; &#125;</span><br><span class="line"></span><br><span class="line">type Path []Point</span><br><span class="line"></span><br><span class="line">func (path Path) TranslateBy(offset Point, add bool) &#123;</span><br><span class="line">    var op func(p, q Point) Point</span><br><span class="line">    if add &#123;</span><br><span class="line">        op = Point.Add</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        op = Point.Sub</span><br><span class="line">    &#125;</span><br><span class="line">    for i := range path &#123;</span><br><span class="line">        // Call either path[i].Add(offset) or path[i].Sub(offset).</span><br><span class="line">        path[i] = op(path[i], offset)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="封装"><a class="markdownIt-Anchor" href="#封装"></a> 封装</h2>
+<p>一个对象的变量或者方法如果对调用方是不可见的话，一般就被定义为“封装”。封装有时候也被叫做信息隐藏，同时也是面向对象编程最关键的一个方面。<br>
+Go语言只有一种控制可见性的手段：大写首字母的标识符会从定义它们的包中被导出，小写字母的则不会。这种限制包内成员的方式同样适用于struct或者一个类型的方法。因而如果我们想要封装一个对象，我们必须将其定义为一个struct。<br>
+这也就是前面的小节中IntSet被定义为struct类型的原因，尽管它只有一个字段：<br>
+type IntSet struct {<br>
+words []uint64<br>
+}<br>
+当然，我们也可以把IntSet定义为一个slice类型，尽管这样我们就需要把代码中所有方法里用到的s.words用<em>s替换掉了：<br>
+type IntSet []uint64<br>
+尽管这个版本的IntSet在本质上是一样的，他也可以允许其它包中可以直接读取并编辑这个slice。换句话说，相对</em>s这个表达式会出现在所有的包中，s.words只需要在定义IntSet的包中出现(译注：所以还是推荐后者吧的意思)。<br>
+这种基于名字的手段使得在语言中最小的封装单元是package，而不是像其它语言一样的类型。一个struct类型的字段对同一个包的所有代码都有可见性，无论你的代码是写在一个函数还是一个方法里。<br>
+封装提供了三方面的优点。首先，因为调用方不能直接修改对象的变量值，其只需要关注少量的语句并且只要弄懂少量变量的可能的值卽可。<br>
+第二，隐藏实现的细节，可以防止调用方依赖那些可能变化的具体实现，这样使设计包的程序员在不破坏对外的api情况下能得到更大的自由。<br>
+把bytes.Buffer这个类型作为例子来考虑。这个类型在做短字符串叠加的时候很常用，所以在设计的时候可以做一些预先的优化，比如提前预留一部分空间，来避免反复的内存分配。又因为Buffer是一个struct类型，这些额外的空间可以用附加的字节数组来保存，且放在一个小写字母开头的字段中。这样在外部的调用方只能看到性能的提升，但并不会得到这个附加变量。Buffer和其增长算法我们列在这里，为了简洁性稍微做了一些精简：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">type Buffer struct &#123;</span><br><span class="line">    buf     []byte</span><br><span class="line">    initial [64]byte</span><br><span class="line">    /* ... */</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Grow expands the buffer&apos;s capacity, if necessary,</span><br><span class="line">// to guarantee space for another n bytes. [...]</span><br><span class="line">func (b *Buffer) Grow(n int) &#123;</span><br><span class="line">    if b.buf == nil &#123;</span><br><span class="line">        b.buf = b.initial[:0] // use preallocated space initially</span><br><span class="line">    &#125;</span><br><span class="line">    if len(b.buf)+n &gt; cap(b.buf) &#123;</span><br><span class="line">        buf := make([]byte, b.Len(), 2*cap(b.buf) + n)</span><br><span class="line">        copy(buf, b.buf)</span><br><span class="line">        b.buf = buf</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>封装的第三个优点也是最重要的优点，是阻止了外部调用方对对象内部的值任意地进行修改。因为对象内部变量只可以被同一个包内的函数修改，所以包的作者可以让这些函数确保对象内部的一些值的不变性。比如下面的Counter类型允许调用方来增加counter变量的值，并且允许将这个值reset为0，但是不允许随便设置这个值(译注：因为压根就访问不到)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">type Counter struct &#123; n int &#125;</span><br><span class="line">func (c *Counter) N() int     &#123; return c.n &#125;</span><br><span class="line">func (c *Counter) Increment() &#123; c.n++ &#125;</span><br><span class="line">func (c *Counter) Reset()     &#123; c.n = 0 &#125;</span><br></pre></td></tr></table></figure>
+<p>只用来访问或修改内部变量的函数被称为setter或者getter，例子如下，比如log包里的Logger类型对应的一些函数。在命名一个getter方法时，我们通常会省略掉前面的Get前缀。这种简洁上的偏好也可以推广到各种类型的前缀比如Fetch，Find或者Lookup。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">package log</span><br><span class="line">type Logger struct &#123;</span><br><span class="line">    flags  int</span><br><span class="line">    prefix string</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br><span class="line">func (l *Logger) Flags() int</span><br><span class="line">func (l *Logger) SetFlags(flag int)</span><br><span class="line">func (l *Logger) Prefix() string</span><br><span class="line">func (l *Logger) SetPrefix(prefix string)</span><br></pre></td></tr></table></figure>
+<p>Go的编码风格不禁止直接导出字段。当然，一旦进行了导出，就没有办法在保证API兼容的情况下去除对其的导出，所以在一开始的选择一定要经过深思熟虑并且要考虑到包内部的一些不变量的保证，未来可能的变化，以及调用方的代码质量是否会因为包的一点修改而变差。<br>
+封装并不总是理想的。虽然封装在有些情况是必要的，但有时候我们也需要暴露一些内部内容，比如：time.Duration将其表现暴露为一个int64数字的纳秒，使得我们可以用一般的数值操作来对时间进行对比，甚至可以定义这种类型的常量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const day = 24 * time.Hour</span><br><span class="line">fmt.Println(day.Seconds()) // &quot;86400&quot;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://dreamerjonson.com/2018/11/19/golang-10-function/" title="go语言渐入佳境[10]-function" target="_blank" rel="external">https://dreamerjonson.com/2018/11/19/golang-10-function/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/dreamerjackson" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/jonson.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/dreamerjackson" target="_blank"><span class="text-dark">郑建勋（jonson）</span><small class="ml-1x">区块链工程师 &amp; Web工程师</small></a></h3>
+        <div>灾难总是接踵而至，这正是世间的常理。你以为只要哭诉一下，就会有谁来救你？如果失败了，就只能说明我不过是如此程度的男人</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+           
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2018/11/19/golang-11-function2/" title="go语言渐入佳境[11]-function2"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2018/11/18/golang-9-doubleloop/" title="go语言渐入佳境[9]-doubleloop"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫">
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫">
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/dreamerjackson" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	<!-- Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>. -->
+						天下风云出我辈，一入江湖岁月催。<br>皇图霸业谈笑中，不胜人生一场醉 
+			  </div>
+    </div>
+</footer>
+
+  <!-- <script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>　
+<script src="https://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
+
+<script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+
+<script src="/js/mrmy.js"></script>
+
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+  <script src="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: 'c22fa591ad87e1b03638',
+    clientSecret: '0646579e4dd8a301be7a42bcf3f5dd39ce803dcb',
+    repo: 'dreamerjackson.github.io',
+    owner: 'dreamerjackson',
+    admin: ['dreamerjackson'],
+    id: md5(location.pathname),
+    distractionFreeMode: true
+  })
+  gitalk.render('comments')
+  </script>
+
+      
+
+
+
+
+
+
+
+
+</body>
+</html>

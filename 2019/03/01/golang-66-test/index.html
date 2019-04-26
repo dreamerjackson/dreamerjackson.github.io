@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>golang[66]-test测试 | 郑建勋的个人网站</title>
+  <meta name="description" content="go test 123go test是一个按照一定的约定和组织的测试代码的驱动程序.在包目录内,以_test.go为后缀名的源文件并不是go build构建包的以部分,它们是go test测试的一部分.早*_test.go文件中,有三种类型的函数:测试函数,基准测试函数,例子函数.一个测试函数是以Test为函数名前缀的函数,用于测试程序的一些逻辑行为是否正确; go test会调用这些测试函数并">
+<meta name="keywords" content="go">
+<meta property="og:type" content="article">
+<meta property="og:title" content="golang[66]-test测试">
+<meta property="og:url" content="https://dreamerjonson.com/2019/03/01/golang-66-test/index.html">
+<meta property="og:site_name" content="Jonson">
+<meta property="og:description" content="go test 123go test是一个按照一定的约定和组织的测试代码的驱动程序.在包目录内,以_test.go为后缀名的源文件并不是go build构建包的以部分,它们是go test测试的一部分.早*_test.go文件中,有三种类型的函数:测试函数,基准测试函数,例子函数.一个测试函数是以Test为函数名前缀的函数,用于测试程序的一些逻辑行为是否正确; go test会调用这些测试函数并">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-05T03:39:00.246Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="golang[66]-test测试">
+<meta name="twitter:description" content="go test 123go test是一个按照一定的约定和组织的测试代码的驱动程序.在包目录内,以_test.go为后缀名的源文件并不是go build构建包的以部分,它们是go test测试的一部分.早*_test.go文件中,有三种类型的函数:测试函数,基准测试函数,例子函数.一个测试函数是以Test为函数名前缀的函数,用于测试程序的一些逻辑行为是否正确; go test会调用这些测试函数并">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://dreamerjonson.com/2019/03/01/golang-66-test/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Jonson" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css">
+  
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+
+
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/dreamerjackson" target="_blank">
+          <img class="img-circle img-rotate" src="/images/jonson.png" width="992" height="1532">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">郑建勋（jonson）</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">区块链工程师 &amp; Web工程师</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-bitcoin">
+          <a href="/bitcoin">
+            
+            <i class="icon fab fa-bitcoin"></i>
+            
+            <span class="menu-title">比特币文献</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-aboutme">
+          <a href="/aboutme">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">关于我</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/dreamerjackson" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+          <div id="mrmy" style="padding-bottom:30px"></div>
+              <div class="content">
+                  <!-- <p>I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.</p> -->
+                  <!--  -->
+                  <!-- 我们绝对要过一个无悔的人生！总有一天，我们要踏上这片海洋，按照自己的梦想去闯荡！我们要过上最自由的人生！ &lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--艾斯&lt;/p&gt; -->
+                    <!-- 我们绝对要过一个无悔的人生！总有一天，我们要踏上这片海洋，按照自己的梦想去闯荡！我们要过上最自由的人生！ <br/><p align="right">--艾斯</p> -->
+                商业合作微信：dreamerjonson<br><br>
+                51CTO区块链交流群：837814276<br><br>
+                go语言交流2群：713385260<br>
+                <!-- <div><img src="/images/xingqiu-qrcode.jpg" width="150" height="150"></div> -->
+              </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">109</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/数据结构/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-数据结构/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链原理/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发配置/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/智能合约-solidity语法/">智能合约 solidity语法</a><span class="category-list-count">59</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/置顶/">置顶</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">109</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-数据结构/">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-前端/">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链原理/">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发配置/">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置顶/">置顶</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/bootstrap/" style="font-size: 13.13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.25px;">docker</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-数据结构/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-前端/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/以太坊/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/前端/" style="font-size: 13.38px;">前端</a> <a href="/tags/区块链原理/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/开发配置/" style="font-size: 13px;">开发配置</a> <a href="/tags/数据结构/" style="font-size: 13px;">数据结构</a> <a href="/tags/智能合约/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/置顶/" style="font-size: 13px;">置顶</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/开发配置/">开发配置</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/04/25/tmux/" class="title">tmux</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-04-25T05:44:19.000Z" itemprop="datePublished">2019-04-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/04/02/connect-github-gitlab/" class="title">git操作github-gitlab</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-04-02T07:43:32.000Z" itemprop="datePublished">2019-04-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/04/01/go-sql/" class="title">golang[70]-golang操作数据库</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-04-01T09:38:37.000Z" itemprop="datePublished">2019-04-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/03/14/k8s/" class="title">k8s</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-03-14T03:29:49.000Z" itemprop="datePublished">2019-03-14</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/03/11/go-struture-15-merge-sort/" class="title">go-数据结构[15]-归并排序</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-03-11T14:01:51.000Z" itemprop="datePublished">2019-03-11</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#go-test"><span class="toc-number">1.</span> <span class="toc-text"> go test</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试函数"><span class="toc-number">2.</span> <span class="toc-text"> 测试函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#basicgo"><span class="toc-number">3.</span> <span class="toc-text"> basic.go</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#triangle_testgo"><span class="toc-number">4.</span> <span class="toc-text"> triangle_test.go</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#noreactping_testgo"><span class="toc-number">5.</span> <span class="toc-text"> noreactping_test.go</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#随机测试"><span class="toc-number">6.</span> <span class="toc-text"> 随机测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试代码覆盖率"><span class="toc-number">7.</span> <span class="toc-text"> 测试代码覆盖率</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#性能测试"><span class="toc-number">8.</span> <span class="toc-text"> 性能测试</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-golang-66-test" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      golang[66]-test测试
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/03/01/golang-66-test/" class="article-date">
+	  <time datetime="2019-03-01T02:26:31.000Z" itemprop="datePublished">2019-03-01</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/go/">go</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/go/">go</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/03/01/golang-66-test/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3.2k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 14(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="go-test"><a class="markdownIt-Anchor" href="#go-test"></a> go test</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">go test是一个按照一定的约定和组织的测试代码的驱动程序.在包目录内,以_test.go为后缀名的源文件并不是go build构建包的以部分,它们是go test测试的一部分.</span><br><span class="line">早*_test.go文件中,有三种类型的函数:测试函数,基准测试函数,例子函数.一个测试函数是以Test为函数名前缀的函数,用于测试程序的一些逻辑行为是否正确; go test会调用这些测试函数并报告测试结果是PASS或FAIL.基准测试函数是以Benchmark为函数名前缀的函数,用于衡量一些函数的性能; go test会多次运行基准函数以计算一个平均的执行时间.例子函数是以Example为函数名前缀的函数,提供一个由机器检测正确性的例子文档</span><br><span class="line">go test命令会遍历所有的*_test.go文件中上述函数,然后生成一个临时的main包调用相应的测试函数,然后构建并运行,报告测试结果,最后清理临时文件.</span><br></pre></td></tr></table></figure>
+<h2 id="测试函数"><a class="markdownIt-Anchor" href="#测试函数"></a> 测试函数</h2>
+<p>每个测试函数必须导入testing 包. 测试函数有如下的签名:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func TestName(t *testing.T) &#123;</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试函数的名字必须以Test开头, 可选的后缀名必须以大写字母开头:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func TestSin(t *testing.T) &#123; /* ... */ &#125;</span><br><span class="line">func TestCos(t *testing.T) &#123; /* ... */ &#125;</span><br><span class="line">func TestLog(t *testing.T) &#123; /* ... */ &#125;</span><br></pre></td></tr></table></figure>
+<p>其中t 参数用于报告测试失败和附件的日志信息. <a href="http://xn--gopl-k84fa70ab65ot5bz1su00acftg96kresb.io/ch11/word1" target="_blank" rel="noopener">让我们顶一个一个实例包gopl.io/ch11/word1</a>, 只有一个函数IsPalindrome 用于检查一个字符串是否从前向后和从后向前读都一样. (这个实现对于一个字符串是否是回文字符串前后重复测试了两次; 我们稍后会再讨论这个问题.)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// Package word provides utilities for word games.</span><br><span class="line">package word</span><br><span class="line"></span><br><span class="line">// IsPalindrome reports whether s reads the same forward and backward.</span><br><span class="line">// (Our first attempt.)</span><br><span class="line">func IsPalindrome(s string) bool &#123;</span><br><span class="line">    for i := range s &#123;</span><br><span class="line">        if s[i] != s[len(s)-1-i] &#123;</span><br><span class="line">            return false</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在相同的目录下, word_test.go 文件包含了TestPalindrome 和TestNonPalindrome 两个测试函数. 每一个都是测试IsPalindrome 是否给出正确的结果, 并使用t.Error 报告失败:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package word</span><br><span class="line"></span><br><span class="line">import &quot;testing&quot;</span><br><span class="line"></span><br><span class="line">func TestPalindrome(t *testing.T) &#123;</span><br><span class="line">    if !IsPalindrome(&quot;detartrated&quot;) &#123;</span><br><span class="line">        t.Error(`IsPalindrome(&quot;detartrated&quot;) = false`)</span><br><span class="line">    &#125;</span><br><span class="line">    if !IsPalindrome(&quot;kayak&quot;) &#123;</span><br><span class="line">        t.Error(`IsPalindrome(&quot;kayak&quot;) = false`)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func TestNonPalindrome(t *testing.T) &#123;</span><br><span class="line">    if IsPalindrome(&quot;palindrome&quot;) &#123;</span><br><span class="line">        t.Error(`IsPalindrome(&quot;palindrome&quot;) = true`)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>go test(或go build)命令如果没有参数指定包那么将默认采用当前目录对应的包.我们可以用下面的命令构建和运行测试.<br>
+$ cd <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>G</mi><mi>O</mi><mi>P</mi><mi>A</mi><mi>T</mi><mi>H</mi><mi mathvariant="normal">/</mi><mi>s</mi><mi>r</mi><mi>c</mi><mi mathvariant="normal">/</mi><mi>g</mi><mi>o</mi><mi>p</mi><mi>l</mi><mi mathvariant="normal">.</mi><mi>i</mi><mi>o</mi><mi mathvariant="normal">/</mi><mi>c</mi><mi>h</mi><mn>1</mn><mn>1</mn><mi mathvariant="normal">/</mi><mi>w</mi><mi>o</mi><mi>r</mi><mi>d</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">GOPATH/src/gopl.io/ch11/word1
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord mathit">G</span><span class="mord mathit" style="margin-right:0.02778em;">O</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mord mathit">A</span><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mord">/</span><span class="mord mathit">s</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">c</span><span class="mord">/</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mord mathit">o</span><span class="mord mathit">p</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord">.</span><span class="mord mathit">i</span><span class="mord mathit">o</span><span class="mord">/</span><span class="mord mathit">c</span><span class="mord mathit">h</span><span class="mord">1</span><span class="mord">1</span><span class="mord">/</span><span class="mord mathit" style="margin-right:0.02691em;">w</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">d</span><span class="mord">1</span></span></span></span> go test<br>
+ok   <a href="http://gopl.io/ch11/word1" target="_blank" rel="noopener">gopl.io/ch11/word1</a>  0.008s<br>
+还比较满意, 我们运行了这个程序, 不过没有提前退出是因为还没有遇到BUG报告. 一个法国名为Noelle Eve Elleon 的用户抱怨IsPalindrome 函数不能识别’‘été.’’. 另外一个来自美国中部用户的抱怨是不能识别’‘A man, a plan, a canal: Panama.’’. 执行特殊和小的BUG报告为我们提供了新的更自然的测试用例.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">func TestFrenchPalindrome(t *testing.T) &#123;</span><br><span class="line">    if !IsPalindrome(&quot;été&quot;) &#123;</span><br><span class="line">        t.Error(`IsPalindrome(&quot;été&quot;) = false`)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func TestCanalPalindrome(t *testing.T) &#123;</span><br><span class="line">    input := &quot;A man, a plan, a canal: Panama&quot;</span><br><span class="line">    if !IsPalindrome(input) &#123;</span><br><span class="line">        t.Errorf(`IsPalindrome(%q) = false`, input)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了避免两次输入较长的字符串, 我们使用了提供了有类似Printf 格式化功能的Errorf 函数来汇报错误结果.<br>
+当添加了这两个测试用例之后, go test返回了测试失败的信息.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ go test</span><br><span class="line">--- FAIL: TestFrenchPalindrome (0.00s)</span><br><span class="line">    word_test.go:28: IsPalindrome(&quot;été&quot;) = false</span><br><span class="line">--- FAIL: TestCanalPalindrome (0.00s)</span><br><span class="line">    word_test.go:35: IsPalindrome(&quot;A man, a plan, a canal: Panama&quot;) = false</span><br><span class="line">FAIL</span><br><span class="line">FAIL    gopl.io/ch11/word1  0.014s</span><br></pre></td></tr></table></figure>
+<p>先编写测试用例并观察到测试用例触发了和用户报告的错误相同的描述是一个好的测试习惯. 只有这样, 我们才能定位我们要眞正解决的问题.<br>
+先写测试用例的另好处是, 运行测试通常会比手工描述报告的处理更快, 这让我们可以进行快速地迭代. 如果测试集有很多运行缓慢的测试, 我们可以通过只选择运行某些特定的测试来加快测试速度.<br>
+参数-v用于打印每个测试函数的名字和运行时间:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ go test -v</span><br><span class="line">=== RUN TestPalindrome</span><br><span class="line">--- PASS: TestPalindrome (0.00s)</span><br><span class="line">=== RUN TestNonPalindrome</span><br><span class="line">--- PASS: TestNonPalindrome (0.00s)</span><br><span class="line">=== RUN TestFrenchPalindrome</span><br><span class="line">--- FAIL: TestFrenchPalindrome (0.00s)</span><br><span class="line">    word_test.go:28: IsPalindrome(&quot;été&quot;) = false</span><br><span class="line">=== RUN TestCanalPalindrome</span><br><span class="line">--- FAIL: TestCanalPalindrome (0.00s)</span><br><span class="line">    word_test.go:35: IsPalindrome(&quot;A man, a plan, a canal: Panama&quot;) = false</span><br><span class="line">FAIL</span><br><span class="line">exit status 1</span><br><span class="line">FAIL    gopl.io/ch11/word1  0.017s</span><br></pre></td></tr></table></figure>
+<p>参数-run是一个正则表达式,只有测试函数名被它正确匹配的测试函数才会被go test运行:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ go test -v -run=&quot;French|Canal&quot;</span><br><span class="line">=== RUN TestFrenchPalindrome</span><br><span class="line">--- FAIL: TestFrenchPalindrome (0.00s)</span><br><span class="line">    word_test.go:28: IsPalindrome(&quot;été&quot;) = false</span><br><span class="line">=== RUN TestCanalPalindrome</span><br><span class="line">--- FAIL: TestCanalPalindrome (0.00s)</span><br><span class="line">    word_test.go:35: IsPalindrome(&quot;A man, a plan, a canal: Panama&quot;) = false</span><br><span class="line">FAIL</span><br><span class="line">exit status 1</span><br><span class="line">FAIL    gopl.io/ch11/word1  0.014s</span><br></pre></td></tr></table></figure>
+<p>当然,一旦我们已经修复了失败的测试用例,在我们提交代码更新之前,我们应该以不带参数的go test命令运行全部的测试用例,以确保更新没有引入新的问题.<br>
+我们现在的任务就是修复这些错误. 简要分析后发现第一个BUG的原因是我们采用了byte 而不是rune 序列, 所以像&quot;été&quot; 中的é 等非ASCII 字符不能正确处理. 第二个BUG是因为没有忽略空格和字母的大小写导致的.<br>
+针对上述两个BUG, 我们仔细重写了函数:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">gopl.io/ch11/word2</span><br><span class="line">// Package word provides utilities for word games.</span><br><span class="line">package word</span><br><span class="line"></span><br><span class="line">import &quot;unicode&quot;</span><br><span class="line"></span><br><span class="line">// IsPalindrome reports whether s reads the same forward and backward.</span><br><span class="line">// Letter case is ignored, as are non-letters.</span><br><span class="line">func IsPalindrome(s string) bool &#123;</span><br><span class="line">    var letters []rune</span><br><span class="line">    for _, r := range s &#123;</span><br><span class="line">        if unicode.IsLetter(r) &#123;</span><br><span class="line">            letters = append(letters, unicode.ToLower(r))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    for i := range letters &#123;</span><br><span class="line">        if letters[i] != letters[len(letters)-1-i] &#123;</span><br><span class="line">            return false</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同时我们也将之前的所有测试数据合并到了一个测试中的表格中.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">func TestIsPalindrome(t *testing.T) &#123;</span><br><span class="line">    var tests = []struct &#123;</span><br><span class="line">        input string</span><br><span class="line">        want     bool</span><br><span class="line">    &#125;&#123;</span><br><span class="line">        &#123;&quot;&quot;, true&#125;,</span><br><span class="line">        &#123;&quot;a&quot;, true&#125;,</span><br><span class="line">        &#123;&quot;aa&quot;, true&#125;,</span><br><span class="line">        &#123;&quot;ab&quot;, false&#125;,</span><br><span class="line">        &#123;&quot;kayak&quot;, true&#125;,</span><br><span class="line">        &#123;&quot;detartrated&quot;, true&#125;,</span><br><span class="line">        &#123;&quot;A man, a plan, a canal: Panama&quot;, true&#125;,</span><br><span class="line">        &#123;&quot;Evil I did dwell; lewd did I live.&quot;, true&#125;,</span><br><span class="line">        &#123;&quot;Able was I ere I saw Elba&quot;, true&#125;,</span><br><span class="line">        &#123;&quot;été&quot;, true&#125;,</span><br><span class="line">        &#123;&quot;Et se resservir, ivresse reste.&quot;, true&#125;,</span><br><span class="line">        &#123;&quot;palindrome&quot;, false&#125;, // non-palindrome</span><br><span class="line">        &#123;&quot;desserts&quot;, false&#125;,   // semi-palindrome</span><br><span class="line">    &#125;</span><br><span class="line">    for _, test := range tests &#123;</span><br><span class="line">        if got := IsPalindrome(test.input); got != test.want &#123;</span><br><span class="line">            t.Errorf(&quot;IsPalindrome(%q) = %v&quot;, test.input, got)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们的新测试阿都通过了:<br>
+$ go test <a href="http://gopl.io/ch11/word2" target="_blank" rel="noopener">gopl.io/ch11/word2</a><br>
+ok      <a href="http://gopl.io/ch11/word2" target="_blank" rel="noopener">gopl.io/ch11/word2</a>      0.015s<br>
+这种表格驱动的测试在Go中很常见的. 我们很容易想表格添加新的测试数据, 并且后面的测试逻辑也没有冗余, 这样我们可以更好地完善错误信息.<br>
+失败的测试的输出并不包括调用t.Errorf 时刻的堆栈调用信息. 不像其他语言或测试框架的assert 断言, t.Errorf 调用也没有引起panic 或停止测试的执行. 卽使表格中前面的数据导致了测试的失败, 表格后面的测试数据依然会运行测试, 因此在一个测试中我们可能了解多个失败的信息.<br>
+如果我们眞的需要停止测试, 或许是因为初始化失败或可能是早先的错误导致了后续错误等原因, 我们可以使用t.Fatal 或t.Fatalf 停止测试. 它们必须在和测试函数同一个goroutine 内调用.<br>
+测试失败的信息一般的形式是&quot;f(x) = y, want z&quot;, f(x) 解释了失败的操作和对应的输出, y 是实际的运行结果, z 是期望的正确的结果. 就像前面检查回文字符串的例子, 实际的函数用于f(x) 部分. 如果显示x 是表格驱动型测试中比较重要的部分, 因为同一个断言可能对应不同的表格项执行多次. 要避免无用和冗余的信息. 在测试类似IsPalindrome 返回布尔类型的函数时, 可以忽略并没有额外信息的z 部分. 如果x, y 或z 是y 的长度, 输出一个相关部分的简明总结卽可. 测试的作者应该要努力帮助程序员诊断失败的测试.</p>
+<h2 id="basicgo"><a class="markdownIt-Anchor" href="#basicgo"></a> basic.go</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">func calcTriangle(a, b int) int &#123;</span><br><span class="line">	var c int</span><br><span class="line">	c = int(math.Sqrt(float64(a*a + b*b)))</span><br><span class="line">	return c</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="triangle_testgo"><a class="markdownIt-Anchor" href="#triangle_testgo"></a> triangle_test.go</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"testing"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestTriangle</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	tests := []<span class="keyword">struct</span>&#123; a, b, c <span class="keyword">int</span> &#125;&#123;</span><br><span class="line">		&#123;<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;,</span><br><span class="line">		&#123;<span class="number">5</span>, <span class="number">12</span>, <span class="number">13</span>&#125;,</span><br><span class="line">		&#123;<span class="number">8</span>, <span class="number">15</span>, <span class="number">17</span>&#125;,</span><br><span class="line">		&#123;<span class="number">12</span>, <span class="number">35</span>, <span class="number">37</span>&#125;,</span><br><span class="line">		&#123;<span class="number">30000</span>, <span class="number">40000</span>, <span class="number">50000</span>&#125;,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> _, tt := <span class="keyword">range</span> tests &#123;</span><br><span class="line">		<span class="keyword">if</span> actual := calcTriangle(tt.a, tt.b); actual != tt.c &#123;</span><br><span class="line">			t.Errorf(<span class="string">"calcTriangle(%d, %d); "</span>+</span><br><span class="line">				<span class="string">"got %d; expected %d"</span>,</span><br><span class="line">				tt.a, tt.b, actual, tt.c)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="noreactping_testgo"><a class="markdownIt-Anchor" href="#noreactping_testgo"></a> noreactping_test.go</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"testing"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestSubstr</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	tests := []<span class="keyword">struct</span> &#123;</span><br><span class="line">		s   <span class="keyword">string</span></span><br><span class="line">		ans <span class="keyword">int</span></span><br><span class="line">	&#125;&#123;</span><br><span class="line">		<span class="comment">// Normal cases</span></span><br><span class="line">		&#123;<span class="string">"abcabcbb"</span>, <span class="number">3</span>&#125;,</span><br><span class="line">		&#123;<span class="string">"pwwkew"</span>, <span class="number">3</span>&#125;,</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Edge cases</span></span><br><span class="line">		&#123;<span class="string">""</span>, <span class="number">0</span>&#125;,</span><br><span class="line">		&#123;<span class="string">"b"</span>, <span class="number">1</span>&#125;,</span><br><span class="line">		&#123;<span class="string">"bbbbbbbbb"</span>, <span class="number">1</span>&#125;,</span><br><span class="line">		&#123;<span class="string">"abcabcabcd"</span>, <span class="number">4</span>&#125;,</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Chinese support</span></span><br><span class="line">		&#123;<span class="string">"这里是慕课网"</span>, <span class="number">6</span>&#125;,</span><br><span class="line">		&#123;<span class="string">"一二三二一"</span>, <span class="number">3</span>&#125;,</span><br><span class="line">		&#123;<span class="string">"黑化肥挥发发灰会花飞灰化肥挥发发黑会飞花"</span>, <span class="number">8</span>&#125;,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> _, tt := <span class="keyword">range</span> tests &#123;</span><br><span class="line">		actual := lengthOfNonRepeatingSubStr(tt.s)</span><br><span class="line">		<span class="keyword">if</span> actual != tt.ans &#123;</span><br><span class="line">			t.Errorf(<span class="string">"got %d for input %s; "</span>+</span><br><span class="line">				<span class="string">"expected %d"</span>,</span><br><span class="line">				actual, tt.s, tt.ans)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="随机测试"><a class="markdownIt-Anchor" href="#随机测试"></a> 随机测试</h2>
+<p>表格驱动的测试便于构造基于精心挑选的测试数据的测试用例. 另一种测试思路是随机测试, 也就是通过构造更广泛的随机输入来测试探索函数的行为.<br>
+那么对于一个随机的输入, 我们如何能知道希望的输出结果呢? 这里有两种策略. 第一个是编写另一个函数, 使用简单和清晰的算法, 虽然效率较低但是行为和要测试的函数一致, 然后针对相同的随机输入检查两者的输出结果. 第二种是生成的随机输入的数据遵循特定的模式, 这样我们就可以知道期望的输出的模式.<br>
+下面的例子使用的是第二种方法: randomPalindrome 函数用于随机生成回文字符串.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"math/rand"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// randomPalindrome returns a palindrome whose length and contents</span></span><br><span class="line"><span class="comment">// are derived from the pseudo-random number generator rng.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">randomPalindrome</span><span class="params">(rng *rand.Rand)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    n := rng.Intn(<span class="number">25</span>) <span class="comment">// random length up to 24</span></span><br><span class="line">    runes := <span class="built_in">make</span>([]<span class="keyword">rune</span>, n)</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; (n+<span class="number">1</span>)/<span class="number">2</span>; i++ &#123;</span><br><span class="line">        r := <span class="keyword">rune</span>(rng.Intn(<span class="number">0x1000</span>)) <span class="comment">// random rune up to '\u0999'</span></span><br><span class="line">        runes[i] = r</span><br><span class="line">        runes[n<span class="number">-1</span>-i] = r</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">string</span>(runes)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestRandomPalindromes</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    <span class="comment">// Initialize a pseudo-random number generator.</span></span><br><span class="line">    seed := time.Now().UTC().UnixNano()</span><br><span class="line">    t.Logf(<span class="string">"Random seed: %d"</span>, seed)</span><br><span class="line">    rng := rand.New(rand.NewSource(seed))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++ &#123;</span><br><span class="line">        p := randomPalindrome(rng)</span><br><span class="line">        <span class="keyword">if</span> !IsPalindrome(p) &#123;</span><br><span class="line">            t.Errorf(<span class="string">"IsPalindrome(%q) = false"</span>, p)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>虽然随机测试有不确定因素, 但是它也是至关重要的, 我们可以从失败测试的日志获取足够的信息. 在我们的例子中, 输入IsPalindrome 的p 参数将告诉我们眞实的数据, 但是对于函数将接受更复杂的输入, 不需要保存所有的输入, 只要日志中简单地记录随机数种子卽可(像上面的方式). 有了这些随机数初始化种子, 我们可以很容易修改测试代码以重现失败的随机测试.<br>
+通过使用当前时间作为随机种子, 在整个过程中的每次运行测试命令时都将探索新的随机数据. 如果你使用的是定期运行的自动化测试集成系统, 随机测试将特别有价值.</p>
+<h2 id="测试代码覆盖率"><a class="markdownIt-Anchor" href="#测试代码覆盖率"></a> 测试代码覆盖率</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go test  -coverprofile=c.out</span><br><span class="line">go tool cover -html=c.out</span><br></pre></td></tr></table></figure>
+<h2 id="性能测试"><a class="markdownIt-Anchor" href="#性能测试"></a> 性能测试</h2>
+<p>同一个函数执行N多次。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">func BenchmarkSubstr(b *testing.B) &#123;</span><br><span class="line">	s := &quot;黑化肥挥发发灰会花飞灰化肥挥发发黑会飞花&quot;</span><br><span class="line">	//for i := 0; i &lt; 13; i++ &#123;</span><br><span class="line">	//	s = s + s</span><br><span class="line">	//&#125;</span><br><span class="line">	//b.Logf(&quot;len(s) = %d&quot;, len(s))</span><br><span class="line">	ans := 8</span><br><span class="line">	//b.ResetTimer()</span><br><span class="line"></span><br><span class="line">	for i := 0; i &lt; b.N; i++ &#123;</span><br><span class="line">		actual := lengthOfNonRepeatingSubStr(s)</span><br><span class="line">		if actual != ans &#123;</span><br><span class="line">			b.Errorf(&quot;got %d for input %s; &quot;+</span><br><span class="line">				&quot;expected %d&quot;,</span><br><span class="line">				actual, s, ans)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func lengthOfNonRepeatingSubStr(s string) int &#123;</span><br><span class="line">	lastOccurred := make(map[rune]int)</span><br><span class="line">	start := 0</span><br><span class="line">	maxLength := 0</span><br><span class="line"></span><br><span class="line">	for i, ch := range []rune(s) &#123;</span><br><span class="line">		if lastI, ok := lastOccurred[ch]; ok &amp;&amp; lastI &gt;= start &#123;</span><br><span class="line">			start = lastI + 1</span><br><span class="line">		&#125;</span><br><span class="line">		if i-start+1 &gt; maxLength &#123;</span><br><span class="line">			maxLength = i - start + 1</span><br><span class="line">		&#125;</span><br><span class="line">		lastOccurred[ch] = i</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	return maxLength</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://dreamerjonson.com/2019/03/01/golang-66-test/" title="golang[66]-test测试" target="_blank" rel="external">https://dreamerjonson.com/2019/03/01/golang-66-test/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/dreamerjackson" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/jonson.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/dreamerjackson" target="_blank"><span class="text-dark">郑建勋（jonson）</span><small class="ml-1x">区块链工程师 &amp; Web工程师</small></a></h3>
+        <div>灾难总是接踵而至，这正是世间的常理。你以为只要哭诉一下，就会有谁来救你？如果失败了，就只能说明我不过是如此程度的男人</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+           
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2019/03/02/golang-67-document/" title="golang[67]-go语言生成文档注释"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2019/02/26/docker-front/" title="docker[4]-front"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫">
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫">
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/dreamerjackson" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	<!-- Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>. -->
+						天下风云出我辈，一入江湖岁月催。<br>皇图霸业谈笑中，不胜人生一场醉 
+			  </div>
+    </div>
+</footer>
+
+  <!-- <script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>　
+<script src="https://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
+
+<script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+
+<script src="/js/mrmy.js"></script>
+
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+  <script src="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: 'c22fa591ad87e1b03638',
+    clientSecret: '0646579e4dd8a301be7a42bcf3f5dd39ce803dcb',
+    repo: 'dreamerjackson.github.io',
+    owner: 'dreamerjackson',
+    admin: ['dreamerjackson'],
+    id: md5(location.pathname),
+    distractionFreeMode: true
+  })
+  gitalk.render('comments')
+  </script>
+
+      
+
+
+
+
+
+
+
+
+</body>
+</html>
