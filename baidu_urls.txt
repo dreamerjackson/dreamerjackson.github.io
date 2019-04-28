@@ -1,6 +1,6 @@
 https://dreamerjonson.com/2019/04/25/tmux/
 https://dreamerjonson.com/2019/04/02/connect-github-gitlab/
-https://dreamerjonson.com/2019/04/01/go-sql/
+https://dreamerjonson.com/2019/04/01/golang-71-sql/
 https://dreamerjonson.com/2019/03/14/k8s/
 https://dreamerjonson.com/2019/03/11/go-struture-15-merge-sort/
 https://dreamerjonson.com/2019/03/11/go-struture-14-shell-sort/

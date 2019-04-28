@@ -17,21 +17,21 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>golang[70]-golang操作数据库 | 郑建勋的个人网站</title>
-  <meta name="description" content="安装 https://dev.mysql.com/downloads  Installing MySQL on macOS 推荐使用dmg文件安装 https://dev.mysql.com/doc/refman/5.7/en/osx-installation.html 安装完毕有默认密码  连接 PATH=&amp;quot;$PATH&amp;quot;:/usr/local/mysql/bin mysql">
+  <title>golang[71]-golang操作mysql数据库 | 郑建勋的个人网站</title>
+  <meta name="description" content="安装 https://dev.mysql.com/downloads  Installing MySQL on macOS 推荐使用dmg文件安装 https://dev.mysql.com/doc/refman/5.7/en/osx-installation.html 安装完毕有默认密码  连接 PATH=&amp;quot;$PATH&amp;quot;:/usr/local/mysql/bin sudo">
 <meta name="keywords" content="go">
 <meta property="og:type" content="article">
-<meta property="og:title" content="golang[70]-golang操作数据库">
-<meta property="og:url" content="https://dreamerjonson.com/2019/04/01/go-sql/index.html">
+<meta property="og:title" content="golang[71]-golang操作mysql数据库">
+<meta property="og:url" content="https://dreamerjonson.com/2019/04/01/golang-71-sql/index.html">
 <meta property="og:site_name" content="Jonson">
-<meta property="og:description" content="安装 https://dev.mysql.com/downloads  Installing MySQL on macOS 推荐使用dmg文件安装 https://dev.mysql.com/doc/refman/5.7/en/osx-installation.html 安装完毕有默认密码  连接 PATH=&amp;quot;$PATH&amp;quot;:/usr/local/mysql/bin mysql">
+<meta property="og:description" content="安装 https://dev.mysql.com/downloads  Installing MySQL on macOS 推荐使用dmg文件安装 https://dev.mysql.com/doc/refman/5.7/en/osx-installation.html 安装完毕有默认密码  连接 PATH=&amp;quot;$PATH&amp;quot;:/usr/local/mysql/bin sudo">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-01T09:57:43.919Z">
+<meta property="og:updated_time" content="2019-04-28T02:47:05.425Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="golang[70]-golang操作数据库">
-<meta name="twitter:description" content="安装 https://dev.mysql.com/downloads  Installing MySQL on macOS 推荐使用dmg文件安装 https://dev.mysql.com/doc/refman/5.7/en/osx-installation.html 安装完毕有默认密码  连接 PATH=&amp;quot;$PATH&amp;quot;:/usr/local/mysql/bin mysql">
+<meta name="twitter:title" content="golang[71]-golang操作mysql数据库">
+<meta name="twitter:description" content="安装 https://dev.mysql.com/downloads  Installing MySQL on macOS 推荐使用dmg文件安装 https://dev.mysql.com/doc/refman/5.7/en/osx-installation.html 安装完毕有默认密码  连接 PATH=&amp;quot;$PATH&amp;quot;:/usr/local/mysql/bin sudo">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://dreamerjonson.com/2019/04/01/go-sql/index.html">
+  <link rel="canonical" href="https://dreamerjonson.com/2019/04/01/golang-71-sql/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Jonson" type="application/atom+xml">
   
@@ -193,7 +193,7 @@
   <div class="widget">
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">109</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/数据结构/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-数据结构/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链原理/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发配置/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/智能合约-solidity语法/">智能合约 solidity语法</a><span class="category-list-count">59</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/置顶/">置顶</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/git/mac环境配置/">mac环境配置</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">107</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/数据结构/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-数据结构/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链原理/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发配置/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/智能合约-solidity语法/">智能合约 solidity语法</a><span class="category-list-count">59</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/置顶/">置顶</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -203,7 +203,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">109</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-数据结构/">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-前端/">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链原理/">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发配置/">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置顶/">置顶</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">107</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-数据结构/">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac环境配置/">mac环境配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-前端/">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链原理/">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发配置/">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置顶/">置顶</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -213,7 +213,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/bootstrap/" style="font-size: 13.13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.25px;">docker</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-数据结构/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-前端/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/以太坊/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/前端/" style="font-size: 13.38px;">前端</a> <a href="/tags/区块链原理/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/开发配置/" style="font-size: 13px;">开发配置</a> <a href="/tags/数据结构/" style="font-size: 13px;">数据结构</a> <a href="/tags/智能合约/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/置顶/" style="font-size: 13px;">置顶</a>
+      <a href="/tags/bootstrap/" style="font-size: 13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-数据结构/" style="font-size: 13.11px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.11px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/mac环境配置/" style="font-size: 13px;">mac环境配置</a> <a href="/tags/nodejs/" style="font-size: 13.67px;">nodejs</a> <a href="/tags/nodejs-前端/" style="font-size: 13.78px;">nodejs 前端</a> <a href="/tags/server/" style="font-size: 13.22px;">server</a> <a href="/tags/solidity/" style="font-size: 13.89px;">solidity</a> <a href="/tags/以太坊/" style="font-size: 13.89px;">以太坊</a> <a href="/tags/前端/" style="font-size: 13.44px;">前端</a> <a href="/tags/区块链/" style="font-size: 13px;">区块链</a> <a href="/tags/区块链原理/" style="font-size: 13.56px;">区块链原理</a> <a href="/tags/开发配置/" style="font-size: 13px;">开发配置</a> <a href="/tags/数据结构/" style="font-size: 13px;">数据结构</a> <a href="/tags/智能合约/" style="font-size: 13.89px;">智能合约</a> <a href="/tags/置顶/" style="font-size: 13px;">置顶</a>
     </div>
   </div>
 
@@ -241,7 +241,7 @@
                 <a class="category-link" href="/categories/开发配置/">开发配置</a>
               </p>
               <p class="item-title">
-                <a href="/2019/04/25/tmux/" class="title">tmux</a>
+                <a href="/2019/04/25/tmux/" class="title">MAC环境配置</a>
               </p>
               <p class="item-date">
                 <time datetime="2019-04-25T05:44:19.000Z" itemprop="datePublished">2019-04-25</time>
@@ -253,7 +253,7 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/go/">go</a>
+                <a class="category-link" href="/categories/git/">git</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/git/mac环境配置/">mac环境配置</a>
               </p>
               <p class="item-title">
                 <a href="/2019/04/02/connect-github-gitlab/" class="title">git操作github-gitlab</a>
@@ -271,7 +271,7 @@
                 <a class="category-link" href="/categories/go/">go</a>
               </p>
               <p class="item-title">
-                <a href="/2019/04/01/go-sql/" class="title">golang[70]-golang操作数据库</a>
+                <a href="/2019/04/01/golang-71-sql/" class="title">golang[71]-golang操作mysql数据库</a>
               </p>
               <p class="item-date">
                 <time datetime="2019-04-01T09:38:37.000Z" itemprop="datePublished">2019-04-01</time>
@@ -331,14 +331,14 @@
 
 <main class="main" role="main">
   <div class="content">
-  <article id="post-go-sql" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <article id="post-golang-71-sql" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      golang[70]-golang操作数据库
+      golang[71]-golang操作mysql数据库
     </h1>
   
 
@@ -346,7 +346,7 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2019/04/01/go-sql/" class="article-date">
+	<a href="/2019/04/01/golang-71-sql/" class="article-date">
 	  <time datetime="2019-04-01T09:38:37.000Z" itemprop="datePublished">2019-04-01</time>
 	</a>
 </span>
@@ -372,10 +372,10 @@
 	</span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/04/01/go-sql/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/04/01/golang-71-sql/#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 426(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 443(字)</span>
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
@@ -392,13 +392,15 @@
 <a href="https://dev.mysql.com/doc/refman/5.7/en/osx-installation.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/osx-installation.html</a><br>
 安装完毕有默认密码</p>
 <h2 id="连接"><a class="markdownIt-Anchor" href="#连接"></a> 连接</h2>
-<p>PATH=&quot;$PATH&quot;:/usr/local/mysql/bin</p>
-<p>mysql -u root -p</p>
+<p>PATH=&quot;$PATH&quot;:/usr/local/mysql/bin<br>
+sudo su<br>
+mysql -u root -p 123456</p>
 <p>create database test;<br>
 use test;<br>
 create table user_info(id int(11),username varchar(20),create_time timestamp ,primary key(id));<br>
 INSERT INTO user_info(id,username) VALUES(5,“jonson”);<br>
 select * from user_info;</p>
+<p>create table user_info(id int(11),username varchar(20),create_time timestamp ,primary key(id));</p>
 <h2 id="插入"><a class="markdownIt-Anchor" href="#插入"></a> 插入</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"database/sql"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line">	_ <span class="string">"github.com/go-sql-driver/mysql"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	db, err := sql.Open(<span class="string">"mysql"</span>, <span class="string">"root:123456@tcp(127.0.0.1:3306)/test?charset=utf8"</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	stmt, err := db.Prepare(<span class="string">`INSERT user_info (id,username) values (?,?)`</span>)</span><br><span class="line">	res, err := stmt.Exec(<span class="number">88</span>,<span class="string">"olaya"</span>)</span><br><span class="line">	id, err := res.LastInsertId()</span><br><span class="line">	fmt.Println(id)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="删除"><a class="markdownIt-Anchor" href="#删除"></a> 删除</h2>
@@ -416,7 +418,7 @@ select * from user_info;</p>
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://dreamerjonson.com/2019/04/01/go-sql/" title="golang[70]-golang操作数据库" target="_blank" rel="external">https://dreamerjonson.com/2019/04/01/go-sql/</a>
+      <a href="https://dreamerjonson.com/2019/04/01/golang-71-sql/" title="golang[71]-golang操作mysql数据库" target="_blank" rel="external">https://dreamerjonson.com/2019/04/01/golang-71-sql/</a>
     </li>
     
     <li class="post-copyright-license">
