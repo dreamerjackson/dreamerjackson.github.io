@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://dreamerjonson.com/2019/05/11/golang-74-goland-tips/</loc>
+    <lastmod>2019-05-11T03:26:02.134Z</lastmod>
+  </url>  <url>
+    <loc>https://dreamerjonson.com/2019/05/09/golang-73-context/</loc>
+    <lastmod>2019-05-11T03:25:56.205Z</lastmod>
+  </url>  <url>
+    <loc>https://dreamerjonson.com/2019/05/09/golang-72-atomic-Value/</loc>
+    <lastmod>2019-05-09T06:12:12.482Z</lastmod>
+  </url>  <url>
+    <loc>https://dreamerjonson.com/2019/04/02/connect-github-gitlab/</loc>
+    <lastmod>2019-05-07T10:55:32.272Z</lastmod>
+  </url>  <url>
+    <loc>https://dreamerjonson.com/2019/05/02/windwos%E8%BF%9C%E7%A8%8B%E7%99%BB%E9%99%86/</loc>
+    <lastmod>2019-05-02T13:48:07.413Z</lastmod>
+  </url>  <url>
+    <loc>https://dreamerjonson.com/2019/04/25/tmux/</loc>
+    <lastmod>2019-04-29T13:21:39.924Z</lastmod>
+  </url>  <url>
     <loc>https://dreamerjonson.com/2018/12/30/explication-bitcoin/</loc>
     <lastmod>2019-04-28T02:47:09.377Z</lastmod>
   </url>  <url>
@@ -9,12 +27,6 @@
   </url>  <url>
     <loc>https://dreamerjonson.com/2019/02/26/docker-front/</loc>
     <lastmod>2019-04-28T02:44:18.303Z</lastmod>
-  </url>  <url>
-    <loc>https://dreamerjonson.com/2019/04/02/connect-github-gitlab/</loc>
-    <lastmod>2019-04-28T02:43:51.490Z</lastmod>
-  </url>  <url>
-    <loc>https://dreamerjonson.com/2019/04/25/tmux/</loc>
-    <lastmod>2019-04-28T02:38:09.078Z</lastmod>
   </url>  <url>
     <loc>https://dreamerjonson.com/2019/02/24/golang-63-concurrent/</loc>
     <lastmod>2019-03-31T07:52:28.054Z</lastmod>
