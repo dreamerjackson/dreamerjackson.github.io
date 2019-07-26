@@ -1,3 +1,12 @@
+https://dreamerjonson.com/2019/07/19/golang-83-golang-mac交叉编译windows程序/
+https://dreamerjonson.com/2019/07/18/python-install/
+https://dreamerjonson.com/2019/07/04/golang-82-viper/
+https://dreamerjonson.com/2019/06/18/golang-81-golang-docker/
+https://dreamerjonson.com/2019/06/13/golang-80-tips-go-mod/
+https://dreamerjonson.com/2019/06/13/search-update-mod/
+https://dreamerjonson.com/2019/06/11/mac-info/
+https://dreamerjonson.com/2019/06/11/golang-79-protobuf/
+https://dreamerjonson.com/2019/05/24/golang-78-alfred-awgo/
 https://dreamerjonson.com/2019/05/20/golang-77-sed/
 https://dreamerjonson.com/2019/05/18/golang-76-reflection/
 https://dreamerjonson.com/2019/05/16/golang-75-useDocker/
