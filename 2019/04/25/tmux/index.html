@@ -26,7 +26,7 @@
 <meta property="og:site_name" content="Jonson">
 <meta property="og:description" content="注意：本文内容适用于 Tmux 2.3 及以上的版本，但是绝大部分的特性低版本也都适用，鼠标支持、VI 模式、插件管理在低版本可能会与本文不兼容。  Tmux 快捷键 &amp;amp; 速查表 启动新会话： tmux [new -s 会话名 -n 窗口名]  恢复会话： tmux at [-t 会话名]  列出所有会话： tmux ls  关闭会话： tmux kill-session -t 会话名">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-26T13:43:36.104Z">
+<meta property="og:updated_time" content="2019-07-26T14:17:42.123Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MAC环境配置">
 <meta name="twitter:description" content="注意：本文内容适用于 Tmux 2.3 及以上的版本，但是绝大部分的特性低版本也都适用，鼠标支持、VI 模式、插件管理在低版本可能会与本文不兼容。  Tmux 快捷键 &amp;amp; 速查表 启动新会话： tmux [new -s 会话名 -n 窗口名]  恢复会话： tmux at [-t 会话名]  列出所有会话： tmux ls  关闭会话： tmux kill-session -t 会话名">
@@ -177,8 +177,8 @@
               <div class="content">
                   <!-- <p>I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.</p> -->
                   <!--  -->
-                  <!-- 我是时代的残党，新世界里没有能载我的船。欠下了仁义就要偿命，教会帝奇那个混蛋让他明白这个道理难道不是我的责任吗。儿子比老子先死，这是何等的不孝顺。 &lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--白胡子&lt;/p&gt; -->
-                    <!-- 我是时代的残党，新世界里没有能载我的船。欠下了仁义就要偿命，教会帝奇那个混蛋让他明白这个道理难道不是我的责任吗。儿子比老子先死，这是何等的不孝顺。 <br/><p align="right">--白胡子</p> -->
+                  <!-- 不要硬给别人给予你的爱加上理由  &lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--战国&lt;/p&gt; -->
+                    <!-- 不要硬给别人给予你的爱加上理由  <br/><p align="right">--战国</p> -->
                 商业合作微信：dreamerjonson<br><br>
                 51CTO区块链交流群：837814276<br><br>
                 go语言交流2群：713385260<br>
@@ -324,7 +324,7 @@
   <div class="slimContent">
     <nav id="toc" class="article-toc">
       <h3 class="toc-title">文章目录</h3>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tmux-快捷键-速查表"><span class="toc-number">1.</span> <span class="toc-text"> Tmux 快捷键 &amp; 速查表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#在-tmux-中按下-tmux-前缀-ctrlb然后"><span class="toc-number">1.1.</span> <span class="toc-text"> 在 Tmux 中，按下 Tmux 前缀 ctrl+b，然后：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#会话"><span class="toc-number">1.2.</span> <span class="toc-text"> 会话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#a-namewindowstabsa窗口-标签页"><span class="toc-number">1.3.</span> <span class="toc-text"> 窗口 (标签页)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调整窗口排序"><span class="toc-number">2.</span> <span class="toc-text"> 调整窗口排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-namepanessplitsa窗格分割窗口"><span class="toc-number">2.1.</span> <span class="toc-text"> 窗格（分割窗口）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#a-namesyncpanesa同步窗格"><span class="toc-number">2.2.</span> <span class="toc-text"> 同步窗格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调整窗格尺寸"><span class="toc-number">2.3.</span> <span class="toc-text"> 调整窗格尺寸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文本复制模式"><span class="toc-number">2.4.</span> <span class="toc-text"> 文本复制模式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#杂项"><span class="toc-number">2.5.</span> <span class="toc-text"> 杂项：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置选项"><span class="toc-number">2.6.</span> <span class="toc-text"> 配置选项：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考配置文件~tmuxconf"><span class="toc-number">2.7.</span> <span class="toc-text"> 参考配置文件（~/.tmux.conf）：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fzf"><span class="toc-number">3.</span> <span class="toc-text"> fzf</span></a></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#set-alias"><span class="toc-number"></span> <span class="toc-text"> set alias</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#iterm2"><span class="toc-number">1.</span> <span class="toc-text"> ITerm2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mac系统快捷键进阶"><span class="toc-number">2.</span> <span class="toc-text"> MAC系统快捷键进阶</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#max连接-visulbox中的ubuntu-使用ssh服务器"><span class="toc-number">3.</span> <span class="toc-text"> max连接 visulBOX中的Ubuntu   使用ssh服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#virsualbox共享文件夹"><span class="toc-number">4.</span> <span class="toc-text"> virsualBox共享文件夹</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mac-通过ssh连接windwos-windwos-的环境配置"><span class="toc-number">5.</span> <span class="toc-text"> mac 通过ssh连接windwos &amp; windwos 的环境配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前面我们介绍的-ssh-命令都是通过密码认证连接服务器的下面介绍通过秘钥认证的方式登录服务器"><span class="toc-number">6.</span> <span class="toc-text"> 前面我们介绍的 ssh 命令都是通过密码认证连接服务器的，下面介绍通过秘钥认证的方式登录服务器。</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#authorizedkeysfile-programdatasshadministrators_authorized_keys"><span class="toc-number"></span> <span class="toc-text"> AuthorizedKeysFile PROGRAMDATA/ssh/administrators_authorized_keys</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#最后"><span class="toc-number">1.</span> <span class="toc-text"> 最后</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">2.</span> <span class="toc-text"> 参考</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tmux-快捷键-速查表"><span class="toc-number">1.</span> <span class="toc-text"> Tmux 快捷键 &amp; 速查表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#在-tmux-中按下-tmux-前缀-ctrlb然后"><span class="toc-number">1.1.</span> <span class="toc-text"> 在 Tmux 中，按下 Tmux 前缀 ctrl+b，然后：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#会话"><span class="toc-number">1.2.</span> <span class="toc-text"> 会话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#a-namewindowstabsa窗口-标签页"><span class="toc-number">1.3.</span> <span class="toc-text"> 窗口 (标签页)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调整窗口排序"><span class="toc-number">2.</span> <span class="toc-text"> 调整窗口排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-namepanessplitsa窗格分割窗口"><span class="toc-number">2.1.</span> <span class="toc-text"> 窗格（分割窗口）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#a-namesyncpanesa同步窗格"><span class="toc-number">2.2.</span> <span class="toc-text"> 同步窗格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调整窗格尺寸"><span class="toc-number">2.3.</span> <span class="toc-text"> 调整窗格尺寸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文本复制模式"><span class="toc-number">2.4.</span> <span class="toc-text"> 文本复制模式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#杂项"><span class="toc-number">2.5.</span> <span class="toc-text"> 杂项：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置选项"><span class="toc-number">2.6.</span> <span class="toc-text"> 配置选项：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考配置文件~tmuxconf"><span class="toc-number">2.7.</span> <span class="toc-text"> 参考配置文件（~/.tmux.conf）：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fzf"><span class="toc-number">3.</span> <span class="toc-text"> fzf</span></a></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#set-alias"><span class="toc-number"></span> <span class="toc-text"> set alias</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#iterm2"><span class="toc-number">1.</span> <span class="toc-text"> ITerm2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mac系统快捷键进阶"><span class="toc-number">2.</span> <span class="toc-text"> MAC系统快捷键进阶</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#max连接-visulbox中的ubuntu-使用ssh服务器"><span class="toc-number">3.</span> <span class="toc-text"> max连接 visulBOX中的Ubuntu   使用ssh服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#virsualbox共享文件夹"><span class="toc-number">4.</span> <span class="toc-text"> virsualBox共享文件夹</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mac-通过ssh连接windwos-windwos-的环境配置"><span class="toc-number">5.</span> <span class="toc-text"> mac 通过ssh连接windwos &amp; windwos 的环境配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前面我们介绍的-ssh-命令都是通过密码认证连接服务器的下面介绍通过秘钥认证的方式登录服务器"><span class="toc-number">6.</span> <span class="toc-text"> 前面我们介绍的 ssh 命令都是通过密码认证连接服务器的，下面介绍通过秘钥认证的方式登录服务器。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后"><span class="toc-number">7.</span> <span class="toc-text"> 最后</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">8.</span> <span class="toc-text"> 参考</span></a></li></ol>
     </li></nav>
   </div>
 </aside>
@@ -589,27 +589,29 @@ sudo su<br>
 2、开启服务<br>
 安装完成后打开服务管理器，把 OpenSSH Authentication Agent 服务和 OpenSSH SSH Server 服务都设置为自启动，并启动这两个服务：<br>
 OPENSSH Authentication<br>
-OpenSSH SSH server</p>
-<p>3\监听端口<br>
+OpenSSH SSH server<br>
+3、监听端口<br>
 启动服务后可以通过 netstat 命令查看 SSH Server 服务是不是已经开始监听默认的 22 号端口了：</p>
-<p>4\防火墙规则 或者关闭所有防火墙<br>
+<p>4、防火墙规则 或者关闭所有防火墙<br>
 在安装 OpenSSH Server 的时候会在防火墙的入站规则中添加一条记录让防火墙放行对 22 号端口的访问：</p>
 <p>服务器端的配置文件目录<br>
 服务器端的配置文件在 C:\ProgramData\ssh 目录中，注意 C:\ProgramData 是一个隐藏目录：</p>
-<p>安装目录<br>
-Windows 系统中 OpenSSH 的安装目录为 C:\Windows\System32\OpenSSH，不管是客户端程序还是服务器端程序都这这个目录中：</p>
-<p>OpenSSH 服务器端程序的默认配置文件 sshd_config_default 也在这个目录中。这个目录会被添加到 PATH 环境变量中：</p>
+<p>5、安装目录<br>
+Windows 系统中 OpenSSH 的安装目录为 C:\Windows\System32\OpenSSH，不管是客户端程序还是服务器端程序都这这个目录中：<br>
+OpenSSH 服务器端程序的默认配置文件 sshd_config_default 也在这个目录中。这个目录会被添加到 PATH 环境变量中：</p>
 <h2 id="前面我们介绍的-ssh-命令都是通过密码认证连接服务器的下面介绍通过秘钥认证的方式登录服务器"><a class="markdownIt-Anchor" href="#前面我们介绍的-ssh-命令都是通过密码认证连接服务器的下面介绍通过秘钥认证的方式登录服务器"></a> 前面我们介绍的 ssh 命令都是通过密码认证连接服务器的，下面介绍通过秘钥认证的方式登录服务器。</h2>
 <p>1、在 PowerShell 中执行 notepad .ssh\authorized_keys 命令创建文本文件，把客户端的公钥复制到这个文件中并保存。<br>
-把文本文件的名称修改为 authorized_keys：</p>
-<p>2、修改 ssh 服务的配置文件<br>
+把文本文件的名称修改为 authorized_keys：<br>
+2、修改 ssh 服务的配置文件<br>
 以管理员权限打开 PowerShell，执行命令 notepad C:\ProgramData\ssh\sshd_config。<br>
 注释掉配置文件中的最后两行然后保存：<br>
-#Match Group administrators</p>
-<h1 id="authorizedkeysfile-programdatasshadministrators_authorized_keys"><a class="markdownIt-Anchor" href="#authorizedkeysfile-programdatasshadministrators_authorized_keys"></a> AuthorizedKeysFile <strong>PROGRAMDATA</strong>/ssh/administrators_authorized_keys</h1>
-<p>3、最后在服务管理器器中重启 OpenSSH SSH Server 服务，然后客户端就可以通过公钥认证的方式登录到远程服务器了。</p>
+Match Group administrators<br>
+AuthorizedKeysFile <strong>PROGRAMDATA</strong>/ssh/administrators_authorized_keys<br>
+3、最后在服务管理器器中重启 OpenSSH SSH Server 服务，然后客户端就可以通过公钥认证的方式登录到远程服务器了。</p>
 <h2 id="最后"><a class="markdownIt-Anchor" href="#最后"></a> 最后</h2>
-<p>在 Windows 系统中，PowerShell 已逐渐成为主流，我们可以把默认的 shell 设置为 PowerShell。其实就是在运行 OpenSSH Server 的 Windows 系统的注册表中添加一个配置项，注册表路径为 HKEY_LOCAL_MACHINE\SOFTWARE\OpenSSH，项的名称为 DefaultShell，项的值为 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe。我们可以以管理员身份启动 PowerShell，然后执行下面的命令完成注册表项的添加：</p>
+<p>在 Windows 系统中，PowerShell 已逐渐成为主流，我们可以把默认的 shell 设置为 PowerShell。其实就是在运行 OpenSSH Server 的 Windows 系统的注册表中添加一个配置项，注册表路径为 HKEY_LOCAL_MACHINE\SOFTWARE\OpenSSH，项的名称为 DefaultShell，项的值为<br>
+<code>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe。我们可以以管理员身份启动 PowerShell</code><br>
+然后执行下面的命令完成注册表项的添加：</p>
 <h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
 <p><a href="https://www.cnblogs.com/sparkdev/p/10166061.html" target="_blank" rel="noopener">https://www.cnblogs.com/sparkdev/p/10166061.html</a></p>
 
