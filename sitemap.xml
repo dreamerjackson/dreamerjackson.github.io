@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://dreamerjonson.com/2019/08/16/docker-save-%E5%88%B0%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
+    
+    <lastmod>2019-08-16T03:00:30.068Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/08/14/golang-84-http-pprof/</loc>
+    
+    <lastmod>2019-08-14T14:26:42.089Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/07/18/python-install/</loc>
+    
+    <lastmod>2019-08-05T10:26:18.503Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://dreamerjonson.com/2019/04/25/tmux/</loc>
     
     <lastmod>2019-07-26T14:17:42.123Z</lastmod>
@@ -12,13 +33,6 @@
     <loc>https://dreamerjonson.com/2019/07/19/golang-83-golang-mac%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91windows%E7%A8%8B%E5%BA%8F/</loc>
     
     <lastmod>2019-07-19T06:35:28.667Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dreamerjonson.com/2019/07/18/python-install/</loc>
-    
-    <lastmod>2019-07-18T09:01:16.930Z</lastmod>
     
   </url>
   
