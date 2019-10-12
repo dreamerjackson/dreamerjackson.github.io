@@ -1,3 +1,8 @@
+https://dreamerjonson.com/2019/10/12/golang-95-golang-优秀代码赏析-检测goroutine溢出/
+https://dreamerjonson.com/2019/10/11/golang-94-golang-优秀代码赏析/
+https://dreamerjonson.com/2019/10/10/golang-93-golang-link/
+https://dreamerjonson.com/2019/10/07/golang-92-golang-reverse-proxy/
+https://dreamerjonson.com/2019/09/22/xargs命令详解，xargs与管道的区别/
 https://dreamerjonson.com/2019/09/21/golang-91-复杂的json转换为结构体/
 https://dreamerjonson.com/2019/09/21/golang-90-使用wine在linux平台操作windows/
 https://dreamerjonson.com/2019/09/20/golang-89-操作docker容器获取proto的go文件/
