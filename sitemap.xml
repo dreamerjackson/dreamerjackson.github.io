@@ -2,6 +2,41 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://dreamerjonson.com/2019/10/25/golang-98-%E6%8B%89%E5%8F%96gitlab%E4%B8%AD%E7%9A%84merge%E4%BB%A3%E7%A0%81/</loc>
+    
+    <lastmod>2019-10-25T07:17:55.605Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/10/20/golang-97-http-client-keeplive/</loc>
+    
+    <lastmod>2019-10-20T06:08:45.937Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/10/19/golang-96-http-RoundTripper/</loc>
+    
+    <lastmod>2019-10-19T07:59:51.052Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/05/09/golang-73-context/</loc>
+    
+    <lastmod>2019-10-19T07:55:01.659Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/10/07/golang-92-golang-reverse-proxy/</loc>
+    
+    <lastmod>2019-10-12T14:21:05.854Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://dreamerjonson.com/2019/10/12/golang-95-golang-%E4%BC%98%E7%A7%80%E4%BB%A3%E7%A0%81%E8%B5%8F%E6%9E%90-%E6%A3%80%E6%B5%8Bgoroutine%E6%BA%A2%E5%87%BA/</loc>
     
     <lastmod>2019-10-12T09:16:36.781Z</lastmod>
@@ -19,13 +54,6 @@
     <loc>https://dreamerjonson.com/2019/10/10/golang-93-golang-link/</loc>
     
     <lastmod>2019-10-10T13:35:29.098Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dreamerjonson.com/2019/10/07/golang-92-golang-reverse-proxy/</loc>
-    
-    <lastmod>2019-10-07T07:19:57.615Z</lastmod>
     
   </url>
   
@@ -236,13 +264,6 @@
     <loc>https://dreamerjonson.com/2019/02/26/docker-front/</loc>
     
     <lastmod>2019-05-19T09:27:24.070Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dreamerjonson.com/2019/05/09/golang-73-context/</loc>
-    
-    <lastmod>2019-05-11T03:25:56.205Z</lastmod>
     
   </url>
   

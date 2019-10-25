@@ -26,7 +26,7 @@
 <meta property="og:site_name" content="Jonson">
 <meta property="og:description" content="背景 golang在1.6.2的时候还没有自己的context，在1.7的版本中就把golang.org/x/net/context包被加入到了官方的库中。golang 的 Context包，是专门用来简化对于处理单个请求的多个goroutine之间与请求域的数据、取消信号、截止时间等相关操作，这些操作可能涉及多个 API 调用。 比如有一个网络请求Request，每个Request都需要开启一">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-11T03:25:56.205Z">
+<meta property="og:updated_time" content="2019-10-19T07:55:01.659Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="golang[73]-context详解">
 <meta name="twitter:description" content="背景 golang在1.6.2的时候还没有自己的context，在1.7的版本中就把golang.org/x/net/context包被加入到了官方的库中。golang 的 Context包，是专门用来简化对于处理单个请求的多个goroutine之间与请求域的数据、取消信号、截止时间等相关操作，这些操作可能涉及多个 API 调用。 比如有一个网络请求Request，每个Request都需要开启一">
@@ -177,8 +177,8 @@
               <div class="content">
                   <!-- <p>I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.</p> -->
                   <!--  -->
-                  <!-- 可是，那也是你的命，是上天注定的&lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--音越&lt;/p&gt; -->
-                    <!-- 可是，那也是你的命，是上天注定的<br/><p align="right">--音越</p> -->
+                  <!-- 听着，路飞，胜利和失败都要品尝，经历了四处逃窜的辛酸，痛苦伤心的回忆，男人才能真正独当一面，就算痛哭流涕也没关系 &lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--红发&lt;/p&gt; -->
+                    <!-- 听着，路飞，胜利和失败都要品尝，经历了四处逃窜的辛酸，痛苦伤心的回忆，男人才能真正独当一面，就算痛哭流涕也没关系 <br/><p align="right">--红发</p> -->
                 商业合作微信：dreamerjonson<br><br>
                 51CTO区块链交流群：837814276<br><br>
                 go语言交流2群：713385260<br>
@@ -193,7 +193,7 @@
   <div class="widget">
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/git/mac环境配置/">mac环境配置</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">134</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/数据结构/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-数据结构/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/macOS/">macOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链原理/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发配置/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/智能合约-solidity语法/">智能合约 solidity语法</a><span class="category-list-count">60</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/置顶/">置顶</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/git/mac环境配置/">mac环境配置</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">137</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/数据结构/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-数据结构/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/macOS/">macOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链原理/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发配置/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/智能合约-solidity语法/">智能合约 solidity语法</a><span class="category-list-count">60</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/置顶/">置顶</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -203,7 +203,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">134</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-数据结构/">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macOS/">macOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac环境配置/">mac环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-前端/">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链原理/">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发配置/">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置顶/">置顶</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">137</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-数据结构/">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macOS/">macOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac环境配置/">mac环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-前端/">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链原理/">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发配置/">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置顶/">置顶</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -222,7 +222,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -234,6 +234,51 @@
     <div class="widget-body">
       <ul class="recent-post-list list-unstyled no-thumbnail">
         
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/10/25/golang-98-拉取gitlab中的merge代码/" class="title">golang[98]-拉取gitlab中的merge代码</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-10-25T07:15:06.000Z" itemprop="datePublished">2019-10-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/10/20/golang-97-http-client-keeplive/" class="title">golang[97]-http-client-keeplive</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-10-20T06:04:27.000Z" itemprop="datePublished">2019-10-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/10/19/golang-96-http-RoundTripper/" class="title">golang[96]-http.RoundTripper</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-10-19T07:54:47.000Z" itemprop="datePublished">2019-10-19</time>
+              </p>
+            </div>
+          </li>
+          
           <li>
             
             <div class="item-inner">
@@ -260,51 +305,6 @@
               </p>
               <p class="item-date">
                 <time datetime="2019-10-11T08:36:18.000Z" itemprop="datePublished">2019-10-11</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/go/">go</a>
-              </p>
-              <p class="item-title">
-                <a href="/2019/10/10/golang-93-golang-link/" class="title">golang[93]-golang-link</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2019-10-10T13:34:57.000Z" itemprop="datePublished">2019-10-10</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/go/">go</a>
-              </p>
-              <p class="item-title">
-                <a href="/2019/10/07/golang-92-golang-reverse-proxy/" class="title">golang[92]-golang-实现反向代理</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2019-10-07T07:00:26.000Z" itemprop="datePublished">2019-10-07</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/linux/">linux</a>
-              </p>
-              <p class="item-title">
-                <a href="/2019/09/22/xargs命令详解，xargs与管道的区别/" class="title">xargs命令详解，xargs与管道的区别</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2019-09-22T15:33:30.000Z" itemprop="datePublished">2019-09-22</time>
               </p>
             </div>
           </li>
@@ -425,8 +425,8 @@ context.WithCancel生成了一个withCancel的实例以及一个cancelFuc，这�
 WithCancel初始化一个cancelCtx的同时，还执行了propagateCancel方法，最后返回一个cancel function。<br>
 propagateCancel 方法定义如下：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// propagateCancel arranges for child to be canceled when parent is.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">propagateCancel</span><span class="params">(parent Context, child canceler)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> parent.Done() == <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="comment">// parent is never canceled</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> p, ok := parentCancelCtx(parent); ok &#123;</span><br><span class="line">		p.mu.Lock()</span><br><span class="line">		<span class="keyword">if</span> p.err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="comment">// parent has already been canceled</span></span><br><span class="line">			child.cancel(<span class="literal">false</span>, p.err)</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> p.children == <span class="literal">nil</span> &#123;</span><br><span class="line">				p.children = <span class="built_in">make</span>(<span class="keyword">map</span>[canceler]<span class="keyword">struct</span>&#123;&#125;)</span><br><span class="line">			&#125;</span><br><span class="line">			p.children[child] = <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		p.mu.Unlock()</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">			<span class="keyword">select</span> &#123;</span><br><span class="line">			<span class="keyword">case</span> &lt;-parent.Done():</span><br><span class="line">				child.cancel(<span class="literal">false</span>, parent.Err())</span><br><span class="line">			<span class="keyword">case</span> &lt;-child.Done():</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>propagateCancel 的含义就是传递cancel，从当前传入的parent开始（包括该parent），向上查找最近的一个可以被cancel的parent， 如果找到的parent已经被cancel，则将方才传入的child树给cancel掉，否则，将child节点直接连接为找到的parent的children中（Context字段不变，即向上的父亲指针不变，但是向下的孩子指针变直接了）； 如果没有找到最近的可以被cancel的parent，即其上都不可被cancel，则启动一个goroutine等待传入的parent终止，则cancel传入的child树，或者等待传入的child终结。<br>
-WithDeadLine<br>
+<p>propagateCancel 的含义就是传递cancel，从当前传入的parent开始（包括该parent），向上查找最近的一个可以被cancel的parent， 如果找到的parent已经被cancel，则将方才传入的child树给cancel掉，否则，将child节点直接连接为找到的parent的children中（Context字段不变，即向上的父亲指针不变，但是向下的孩子指针变直接了）； 如果没有找到最近的可以被cancel的parent，即其上都不可被cancel，则启动一个goroutine等待传入的parent终止，则cancel传入的child树，或者等待传入的child终结。</p>
+<p>WithDeadLine<br>
 在withCancel的基础上进行的扩展，如果时间到了之后就进行cancel的操作，具体的操作流程基本上与withCancel一致，只不过控制cancel函数调用的时机是有一个timeout的channel所控制的。</p>
 <h2 id="context-使用原则-和-技巧"><a class="markdownIt-Anchor" href="#context-使用原则-和-技巧"></a> Context 使用原则 和 技巧</h2>
 <p>不要把Context放在结构体中，要以参数的方式传递，parent Context一般为Background<br>
