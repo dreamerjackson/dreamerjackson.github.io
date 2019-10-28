@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://dreamerjonson.com/2019/10/28/golang-99-mapReduce/</loc>
+    <lastmod>2019-10-28T06:19:26.254Z</lastmod>
+  </url>  <url>
     <loc>https://dreamerjonson.com/2019/10/25/golang-98-%E6%8B%89%E5%8F%96gitlab%E4%B8%AD%E7%9A%84merge%E4%BB%A3%E7%A0%81/</loc>
-    <lastmod>2019-10-25T07:17:55.605Z</lastmod>
+    <lastmod>2019-10-28T04:07:56.913Z</lastmod>
   </url>  <url>
     <loc>https://dreamerjonson.com/2019/10/20/golang-97-http-client-keeplive/</loc>
     <lastmod>2019-10-20T06:08:45.937Z</lastmod>

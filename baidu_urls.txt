@@ -1,3 +1,4 @@
+https://dreamerjonson.com/2019/10/28/golang-99-mapReduce/
 https://dreamerjonson.com/2019/10/25/golang-98-拉取gitlab中的merge代码/
 https://dreamerjonson.com/2019/10/20/golang-97-http-client-keeplive/
 https://dreamerjonson.com/2019/10/19/golang-96-http-RoundTripper/
