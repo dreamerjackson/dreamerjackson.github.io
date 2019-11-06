@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://dreamerjonson.com/2019/04/02/connect-github-gitlab/</loc>
+    <lastmod>2019-11-06T03:04:49.829Z</lastmod>
+  </url>  <url>
     <loc>https://dreamerjonson.com/2019/11/04/golang-100-jaeger/</loc>
     <lastmod>2019-11-05T14:54:56.052Z</lastmod>
   </url>  <url>
@@ -93,9 +96,6 @@
   </url>  <url>
     <loc>https://dreamerjonson.com/2019/05/15/a-mac-effitive/</loc>
     <lastmod>2019-07-01T03:23:11.251Z</lastmod>
-  </url>  <url>
-    <loc>https://dreamerjonson.com/2019/04/02/connect-github-gitlab/</loc>
-    <lastmod>2019-07-01T03:11:16.949Z</lastmod>
   </url>  <url>
     <loc>https://dreamerjonson.com/2019/06/18/golang-81-golang-docker/</loc>
     <lastmod>2019-06-18T04:06:17.426Z</lastmod>
