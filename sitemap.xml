@@ -2,9 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://dreamerjonson.com/2019/12/05/golang-105-stack-trace/</loc>
+    
+    <lastmod>2019-12-05T14:20:01.631Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/11/30/golang-102-assembly-compile/</loc>
+    
+    <lastmod>2019-12-04T10:43:49.265Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://dreamerjonson.com/2019/11/24/emacs-package-for-golang/</loc>
     
-    <lastmod>2019-11-24T02:26:00.331Z</lastmod>
+    <lastmod>2019-12-04T09:13:17.413Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/12/04/golang-104-go%E8%AF%AD%E8%A8%80%E6%B8%90%E5%85%A5%E4%BD%B3%E5%A2%83-%E7%BD%91%E7%BB%9C-16-%E8%8E%B7%E5%8F%96%E6%9C%AC%E6%9C%BA%E5%9C%B0%E5%9D%80/</loc>
+    
+    <lastmod>2019-12-04T06:26:43.026Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/12/03/golang-103-ldflags%E6%8A%80%E5%B7%A7/</loc>
+    
+    <lastmod>2019-12-03T12:47:15.352Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/11/14/%E6%89%AB%E7%9B%B2-netcat%EF%BC%88%E7%BD%91%E7%8C%AB%EF%BC%89%E7%9A%84-N-%E7%A7%8D%E7%94%A8%E6%B3%95%E2%80%94%E2%80%94%E4%BB%8E%E7%BD%91%E7%BB%9C%E8%AF%8A%E6%96%AD%E2%80%9D%E5%88%B0%E2%80%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E4%BE%B5/</loc>
+    
+    <lastmod>2019-11-29T13:11:27.698Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/01/24/docker-mirror/</loc>
+    
+    <lastmod>2019-11-27T02:08:39.892Z</lastmod>
     
   </url>
   
@@ -19,13 +61,6 @@
     <loc>https://dreamerjonson.com/2019/10/29/emacs-studynode/</loc>
     
     <lastmod>2019-11-19T06:25:15.085Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dreamerjonson.com/2019/11/14/%E6%89%AB%E7%9B%B2-netcat%EF%BC%88%E7%BD%91%E7%8C%AB%EF%BC%89%E7%9A%84-N-%E7%A7%8D%E7%94%A8%E6%B3%95%E2%80%94%E2%80%94%E4%BB%8E%E7%BD%91%E7%BB%9C%E8%AF%8A%E6%96%AD%E2%80%9D%E5%88%B0%E2%80%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E4%BE%B5/</loc>
-    
-    <lastmod>2019-11-19T06:24:36.752Z</lastmod>
     
   </url>
   
@@ -607,13 +642,6 @@
     <loc>https://dreamerjonson.com/2018/11/19/golang-12-array/</loc>
     
     <lastmod>2019-02-15T14:42:22.021Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dreamerjonson.com/2019/01/24/docker-mirror/</loc>
-    
-    <lastmod>2019-02-12T14:55:54.834Z</lastmod>
     
   </url>
   
