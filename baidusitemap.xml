@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://dreamerjonson.com/2019/12/11/golang-106-IEE754-float/</loc>
+    <lastmod>2019-12-14T10:27:50.069Z</lastmod>
+  </url>  <url>
     <loc>https://dreamerjonson.com/2019/12/05/golang-105-stack-trace/</loc>
-    <lastmod>2019-12-06T06:21:50.328Z</lastmod>
+    <lastmod>2019-12-11T07:35:58.679Z</lastmod>
+  </url>  <url>
+    <loc>https://dreamerjonson.com/2019/06/11/golang-79-protobuf/</loc>
+    <lastmod>2019-12-11T07:35:57.461Z</lastmod>
   </url>  <url>
     <loc>https://dreamerjonson.com/2019/11/30/golang-102-assembly-compile/</loc>
     <lastmod>2019-12-04T10:43:49.265Z</lastmod>
@@ -135,9 +141,6 @@
   </url>  <url>
     <loc>https://dreamerjonson.com/2019/06/11/mac-info/</loc>
     <lastmod>2019-06-11T10:18:12.409Z</lastmod>
-  </url>  <url>
-    <loc>https://dreamerjonson.com/2019/06/11/golang-79-protobuf/</loc>
-    <lastmod>2019-06-11T07:48:15.975Z</lastmod>
   </url>  <url>
     <loc>https://dreamerjonson.com/2019/05/18/golang-76-reflection/</loc>
     <lastmod>2019-05-28T06:27:20.334Z</lastmod>
