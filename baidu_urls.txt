@@ -1,3 +1,5 @@
+https://dreamerjonson.com/2019/12/18/golang-108-pow-of-two/
+https://dreamerjonson.com/2019/12/14/golang-107-Josephus-problem/
 https://dreamerjonson.com/2019/12/11/golang-106-IEE754-float/
 https://dreamerjonson.com/2019/12/05/golang-105-stack-trace/
 https://dreamerjonson.com/2019/12/04/golang-104-go语言渐入佳境-网络-16-获取本机地址/
