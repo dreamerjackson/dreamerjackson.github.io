@@ -1,3 +1,4 @@
+https://dreamerjonson.com/2019/12/25/golang-109-lab-simulate-rpc/
 https://dreamerjonson.com/2019/12/18/golang-108-pow-of-two/
 https://dreamerjonson.com/2019/12/14/golang-107-Josephus-problem/
 https://dreamerjonson.com/2019/12/11/golang-106-IEE754-float/
