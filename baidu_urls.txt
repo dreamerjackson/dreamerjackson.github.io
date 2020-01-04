@@ -1,3 +1,5 @@
+https://dreamerjonson.com/2019/12/29/golang-110-lab-raft/
+https://dreamerjonson.com/2019/12/25/emacs-cc/
 https://dreamerjonson.com/2019/12/25/golang-109-lab-simulate-rpc/
 https://dreamerjonson.com/2019/12/18/golang-108-pow-of-two/
 https://dreamerjonson.com/2019/12/14/golang-107-Josephus-problem/

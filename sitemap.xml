@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://dreamerjonson.com/2019/12/29/golang-110-lab-raft/</loc>
+    
+    <lastmod>2020-01-04T04:42:58.975Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/12/11/golang-106-IEE754-float/</loc>
+    
+    <lastmod>2020-01-02T04:34:32.541Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/12/25/emacs-cc/</loc>
+    
+    <lastmod>2019-12-25T09:28:32.400Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://dreamerjonson.com/2019/12/25/golang-109-lab-simulate-rpc/</loc>
     
     <lastmod>2019-12-25T07:54:56.445Z</lastmod>
@@ -12,13 +33,6 @@
     <loc>https://dreamerjonson.com/2019/12/14/golang-107-Josephus-problem/</loc>
     
     <lastmod>2019-12-25T03:18:08.399Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dreamerjonson.com/2019/12/11/golang-106-IEE754-float/</loc>
-    
-    <lastmod>2019-12-25T03:18:06.824Z</lastmod>
     
   </url>
   

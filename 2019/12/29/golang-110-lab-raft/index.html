@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>golang[110]-raft算法理论与实践[1] | 郑建勋的个人网站</title>
+  <meta name="description" content="前言 我计划写raft的一系列文章，包含从理论到代码实践，此文章依托于MIT的研究生课程。  背景 raft 是一种分布式的共识算法，其目的是要实现多个节点集群的容错性,一致性从而能够构建大规模的软件系统。 在raft之前，比较有名的是Paxos。但是paxos难于理解。 raft的诞生是为了让共识算法更容易理解,在工程上更容易实现。 和其他的共识算法不同的是，raft具有下面的特点： 1、le">
+<meta name="keywords" content="go">
+<meta property="og:type" content="article">
+<meta property="og:title" content="golang[110]-raft算法理论与实践[1]">
+<meta property="og:url" content="https://dreamerjonson.com/2019/12/29/golang-110-lab-raft/index.html">
+<meta property="og:site_name" content="Jonson">
+<meta property="og:description" content="前言 我计划写raft的一系列文章，包含从理论到代码实践，此文章依托于MIT的研究生课程。  背景 raft 是一种分布式的共识算法，其目的是要实现多个节点集群的容错性,一致性从而能够构建大规模的软件系统。 在raft之前，比较有名的是Paxos。但是paxos难于理解。 raft的诞生是为了让共识算法更容易理解,在工程上更容易实现。 和其他的共识算法不同的是，raft具有下面的特点： 1、le">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://dreamerjonson.com/2019/12/29/golang-110-lab-raft/1.png">
+<meta property="og:image" content="https://dreamerjonson.com/2019/12/29/golang-110-lab-raft/2.png">
+<meta property="og:image" content="https://dreamerjonson.com/2019/12/29/golang-110-lab-raft/3.png">
+<meta property="og:updated_time" content="2020-01-04T04:42:58.975Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="golang[110]-raft算法理论与实践[1]">
+<meta name="twitter:description" content="前言 我计划写raft的一系列文章，包含从理论到代码实践，此文章依托于MIT的研究生课程。  背景 raft 是一种分布式的共识算法，其目的是要实现多个节点集群的容错性,一致性从而能够构建大规模的软件系统。 在raft之前，比较有名的是Paxos。但是paxos难于理解。 raft的诞生是为了让共识算法更容易理解,在工程上更容易实现。 和其他的共识算法不同的是，raft具有下面的特点： 1、le">
+<meta name="twitter:image" content="https://dreamerjonson.com/2019/12/29/golang-110-lab-raft/1.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://dreamerjonson.com/2019/12/29/golang-110-lab-raft/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Jonson" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css">
+  
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+
+
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/dreamerjackson" target="_blank">
+          <img class="img-circle img-rotate" src="/images/jonson.png" width="992" height="1532">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">郑建勋（jonson）</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">区块链工程师 &amp; Web工程师</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-bitcoin">
+          <a href="/bitcoin">
+            
+            <i class="icon fab fa-bitcoin"></i>
+            
+            <span class="menu-title">比特币文献</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-aboutme">
+          <a href="/aboutme">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">关于我</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/dreamerjackson" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+          <div id="mrmy" style="padding-bottom:30px"></div>
+              <div class="content">
+                  <!-- <p>I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.</p> -->
+                  <!--  -->
+                  <!-- 可是，那也是你的命，是上天注定的 &lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--音越&lt;/p&gt; -->
+                    <!-- 可是，那也是你的命，是上天注定的 <br/><p align="right">--音越</p> -->
+                商业合作微信：dreamerjonson<br><br>
+                51CTO区块链交流群：837814276<br><br>
+                go语言交流2群：713385260<br>
+                <!-- <div><img src="/images/xingqiu-qrcode.jpg" width="150" height="150"></div> -->
+              </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/emacs/">emacs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/git/mac环境配置/">mac环境配置</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">152</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/数据结构/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-数据结构/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/macOS/">macOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链原理/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发配置/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/智能合约-solidity语法/">智能合约 solidity语法</a><span class="category-list-count">60</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/置顶/">置顶</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emacs/">emacs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">152</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-数据结构/">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macOS/">macOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac环境配置/">mac环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-前端/">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链原理/">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发配置/">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置顶/">置顶</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/bootstrap/" style="font-size: 13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.38px;">docker</a> <a href="/tags/emacs/" style="font-size: 13px;">emacs</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-数据结构/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/mac/" style="font-size: 13.25px;">mac</a> <a href="/tags/macOS/" style="font-size: 13px;">macOS</a> <a href="/tags/mac环境配置/" style="font-size: 13.13px;">mac环境配置</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-前端/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/以太坊/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/前端/" style="font-size: 13.38px;">前端</a> <a href="/tags/区块链/" style="font-size: 13px;">区块链</a> <a href="/tags/区块链原理/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/开发配置/" style="font-size: 13px;">开发配置</a> <a href="/tags/数据结构/" style="font-size: 13px;">数据结构</a> <a href="/tags/智能合约/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/置顶/" style="font-size: 13px;">置顶</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/12/29/golang-110-lab-raft/" class="title">golang[110]-raft算法理论与实践[1]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-12-29T15:06:17.000Z" itemprop="datePublished">2019-12-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/emacs/">emacs</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/12/25/emacs-cc/" class="title">emacs--构建cc++IDE</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-12-25T09:10:26.000Z" itemprop="datePublished">2019-12-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/12/25/golang-109-lab-simulate-rpc/" class="title">golang[109]-lab-模拟rpc远程过程调用</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-12-25T03:24:06.000Z" itemprop="datePublished">2019-12-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/12/18/golang-108-pow-of-two/" class="title">golang[108]-2的幂</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-12-17T16:41:10.000Z" itemprop="datePublished">2019-12-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/12/14/golang-107-Josephus-problem/" class="title">golang[107]-约瑟夫问题与2的次方的特性</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-12-14T13:12:12.000Z" itemprop="datePublished">2019-12-14</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text"> 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#背景"><span class="toc-number">2.</span> <span class="toc-text"> 背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#replicated-state-machine"><span class="toc-number">3.</span> <span class="toc-text"> Replicated state machine</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#raft-basic"><span class="toc-number">4.</span> <span class="toc-text"> raft basic</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选举"><span class="toc-number">5.</span> <span class="toc-text"> 选举</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志复制log-replication"><span class="toc-number">6.</span> <span class="toc-text"> 日志复制(Log replication)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安全性"><span class="toc-number">7.</span> <span class="toc-text"> 安全性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#todo"><span class="toc-number">8.</span> <span class="toc-text"> todo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">9.</span> <span class="toc-text"> 总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">10.</span> <span class="toc-text"> 参考资料</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-golang-110-lab-raft" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      golang[110]-raft算法理论与实践[1]
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/12/29/golang-110-lab-raft/" class="article-date">
+	  <time datetime="2019-12-29T15:06:17.000Z" itemprop="datePublished">2019-12-29</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/go/">go</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/go/">go</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/12/29/golang-110-lab-raft/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.4k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 8(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>我计划写raft的一系列文章，包含从理论到代码实践，此文章依托于MIT的研究生课程。</p>
+<h2 id="背景"><a class="markdownIt-Anchor" href="#背景"></a> 背景</h2>
+<p>raft 是一种分布式的共识算法，其目的是要实现多个节点集群的容错性,一致性从而能够构建大规模的软件系统。<br>
+在raft之前，比较有名的是Paxos。但是paxos难于理解。<br>
+raft的诞生是为了让共识算法更容易理解,在工程上更容易实现。</p>
+<p>和其他的共识算法不同的是，raft具有下面的特点：<br>
+1、leader：raft中会有一个领导者具有超级权限，可以把自己的log 复制到其他节点中。<br>
+2、leader election： raft每隔一段随机的时间就会进行leader的选举<br>
+3、raft允许集群配置变化时正常运行。</p>
+<h2 id="replicated-state-machine"><a class="markdownIt-Anchor" href="#replicated-state-machine"></a> Replicated state machine</h2>
+<p>状态机是分布式系统中的一个重要概念，任何一个系统的最终状态都可以看成是每一个操作的集合。因此，算法会维护一份replicated log，将每一份操作都存储起来。<br>
+每一个节点只要按顺序执行log中的命令，就会到达相同的最终状态。这样，即便是系统奔溃也可以快速的恢复。<br>
+共识算法需要保证relicated log的一致性,服务器收到客户端发出来的执行命令Command后，会将其加入到log中。<br>
+服务器之间会相互的交流，保证最后的log的一致性（即便服务器奔溃），即Command 会复制到其他服务器的log中，所有服务器的log是相同的，有序的。<br>
+其他服务器会执行此log，即会执行此命令。最后，所有的服务器都会到达同一个状态。</p>
+<p>共识算法必须满足下面的属性：<br>
+1、在极端情况下（丢包、奔溃）任然能够保证安全性。<br>
+2、大多数节点正常的情况下能够保证可用。<br>
+3、不能依靠时间戳去保证log的一致性。<br>
+4、当大部分的节点通过RPC远程调用交流 达成共识后，command就可以被确认和执行。小部分节点的不稳定不会影响整个系统。</p>
+<h2 id="raft-basic"><a class="markdownIt-Anchor" href="#raft-basic"></a> raft basic</h2>
+<p>raft集群一般保持奇数个数量（5个节点比较普遍). 从而只要大部分节点存活，即可用。<br>
+raft中的节点有3种状态。 leader, Candidates, follower。<br>
+1、一般的状态只会存在一个leader，其余的节点都是follower。<br>
+2、leader会处理所有的客户端请求， 如果是客户端请求follower，也会被转发到leader处理。<br>
+3、Candidates 是一种选举时候的过渡状态，用于自身拉票选举leader。</p>
+<p>在raft中会有一个叫做term的时间周期。term是以选举leader开始的，如果Candidates选举成为了leader，那么其会成为这个term剩下时间的leader。<br>
+有时候，在整个term周期都没有选举出leader。这时一个新的选举会在不久后开始。<br>
+Terms 在raft中类似于一种时间戳，后一个一定比前一个后发生，这一点和比特币中的区块链很类似。<br>
+每一个服务器会存储一个当前的term，其会随着时间的增加而增长。如果某一个节点的当前term小于其他节点，那么节点会更新自己的term为最大的term。<br>
+如果一个candidate 发现自己当前的term 过时了，那么其会立即变为follower。<br>
+raft节点之间通过RPC（远程过程调用）来进行通信。 RequestVote 方法用于candidate在选举时候使用，AppendEntries用于leader在通知其他节点复制log时使用。同时也用于心跳检测。<br>
+RPC 是并发的，并支持失败重试。</p>
+<h2 id="选举"><a class="markdownIt-Anchor" href="#选举"></a> 选举</h2>
+<p>在raft中会有一套心跳检测，只要follower收到来自leader或者Candidates的数据，那么其会保持follower的状态。<br>
+如果follower一段时间内没有收到RPC请求，这意味着选举超时（ election timeout ）。<br>
+这时follower会将current term 加1，过渡到Candidates状态。<br>
+其会给自己投票，并发送RequestVote RPC请求给其他的节点，拉票！</p>
+<p>Candidates状态会持续，直到下面的3种情况发生:<br>
+1、当其获得了大部分节点的支持后，其赢得了选举，变为了leader。<br>
+一旦其变为了leader，其会向其他节点发送 AppendEntries RPC， 确认其leader的地位，阻止选举。<br>
+2、其他节点成为了leader。<br>
+如果其收到了其他节点的AppendEntries RPC. 并发现其他节点的current term比自己的大,则其变为follower状态。<br>
+3、一段时间过去任然没有参与者。<br>
+如果有许多的节点同时变为了candidate,则可能会出现一段时间内都没有节点能够选举成功的情况。<br>
+在raft中，为了快速解决并修复这个问题，规定了每一个candidate在选举前会重置一个随机的选举超时（ election timeout ）时间，此随机时间会在一个区间内（eg.150-300ms）<br>
+这样保证了，在大部分的情况下，有一个唯一的节点首先选举超时，其在大部分节点选举超时前发送心跳检测，赢得了选举。</p>
+<p>当一个leader在心跳检测中发现另一个节点有更高的term时，会转变为follower。否则其将一直保持leader状态。</p>
+<h2 id="日志复制log-replication"><a class="markdownIt-Anchor" href="#日志复制log-replication"></a> 日志复制(Log replication)</h2>
+<p>当成为leader后，其会接受来自客户端的请求。每一个客户端请求都包含一个将要被节点的状态机执行的command。<br>
+leader其会将这个command 包装为一个entry放入到log中，并通过AppendEntries RPC 发送给其他节点，要求其添加此entry到log中。</p>
+<p>当entry被 大部分的节点接受并复制后，这个entry的状态变为了committed.  raft算法保证了commited entry到最后一定能够会被所有节点的状态机执行。<br>
+一旦follower知道（AppendEntries RPC）某一个entry被commit之后，follower会按顺序执行log中的entry</p>
+<img src="/2019/12/29/golang-110-lab-raft/1.png" title="类型">
+<center><div>entry in log</div></center>
+如图所示，我们可以把log 理解为entry的集合。在entry中包含了common命令、entry所在的term 以及每一个entry的顺序编号index。
+<p>raft的一致性保证了下面的属性：<br>
+1、如果在不同节点中log中的entry有相同的index 和term。 那么一定存储的是相同的command。<br>
+2、如果在不同节点中log中的entry有相同的index 和term。 那么此entry之前的所有entry都是相同的。</p>
+<img src="/2019/12/29/golang-110-lab-raft/2.png" title="类型">
+<center><div>leader crashes</div></center>
+节点f可能会发生，如果其是term 2的leader, 添加entry到log中，但是没有commit时就奔溃了，其快速恢复后又变为了term 3 的leader， 添加entry到log中，没有commit又继续奔溃了。
+<p>在正常的情况下，上面的两个属性都能满足，但是异常情况下，这种情况会被打破，可能会出现如上图所示的情形，</p>
+<p>在raft中，为了处理这样的不一致性，强制要求follower的log与leader的log要一致。</p>
+<p>因此leader必须要发现一个entry，在这个entry之后的都是不相同的entry。在这个entry之前的都是一致的entry。在leader中会为每一个follower维护一份nextIndex 数组。标志了将要发送给follower的下一个index。 最后，follower会删除掉所有不同的entry，并用和leader一致的log。这一过程，都会通过AppendEntries RPC 执行完毕。当AppendEntries RPC返回success，就表明follower 与 leader的log是一致的。</p>
+<h2 id="安全性"><a class="markdownIt-Anchor" href="#安全性"></a> 安全性</h2>
+<p>上面的属性还不能够充分的保证系统的安全性。 考虑下面的例子：</p>
+<img src="/2019/12/29/golang-110-lab-raft/3.png" title="类型">
+<center><div>safe problem</div></center>
+上图要说明的是，一个已经被commit的entry 在目前的情况下是有可能被覆盖掉的。例如在a
+阶段s1成为了leader，其entry还没有commit。 在b阶段,s1奔溃，s5成为了leader ，添加log但是任然没有commit。 在c阶段，s5奔溃，s1成为了leader。其entry成为了commit。 在d阶段s1奔溃，s5成为了leader，其会将本已commit的entry给覆盖掉。
+<p>raft使用一种更简单的方式来解决这个难题，raft为leader添加了限制:<br>
+要成为leader 必须要包含过去所有的commit entry。<br>
+Candidates 要想成为leader，必须要经过大部分follower节点的同意。<br>
+而commit entry 也表明其已经存在于大部分的服务器中。 因此commit entry 至少会出现在这些follower节点中的至少有一个节点。因此我们可以证明，在大部分的follower中，至少有一个是包含了leader的所有commit entry的。<br>
+因此 如果一个candidate的log是最新的（即他与其他的节点对比时，如果term更大的，最新。如果term相同的，那么越长的那个log越新。）其才可以成为leader。</p>
+<p>因此可知，一个leader一定包含了以前leader的commit entry。</p>
+<h2 id="todo"><a class="markdownIt-Anchor" href="#todo"></a> todo</h2>
+<p>配置改变、 日志压缩快照（log compaction / snapshotting ）</p>
+<h2 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+<p>上面对于raft的描述，保证了存在5点：<br>
+1、Election Safety：在一个term周期内只会存在一个leader。<br>
+2、Leader Append-Only： leader只会添加log，而不会删除或者覆盖log。<br>
+3、Log Matching：如果两个log有一个相同index与term的entry，那么他们之前的log都是相同的。<br>
+4、Leader Completeness：如果一个log entry在一个term周期成为commit， 那么其一定会存在于下一个leader的log中。<br>
+5、State Machine Safety：如果某节点已经将index A 应用于其状态机。则以后其他节点不可能在同一index A 却具有不同的log entry。 因为应用到状态机说明已经被commit，而借助于第4点得证。</p>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<p><a href="http://nil.csail.mit.edu/6.824/2017/papers/raft-extended.pdf" target="_blank" rel="noopener">raft论文</a><br>
+<a href="http://thesecretlivesofdata.com/raft/" target="_blank" rel="noopener">raft可视化</a><br>
+<a href="https://zhuanlan.zhihu.com/p/32052223" target="_blank" rel="noopener">知乎，写得一般但是有借鉴地方</a></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://dreamerjonson.com/2019/12/29/golang-110-lab-raft/" title="golang[110]-raft算法理论与实践[1]" target="_blank" rel="external">https://dreamerjonson.com/2019/12/29/golang-110-lab-raft/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/dreamerjackson" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/jonson.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/dreamerjackson" target="_blank"><span class="text-dark">郑建勋（jonson）</span><small class="ml-1x">区块链工程师 &amp; Web工程师</small></a></h3>
+        <div>灾难总是接踵而至，这正是世间的常理。你以为只要哭诉一下，就会有谁来救你？如果失败了，就只能说明我不过是如此程度的男人</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+           
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2019/12/25/emacs-cc/" title="emacs--构建cc++IDE"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫">
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫">
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/dreamerjackson" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	<!-- Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>. -->
+						天下风云出我辈，一入江湖岁月催。<br>皇图霸业谈笑中，不胜人生一场醉 
+			  </div>
+    </div>
+</footer>
+
+  <!-- <script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>　
+<script src="https://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
+<script data-ad-client="ca-pub-9425496202910941" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+
+<script src="/js/mrmy.js"></script>
+
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+  <script src="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: 'c22fa591ad87e1b03638',
+    clientSecret: '0646579e4dd8a301be7a42bcf3f5dd39ce803dcb',
+    repo: 'dreamerjackson.github.io',
+    owner: 'dreamerjackson',
+    admin: ['dreamerjackson'],
+    id: md5(location.pathname),
+    distractionFreeMode: true
+  })
+  gitalk.render('comments')
+  </script>
+
+      
+
+
+
+
+
+
+
+
+</body>
+</html>
