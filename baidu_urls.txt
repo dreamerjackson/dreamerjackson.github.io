@@ -1,3 +1,6 @@
+https://dreamerjonson.com/2020/01/06/golang-111-raft-3-elect/
+https://dreamerjonson.com/2020/01/06/golang-111-raft-2/
+https://dreamerjonson.com/2020/01/04/6-s081-1/
 https://dreamerjonson.com/2019/12/29/golang-110-lab-raft/
 https://dreamerjonson.com/2019/12/25/emacs-cc/
 https://dreamerjonson.com/2019/12/25/golang-109-lab-simulate-rpc/

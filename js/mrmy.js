@@ -20,5 +20,6 @@
   tips[16] = '就算你们把酒或食物丢在我头上，或是你们吐口水在我身上，我都会笑笑当作没事。但是…不管你们有什么样的理由…我都不会饶了伤害我朋友的家伙 <br/><p align="right">--红发</p>';
   tips[17] = '连一个船长都保护不了还谈什么野心！<br/><p align="right">--索隆</p>';
   tips[18] = '摆出无比亲密的态度，装模作样地与对方套近乎，频繁地联系对方。这都说明他们并不相信自己得到了对方的信赖，若是互相信赖，便不会依赖亲密的感觉。在外人看来，反而显得冷淡。<br/><p align="right">——弗里德里希·威廉·尼采</p>';
+  tips[19] = '我想写一出最悲的悲剧，里面充满了无耻的笑声<br/><p align="right">——老舍</p>';
   boardIndex = Math.floor(Math.random() * tips.length);
   document.getElementById('mrmy').innerHTML = tips[boardIndex];

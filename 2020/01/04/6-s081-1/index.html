@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>6.s081[1]-操作系统接口 | 郑建勋的个人网站</title>
+  <meta name="description" content="前言 实验1需要我们调用unix操作系统保持出的接口，因此首先需要了解unix操作系统有关的知识。  操作系统（operating system）的功能 操作系统的任务是在多个程序之间共享一台计算机，并提供比单独的硬件所支持的更为有用的服务集。 操作系统管理和抽象化低级硬件，因此，例如，文字处理器不必担心自己正在使用哪种类型的硬件。 操作系统允许多个程序之间共享硬件，以便它们可以并发运行。 最后">
+<meta name="keywords" content="unix">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6.s081[1]-操作系统接口">
+<meta property="og:url" content="https://dreamerjonson.com/2020/01/04/6-s081-1/index.html">
+<meta property="og:site_name" content="Jonson">
+<meta property="og:description" content="前言 实验1需要我们调用unix操作系统保持出的接口，因此首先需要了解unix操作系统有关的知识。  操作系统（operating system）的功能 操作系统的任务是在多个程序之间共享一台计算机，并提供比单独的硬件所支持的更为有用的服务集。 操作系统管理和抽象化低级硬件，因此，例如，文字处理器不必担心自己正在使用哪种类型的硬件。 操作系统允许多个程序之间共享硬件，以便它们可以并发运行。 最后">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-10T08:36:46.513Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="6.s081[1]-操作系统接口">
+<meta name="twitter:description" content="前言 实验1需要我们调用unix操作系统保持出的接口，因此首先需要了解unix操作系统有关的知识。  操作系统（operating system）的功能 操作系统的任务是在多个程序之间共享一台计算机，并提供比单独的硬件所支持的更为有用的服务集。 操作系统管理和抽象化低级硬件，因此，例如，文字处理器不必担心自己正在使用哪种类型的硬件。 操作系统允许多个程序之间共享硬件，以便它们可以并发运行。 最后">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://dreamerjonson.com/2020/01/04/6-s081-1/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Jonson" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css">
+  
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+
+
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/dreamerjackson" target="_blank">
+          <img class="img-circle img-rotate" src="/images/jonson.png" width="992" height="1532">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">郑建勋（jonson）</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">区块链工程师 &amp; Web工程师</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-bitcoin">
+          <a href="/bitcoin">
+            
+            <i class="icon fab fa-bitcoin"></i>
+            
+            <span class="menu-title">比特币文献</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-aboutme">
+          <a href="/aboutme">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">关于我</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/dreamerjackson" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+          <div id="mrmy" style="padding-bottom:30px"></div>
+              <div class="content">
+                  <!-- <p>I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.</p> -->
+                  <!--  -->
+                  <!-- 弱者，连自己的死法都无权选择。&lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--特拉法尔加·罗&lt;/p&gt; -->
+                    <!-- 弱者，连自己的死法都无权选择。<br/><p align="right">--特拉法尔加·罗</p> -->
+                go语言交流2群：713385260<br>
+                <!-- <div><img src="/images/xingqiu-qrcode.jpg" width="150" height="150"></div> -->
+              </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/emacs/">emacs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/git/mac环境配置/">mac环境配置</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">154</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/数据结构/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-数据结构/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/macOS/">macOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/unix/">unix</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链原理/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发配置/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/智能合约-solidity语法/">智能合约 solidity语法</a><span class="category-list-count">60</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/置顶/">置顶</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emacs/">emacs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">154</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-数据结构/">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macOS/">macOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac环境配置/">mac环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-前端/">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unix/">unix</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链原理/">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发配置/">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置顶/">置顶</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/bootstrap/" style="font-size: 13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.38px;">docker</a> <a href="/tags/emacs/" style="font-size: 13px;">emacs</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-数据结构/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/mac/" style="font-size: 13.25px;">mac</a> <a href="/tags/macOS/" style="font-size: 13px;">macOS</a> <a href="/tags/mac环境配置/" style="font-size: 13.13px;">mac环境配置</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-前端/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/unix/" style="font-size: 13px;">unix</a> <a href="/tags/以太坊/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/前端/" style="font-size: 13.38px;">前端</a> <a href="/tags/区块链/" style="font-size: 13px;">区块链</a> <a href="/tags/区块链原理/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/开发配置/" style="font-size: 13px;">开发配置</a> <a href="/tags/数据结构/" style="font-size: 13px;">数据结构</a> <a href="/tags/智能合约/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/置顶/" style="font-size: 13px;">置顶</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/06/golang-111-raft-3-elect/" class="title">golang[113]-raft理论与实践[3]-lab2a讲解</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-06T12:15:46.000Z" itemprop="datePublished">2020-01-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/06/golang-111-raft-2/" class="title">golang[111]-raft理论与实践[2]-lab2A实验说明</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-06T06:57:48.000Z" itemprop="datePublished">2020-01-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/unix/">unix</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/04/6-s081-1/" class="title">6.s081[1]-操作系统接口</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-04T06:27:36.000Z" itemprop="datePublished">2020-01-04</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/12/29/golang-110-lab-raft/" class="title">golang[110]-raft算法理论与实践[1]</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-12-29T15:06:17.000Z" itemprop="datePublished">2019-12-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/emacs/">emacs</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/12/25/emacs-cc/" class="title">emacs--构建cc++IDE</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-12-25T09:10:26.000Z" itemprop="datePublished">2019-12-25</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text"> 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作系统operating-system的功能"><span class="toc-number">2.</span> <span class="toc-text"> 操作系统（operating system）的功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作系统接口"><span class="toc-number">3.</span> <span class="toc-text"> 操作系统接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#io-与文件描述符"><span class="toc-number">4.</span> <span class="toc-text"> I/O 与文件描述符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#管道"><span class="toc-number">5.</span> <span class="toc-text"> 管道</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件系统"><span class="toc-number">6.</span> <span class="toc-text"> 文件系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">7.</span> <span class="toc-text"> 参考资料</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-6-s081-1" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      6.s081[1]-操作系统接口
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/01/04/6-s081-1/" class="article-date">
+	  <time datetime="2020-01-04T06:27:36.000Z" itemprop="datePublished">2020-01-04</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/unix/">unix</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/unix/">unix</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/01/04/6-s081-1/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 5.5k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 20(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>实验1需要我们调用unix操作系统保持出的接口，因此首先需要了解unix操作系统有关的知识。</p>
+<h2 id="操作系统operating-system的功能"><a class="markdownIt-Anchor" href="#操作系统operating-system的功能"></a> 操作系统（operating system）的功能</h2>
+<p>操作系统的任务是在多个程序之间共享一台计算机，并提供比单独的硬件所支持的更为有用的服务集。<br>
+操作系统管理和抽象化低级硬件，因此，例如，文字处理器不必担心自己正在使用哪种类型的硬件。<br>
+操作系统允许多个程序之间共享硬件，以便它们可以并发运行。<br>
+最后，操作系统提供了程序交互的方式，以便它们可以共享数据，协同工作。</p>
+<p>操作系统为用户程序提供接口去调用。设计一个好的接口操作系统接口非常困难。<br>
+一方面希望简单，一方面又希望实现复杂的功能。<br>
+一种好的设计思路是接口之间可以通过某种机制组合起来以实现复杂的操作。</p>
+<p>本实验中，使用了xv6 操作系统。其提供了unix的基本操作系统接口，并且模仿了Unix的内部设计。<br>
+unix提供的接口很少，但是由于其可以组合的机制，提供了难以想象的通用性。该接口非常成功，以至于现代操作系统（BSD，Linux，Mac OS X，Solaris，甚至在较小程度上是Microsoft Windows）都具有类似Unix的接口。了解xv6是了解这些系统和许多其他系统的良好起点。</p>
+<p>内核是操作系统的核心，为运行的程序提供服务。 每个正在运行的程序（称为进程）都具有包含指令，数据和堆栈的内存。<br>
+指令说明了程序的运行逻辑。数据是指令运行所需要的变量。堆栈组织程序的过程调用。<br>
+当进程需要调用内核服务时，它将通过操作系统提供的接口进行过程调用。 这样的过程称为系统调用。<br>
+内核使用CPU的硬件保护机制来确保在用户空间中执行的每个进程只能访问其自己的内存。<br>
+用户程序调用操作系统接口后，硬件提高权限级别，并开始在内核中执行预先安排的功能。</p>
+<p>shell是一个普通程序，可读取用户命令并执行命令。 shell是用户程序而不是内核的一部分，这一事实说明了操作系统接口的强大功能。shell没有什么特别之处，这也意味着shell易于更换；现代Unix系统有多种shell可供选择，每种shell都有其自己的用户界面和脚本功能。 xv6 shell是Unix Bourne shell的简单实现。 可以在（user / sh.c：1）中找到其实现。</p>
+<h2 id="操作系统接口"><a class="markdownIt-Anchor" href="#操作系统接口"></a> 操作系统接口</h2>
+<p>xv6进程由用户空间内存（指令，数据和堆栈）和内核专有的每个进程状态组成。<br>
+xv6保证进程的并发执行，在多个进程之间切换CPU能力。<br>
+当某个进程未执行时，xv6保存其CPU寄存器，并在下次运行该进程时恢复它们。 内核将进程标识符或pid与每个进程相关联。<br>
+进程可以使用fork系统调用来创建新进程。 Fork创建一个称为子进程的新进程，该进程与父进程的内存完全相同。<br>
+Fork在子进程与父进程中都会返回。<br>
+在父进程中，fork返回子进程的pid； 在子进程中，它返回零。<br>
+例如，考虑以下用C编程语言编写的程序片段：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">int pid = fork();</span><br><span class="line">if(pid &gt; 0)&#123;</span><br><span class="line">    printf(&quot;parent: child=%d\en&quot;, pid);</span><br><span class="line">    pid = wait(0);</span><br><span class="line">    printf(&quot;child %d is done\en&quot;, pid);</span><br><span class="line">&#125; else if(pid == 0)&#123;</span><br><span class="line">    printf(&quot;child: exiting\en&quot;);</span><br><span class="line">    exit(0);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    printf(&quot;fork error\en&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>exit导致调用进程停止执行并释放资源，例如内存和打开的文件。<br>
+exit接受一个整数状态参数，通常0表示成功，1表示失败。<br>
+wait系统调用返回当前进程已退出子进程的pid，并将该子进程的退出状态传递给wait。<br>
+如果子进程都没有退出，一直会等待。<br>
+如果父进程不在乎子进程的退出状态，则可以传递状态0。</p>
+<p>在下面的例子中，输出是：<br>
+parent: child=1234<br>
+child: exiting</p>
+<p>也可能出现另外的情况，具体取决于父进程还是子进程首先进入其printf调用。</p>
+<p>子进程退出后，父进程的wait返回，导致父进程打印出：<br>
+parent: child 1234 is done。</p>
+<p>尽管子进程最初具有与父进程相同的内存内容，但是父进程和子进程执行时使用的是不同的内存和不同的寄存器。<br>
+更改一个变量不会影响另一个变量。<br>
+例如，当wait的返回值在父进程中存储到pid中时，它不会更改子进程中的pid。 子进程中的pid的值仍为零。</p>
+<p>exec系统调用使用从文件系统中存储的文件加载的新的内存映像替换调用进程的内存。<br>
+该文件必须具有特定的格式，该格式指定文件的哪一部分包含指令，哪一部分是数据，从哪条指令开始等。<br>
+xv6使用ELF格式，第3章将对此进行详细讨论。<br>
+当exec成功执行时，它不会返回到调用程序。从文件加载的指令在ELF标头中声明的入口点开始执行。<br>
+Exec接受两个参数：包含可执行文件的文件名和一个字符串参数数组。 例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">char *argv[3];</span><br><span class="line">argv[0] = &quot;echo&quot;;</span><br><span class="line">argv[1] = &quot;hello&quot;;</span><br><span class="line">argv[2] = 0;</span><br><span class="line">exec(&quot;/bin/echo&quot;, argv);</span><br><span class="line">printf(&quot;exec error\en&quot;);</span><br></pre></td></tr></table></figure>
+<p>该片段将调用程序以程序/ bin / echo的实例替换，参数列表为echo hello。 大多数程序会忽略第一个参数，这通常是程序的名称</p>
+<p>xv6 Shell使用上述调用执行用户运行的程序。</p>
+<p>xv6 Shell使用上述调用代表用户运行程序。<br>
+shell的主要结构很简单； 参见main（user / sh.c：145）。<br>
+主循环使用getcmd从用户读取一行输入。 然后，它将调用fork，这将创建shell进程的副本。<br>
+父进程调用wait，而子进程运行命令。 例如，如果用户键入“ echo hello”给shell，则将以“ echo hello”作为参数调用runcmd。 runcmd（user / sh.c：58）运行实际命令<br>
+对于“ echo hello”，它将调用exec（user / sh.c：78）<br>
+如果exec成功，则子进程将从echo执行指令，而不是runcmd。<br>
+在某些时候，echo将调用exit，这将导致父进程从main（user / sh.c：145）的wait中返回。</p>
+<p>您可能想知道为什么fork和exec不能在单个调用中组合？ 稍后我们将看到，用于创建进程和加载程序的单独调用在Shell中用于I / O重定向的用法很巧妙。<br>
+为了避免创建重复进程然后立即替换它的浪费，运行中的内核通过使用虚拟内存技术（如copy-on-write 写时复制）来针对此用例优化fork的实现。</p>
+<p>Xv6隐式分配了大多数用户空间内存：fork分配了子进程复制父进程所需的内存，而exec分配了足够的内存来保存可执行文件。<br>
+一个在运行时需要更多内存的进程（可能是malloc）可以调用sbrk（n）将其数据内存增加n个字节。 sbrk返回新内存的位置。<br>
+Xv6没有提供用户概念来保护一个用户免受另一个用户侵害；用Unix术语，所有xv6进程都以root身份运行。</p>
+<h2 id="io-与文件描述符"><a class="markdownIt-Anchor" href="#io-与文件描述符"></a> I/O 与文件描述符</h2>
+<pre><code>文件描述符是一个小的整数，表示进程可以从中读取或写入的内核管理的对象。 进程可以通过打开文件，目录或设备，或通过创建管道，或通过复制现有描述符来获取文件描述符。 为简单起见，我们通常将文件描述符所指的对象称为“文件”； 文件描述符接口抽象了文件，管道和设备之间的差异，使它们看起来都像字节流。
+在内部，xv6内核使用文件描述符作为每个进程表的索引，因此每个进程都有一个从零开始的文件描述符专用空间。 按照惯例，进程从文件描述符0（标准输入）读取，将输出写入文件描述符1（标准输出），并将错误消息写入文件描述符2（标准错误）。 就像我们将看到的那样，shell利用约定来实现I / O重定向(redirection)和管道(pipelines)。 shell确保始终打开三个文件描述符（user / sh.c：151），默认情况下，这三个文件描述符是控制台(console)的文件描述符。
+</code></pre>
+<p>read系统调用从文件描述符读取字节。<br>
+write系统调用从文件描述符写入字节。<br>
+调用read（fd，buf，n）最多从文件描述符fd中读取n个字节，将它们复制到buf中，并返回读取的字节数。 引用文件的每个文件描述符都有一个与之关联的偏移量。read从当前文件偏移量读取数据，随着读取到的数据增加，文件的偏移量随之增加。当没有更多字节可以读取时，read将返回零以指示文件末尾。<br>
+调用write（fd，buf，n）将buf中的n个字节写入文件描述符fd，并返回写入的字节数。 仅在发生错误时才写入少于n个字节。 与读操作类似，写操作会在当前文件偏移量处写入数据，然后将偏移量增加写入的字节数：每次写操作都从上次中止的位置开始。</p>
+<p>以下程序片段（cat命令的功能）将数据从其标准输入复制到其标准输出。 如果发生错误，它将向标准错误写入一条消息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">char buf[512];</span><br><span class="line">int n;</span><br><span class="line">for(;;)&#123;</span><br><span class="line">    n = read(0, buf, sizeof buf);</span><br><span class="line">    if(n == 0)</span><br><span class="line">    break;</span><br><span class="line">    if(n &lt; 0)&#123;</span><br><span class="line">        fprintf(2, &quot;read error\en&quot;);</span><br><span class="line">        exit();</span><br><span class="line">    &#125;</span><br><span class="line">    if(write(1, buf, n) != n)&#123;</span><br><span class="line">        fprintf(2, &quot;write error\en&quot;);</span><br><span class="line">        exit();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>在代码片段中要注意的重要一点是cat不知道它是从文件，控制台还是管道中读取。 同样，cat不知道它是要打印到控制台，文件还是其他地方。 使用文件描述符以及文件描述符0是标准输入和输出文件描述符是标准输出的约定可以实现cat的简单实现。close系统调用将释放文件描述符，以供将来的open，pipe或dup系统调用重用。 新分配的文件描述符始终是当前进程中编号最小的未使用的描述符。
+</code></pre>
+<p>文件描述符和fork交互使I/O重定向易于实现。Fork会复制父文件的文件描述符表及其内存，以便子文件与父文件打开完全相同的文件。 exec系统调用替换了调用进程的内存，但保留了其文件表。 此行为允许Shell通过分叉，重新打开选定的文件描述符，然后exec新程序来实现I / O重定向。 这是shell为cat &lt;input.txt命令运行的代码的简化版本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">char *argv[2];</span><br><span class="line">    argv[0] = &quot;cat&quot;;</span><br><span class="line">    argv[1] = 0;</span><br><span class="line">    if(fork() == 0) &#123;</span><br><span class="line">        close(0);</span><br><span class="line">        open(&quot;input.txt&quot;, O_RDONLY);</span><br><span class="line">        exec(&quot;cat&quot;, argv);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>当child关闭文件描述符0后，0 是最小的文件描述符。因此open操作将使文件描述符0（标准输入）指向文件input.txt.xv6 shell中的I / O重定向代码完全以这种方式工作（user / sh.c：82）。</p>
+<p>现在应该清楚为什么将fork和exec分开调用是一个好主意？ 因为如果它们是分开的，则shell可以fork一个child，在该child中使用open，close，dup来更改标准输入和输出文件描述符，然后exec。 不需要更改正在执行的程序（在我们的示例中为cat）。 如果将fork和exec组合到单个系统调用中，则shell将需要一些其他（可能更复杂）的方案来重定向标准输入和输出，或者程序本身将必须了解如何重定向I / O。</p>
+<p>尽管fork复制了文件描述符表，但每个潜在文件的偏移量在父级和子级之间共享。 考虑以下示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if(fork() == 0) &#123;</span><br><span class="line">    write(1, &quot;hello &quot;, 6);</span><br><span class="line">    exit(0);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    wait(0);</span><br><span class="line">    write(1, &quot;world\en&quot;, 6);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上例中，父进程和子进程都将写入文件描述符1.最后输出的数据是&quot;hello world&quot;<br>
+父进程的写入会等到子进程写入后进行(由于wait)。两个文件描述符共享一个偏移量。<br>
+此行为有助于从Shell命令序列产生顺序输出，例如（echo hello; echo world）&gt; output.txt。<br>
+dup系统调用复制了一个现有的文件描述符，并返回了一个新的文件描述符，该描述符引用了相同的潜在I/O对象。两个文件描述符共享一个偏移量，就像fork所复制的文件描述符一样。这是将hello world写入文件的另一种方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fd = dup(1);</span><br><span class="line">write(1, &quot;hello &quot;, 6);</span><br><span class="line">write(fd, &quot;world\en&quot;, 6);</span><br></pre></td></tr></table></figure>
+<p>如果两个文件描述符是通过fork和dup调用序列从同一原始文件描述符派生的，则它们共享一个偏移量。 否则，文件描述符不共享偏移量，即使它们是对同一文件的open产生的。 Dup允许shell执行以下命令： ls existing-file non-existing-file &gt; tmp1 2&gt;&amp;1。 2&gt;＆1告诉shell将文件描述符2与描述符1相同。已存在文件的名称和文件不存在等错误消息都将显示在文件tmp1中。 xv6 Shell不支持错误文件描述符的I / O重定向，但是现在您知道如何实现它。</p>
+<p>文件描述符是一种强大的抽象，因为它们隐藏了它们所连接的对象的详细信息：写入文件描述符1的进程可能正在写入文件，诸如控制台的设备或管道。</p>
+<h2 id="管道"><a class="markdownIt-Anchor" href="#管道"></a> 管道</h2>
+<p>管道是一个小的内核缓冲区，以一对文件描述符的形式暴露给进程，一个用于读取，一个用于写入。 将数据写入管道的一端可使该数据可从管道的另一端读取。 管道为流程进行通信提供了一种方法。 以下示例代码运行程序wc,使用标准输入连接到管道的读取端。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">int p[2];</span><br><span class="line">char *argv[2];</span><br><span class="line">argv[0] = &quot;wc&quot;;</span><br><span class="line">argv[1] = 0;</span><br><span class="line">pipe(p);</span><br><span class="line">if(fork() == 0) &#123;</span><br><span class="line">    close(0);</span><br><span class="line">    dup(p[0]);</span><br><span class="line">    close(p[0]);</span><br><span class="line">    close(p[1]);</span><br><span class="line">    exec(&quot;/bin/wc&quot;, argv);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    close(p[0]);</span><br><span class="line">    write(p[1], &quot;hello world\en&quot;, 12);</span><br><span class="line">    close(p[1]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>程序调用pipe创建一个新管道，并将读取和写入文件描述符记录在数组p中。 在fork之后，父进程和子进程都具有引用管道的文件描述符。 子进程将读取端复制到文件描述符0上，关闭p中的文件描述符，然后执行wc。 当wc从其标准输入中读取时，它将从管道中读取。 父进程关闭管道的读取侧，写入管道，然后关闭写入侧。
+如果没有可用数据，则在管道上进行读取以等待写入数据或所有引用写入端的文件描述符被关闭； 在后一种情况下，读取将返回0，就像到达数据文件的末尾一样。 读取管道会一直堵塞直到无法接受到数据。因此，对于子进程来说，在执行上述wc之前关闭管道的写端很重要：如果wc进程的文件描述符之一引用了管道的写端，则wc将永远等不到文件末尾 。
+</code></pre>
+<p>xv6 shell实现了管道，例如grep fork sh.c | wc -l 类似于上面的代码（user / sh.c：100）。 子进程创建一个管道，以将管道的左端与右端连接起来。 然后，它在管道的左端调用fork和runcmd，在右端调用fork和runcmd，并等待两者都完成。 管道的右端可能是一个命令，该命令本身包括一个管道（例如a | b | c），该管道本身派生了两个新的子进程（一个用于b，一个用于c）。 因此，shell可以创建进程树。 该树的叶子是命令，内部节点是等待左右子节点完成的进程。 原则上，您可以让内部节点在管道的左端运行，但是这样做会使实现复杂化。</p>
+<p>管道似乎没有临时文件强大：echo hello world | wc<br>
+可以在没有管道的情况下实现：<br>
+echo hello world &gt;/tmp/xyz; wc &lt;/tmp/xyz</p>
+<p>在这种情况下，管道比临时文件至少具有四个优点。 首先，管道会自动清理自己； 使用文件重定向，shell必须在完成后小心删除/ tmp / xyz。 其次，管道可以传递任意长的数据流，而文件重定向需要磁盘上有足够的可用空间来存储所有数据。 第三，管道允许并行执行管道阶段，而文件方法要求第一个程序在第二个程序启动之前完成。 第四，如果要实现进程间通信，则管道的读写锁比文件的 non-blocking语义更有效。</p>
+<h2 id="文件系统"><a class="markdownIt-Anchor" href="#文件系统"></a> 文件系统</h2>
+<p>xv6文件系统提供了数据文件和目录，这些数据文件是原始的字节数组。目录包含对数据文件和其他目录的命名引用。 目录形成一棵树，从一个特殊的root目录开始。</p>
+<p>类似于/a/b/c的路径是指根目录/中名为a的文件夹中名为b的文件夹中名为c的文件或文件夹。<br>
+不以/开头的路径是相对于调用进程的当前目录的。调用进程的当前目录可以通过chdir系统调用对其进行更改。</p>
+<p>下面这两个程序片段都打开同一个文件（假设文件存在）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">chdir(&quot;/a&quot;);</span><br><span class="line">chdir(&quot;b&quot;);</span><br><span class="line">open(&quot;c&quot;, O_RDONLY);</span><br><span class="line"></span><br><span class="line">open(&quot;/a/b/c&quot;, O_RDONLY);</span><br></pre></td></tr></table></figure>
+<p>第一个代码片段将进程的当前目录更改为/a /b； 第二个既不引用也不更改进程的当前目录。<br>
+有多个操作系统接口来创建新文件或文件夹：mkdir创建新文件夹，使用O_CREATE标志调用open将创建新数据文件，而mknod将创建新设备文件。 如下例所示:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir(&quot;/dir&quot;);</span><br><span class="line">fd = open(&quot;/dir/file&quot;, O_CREATE|O_WRONLY);</span><br><span class="line">close(fd);</span><br><span class="line">mknod(&quot;/console&quot;, 1, 1);</span><br></pre></td></tr></table></figure>
+<p>Mknod在文件系统中创建一个文件，但是该文件没有内容。 但是，文件的元数据会将其标记为设备文件，并记录主设备号和次设备号（mknod的两个参数），它们唯一地标识内核设备。 当以后有一个进程打开文件时，内核会将read和write系统调用转换到内核设备的读写实现，而不是将它们转换到文件系统。</p>
+<p>fstat系统调用得到有关文件描述符引用的对象的信息。此对象信息返回结构体stat，定义在<br>
+stat.h (kernel/stat.h)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#define T_DIR 1 // Directory</span><br><span class="line">#define T_FILE 2 // File</span><br><span class="line">#define T_DEVICE 3 // Device</span><br><span class="line">struct stat &#123;</span><br><span class="line">    int dev; // File system’s disk device</span><br><span class="line">    uint ino; // Inode number</span><br><span class="line">    short type; // Type of file</span><br><span class="line">    short nlink; // Number of links to file</span><br><span class="line">    uint64 size; // Size of file in bytes</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>文件名与文件不同； 同一个文件（称为inode）可以具有多个名称（称为links）。<br>
+link系统调用将创建另一个文件名称，该名称引用与现有文件相同的inode。 下面的程序片段创建了一个名为a又为b的新文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">open(&quot;a&quot;, O_CREATE|O_WRONLY);</span><br><span class="line">link(&quot;a&quot;, &quot;b&quot;);</span><br></pre></td></tr></table></figure>
+<p>读取,写入a与读取,写入到b相同。 每个inode由唯一的inode编号标识。 在上面的代码片段之后，可以通过检查fstat的结果确定a和b是否引用相同的文件：两者将返回相同的inode编号（ino），并且nlink将变为2。</p>
+<p>unlink系统调用从文件系统中删除一个名称。 仅当文件的link计数为零且没有文件描述符引用该文件时， 才会将inode和其所在的磁盘空间清除。</p>
+<p>因此当执行了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unlink(&quot;a&quot;);</span><br></pre></td></tr></table></figure>
+<p>之后，使用名称b任然能够访问文件。</p>
+<p>下面的程序片段是一种惯用的方式创建一个临时inode。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fd = open(&quot;/tmp/xyz&quot;, O_CREATE|O_RDWR);</span><br><span class="line">unlink(&quot;/tmp/xyz&quot;);</span><br></pre></td></tr></table></figure>
+<p>当fd文件描述符被关闭后，临时的inode将会被清除。<br>
+用于文件系统操作的Shell命令是作为用户级程序（例如mkdir，ln，rm等）实现的。该设计允许任何人通过添加新的用户程序扩展Shell。在事后看来，似乎是理所当然的。<br>
+但和Unix同时期的其他系统设计，通常将这样的命令构建到shell中（并将shell构建到内核中）。<br>
+cd是一个例外，它内置在shell中（user / sh.c：160）。 cd必须更改shell本身的当前工作目录。 如果cd以常规命令运行，那么shell将派生一个子进程，该子进程将运行cd，而cd会更改该子进程的工作目录。 父进程(即shell)的工作目录不会更改。</p>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<p><a href="https://pdos.csail.mit.edu/6.828/2019/labs/util.html" target="_blank" rel="noopener">https://pdos.csail.mit.edu/6.828/2019/labs/util.html</a><br>
+<a href="https://pdos.csail.mit.edu/6.828/2019/xv6/book-riscv-rev0.pdf" target="_blank" rel="noopener">https://pdos.csail.mit.edu/6.828/2019/xv6/book-riscv-rev0.pdf</a><br>
+<a href="https://pdos.csail.mit.edu/6.828/2019/lec/l-overview.txt" target="_blank" rel="noopener">https://pdos.csail.mit.edu/6.828/2019/lec/l-overview.txt</a></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://dreamerjonson.com/2020/01/04/6-s081-1/" title="6.s081[1]-操作系统接口" target="_blank" rel="external">https://dreamerjonson.com/2020/01/04/6-s081-1/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/dreamerjackson" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/jonson.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/dreamerjackson" target="_blank"><span class="text-dark">郑建勋（jonson）</span><small class="ml-1x">区块链工程师 &amp; Web工程师</small></a></h3>
+        <div>灾难总是接踵而至，这正是世间的常理。你以为只要哭诉一下，就会有谁来救你？如果失败了，就只能说明我不过是如此程度的男人</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+           
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/01/06/golang-111-raft-2/" title="golang[111]-raft理论与实践[2]-lab2A实验说明"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2019/12/29/golang-110-lab-raft/" title="golang[110]-raft算法理论与实践[1]"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫">
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫">
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/dreamerjackson" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	<!-- Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>. -->
+						天下风云出我辈，一入江湖岁月催。<br>皇图霸业谈笑中，不胜人生一场醉 
+			  </div>
+    </div>
+</footer>
+
+  <!-- <script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>　
+<script src="https://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
+<script data-ad-client="ca-pub-9425496202910941" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+
+<script src="/js/mrmy.js"></script>
+
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+  <script src="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: 'c22fa591ad87e1b03638',
+    clientSecret: '0646579e4dd8a301be7a42bcf3f5dd39ce803dcb',
+    repo: 'dreamerjackson.github.io',
+    owner: 'dreamerjackson',
+    admin: ['dreamerjackson'],
+    id: md5(location.pathname),
+    distractionFreeMode: true
+  })
+  gitalk.render('comments')
+  </script>
+
+      
+
+
+
+
+
+
+
+
+</body>
+</html>
