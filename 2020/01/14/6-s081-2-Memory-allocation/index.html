@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>6.s081[2]-Memory-allocation | 郑建勋的个人网站</title>
+  <meta name="description" content="系统编程（Systems programming） wiki参考  与应用程序编程相比，系统编程的主要区别在于，应用程序编程旨在产生直接向用户提供服务的软件。 系统编程主要为其他应用程序提供服务，直接操作操作系统。它的目标是实现对可用资源的有效利用。  例如：  unix utilities K/V servers ssh bigint library  挑战：  低级编程环境  数字是64位（">
+<meta name="keywords" content="unix">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6.s081[2]-Memory-allocation">
+<meta property="og:url" content="https://dreamerjonson.com/2020/01/14/6-s081-2-Memory-allocation/index.html">
+<meta property="og:site_name" content="Jonson">
+<meta property="og:description" content="系统编程（Systems programming） wiki参考  与应用程序编程相比，系统编程的主要区别在于，应用程序编程旨在产生直接向用户提供服务的软件。 系统编程主要为其他应用程序提供服务，直接操作操作系统。它的目标是实现对可用资源的有效利用。  例如：  unix utilities K/V servers ssh bigint library  挑战：  低级编程环境  数字是64位（">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-15T14:55:59.219Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="6.s081[2]-Memory-allocation">
+<meta name="twitter:description" content="系统编程（Systems programming） wiki参考  与应用程序编程相比，系统编程的主要区别在于，应用程序编程旨在产生直接向用户提供服务的软件。 系统编程主要为其他应用程序提供服务，直接操作操作系统。它的目标是实现对可用资源的有效利用。  例如：  unix utilities K/V servers ssh bigint library  挑战：  低级编程环境  数字是64位（">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://dreamerjonson.com/2020/01/14/6-s081-2-Memory-allocation/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Jonson" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css">
+  
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+
+
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/dreamerjackson" target="_blank">
+          <img class="img-circle img-rotate" src="/images/jonson.png" width="992" height="1532">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">郑建勋（jonson）</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">区块链工程师 &amp; Web工程师</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-bitcoin">
+          <a href="/bitcoin">
+            
+            <i class="icon fab fa-bitcoin"></i>
+            
+            <span class="menu-title">比特币文献</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-aboutme">
+          <a href="/aboutme">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">关于我</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/dreamerjackson" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://twitter.com/zhuimengshaoni2" target="_blank" title="Twitter" data-toggle="tooltip" data-placement="top"><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+          <div id="mrmy" style="padding-bottom:30px"></div>
+              <div class="content">
+                  <!-- <p>I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.</p> -->
+                  <!--  -->
+                  <!-- 不要硬给别人给予你的爱加上理由  &lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--战国&lt;/p&gt; -->
+                    <!-- 不要硬给别人给予你的爱加上理由  <br/><p align="right">--战国</p> -->
+                go语言交流2群：713385260<br>
+                <!-- <div><img src="/images/xingqiu-qrcode.jpg" width="150" height="150"></div> -->
+              </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/emacs/">emacs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/git/mac环境配置/">mac环境配置</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">155</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/数据结构/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-数据结构/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/macOS/">macOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/unix/">unix</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链原理/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发配置/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/智能合约-solidity语法/">智能合约 solidity语法</a><span class="category-list-count">60</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/置顶/">置顶</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emacs/">emacs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">155</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-数据结构/">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macOS/">macOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac环境配置/">mac环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-前端/">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unix/">unix</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链原理/">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发配置/">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置顶/">置顶</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/bootstrap/" style="font-size: 13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.38px;">docker</a> <a href="/tags/emacs/" style="font-size: 13px;">emacs</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-数据结构/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/mac/" style="font-size: 13.25px;">mac</a> <a href="/tags/macOS/" style="font-size: 13px;">macOS</a> <a href="/tags/mac环境配置/" style="font-size: 13.13px;">mac环境配置</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-前端/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/unix/" style="font-size: 13.13px;">unix</a> <a href="/tags/以太坊/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/前端/" style="font-size: 13.38px;">前端</a> <a href="/tags/区块链/" style="font-size: 13px;">区块链</a> <a href="/tags/区块链原理/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/开发配置/" style="font-size: 13px;">开发配置</a> <a href="/tags/数据结构/" style="font-size: 13px;">数据结构</a> <a href="/tags/智能合约/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/置顶/" style="font-size: 13px;">置顶</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/unix/">unix</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/14/6-s081-2-Memory-allocation/" class="title">6.s081[2]-Memory-allocation</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-14T09:23:29.000Z" itemprop="datePublished">2020-01-14</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/12/golang-113-raft-4-log/" class="title">golang[112]-raft理论与实践[4]-lab2b</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-12T13:00:32.000Z" itemprop="datePublished">2020-01-12</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/06/golang-111-raft-3-elect/" class="title">golang[112]-raft理论与实践[3]-lab2a讲解</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-06T12:15:46.000Z" itemprop="datePublished">2020-01-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/06/golang-111-raft-2/" class="title">golang[111]-raft理论与实践[2]-lab2a实验说明</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-06T06:57:48.000Z" itemprop="datePublished">2020-01-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/unix/">unix</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/04/6-s081-1/" class="title">6.s081[1]-操作系统接口</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-04T06:27:36.000Z" itemprop="datePublished">2020-01-04</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#系统编程systems-programming"><span class="toc-number">1.</span> <span class="toc-text"> 系统编程（Systems programming）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用程序结构"><span class="toc-number">2.</span> <span class="toc-text"> 应用程序结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#堆分配的目标"><span class="toc-number">3.</span> <span class="toc-text"> 堆分配的目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方式1kr-malloc"><span class="toc-number">4.</span> <span class="toc-text"> 方式1：K&amp;R malloc</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#维持一个链表"><span class="toc-number">4.1.</span> <span class="toc-text"> 维持一个链表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内存分配"><span class="toc-number">4.2.</span> <span class="toc-text"> 内存分配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sbrk"><span class="toc-number">4.3.</span> <span class="toc-text"> sbrk</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#free"><span class="toc-number">4.4.</span> <span class="toc-text"> free</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方式2region-based-allocator-a-special-purpose-allocator"><span class="toc-number">5.</span> <span class="toc-text"> 方式2：Region-based allocator, a special-purpose allocator.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方式3buddy-allocator"><span class="toc-number">6.</span> <span class="toc-text"> 方式3：Buddy allocator</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bit数组操作"><span class="toc-number">7.</span> <span class="toc-text"> bit数组操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化"><span class="toc-number">7.1.</span> <span class="toc-text"> 初始化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#找到第一个k-使得2k-n"><span class="toc-number">8.</span> <span class="toc-text"> 找到第一个k， 使得2^k &gt;= n</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查找位置p-如果以2k-大小为区块那么其位于第几个区块"><span class="toc-number">9.</span> <span class="toc-text"> 查找位置p ， 如果以2^k 大小为区块，那么其位于第几个区块。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将k大小序号为bi的区块的首地址计算出来"><span class="toc-number">10.</span> <span class="toc-text"> 将k大小，序号为bi的区块的首地址计算出来</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#malloc"><span class="toc-number">11.</span> <span class="toc-text"> malloc</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-6-s081-2-Memory-allocation" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      6.s081[2]-Memory-allocation
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/01/14/6-s081-2-Memory-allocation/" class="article-date">
+	  <time datetime="2020-01-14T09:23:29.000Z" itemprop="datePublished">2020-01-14</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/unix/">unix</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/unix/">unix</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/01/14/6-s081-2-Memory-allocation/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.3k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 11(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="系统编程systems-programming"><a class="markdownIt-Anchor" href="#系统编程systems-programming"></a> 系统编程（Systems programming）</h2>
+<p><a href="https://en.wikipedia.org/wiki/Systems_programming" target="_blank" rel="noopener">wiki参考</a></p>
+<ul>
+<li>与应用程序编程相比，系统编程的主要区别在于，应用程序编程旨在产生直接向用户提供服务的软件。</li>
+<li>系统编程主要为其他应用程序提供服务，直接操作操作系统。它的目标是实现对可用资源的有效利用。</li>
+</ul>
+<p>例如：</p>
+<ul>
+<li>unix utilities</li>
+<li>K/V servers</li>
+<li>ssh</li>
+<li>bigint library</li>
+</ul>
+<p>挑战：</p>
+<ul>
+<li>低级编程环境
+<ul>
+<li>数字是64位（不是无限的整数）</li>
+<li>分配/释放内存</li>
+</ul>
+<ul>
+<li>并发
+<ul>
+<li>允许并行处理请求</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>崩溃</li>
+<li>性能</li>
+<li>为应用程序提供硬件支持</li>
+</ul>
+<p>动态内存分配是一项基本的系统服务</p>
+<ul>
+<li>底层编程： 指针操作，类型转换</li>
+<li>使用底层操作系统请求内存块（memory chunks）</li>
+<li>性能非常重要</li>
+<li>支持广泛类型的应用程序负载</li>
+</ul>
+<h2 id="应用程序结构"><a class="markdownIt-Anchor" href="#应用程序结构"></a> 应用程序结构</h2>
+<ul>
+<li>
+<p>text</p>
+</li>
+<li>
+<p>data  (静态存储)</p>
+</li>
+<li>
+<p>stack (栈存储)</p>
+</li>
+<li>
+<p>heap (动态内存分配)<br>
+使用 sbrk() o或 mmap() 操作系统接口扩展堆。<br>
+[text |  data | heap -&gt;  …    &lt;- stack]<br>
+0                                       top of address space</p>
+</li>
+<li>
+<p>data段的内存分配是静态的，始终存在。</p>
+</li>
+<li>
+<p>栈的分配在函数中，随着函数消亡而释放。</p>
+</li>
+<li>
+<p>堆的分配与释放，调用接口：<br>
+— malloc(int sz)<br>
+— free§</p>
+</li>
+</ul>
+<h2 id="堆分配的目标"><a class="markdownIt-Anchor" href="#堆分配的目标"></a> 堆分配的目标</h2>
+<ul>
+<li>快速分配和释放</li>
+<li>内存开销小</li>
+<li>想要使用所有内存</li>
+<li>避免碎片化</li>
+</ul>
+<p>下面介绍几种malloc实现的方式</p>
+<h2 id="方式1kr-malloc"><a class="markdownIt-Anchor" href="#方式1kr-malloc"></a> 方式1：K&amp;R malloc</h2>
+<p>又叫做first-fit规则, 即查找第一个可用的匹配块。与之相对应的是查找第一个最符合（best-fit）的可用块。<br>
+K&amp;R malloc的实现来自书籍  the C programming language by Kernighan and Ritchie (K&amp;R) Section 8.7</p>
+<h3 id="维持一个链表"><a class="markdownIt-Anchor" href="#维持一个链表"></a> 维持一个链表</h3>
+<p>维持的free list是一个环。 第一个元素是base。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#define NALLOC  1024  /* minimum #units to request */</span><br><span class="line"></span><br><span class="line">struct header &#123;</span><br><span class="line">  struct header *ptr;</span><br><span class="line">  size_t size;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">typedef struct header Header;</span><br><span class="line"></span><br><span class="line">static Header base;</span><br><span class="line">static Header *freep = NULL;</span><br></pre></td></tr></table></figure>
+<h3 id="内存分配"><a class="markdownIt-Anchor" href="#内存分配"></a> 内存分配</h3>
+<p>指定分配的内存大小为sizeof(Header)的倍数，且一定大于nbytes。nunits就是这个倍数。</p>
+<ul>
+<li>循环free list。 找到第一个符合即大于等于nbytes的块。<br>
+— 如果刚好合适，则链表删除此块并返回此块。<br>
+— 如果大于，则截断此元素<br>
+— 如果没有找到合适的块，则调用moreheap新分配一个。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">/* malloc: general-purpose storage allocator */</span><br><span class="line">void *</span><br><span class="line">kr_malloc(size_t nbytes)</span><br><span class="line">&#123;</span><br><span class="line">  Header *p, *prevp;</span><br><span class="line">  unsigned nunits;</span><br><span class="line"></span><br><span class="line">  nunits = (nbytes + sizeof(Header) - 1) / sizeof(Header) + 1;</span><br><span class="line">  // base作为第一个元素。</span><br><span class="line">  if ((prevp = freep) == NULL) &#123;	/* no free list yet */</span><br><span class="line">    base.ptr = freep = prevp = &amp;base;</span><br><span class="line">    base.size = 0;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  for (p = prevp-&gt;ptr; ; prevp = p, p = p-&gt;ptr) &#123;</span><br><span class="line">    if (p-&gt;size &gt;= nunits) &#123;	/* big enough */</span><br><span class="line">      if (p-&gt;size == nunits)	/* exactly */</span><br><span class="line">	prevp-&gt;ptr = p-&gt;ptr;</span><br><span class="line">      else &#123;	/* allocate tail end */</span><br><span class="line">	p-&gt;size -= nunits;</span><br><span class="line">	p += p-&gt;size;</span><br><span class="line">	p-&gt;size = nunits;</span><br><span class="line">      &#125;</span><br><span class="line">      freep = prevp;</span><br><span class="line">      return (void *) (p + 1);</span><br><span class="line">    &#125;</span><br><span class="line">    if (p == freep) &#123;	/* wrapped around free list */</span><br><span class="line">      if ((p = (Header *) moreheap(nunits)) == NULL) &#123;</span><br><span class="line">	return NULL;	/* none left */</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="sbrk"><a class="markdownIt-Anchor" href="#sbrk"></a> sbrk</h3>
+<p>sbrk是unix增加内存的操作系统调用。<br>
+<a href="https://en.wikipedia.org/wiki/Sbrk" target="_blank" rel="noopener">wiki</a>的解释是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">The brk and sbrk calls dynamically change the amount of space allocated for the data segment of the calling process. The change is made by resetting the program break of the process, which determines the maximum space that can be allocated. The program break is the address of the first location beyond the current end of the data region. The amount of available space increases as the break value increases. The available space is initialized to a value of zero, unless the break is lowered and then increased, as it may reuse the same pages in some unspecified way. The break value can be automatically rounded up to a size appropriate for the memory management architecture.[4]</span><br><span class="line">Upon successful completion, the brk subroutine returns a value of 0, and the sbrk subroutine returns the prior value of the program break (if the available space is increased then this prior value also points to the start of the new area). If either subroutine is unsuccessful, a value of −1 is returned and the errno global variable is set to indicate the error.</span><br></pre></td></tr></table></figure>
+<p>由于这里是增加内存，sbrk成功时会返回新增加区域的开始地址，如果失败则会返回-1。<br>
+新生成一个块之后，调用free函数将其加入到freelist当中。<br>
+注意这里的up+1 是什么意思。其代表的是新分配的区域的开头。以为新分配的区域之前有Header大小，用于标识大小和下一个区域。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">static Header *moreheap(size_t nu)</span><br><span class="line">&#123;</span><br><span class="line">  char *cp;</span><br><span class="line">  Header *up;</span><br><span class="line"></span><br><span class="line">  if (nu &lt; NALLOC)</span><br><span class="line">    nu = NALLOC;</span><br><span class="line">  cp = sbrk(nu * sizeof(Header));</span><br><span class="line">  if (cp == (char *) -1)</span><br><span class="line">    return NULL;</span><br><span class="line">  up = (Header *) cp;</span><br><span class="line">  up-&gt;size = nu;</span><br><span class="line">  kr_free((void *)(up + 1));</span><br><span class="line">  return freep;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="free"><a class="markdownIt-Anchor" href="#free"></a> free</h3>
+<p>ap是要释放的区域，其前面还有Header大小。bp 指向了块的开头。</p>
+<ul>
+<li>遍历free list，找到要插入的中间区域。</li>
+<li>如果前后的区域正好是连在一起的，则进行合并。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">/* free: put block ap in free list */</span><br><span class="line">void</span><br><span class="line">kr_free(void *ap)</span><br><span class="line">&#123;</span><br><span class="line">  Header *bp, *p;</span><br><span class="line"></span><br><span class="line">  if (ap == NULL)</span><br><span class="line">    return;</span><br><span class="line"></span><br><span class="line">  bp = (Header *) ap - 1;	/* point to block header */</span><br><span class="line">  for (p = freep; !(bp &gt; p &amp;&amp; bp &lt; p-&gt;ptr); p = p-&gt;ptr)</span><br><span class="line">    if (p &gt;= p-&gt;ptr &amp;&amp; (bp &gt; p || bp &lt; p-&gt;ptr))</span><br><span class="line">      break;	/* freed block at start or end of arena */</span><br><span class="line"></span><br><span class="line">  if (bp + bp-&gt;sizfe == p-&gt;ptr) &#123;	/* join to upper nbr */</span><br><span class="line">    bp-&gt;size += p-&gt;ptr-&gt;size;</span><br><span class="line">    bp-&gt;ptr = p-&gt;ptr-&gt;ptr;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    bp-&gt;ptr = p-&gt;ptr;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  if (p + p-&gt;size == bp) &#123;	/* join to lower nbr */</span><br><span class="line">    p-&gt;size += bp-&gt;size;</span><br><span class="line">    p-&gt;ptr = bp-&gt;ptr;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    p-&gt;ptr = bp;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  freep = p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="方式2region-based-allocator-a-special-purpose-allocator"><a class="markdownIt-Anchor" href="#方式2region-based-allocator-a-special-purpose-allocator"></a> 方式2：Region-based allocator, a special-purpose allocator.</h2>
+<ul>
+<li>malloc 与free 快速</li>
+<li>内存开销低</li>
+<li>内存碎片严重</li>
+<li>不通用，用于特定应用程序。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">struct region &#123;</span><br><span class="line">  void *start;</span><br><span class="line">  void *cur;</span><br><span class="line">  void *end;</span><br><span class="line">&#125;;</span><br><span class="line">typedef struct region Region;</span><br><span class="line"></span><br><span class="line">static Region rg_base;</span><br><span class="line"></span><br><span class="line">Region *</span><br><span class="line">rg_create(size_t nbytes)</span><br><span class="line">&#123;</span><br><span class="line">  rg_base.start = sbrk(nbytes);</span><br><span class="line">  rg_base.cur = rg_base.start;</span><br><span class="line">  rg_base.end = rg_base.start + nbytes;</span><br><span class="line">  return &amp;rg_base;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void *</span><br><span class="line">rg_malloc(Region *r, size_t nbytes)</span><br><span class="line">&#123;</span><br><span class="line">  assert (r-&gt;cur + nbytes &lt;= r-&gt;end);</span><br><span class="line">  void *p = r-&gt;cur;</span><br><span class="line">  r-&gt;cur += nbytes;</span><br><span class="line">  return p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// free all memory in region resetting cur to start</span><br><span class="line">void</span><br><span class="line">rg_free(Region *r) &#123;</span><br><span class="line">  r-&gt;cur = r-&gt;start;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="方式3buddy-allocator"><a class="markdownIt-Anchor" href="#方式3buddy-allocator"></a> 方式3：Buddy allocator</h2>
+<p>下面介绍一种代码实现。</p>
+<p>基本参数</p>
+<ul>
+<li>ROUNDUP(n,sz) 求出要分配n哥字节时，希望分配的实际内存是大于等于n 并且是sz的倍数。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#define LEAF_SIZE     16 // The smallest allocation size (in bytes)</span><br><span class="line">#define NSIZES        15 // Number of entries in bd_sizes array</span><br><span class="line">#define MAXSIZE       (NSIZES-1) // Largest index in bd_sizes array</span><br><span class="line">#define BLK_SIZE(k)   ((1L &lt;&lt; (k)) * LEAF_SIZE) // Size in bytes for size k</span><br><span class="line">#define HEAP_SIZE     BLK_SIZE(MAXSIZE) </span><br><span class="line">#define NBLK(k)       (1 &lt;&lt; (MAXSIZE-k))  // Number of block at size k</span><br><span class="line">#define ROUNDUP(n,sz) (((((n)-1)/(sz))+1)*(sz))  // Round up to the next multiple of sz</span><br></pre></td></tr></table></figure>
+<ul>
+<li>NBLK求出在第k位置有多少块。</li>
+</ul>
+<p>每一个大小k维护一个<code>sz_info</code>, <code>sz_info</code>中都有一个free list, alloc 是一个char数组用于记录块是否分配。split 是一个char数组用于块是否割裂。<br>
+这里要注意，使用的是bit数组来记录。  char有8位，如第n位代表的是当前k大小的第5个区块。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// The allocator has sz_info for each size k. Each sz_info has a free</span><br><span class="line">// list, an array alloc to keep track which blocks have been</span><br><span class="line">// allocated, and an split array to to keep track which blocks have</span><br><span class="line">// been split.  The arrays are of type char (which is 1 byte), but the</span><br><span class="line">// allocator uses 1 bit per block (thus, one char records the info of</span><br><span class="line">// 8 blocks).</span><br><span class="line">struct sz_info &#123;</span><br><span class="line">  struct bd_list free;</span><br><span class="line">  char *alloc;</span><br><span class="line">  char *split;</span><br><span class="line">&#125;;</span><br><span class="line">typedef struct sz_info Sz_info;</span><br></pre></td></tr></table></figure>
+<p>每一个级别的双链表 for free list</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// A double-linked list for the free list of each level</span><br><span class="line">struct bd_list &#123;</span><br><span class="line">  struct bd_list *next;</span><br><span class="line">  struct bd_list *prev;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="bit数组操作"><a class="markdownIt-Anchor" href="#bit数组操作"></a> bit数组操作</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// Return 1 if bit at position index in array is set to 1</span><br><span class="line">int bit_isset(char *array, int index) &#123;</span><br><span class="line">  char b = array[index/8];</span><br><span class="line">  char m = (1 &lt;&lt; (index % 8));</span><br><span class="line">  return (b &amp; m) == m;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Set bit at position index in array to 1</span><br><span class="line">void bit_set(char *array, int index) &#123;</span><br><span class="line">  char b = array[index/8];</span><br><span class="line">  char m = (1 &lt;&lt; (index % 8));</span><br><span class="line">  array[index/8] = (b | m);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Clear bit at position index in array</span><br><span class="line">void bit_clear(char *array, int index) &#123;</span><br><span class="line">  char b = array[index/8];</span><br><span class="line">  char m = (1 &lt;&lt; (index % 8));</span><br><span class="line">  array[index/8] = (b &amp; ~m);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="初始化"><a class="markdownIt-Anchor" href="#初始化"></a> 初始化</h3>
+<p>首先调用mmap分配一个非常大的区域。此大小为2 ^ MAXSIZE * 16,16为分配的最小块。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// Allocate memory for the heap managed by the allocator, and allocate</span><br><span class="line">// memory for the data structures of the allocator.</span><br><span class="line">void</span><br><span class="line">bd_init() &#123;</span><br><span class="line">  bd_base = mmap(NULL, HEAP_SIZE, PROT_READ | PROT_WRITE,</span><br><span class="line">		 MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);</span><br><span class="line">  if (bd_base == MAP_FAILED) &#123;</span><br><span class="line">    fprintf(stderr, &quot;couldn&apos;t map heap; %s\n&quot;, strerror(errno));</span><br><span class="line">    assert(bd_base);</span><br><span class="line">  &#125;</span><br><span class="line">  // printf(&quot;bd: heap size %d\n&quot;, HEAP_SIZE);</span><br><span class="line">  for (int k = 0; k &lt; NSIZES; k++) &#123;</span><br><span class="line">    lst_init(&amp;bd_sizes[k].free);</span><br><span class="line">    int sz = sizeof(char)*ROUNDUP(NBLK(k), 8)/8;</span><br><span class="line">    bd_sizes[k].alloc = malloc(sz);</span><br><span class="line">    memset(bd_sizes[k].alloc, 0, sz);</span><br><span class="line">  &#125;</span><br><span class="line">  for (int k = 1; k &lt; NSIZES; k++) &#123;</span><br><span class="line">    int sz = sizeof(char)*ROUNDUP(NBLK(k), 8)/8;</span><br><span class="line">    bd_sizes[k].split = malloc(sz);</span><br><span class="line">    memset(bd_sizes[k].split, 0, sz);</span><br><span class="line">  &#125;</span><br><span class="line">  lst_push(&amp;bd_sizes[MAXSIZE].free, bd_base);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="找到第一个k-使得2k-n"><a class="markdownIt-Anchor" href="#找到第一个k-使得2k-n"></a> 找到第一个k， 使得2^k &gt;= n</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// What is the first k such that 2^k &gt;= n?</span><br><span class="line">int</span><br><span class="line">firstk(size_t n) &#123;</span><br><span class="line">  int k = 0;</span><br><span class="line">  size_t size = LEAF_SIZE;</span><br><span class="line"></span><br><span class="line">  while (size &lt; n) &#123;</span><br><span class="line">    k++;</span><br><span class="line">    size *= 2;</span><br><span class="line">  &#125;</span><br><span class="line">  return k;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="查找位置p-如果以2k-大小为区块那么其位于第几个区块"><a class="markdownIt-Anchor" href="#查找位置p-如果以2k-大小为区块那么其位于第几个区块"></a> 查找位置p ， 如果以2^k 大小为区块，那么其位于第几个区块。</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// Compute the block index for address p at size k</span><br><span class="line">int</span><br><span class="line">blk_index(int k, char *p) &#123;</span><br><span class="line">  int n = p - (char *) bd_base;</span><br><span class="line">  return n / BLK_SIZE(k);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="将k大小序号为bi的区块的首地址计算出来"><a class="markdownIt-Anchor" href="#将k大小序号为bi的区块的首地址计算出来"></a> 将k大小，序号为bi的区块的首地址计算出来</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// Convert a block index at size k back into an address</span><br><span class="line">void *addr(int k, int bi) &#123;</span><br><span class="line">  int n = bi * BLK_SIZE(k);</span><br><span class="line">  return (char *) bd_base + n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="malloc"><a class="markdownIt-Anchor" href="#malloc"></a> malloc</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">void *</span><br><span class="line">bd_malloc(size_t nbytes)</span><br><span class="line">&#123;</span><br><span class="line">  int fk, k;</span><br><span class="line">  </span><br><span class="line">  assert(bd_base != NULL);</span><br><span class="line"></span><br><span class="line">  // Find a free block &gt;= nbytes, starting with smallest k possible</span><br><span class="line">  fk = firstk(nbytes);</span><br><span class="line">  for (k = fk; k &lt; NSIZES; k++) &#123;</span><br><span class="line">    if(!lst_empty(&amp;bd_sizes[k].free))</span><br><span class="line">      break;</span><br><span class="line">  &#125;</span><br><span class="line">  if(k &gt;= NSIZES)  // No free blocks?</span><br><span class="line">    return NULL;</span><br><span class="line"></span><br><span class="line">  // Found one; pop it and potentially split it.</span><br><span class="line">  char *p = lst_pop(&amp;bd_sizes[k].free);</span><br><span class="line">  bit_set(bd_sizes[k].alloc, blk_index(k, p));</span><br><span class="line">  for(; k &gt; fk; k--) &#123;</span><br><span class="line">    char *q = p + BLK_SIZE(k-1);</span><br><span class="line">    bit_set(bd_sizes[k].split, blk_index(k, p));</span><br><span class="line">    bit_set(bd_sizes[k-1].alloc, blk_index(k-1, p));</span><br><span class="line">    lst_push(&amp;bd_sizes[k-1].free, q);</span><br><span class="line">  &#125;</span><br><span class="line">  // printf(&quot;malloc: %p size class %d\n&quot;, p, fk);</span><br><span class="line">  return p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://dreamerjonson.com/2020/01/14/6-s081-2-Memory-allocation/" title="6.s081[2]-Memory-allocation" target="_blank" rel="external">https://dreamerjonson.com/2020/01/14/6-s081-2-Memory-allocation/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <!-- <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！ -->
+      <strong>技术交流群： </strong> <a href="https://jq.qq.com/?_wv=1027&k=5NeekOk" target="_blank" rel="external">群号:713385260，点此进群</a>
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/dreamerjackson" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/jonson.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/dreamerjackson" target="_blank"><span class="text-dark">郑建勋（jonson）</span><small class="ml-1x">区块链工程师 &amp; Web工程师</small></a></h3>
+        <div>灾难总是接踵而至，这正是世间的常理。你以为只要哭诉一下，就会有谁来救你？如果失败了，就只能说明我不过是如此程度的男人</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+           
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2020/01/12/golang-113-raft-4-log/" title="golang[112]-raft理论与实践[4]-lab2b"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫">
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫">
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/dreamerjackson" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://twitter.com/zhuimengshaoni2" target="_blank" title="Twitter" data-toggle="tooltip" data-placement="top"><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	<!-- Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>. -->
+						天下风云出我辈，一入江湖岁月催。<br>皇图霸业谈笑中，不胜人生一场醉 
+			  </div>
+    </div>
+</footer>
+
+  <!-- <script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>　
+<script src="https://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
+<script data-ad-client="ca-pub-9425496202910941" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+
+<script src="/js/mrmy.js"></script>
+
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+  <script src="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: 'c22fa591ad87e1b03638',
+    clientSecret: '0646579e4dd8a301be7a42bcf3f5dd39ce803dcb',
+    repo: 'dreamerjackson.github.io',
+    owner: 'dreamerjackson',
+    admin: ['dreamerjackson'],
+    id: md5(location.pathname),
+    distractionFreeMode: true
+  })
+  gitalk.render('comments')
+  </script>
+
+      
+
+
+
+
+
+
+
+
+</body>
+</html>

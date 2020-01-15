@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://dreamerjonson.com/2020/01/14/6-s081-2-Memory-allocation/</loc>
+    
+    <lastmod>2020-01-15T14:55:59.219Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dreamerjonson.com/2019/12/29/golang-110-lab-raft/</loc>
+    
+    <lastmod>2020-01-14T12:01:14.983Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://dreamerjonson.com/2020/01/12/golang-113-raft-4-log/</loc>
     
     <lastmod>2020-01-14T04:07:05.477Z</lastmod>
@@ -33,13 +47,6 @@
     <loc>https://dreamerjonson.com/2019/12/11/golang-106-IEE754-float/</loc>
     
     <lastmod>2020-01-10T10:13:17.105Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dreamerjonson.com/2019/12/29/golang-110-lab-raft/</loc>
-    
-    <lastmod>2020-01-04T04:42:58.975Z</lastmod>
     
   </url>
   
