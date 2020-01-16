@@ -17,18 +17,18 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>6.s081[1]-操作系统接口 | 郑建勋的个人网站</title>
+  <title>6.s081[1]-操作系统原理 | 郑建勋的个人网站</title>
   <meta name="description" content="前言 实验1需要我们调用unix操作系统保持出的接口，因此首先需要了解unix操作系统有关的知识。  操作系统（operating system）的功能 操作系统的任务是在多个程序之间共享一台计算机，并提供比单独的硬件所支持的更为有用的服务集。 操作系统管理和抽象化低级硬件，因此，例如，文字处理器不必担心自己正在使用哪种类型的硬件。 操作系统允许多个程序之间共享硬件，以便它们可以并发运行。 最后">
 <meta name="keywords" content="unix">
 <meta property="og:type" content="article">
-<meta property="og:title" content="6.s081[1]-操作系统接口">
+<meta property="og:title" content="6.s081[1]-操作系统原理">
 <meta property="og:url" content="https://dreamerjonson.com/2020/01/04/6-s081-1/index.html">
 <meta property="og:site_name" content="Jonson">
 <meta property="og:description" content="前言 实验1需要我们调用unix操作系统保持出的接口，因此首先需要了解unix操作系统有关的知识。  操作系统（operating system）的功能 操作系统的任务是在多个程序之间共享一台计算机，并提供比单独的硬件所支持的更为有用的服务集。 操作系统管理和抽象化低级硬件，因此，例如，文字处理器不必担心自己正在使用哪种类型的硬件。 操作系统允许多个程序之间共享硬件，以便它们可以并发运行。 最后">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-10T15:48:58.390Z">
+<meta property="og:updated_time" content="2020-01-16T02:20:05.876Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="6.s081[1]-操作系统接口">
+<meta name="twitter:title" content="6.s081[1]-操作系统原理">
 <meta name="twitter:description" content="前言 实验1需要我们调用unix操作系统保持出的接口，因此首先需要了解unix操作系统有关的知识。  操作系统（operating system）的功能 操作系统的任务是在多个程序之间共享一台计算机，并提供比单独的硬件所支持的更为有用的服务集。 操作系统管理和抽象化低级硬件，因此，例如，文字处理器不必担心自己正在使用哪种类型的硬件。 操作系统允许多个程序之间共享硬件，以便它们可以并发运行。 最后">
   <!-- Canonical links -->
   <link rel="canonical" href="https://dreamerjonson.com/2020/01/04/6-s081-1/index.html">
@@ -181,8 +181,8 @@
               <div class="content">
                   <!-- <p>I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.</p> -->
                   <!--  -->
-                  <!-- 不要硬给别人给予你的爱加上理由  &lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--战国&lt;/p&gt; -->
-                    <!-- 不要硬给别人给予你的爱加上理由  <br/><p align="right">--战国</p> -->
+                  <!-- 我是时代的残党，新世界里没有能载我的船。欠下了仁义就要偿命，教会帝奇那个混蛋让他明白这个道理难道不是我的责任吗。儿子比老子先死，这是何等的不孝顺。 &lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--白胡子&lt;/p&gt; -->
+                    <!-- 我是时代的残党，新世界里没有能载我的船。欠下了仁义就要偿命，教会帝奇那个混蛋让他明白这个道理难道不是我的责任吗。儿子比老子先死，这是何等的不孝顺。 <br/><p align="right">--白胡子</p> -->
                 go语言交流2群：713385260<br>
                 <!-- <div><img src="/images/xingqiu-qrcode.jpg" width="150" height="150"></div> -->
               </div>
@@ -243,7 +243,7 @@
                 <a class="category-link" href="/categories/unix/">unix</a>
               </p>
               <p class="item-title">
-                <a href="/2020/01/14/6-s081-2-Memory-allocation/" class="title">6.s081[2]-Memory-allocation</a>
+                <a href="/2020/01/14/6-s081-2-Memory-allocation/" class="title">6.s081[2]-unix内存分配方式-malloc实现</a>
               </p>
               <p class="item-date">
                 <time datetime="2020-01-14T09:23:29.000Z" itemprop="datePublished">2020-01-14</time>
@@ -303,7 +303,7 @@
                 <a class="category-link" href="/categories/unix/">unix</a>
               </p>
               <p class="item-title">
-                <a href="/2020/01/04/6-s081-1/" class="title">6.s081[1]-操作系统接口</a>
+                <a href="/2020/01/04/6-s081-1/" class="title">6.s081[1]-操作系统原理</a>
               </p>
               <p class="item-date">
                 <time datetime="2020-01-04T06:27:36.000Z" itemprop="datePublished">2020-01-04</time>
@@ -326,7 +326,7 @@
   <div class="slimContent">
     <nav id="toc" class="article-toc">
       <h3 class="toc-title">文章目录</h3>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text"> 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作系统operating-system的功能"><span class="toc-number">2.</span> <span class="toc-text"> 操作系统（operating system）的功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作系统接口"><span class="toc-number">3.</span> <span class="toc-text"> 操作系统接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#io-与文件描述符"><span class="toc-number">4.</span> <span class="toc-text"> I/O 与文件描述符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#管道"><span class="toc-number">5.</span> <span class="toc-text"> 管道</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件系统"><span class="toc-number">6.</span> <span class="toc-text"> 文件系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">7.</span> <span class="toc-text"> </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">8.</span> <span class="toc-text"> 参考资料</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text"> 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作系统operating-system的功能"><span class="toc-number">2.</span> <span class="toc-text"> 操作系统（operating system）的功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作系统接口"><span class="toc-number">3.</span> <span class="toc-text"> 操作系统接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#io-与文件描述符"><span class="toc-number">4.</span> <span class="toc-text"> I/O 与文件描述符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#管道"><span class="toc-number">5.</span> <span class="toc-text"> 管道</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件系统"><span class="toc-number">6.</span> <span class="toc-text"> 文件系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#终结"><span class="toc-number">7.</span> <span class="toc-text"> 终结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">8.</span> <span class="toc-text"> 参考资料</span></a></li></ol>
     </nav>
   </div>
 </aside>
@@ -340,7 +340,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      6.s081[1]-操作系统接口
+      6.s081[1]-操作系统原理
     </h1>
   
 
@@ -511,7 +511,7 @@ link系统调用将创建另一个文件名称，该名称引用与现有文件�
 用于文件系统操作的Shell命令是作为用户级程序（例如mkdir，ln，rm等）实现的。该设计允许任何人通过添加新的用户程序扩展Shell。在事后看来，似乎是理所当然的。<br>
 但和Unix同时期的其他系统设计，通常将这样的命令构建到shell中（并将shell构建到内核中）。<br>
 cd是一个例外，它内置在shell中（user / sh.c：160）。 cd必须更改shell本身的当前工作目录。 如果cd以常规命令运行，那么shell将派生一个子进程，该子进程将运行cd，而cd会更改该子进程的工作目录。 父进程(即shell)的工作目录不会更改。</p>
-<h2 id=""><a class="markdownIt-Anchor" href="#"></a> </h2>
+<h2 id="终结"><a class="markdownIt-Anchor" href="#终结"></a> 终结</h2>
 <p>Unix结合了文件描述符，管道和方便的shell语法以对其进行操作，这是编写通用可复用程序的重大进步。这是Unix的强大功能和广泛使用的原因，外壳程序是第一种所谓的“脚本语言”。Unixit系统调用接口在BSD,Linux,和Mac OSX 上广泛使用。</p>
 <p>Unix系统调用接口已通过可移植操作系统接口（POSIX）标准进行了标准化。 Xv6不兼容POSIX。 它抛弃一些了系统调用（包括诸如lseek之类的基本调用），仅部分实现了系统调用以及其他差异。 xv6的主要目标是简单性和清晰度，同时提供简单的类UNIX系统调用接口。 为了运行基本的Unix程序，一些人用更多的系统调用和一个简单的C库扩展了xv6。 但是，与xv6相比，现代内核提供了更多的系统调用和内核服务。 例如，它们支持联网，窗口系统，用户级线程，许多设备的驱动程序等。 现代内核不断快速发展，并提供了POSIX以外的许多功能。<br>
 在很大程度上，现代Unix派生的操作系统没有遵循早期的Unix模型，即将设备公开为特殊文件，例如上面讨论的控制台设备文件。Unix的作者继续构建Plan9，将“资源即文件”概念应用于现代设施，将网络，图形和其他资源表示为文件或文件树。<br>
@@ -530,7 +530,7 @@ cd是一个例外，它内置在shell中（user / sh.c：160）。 cd必须更�
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://dreamerjonson.com/2020/01/04/6-s081-1/" title="6.s081[1]-操作系统接口" target="_blank" rel="external">https://dreamerjonson.com/2020/01/04/6-s081-1/</a>
+      <a href="https://dreamerjonson.com/2020/01/04/6-s081-1/" title="6.s081[1]-操作系统原理" target="_blank" rel="external">https://dreamerjonson.com/2020/01/04/6-s081-1/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -685,7 +685,7 @@ cd是一个例外，它内置在shell中（user / sh.c：160）。 cd必须更�
 
   <!-- <script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>　
 <script src="https://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
-<script data-ad-client="ca-pub-9425496202910941" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- <script data-ad-client="ca-pub-9425496202910941" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
 <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
 <script>
 window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
