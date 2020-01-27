@@ -1,3 +1,5 @@
+https://dreamerjonson.com/2020/01/21/distributed-systerm-2-GFS/
+https://dreamerjonson.com/2020/01/16/golang-114-raft-5-presis/
 https://dreamerjonson.com/2020/01/14/6-s081-2-Memory-allocation/
 https://dreamerjonson.com/2020/01/12/golang-113-raft-4-log/
 https://dreamerjonson.com/2020/01/06/golang-111-raft-3-elect/

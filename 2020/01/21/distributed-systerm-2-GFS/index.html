@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>6.824分布式系统[2]-GFS案例学习 | 郑建勋的个人网站</title>
+  <meta name="description" content="背景  GFS是Google在2003年发出的经典论文，其作为分布式文件系统实际应用在Google的MapReduce框架实现中作为原始数据和最终结果存储的基础服务， 同时为其他上层基础系统比如BigTable提供服务。Hadoop中的HDFS就是其开源实现。 这篇文章讨论了诸如一致性、容错、网络性能等分布式系统工程中的经典问题，启发了后续很多分布式文件系统的发展。   为什么阅读GFS的论文">
+<meta name="keywords" content="go">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6.824分布式系统[2]-GFS案例学习">
+<meta property="og:url" content="https://dreamerjonson.com/2020/01/21/distributed-systerm-2-GFS/index.html">
+<meta property="og:site_name" content="Jonson">
+<meta property="og:description" content="背景  GFS是Google在2003年发出的经典论文，其作为分布式文件系统实际应用在Google的MapReduce框架实现中作为原始数据和最终结果存储的基础服务， 同时为其他上层基础系统比如BigTable提供服务。Hadoop中的HDFS就是其开源实现。 这篇文章讨论了诸如一致性、容错、网络性能等分布式系统工程中的经典问题，启发了后续很多分布式文件系统的发展。   为什么阅读GFS的论文">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-27T08:32:16.011Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="6.824分布式系统[2]-GFS案例学习">
+<meta name="twitter:description" content="背景  GFS是Google在2003年发出的经典论文，其作为分布式文件系统实际应用在Google的MapReduce框架实现中作为原始数据和最终结果存储的基础服务， 同时为其他上层基础系统比如BigTable提供服务。Hadoop中的HDFS就是其开源实现。 这篇文章讨论了诸如一致性、容错、网络性能等分布式系统工程中的经典问题，启发了后续很多分布式文件系统的发展。   为什么阅读GFS的论文">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://dreamerjonson.com/2020/01/21/distributed-systerm-2-GFS/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Jonson" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css">
+  
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+
+
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/dreamerjackson" target="_blank">
+          <img class="img-circle img-rotate" src="/images/jonson.png" width="992" height="1532">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">郑建勋（jonson）</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">区块链工程师 &amp; Web工程师</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-bitcoin">
+          <a href="/bitcoin">
+            
+            <i class="icon fab fa-bitcoin"></i>
+            
+            <span class="menu-title">比特币文献</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-aboutme">
+          <a href="/aboutme">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">关于我</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/dreamerjackson" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://twitter.com/zhuimengshaoni2" target="_blank" title="Twitter" data-toggle="tooltip" data-placement="top"><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+          <div id="mrmy" style="padding-bottom:30px"></div>
+              <div class="content">
+                  <!-- <p>I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.</p> -->
+                  <!--  -->
+                  <!-- 弱者，连自己的死法都无权选择。&lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--特拉法尔加·罗&lt;/p&gt; -->
+                    <!-- 弱者，连自己的死法都无权选择。<br/><p align="right">--特拉法尔加·罗</p> -->
+                go语言交流2群：713385260<br>
+                <!-- <div><img src="/images/xingqiu-qrcode.jpg" width="150" height="150"></div> -->
+              </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/emacs/">emacs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/git/mac环境配置/">mac环境配置</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">157</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/数据结构/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-数据结构/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/macOS/">macOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/unix/">unix</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链原理/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发配置/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/智能合约-solidity语法/">智能合约 solidity语法</a><span class="category-list-count">60</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/置顶/">置顶</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emacs/">emacs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">157</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-数据结构/">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macOS/">macOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac环境配置/">mac环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-前端/">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unix/">unix</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链原理/">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发配置/">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置顶/">置顶</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/bootstrap/" style="font-size: 13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.38px;">docker</a> <a href="/tags/emacs/" style="font-size: 13px;">emacs</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-数据结构/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/mac/" style="font-size: 13.25px;">mac</a> <a href="/tags/macOS/" style="font-size: 13px;">macOS</a> <a href="/tags/mac环境配置/" style="font-size: 13.13px;">mac环境配置</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-前端/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/unix/" style="font-size: 13.13px;">unix</a> <a href="/tags/以太坊/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/前端/" style="font-size: 13.38px;">前端</a> <a href="/tags/区块链/" style="font-size: 13px;">区块链</a> <a href="/tags/区块链原理/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/开发配置/" style="font-size: 13px;">开发配置</a> <a href="/tags/数据结构/" style="font-size: 13px;">数据结构</a> <a href="/tags/智能合约/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/置顶/" style="font-size: 13px;">置顶</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/21/distributed-systerm-2-GFS/" class="title">6.824分布式系统[2]-GFS案例学习</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-21T07:05:28.000Z" itemprop="datePublished">2020-01-21</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/16/golang-114-raft-5-presis/" class="title">golang[114]-raft理论与实践[5]-lab2c-持久化</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-16T14:20:29.000Z" itemprop="datePublished">2020-01-16</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/unix/">unix</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/14/6-s081-2-Memory-allocation/" class="title">6.s081[2]-unix内存分配方式-malloc实现</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-14T09:23:29.000Z" itemprop="datePublished">2020-01-14</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/12/golang-113-raft-4-log/" class="title">golang[113]-raft理论与实践[4]-lab2b日志复制</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-12T13:00:32.000Z" itemprop="datePublished">2020-01-12</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/06/golang-111-raft-3-elect/" class="title">golang[112]-raft理论与实践[3]-lab2a讲解</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-06T12:15:46.000Z" itemprop="datePublished">2020-01-06</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#背景"><span class="toc-number">1.</span> <span class="toc-text"> 背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么阅读gfs的论文"><span class="toc-number">2.</span> <span class="toc-text"> 为什么阅读GFS的论文</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一致性是什么"><span class="toc-number">3.</span> <span class="toc-text"> 一致性是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#理想的一致性模型"><span class="toc-number">4.</span> <span class="toc-text"> 理想的一致性模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不同的模型考虑不同的权衡"><span class="toc-number">5.</span> <span class="toc-text"> 不同的模型考虑不同的权衡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gfs的目标"><span class="toc-number">6.</span> <span class="toc-text"> GFS的目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设计"><span class="toc-number">7.</span> <span class="toc-text"> 设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#客户端读"><span class="toc-number">8.</span> <span class="toc-text"> 客户端读</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#primary"><span class="toc-number">9.</span> <span class="toc-text"> primary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改现有文件"><span class="toc-number">10.</span> <span class="toc-text"> 修改现有文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#添加文件"><span class="toc-number">11.</span> <span class="toc-text"> 添加文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#失败情况"><span class="toc-number">12.</span> <span class="toc-text"> 失败情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">13.</span> <span class="toc-text"> 总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gfs案例问答"><span class="toc-number">14.</span> <span class="toc-text"> GFS案例问答</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么添加数据执行至少一次at-least-once语义而不是精准的一次"><span class="toc-number">14.1.</span> <span class="toc-text"> 为什么添加数据执行至少一次&quot;at-least-once&quot;语义，而不是精准的一次？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#应用程序如何知道块的哪些是有数据的块哪些是重复的数据"><span class="toc-number">14.2.</span> <span class="toc-text"> 应用程序如何知道块的哪些是有数据的块，哪些是重复的数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#论文中提到的reference-counts是什么意思"><span class="toc-number">14.3.</span> <span class="toc-text"> 论文中提到的reference counts是什么意思</span></a></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-distributed-systerm-2-GFS" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      6.824分布式系统[2]-GFS案例学习
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/01/21/distributed-systerm-2-GFS/" class="article-date">
+	  <time datetime="2020-01-21T07:05:28.000Z" itemprop="datePublished">2020-01-21</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/go/">go</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/go/">go</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/01/21/distributed-systerm-2-GFS/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.8k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 6(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="背景"><a class="markdownIt-Anchor" href="#背景"></a> 背景</h2>
+<ul>
+<li>GFS是Google在2003年发出的经典论文，其作为分布式文件系统实际应用在Google的MapReduce框架实现中作为原始数据和最终结果存储的基础服务，</li>
+<li>同时为其他上层基础系统比如BigTable提供服务。Hadoop中的HDFS就是其开源实现。</li>
+<li>这篇文章讨论了诸如一致性、容错、网络性能等分布式系统工程中的经典问题，启发了后续很多分布式文件系统的发展。</li>
+</ul>
+<h2 id="为什么阅读gfs的论文"><a class="markdownIt-Anchor" href="#为什么阅读gfs的论文"></a> 为什么阅读GFS的论文</h2>
+<ul>
+<li>GFS使用了map/reduce的架构</li>
+<li>好的性能 —— 良好的并行I/O性能</li>
+<li>其实一篇好的系统论文 —— 从apps到网络都有细节说明</li>
+<li>包含分布式的许多概念：performance, fault-tolerance, consistency</li>
+<li>使用广泛（Bigtable、Spanner、Hadoop）</li>
+</ul>
+<h2 id="一致性是什么"><a class="markdownIt-Anchor" href="#一致性是什么"></a> 一致性是什么</h2>
+<ul>
+<li>保证正确的条件，在有多个副本、并且并发下变得尤其困难。</li>
+<li>一致性是分布式系统中最关键的问题，基本所有分布式系统都必须讨论这个问题。</li>
+<li>即考虑如果在一个程序中写，但是在另一个程序的副本中读取的情况。<br>
+— 强的一致性会保证在另一个程序中读取到的一定是发生在最后一次写入之后。<br>
+— 弱的一致性无法对其进行保证，可能会读取到过时的数据。</li>
+<li>强一致性可以保证读到最新的写信息，但是对性能肯定会造成影响，好的系统设计就是在这两点中进行平衡。</li>
+</ul>
+<h2 id="理想的一致性模型"><a class="markdownIt-Anchor" href="#理想的一致性模型"></a> 理想的一致性模型</h2>
+<p>分布式文件系统需要达成的“理想的“一致性就是多节点上面操作文件表现处理单机跟本地文件系统一样。</p>
+<ul>
+<li>如果两个应用程序同时写入同一文件怎么办？<br>
+— 在单机，数据常常有一些混合的内容。即两个程序的处理可能是交错的。</li>
+<li>如果两个应用程序同时写入同一目录怎么办<br>
+— 在单机，使用了锁。一个应用程序处理完毕后，再处理第二个。</li>
+<li>挑战<br>
+— 多磁盘<br>
+— 机器故障，操作无法完成。<br>
+— 网络分区，可能不能够到达所有的机器和磁盘。</li>
+<li>挑战难以解决的原因<br>
+— 需要客户端和服务器之间的通信<br>
+— 协议可能会变得复杂</li>
+</ul>
+<h2 id="不同的模型考虑不同的权衡"><a class="markdownIt-Anchor" href="#不同的模型考虑不同的权衡"></a> 不同的模型考虑不同的权衡</h2>
+<p>— 可串行性(serializability)<br>
+— 顺序一致性(sequential consistency)<br>
+— 线性一致性(linearizability)<br>
+— 单项一致性模型(entry consistency)<br>
+— 松散一致性(release consistency)</p>
+<h2 id="gfs的目标"><a class="markdownIt-Anchor" href="#gfs的目标"></a> GFS的目标</h2>
+<ul>
+<li>GFS中节点失效就是常见的（每天1000台机器中大约3台失效）</li>
+<li>高性能：大量</li>
+<li>有效的使用网络</li>
+</ul>
+<h2 id="设计"><a class="markdownIt-Anchor" href="#设计"></a> 设计</h2>
+<ul>
+<li>master存储（directories, files, names）</li>
+<li>存储64MB的块，每个块就作为一个linux文件。</li>
+<li>每个块在三台服务器上面做备份（保证可用性，负载均衡）</li>
+<li>块为什么这么大（摊销间接费用、减少master中的状态大小</li>
+<li>master掌握目录的层次结构<br>
+— 文件夹中有哪些文件
+<ul>
+<li>对于文件，知道哪些节点存储了此文件。<br>
+— master在内存中保持状态（每个块的64字节元数据）<br>
+— 主数据库具有用于元数据的私有可恢复数据库<br>
+— 操作日志刷新到磁盘<br>
+— 检查点<br>
+— master快速恢复<br>
+— shadow masters略微落后于master</li>
+</ul>
+</li>
+</ul>
+<h2 id="客户端读"><a class="markdownIt-Anchor" href="#客户端读"></a> 客户端读</h2>
+<ul>
+<li>发送文件名和块索引给master</li>
+<li>master回复具有该块的服务器集<br>
+— 回复版本号<br>
+— client缓存信息</li>
+<li>请求块服务器<br>
+— 版本号（如果版本号错误，重新连接master）</li>
+</ul>
+<h2 id="primary"><a class="markdownIt-Anchor" href="#primary"></a> primary</h2>
+<p>primary是一个副本节点的比较高级的</p>
+<h2 id="修改现有文件"><a class="markdownIt-Anchor" href="#修改现有文件"></a> 修改现有文件</h2>
+<ul>
+<li>client请求master 块的位置 和primary的位置</li>
+<li>master回复块服务器，版本已经primary的位置</li>
+<li>client根据网络拓扑计算副本链</li>
+<li>客户端将数据发送到第一个副本节点，然后此副本节点转发给其他人</li>
+<li>副本节点会ack，表明数据已被接收</li>
+<li>client 告诉primary写入数据</li>
+<li>primary分配序列号并写入<br>
+— primary 告诉其他副本写入<br>
+— 全部成功后，回复client</li>
+<li>如果另一个客户端并发在同一位置写入数据，该怎么办？<br>
+— c1 与c2 可能会交替的写入，结果是一致性的，但是不能保证的。</li>
+</ul>
+<h2 id="添加文件"><a class="markdownIt-Anchor" href="#添加文件"></a> 添加文件</h2>
+<ul>
+<li>client 请求master 块的位置。</li>
+<li>client将数据发送给副本，但是没有指定偏移量。</li>
+<li>当数据在所有的块服务器上后，client联系primary</li>
+<li>primary分配序列号</li>
+<li>primary检查是否能够刚好添加到一个块中</li>
+<li>primary为添加选择偏移量，进行添加</li>
+<li>转发请求到其他副本</li>
+<li>失败后进行重试<br>
+— 不能使用下一个可用偏移量，因为在失败的节点中可能会有空字节。</li>
+<li>GFS支持原子操作，保证至少一次添加，主Chunk服务器选择记录需要添加到的文件位置，然后发送给其他副本。</li>
+<li>如果和一个副本的联系失败，那么主Chunk服务器会告诉客户端重试，如果重试成功，有些副本会出现追加两次的情况(因为这个副本追加成功两次)。</li>
+<li>当GFS要去填塞chunk的边缘时，如果追加操作跨越chunk的边缘，那么文件也可能存在空洞。</li>
+</ul>
+<h2 id="失败情况"><a class="markdownIt-Anchor" href="#失败情况"></a> 失败情况</h2>
+<p>块服务器的失败会引起client重试。<br>
+master失败会导致GFS不可用，shadow master会服务只读的状态。可能会返回过时的数据。</p>
+<h2 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+<p>性能，容错，一致性（performance, fault-tolerance, consistency）的案例研究</p>
+<ul>
+<li>优势<br>
+— 大量的顺序读取和写入<br>
+— 追加文件高效<br>
+— 大的吞吐量<br>
+— 数据容错（3个副本）</li>
+<li>劣势<br>
+— master服务器的容错<br>
+— 小文件（master服务器的瓶颈）<br>
+— client会看到过时的数据（弱的一致性）<br>
+— 追加可能重复</li>
+</ul>
+<h2 id="gfs案例问答"><a class="markdownIt-Anchor" href="#gfs案例问答"></a> GFS案例问答</h2>
+<h3 id="为什么添加数据执行至少一次at-least-once语义而不是精准的一次"><a class="markdownIt-Anchor" href="#为什么添加数据执行至少一次at-least-once语义而不是精准的一次"></a> 为什么添加数据执行至少一次&quot;at-least-once&quot;语义，而不是精准的一次？</h3>
+<p>实现困难，primary需要保留重复的状态。状态必须在服务器之间复制，以便如果primary出现故障, 此信息不会丢失。</p>
+<h3 id="应用程序如何知道块的哪些是有数据的块哪些是重复的数据"><a class="markdownIt-Anchor" href="#应用程序如何知道块的哪些是有数据的块哪些是重复的数据"></a> 应用程序如何知道块的哪些是有数据的块，哪些是重复的数据</h3>
+<p>可以在有效记录的开头做标识（magic number）就可以知道有数据的块。<br>
+检测重复的块可以为每个记录都有一个特殊的UID标识。</p>
+<h3 id="论文中提到的reference-counts是什么意思"><a class="markdownIt-Anchor" href="#论文中提到的reference-counts是什么意思"></a> 论文中提到的reference counts是什么意思</h3>
+<ul>
+<li>他们是实现快照copy-on-write（写时复制）的一部分。</li>
+<li>当GFS创建快照时，它不复制块，而是增加每个块的引用计数器。</li>
+<li>这使得创建快照的成本不高。 如果客户端写入了一个块，并且主服务器注意到引用计数大于1，</li>
+<li>则主服务器会首先创建一个副本，以便客户端可以更新副本（而不是快照的一部分）。</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://dreamerjonson.com/2020/01/21/distributed-systerm-2-GFS/" title="6.824分布式系统[2]-GFS案例学习" target="_blank" rel="external">https://dreamerjonson.com/2020/01/21/distributed-systerm-2-GFS/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <!-- <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！ -->
+      <strong>技术交流群： </strong> <a href="https://jq.qq.com/?_wv=1027&k=5NeekOk" target="_blank" rel="external">群号:713385260，点此进群</a>
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/dreamerjackson" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/jonson.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/dreamerjackson" target="_blank"><span class="text-dark">郑建勋（jonson）</span><small class="ml-1x">区块链工程师 &amp; Web工程师</small></a></h3>
+        <div>灾难总是接踵而至，这正是世间的常理。你以为只要哭诉一下，就会有谁来救你？如果失败了，就只能说明我不过是如此程度的男人</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+           
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2020/01/16/golang-114-raft-5-presis/" title="golang[114]-raft理论与实践[5]-lab2c-持久化"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫">
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫">
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/dreamerjackson" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://twitter.com/zhuimengshaoni2" target="_blank" title="Twitter" data-toggle="tooltip" data-placement="top"><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	<!-- Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>. -->
+						天下风云出我辈，一入江湖岁月催。<br>皇图霸业谈笑中，不胜人生一场醉 
+			  </div>
+    </div>
+</footer>
+
+  <!-- <script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>　
+<script src="https://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
+<!-- <script data-ad-client="ca-pub-9425496202910941" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+<script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+
+<script src="/js/mrmy.js"></script>
+
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+  <script src="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: 'c22fa591ad87e1b03638',
+    clientSecret: '0646579e4dd8a301be7a42bcf3f5dd39ce803dcb',
+    repo: 'dreamerjackson.github.io',
+    owner: 'dreamerjackson',
+    admin: ['dreamerjackson'],
+    id: md5(location.pathname),
+    distractionFreeMode: true
+  })
+  gitalk.render('comments')
+  </script>
+
+      
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://dreamerjonson.com/2020/01/21/distributed-systerm-2-GFS/</loc>
+    <lastmod>2020-01-27T08:32:16.011Z</lastmod>
+  </url>  <url>
+    <loc>https://dreamerjonson.com/2020/01/16/golang-114-raft-5-presis/</loc>
+    <lastmod>2020-01-18T12:12:55.610Z</lastmod>
+  </url>  <url>
+    <loc>https://dreamerjonson.com/2020/01/12/golang-113-raft-4-log/</loc>
+    <lastmod>2020-01-18T12:09:54.707Z</lastmod>
+  </url>  <url>
     <loc>https://dreamerjonson.com/2020/01/04/6-s081-1/</loc>
     <lastmod>2020-01-16T02:20:05.876Z</lastmod>
   </url>  <url>
@@ -9,9 +18,6 @@
   </url>  <url>
     <loc>https://dreamerjonson.com/2019/12/29/golang-110-lab-raft/</loc>
     <lastmod>2020-01-14T12:01:14.983Z</lastmod>
-  </url>  <url>
-    <loc>https://dreamerjonson.com/2020/01/12/golang-113-raft-4-log/</loc>
-    <lastmod>2020-01-14T04:07:05.477Z</lastmod>
   </url>  <url>
     <loc>https://dreamerjonson.com/2020/01/06/golang-111-raft-2/</loc>
     <lastmod>2020-01-14T03:12:52.652Z</lastmod>
