@@ -1,3 +1,4 @@
+https://dreamerjonson.com/2020/01/28/distributed-systerm-3-replication/
 https://dreamerjonson.com/2020/01/21/distributed-systerm-2-GFS/
 https://dreamerjonson.com/2020/01/16/golang-114-raft-5-presis/
 https://dreamerjonson.com/2020/01/14/6-s081-2-Memory-allocation/

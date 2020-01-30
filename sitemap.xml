@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://dreamerjonson.com/2020/01/28/distributed-systerm-3-replication/</loc>
+    
+    <lastmod>2020-01-30T12:05:08.257Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://dreamerjonson.com/2020/01/21/distributed-systerm-2-GFS/</loc>
     
     <lastmod>2020-01-27T08:32:16.011Z</lastmod>
