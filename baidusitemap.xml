@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://dreamerjonson.com/2020/01/14/6-s081-2-Memory-allocation/</loc>
+    <lastmod>2020-02-05T04:05:18.664Z</lastmod>
+  </url>  <url>
+    <loc>https://dreamerjonson.com/2020/02/02/distributed-systerm-4-Zookeeper/</loc>
+    <lastmod>2020-02-04T16:05:07.267Z</lastmod>
+  </url>  <url>
+    <loc>https://dreamerjonson.com/2020/01/31/Microservices-1/</loc>
+    <lastmod>2020-02-04T06:18:22.530Z</lastmod>
+  </url>  <url>
     <loc>https://dreamerjonson.com/2020/01/28/distributed-systerm-3-replication/</loc>
     <lastmod>2020-01-30T12:05:08.257Z</lastmod>
   </url>  <url>
@@ -15,9 +24,6 @@
   </url>  <url>
     <loc>https://dreamerjonson.com/2020/01/04/6-s081-1/</loc>
     <lastmod>2020-01-16T02:20:05.876Z</lastmod>
-  </url>  <url>
-    <loc>https://dreamerjonson.com/2020/01/14/6-s081-2-Memory-allocation/</loc>
-    <lastmod>2020-01-16T02:19:18.578Z</lastmod>
   </url>  <url>
     <loc>https://dreamerjonson.com/2019/12/29/golang-110-lab-raft/</loc>
     <lastmod>2020-01-14T12:01:14.983Z</lastmod>

@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>微服务理论与实践[1]-什么是微服务 | 郑建勋的个人网站</title>
+  <meta name="description" content="什么是微服务   微服务 (Microservices) 是一种软件架构风格，将应用程序构造为围绕业务的小型自治服务的集合 微服务以专注于单一责任与功能的小型功能区块 (Small Building Blocks) 为基础。每个服务都是独立的，并实现单个业务功能 微服务利用模块化的方式组合出复杂的大型应用程序，各功能区块使用与语言无关的 API 集相互通信 微服务运用了以业务功能为主导的设计概念">
+<meta name="keywords" content="go">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微服务理论与实践[1]-什么是微服务">
+<meta property="og:url" content="https://dreamerjonson.com/2020/01/31/Microservices-1/index.html">
+<meta property="og:site_name" content="Jonson">
+<meta property="og:description" content="什么是微服务   微服务 (Microservices) 是一种软件架构风格，将应用程序构造为围绕业务的小型自治服务的集合 微服务以专注于单一责任与功能的小型功能区块 (Small Building Blocks) 为基础。每个服务都是独立的，并实现单个业务功能 微服务利用模块化的方式组合出复杂的大型应用程序，各功能区块使用与语言无关的 API 集相互通信 微服务运用了以业务功能为主导的设计概念">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://dreamerjonson.com/2020/01/31/Microservices-1/0.jpg">
+<meta property="og:image" content="https://dreamerjonson.com/2020/01/31/Microservices-1/1.png">
+<meta property="og:image" content="https://dreamerjonson.com/2020/01/31/Microservices-1/2.png">
+<meta property="og:image" content="https://dreamerjonson.com/2020/01/31/Microservices-1/3.jpg">
+<meta property="og:image" content="https://dreamerjonson.com/2020/01/31/Microservices-1/4.jpg">
+<meta property="og:updated_time" content="2020-02-04T06:18:22.530Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微服务理论与实践[1]-什么是微服务">
+<meta name="twitter:description" content="什么是微服务   微服务 (Microservices) 是一种软件架构风格，将应用程序构造为围绕业务的小型自治服务的集合 微服务以专注于单一责任与功能的小型功能区块 (Small Building Blocks) 为基础。每个服务都是独立的，并实现单个业务功能 微服务利用模块化的方式组合出复杂的大型应用程序，各功能区块使用与语言无关的 API 集相互通信 微服务运用了以业务功能为主导的设计概念">
+<meta name="twitter:image" content="https://dreamerjonson.com/2020/01/31/Microservices-1/0.jpg">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://dreamerjonson.com/2020/01/31/Microservices-1/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Jonson" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css">
+  
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+
+
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/dreamerjackson" target="_blank">
+          <img class="img-circle img-rotate" src="/images/jonson.png" width="992" height="1532">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">郑建勋（jonson）</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">区块链工程师 &amp; Web工程师</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-bitcoin">
+          <a href="/bitcoin">
+            
+            <i class="icon fab fa-bitcoin"></i>
+            
+            <span class="menu-title">比特币文献</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-aboutme">
+          <a href="/aboutme">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">关于我</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/dreamerjackson" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://twitter.com/zhuimengshaoni2" target="_blank" title="Twitter" data-toggle="tooltip" data-placement="top"><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+          <div id="mrmy" style="padding-bottom:30px"></div>
+              <div class="content">
+                  <!-- <p>I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.</p> -->
+                  <!--  -->
+                  <!-- 可是，那也是你的命，是上天注定的&lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--音越&lt;/p&gt; -->
+                    <!-- 可是，那也是你的命，是上天注定的<br/><p align="right">--音越</p> -->
+                go语言交流2群：713385260<br>
+                <!-- <div><img src="/images/xingqiu-qrcode.jpg" width="150" height="150"></div> -->
+              </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/emacs/">emacs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/git/mac环境配置/">mac环境配置</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">160</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/数据结构/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-数据结构/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/macOS/">macOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/unix/">unix</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链原理/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发配置/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/智能合约-solidity语法/">智能合约 solidity语法</a><span class="category-list-count">60</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/置顶/">置顶</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emacs/">emacs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">160</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-数据结构/">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macOS/">macOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac环境配置/">mac环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-前端/">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unix/">unix</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链原理/">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发配置/">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置顶/">置顶</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/bootstrap/" style="font-size: 13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.38px;">docker</a> <a href="/tags/emacs/" style="font-size: 13px;">emacs</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-数据结构/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/mac/" style="font-size: 13.25px;">mac</a> <a href="/tags/macOS/" style="font-size: 13px;">macOS</a> <a href="/tags/mac环境配置/" style="font-size: 13.13px;">mac环境配置</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-前端/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/unix/" style="font-size: 13.13px;">unix</a> <a href="/tags/以太坊/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/前端/" style="font-size: 13.38px;">前端</a> <a href="/tags/区块链/" style="font-size: 13px;">区块链</a> <a href="/tags/区块链原理/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/开发配置/" style="font-size: 13px;">开发配置</a> <a href="/tags/数据结构/" style="font-size: 13px;">数据结构</a> <a href="/tags/智能合约/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/置顶/" style="font-size: 13px;">置顶</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/02/02/distributed-systerm-4-Zookeeper/" class="title">distributed-systerm[4]-Zookeeper</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-02-02T08:25:07.000Z" itemprop="datePublished">2020-02-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/31/Microservices-1/" class="title">微服务理论与实践[1]-什么是微服务</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-31T02:37:33.000Z" itemprop="datePublished">2020-01-31</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/28/distributed-systerm-3-replication/" class="title">6.824分布式系统[3]-主从复制</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-28T07:14:14.000Z" itemprop="datePublished">2020-01-28</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/21/distributed-systerm-2-GFS/" class="title">6.824分布式系统[2]-GFS案例学习</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-21T07:05:28.000Z" itemprop="datePublished">2020-01-21</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/16/golang-114-raft-5-presis/" class="title">golang[114]-raft理论与实践[5]-lab2c-持久化</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-16T14:20:29.000Z" itemprop="datePublished">2020-01-16</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是微服务"><span class="toc-number">1.</span> <span class="toc-text"> 什么是微服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微服务例子1"><span class="toc-number">2.</span> <span class="toc-text"> 微服务例子1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微服务例子2"><span class="toc-number">3.</span> <span class="toc-text"> 微服务例子2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微服务架构"><span class="toc-number">4.</span> <span class="toc-text"> 微服务架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微服务特点"><span class="toc-number">5.</span> <span class="toc-text"> 微服务特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微服务的优点"><span class="toc-number">6.</span> <span class="toc-text"> 微服务的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微服务的缺点"><span class="toc-number">7.</span> <span class="toc-text"> 微服务的缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微服务的沟通"><span class="toc-number">8.</span> <span class="toc-text"> 微服务的沟通</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#沟通与事件广播"><span class="toc-number">8.1.</span> <span class="toc-text"> 沟通与事件广播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#服务发现"><span class="toc-number">8.2.</span> <span class="toc-text"> 服务发现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微服务其他需要考虑的因素"><span class="toc-number">9.</span> <span class="toc-text"> 微服务其他需要考虑的因素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">10.</span> <span class="toc-text"> 参考资料</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-Microservices-1" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      微服务理论与实践[1]-什么是微服务
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/01/31/Microservices-1/" class="article-date">
+	  <time datetime="2020-01-31T02:37:33.000Z" itemprop="datePublished">2020-01-31</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/go/">go</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/go/">go</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/01/31/Microservices-1/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 4.1k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 13(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="什么是微服务"><a class="markdownIt-Anchor" href="#什么是微服务"></a> 什么是微服务</h2>
+<img src="/2020/01/31/Microservices-1/0.jpg">
+<ul>
+<li>微服务 (Microservices) 是一种软件架构风格，将应用程序构造为围绕业务的小型自治服务的集合</li>
+<li>微服务以专注于单一责任与功能的小型功能区块 (Small Building Blocks) 为基础。每个服务都是独立的，并实现单个业务功能</li>
+<li>微服务利用模块化的方式组合出复杂的大型应用程序，各功能区块使用与语言无关的 API 集相互通信</li>
+<li>微服务运用了以业务功能为主导的设计概念，应用程序在设计时就能先以业务功能或流程设计先行分割，将各个业务功能都独立实现成一个能自主运行的个体服务，然后再利用相同的协议将所有应用程序需要的服务都组合起来，形成一个应用程序</li>
+</ul>
+<h2 id="微服务例子1"><a class="markdownIt-Anchor" href="#微服务例子1"></a> 微服务例子1</h2>
+<ul>
+<li>以购物车应用程序为例，当打开购物车应用程序时，您看到的只是一个网站。但是，在后台，购物车应用程序具有用于接受付款服务，客户服务等</li>
+<li>假设此应用程序的开发人员使用了单体框架，架构如下图:</li>
+</ul>
+<img src="/2020/01/31/Microservices-1/1.png" title="单体">
+<center><div>单体架构</div></center>
+<ul>
+<li>如图，在单体架构中，所有功能都放在一个代码库中，并在一个基础数据库下。</li>
+<li>现在，假设市场上出现了一个新品牌，并且开发人员希望将即将到来的品牌的所有详细信息放入此应用程序中</li>
+<li>此时，不仅需要处理新品牌的服务，而且还必须重新构建整个系统并相应地进行部署。为了避免此类挑战，开发人员决定将其应用程序从单体架构转换为微服务</li>
+</ul>
+<img src="/2020/01/31/Microservices-1/2.png" title="单体">
+<center><div>微服务架构</div></center>
+<ul>
+<li>开发人员为搜索，推荐，客户服务等创建了单独的微服务。</li>
+<li>此微服务架构不仅可以帮助开发人员克服以前的架构所面临的所有挑战，而且还可以轻松地构建，部署和扩展购物车应用程序。</li>
+</ul>
+<h2 id="微服务例子2"><a class="markdownIt-Anchor" href="#微服务例子2"></a> 微服务例子2</h2>
+<ul>
+<li>以旅游行业应用程序为例</li>
+</ul>
+<img src="/2020/01/31/Microservices-1/3.jpg" title="单体">
+<center><div>整体架构</div></center>
+* 整体服务包括了旅客关系管理、付款、消息通知等服务
+* 传统的单体常常采用如上图所示的整体式架构，并采取MVC的设计模式
+* 三层架构（MVC）的具体内容如下
+  + 表示层（view）： 用户使用应用程序时，看到的、听见的、输入的或者交互的部分。
+  + 业务逻辑层（controller）： 根据用户输入的信息，进行逻辑计算或者业务处理的部分。
+  + 数据访问层（model）： 关注有效地操作原始数据的部分，如将数据存储到存储介质（如数据库、文件系统）及
+  + 从存储介质中读取数据等。
+* 虽然现在程序被分成了三层，但只是逻辑上的分层，并不是物理上的分层。也就是说，对不同层的代码而言，经过编译、打包和部署后，所有的代码最终还是运行在同一个进程中。
+单体架构在规模比较小的情况下工作情况良好，但是随着系统规模的扩大，它暴露出来的问题也越来越多，主要有以下几点：
+* 复杂性逐渐变高
+  + 比如有的项目有几十万行代码，各个模块之间区别比较模糊，逻辑比较混乱，代码越多复杂性越高，越难解决遇到的问题。
+*  技术债务逐渐上升
+   + 公司的人员流动是再正常不过的事情，有的员工在离职之前，疏于代码质量的自我管束，导致留下来很多坑，由于单体项目代码量庞大的惊人，留下的坑很难被发觉，这就给新来的员工带来很大的烦恼，人员流动越大所留下的坑越多，也就是所谓的技术债务越来越多。
+* 维护成本大
+  + 当应用程序的功能越来越多、团队越来越大时，沟通成本、管理成本显著增加。当出现 bug 时，可能引起 bug 的原因组合越来越多，导致分析、定位和修复的成本增加；并且在对全局功能缺乏深度理解的情况下，容易在修复bug 时引入新的 bug。
+* 持续交付周期长
+  + 构建和部署时间会随着功能的增多而增加，任何细微的修改都会触发部署流水线。新人培养周期长：新成员了解背景、熟悉业务和配置环境的时间越来越长。
+* 技术选型成本高
+  + 单块架构倾向于采用统一的技术平台或方案来解决所有问题，如果后续想引入新的技术或框架，成本和风险都很大。
+* 可扩展性差
+  + 随着功能的增加，垂直扩展的成本将会越来越大；而对于水平扩展而言，因为所有代码都运行在同一个进程，没办法做到针对应用程序的部分功能做独立的扩展。
+<h2 id="微服务架构"><a class="markdownIt-Anchor" href="#微服务架构"></a> 微服务架构</h2>
+<img src="/2020/01/31/Microservices-1/4.jpg" title="单体">
+<center><div>整体架构</div></center>
+<ul>
+<li>将上面的整体架构改造为如上图所示的微服务</li>
+<li>来自不同设备的不同客户端尝试使用不同的服务，例如搜索，构建，配置和其他管理功能</li>
+<li>所有服务均根据其功能进行分离，并进一步分离为单个微服务</li>
+<li>这些微服务具有自己的负载均衡和执行环境以执行其功能,并在其自己的数据库中捕获数据</li>
+<li>微服务之间通过无状态服务器(REST、GRPC或消息总线)进行通信</li>
+<li>微服务借助服务发现来了解其通信路径并执行自动化，监控等操作功能</li>
+<li>微服务执行的所有功能通过API网关传达给客户端</li>
+</ul>
+<h2 id="微服务特点"><a class="markdownIt-Anchor" href="#微服务特点"></a> 微服务特点</h2>
+<ul>
+<li>解耦
+<ul>
+<li>系统中的服务在很大程度上是解耦的。因此，整个应用程序可以轻松构建，更改和扩展</li>
+</ul>
+</li>
+<li>组件化
+<ul>
+<li>微服务被视为独立的组件，可以轻松替换和升级</li>
+</ul>
+</li>
+<li>专注业务功能
+<ul>
+<li>业务功能–微服务非常简单，专注于单一功能</li>
+</ul>
+</li>
+<li>独立自主
+<ul>
+<li>开发人员和团队可以彼此独立地工作，从而提高了速度</li>
+</ul>
+</li>
+<li>持续交付
+<ul>
+<li>通过自动化的构建、测试和部署，允许频繁发布软件。</li>
+</ul>
+</li>
+<li>分散治理
+<ul>
+<li>重点是使用正确的工具完成正确的工作。这意味着没有标准化模式或任何技术模式。开发人员可以自由选择最有用的工具来解决他们的问题</li>
+</ul>
+</li>
+<li>敏捷开发
+<ul>
+<li>微服务支持敏捷开发。任何新功能都可以快速开发并丢弃</li>
+</ul>
+</li>
+</ul>
+<h2 id="微服务的优点"><a class="markdownIt-Anchor" href="#微服务的优点"></a> 微服务的优点</h2>
+<ul>
+<li>单一职责
+<ul>
+<li>微服务架构中的每个服务，都是具有业务逻辑的，符合高内聚、低耦合原则以及单一职责原则的单元，不同的服务通过“管道”的方式灵活组合，从而构建出庞大的系统。</li>
+</ul>
+</li>
+<li>轻量级通信
+<ul>
+<li>服务之间通过轻量级的通信机制实现互通互联，而所谓的轻量级，通常指语言无关、平台无关的交互方式。</li>
+<li>对于轻量级通信的格式而言，我们熟悉的 XML 和 JSON，它们是语言无关、平台无关的；对于通信的协议而言，通常基于 HTTP，能让服务间的通信变得标准化、无状态化。目前大家熟悉的 REST（Representational StateTransfer）、GRPC是实现服务间互相协作的轻量级通信机制之一。使用轻量级通信机制，可以让团队选择更适合的语言、工具或者平台来开发服务本身。</li>
+</ul>
+</li>
+<li>提高容错性（fault isolation），一个服务的内存泄露并不会让整个系统瘫痪</li>
+<li>独立性
+<ul>
+<li>服务独立测试、部署、升级、发布</li>
+<li>在单块架构中所有功能都在同一个代码库，功能的开发不具有独立性；当不同小组完成多个功能后，需要经过集成和回归测试，测试过程也不具有独立性；当测试完成后，应用被构建成一个包，如果某个功能存在 bug，将导致整个部署失败或者回滚</li>
+</ul>
+</li>
+<li>新技术的应用，系统不会被长期限制在某个技术栈上</li>
+<li>可以根据市场需求，灵活多变的组合出新的业务场景</li>
+<li>降低代码耦合度</li>
+<li>服务实例水平扩展，服务单一职责，功能独立。保证可靠性与性能，提升资源利用
+<ul>
+<li>由于微服务是以业务功能导向的实现，因此不会受到应用程序的干扰，微服务的管理员可以视运算资源的需要来配置微服务到不同的运算资源内，或是布建新的运算资源并将它配置进去</li>
+</ul>
+</li>
+<li>提升开发交流，每个服务足够内聚，足够小，代码容易理解</li>
+<li>进程隔离、故障隔离
+<ul>
+<li>单块架构中，整个系统运行在同一个进程中，当应用进行部署时，必须停掉当前正在运行的应用，部署完成后再重启进程，无法做到独立部署。<br>
+有时候我们会将重复的代码抽取出来封装成组件，在单块架构中，组件通常的形态叫做共享库（如 jar 包或者DLL），但是当程序运行时，所有组件最终也会被加载到同一进程中运行。</li>
+<li>在微服务架构中，应用程序由多个服务组成，每个服务都是高度自治的独立业务实体，可以运行在独立的进程中，不同的服务能非常容易地部署到不同的主机上。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>即使应用程序的一项服务不起作用，系统仍然可以继续运行</li>
+</ul>
+<ul>
+<li>数据分区，数据独立，可靠性保证</li>
+</ul>
+<h2 id="微服务的缺点"><a class="markdownIt-Anchor" href="#微服务的缺点"></a> 微服务的缺点</h2>
+<ul>
+<li>微服务提高了系统的复杂度</li>
+<li>开发人员要处理分布式系统的复杂性</li>
+<li>服务之间的分布式事务问题</li>
+<li>服务的注册与发现问题</li>
+<li>数据隔离再来的报表处理问题</li>
+<li>不同服务实例的管理困难，持续自动化部署的要求</li>
+<li>运维要求较高
+<ul>
+<li>对于单体架构来讲，我们只需要维护好这一个项目就可以了，但是对于微服务架构来讲，由于项目是由多个微服务构成的，每个模块出现问题都会造成整个项目运行出现异常，想要知道是哪个模块造成的问题往往是不容易的，因为我们无法一步一步通过debug的方式来跟踪，这就对运维人员提出了很高的要求。</li>
+</ul>
+</li>
+<li>分布式的复杂性</li>
+</ul>
+<ul>
+<li>对于单体架构来讲，我们可以不使用分布式，但是对于微服务架构来说，分布式几乎是必会用的技术，由于分布式本身的复杂性，导致微服务架构也变得复杂起来。</li>
+</ul>
+<ul>
+<li>接口调整成本高
+<ul>
+<li>比如，用户微服务是要被订单微服务和电影微服务所调用的，一旦用户微服务的接口发生大的变动，那么所有依赖它的微服务都要做相应的调整，由于微服务可能非常多，那么调整接口所造成的成本将会明显提高。</li>
+</ul>
+</li>
+</ul>
+<h2 id="微服务的沟通"><a class="markdownIt-Anchor" href="#微服务的沟通"></a> 微服务的沟通</h2>
+<h3 id="沟通与事件广播"><a class="markdownIt-Anchor" href="#沟通与事件广播"></a> 沟通与事件广播</h3>
+<p>微服务的规划与单体式应用程序十分不同，微服务中每个服务都需要避免与其他服务有所牵连，且都要能够自主，并在其他服务发生错误时不受干扰。<br>
+倘若真有沟通，也应采用异步沟通的方式来避免紧密的相依性问题。要达到此目的，则可用下列两种方式：</p>
+<ul>
+<li>
+<p>事件存储中心（Event Store）<br>
+这可以让你在服务集群中广播事件，并且在每个服务中监听这些事件并作处理，这令服务之间没有紧密的相依性，而这些发生的事件都会被保存在事件存储中心里。这意味着当微服务重新上线、部署时可以重播（Replay）所有的事件。这也造就了微服务的数据库随时都可以被删除、摧毁，且不需要从其他服务中获取数据。</p>
+</li>
+<li>
+<p>消息队列（Message Queue）</p>
+<ul>
+<li>能够在服务集群中广播消息，并传递到每个服务中</li>
+<li>比较有名的消息中间件如：NSQ、RabbitMQ、Nats、Kafka</li>
+<li>A 服务上广播一个事件，此事件可以顺带一些数据。B 服务可以监听这个事件并在接收到之后有所处理。这些过程都是异步处理的</li>
+<li>A 服务并不需要等到 B 服务处理完该事件后才能继续，而这也代表 A 服务无法获取 B 服务的处理结果</li>
+<li>与事件存储中心不同的是：消息队列并不会保存事件。一旦事件被消化（接收）后就会从队列中消失</li>
+</ul>
+</li>
+</ul>
+<h3 id="服务发现"><a class="markdownIt-Anchor" href="#服务发现"></a> 服务发现</h3>
+<ul>
+<li>单个微服务在上线的时候，会向服务注册中心注册自己的 IP 位置、服务内容</li>
+<li>当服务需要调用另一个服务的时候，会去询问服务探索中心该服务的 IP 位置，得到位置后即可直接向目标服务发起调用</li>
+<li>这么做的用意是可以统一集中所有服务的位置，就不会分散于每个微服务中</li>
+<li>服务探索中心可以每隔一段时间就向微服务进行健康检查（TCP 调用、HTTP 调用、Ping）</li>
+<li>倘若该服务在时间内没有回应，则将其从服务中心移除，避免其他微服务对一个无回应的服务进行调用</li>
+<li>即便微服务重新在其他ip上部署，其他服务也是无感知的</li>
+<li>比较常用的服务发现有：etcd，consul，普遍都采用了raft等分布式算法</li>
+</ul>
+<h2 id="微服务其他需要考虑的因素"><a class="markdownIt-Anchor" href="#微服务其他需要考虑的因素"></a> 微服务其他需要考虑的因素</h2>
+<ul>
+<li>网络延迟</li>
+<li>分布式事务</li>
+<li>限流
+<ul>
+<li>例如一个服务挂掉后，上游服务或者用户一般会习惯性地重试访问。这导致一旦服务恢复正常，很可能因为瞬间网络流量过大又立刻挂掉。</li>
+<li>因此服务需要能够自我保护——限流。限流策略有很多，最简单的比如当单位时间内请求数过多时，丢弃多余的请求。另外，也可以考虑分区限流。仅拒绝来自产生大量请求的服务的请求。</li>
+</ul>
+</li>
+<li>熔断
+<ul>
+<li>当一个服务因为各种原因停止响应时，调用方通常会等待一段时间，然后超时或者收到错误返回。</li>
+<li>如果调用链路比较长，可能会导致请求堆积，整条链路占用大量资源一直在等待下游响应。所以当多次访问一个服务失败时，应熔断，标记该服务已停止工作，直接返回错误。直至该服务恢复正常后再重新建立连接。</li>
+</ul>
+</li>
+<li>服务降级
+<ul>
+<li>当Service A调用Service B，失败多次达到一定阀值，Service A不会再去调Service B，而会去执行本地的降级方法。</li>
+<li>降级服务其实就是牺牲掉一些逻辑处理，或者停止部分依赖服务的请求。以保障服务可以提供关键能力</li>
+</ul>
+</li>
+<li>权限控制
+<ul>
+<li>API网关</li>
+</ul>
+</li>
+<li>分布式追踪</li>
+<li>分布式日志记录</li>
+<li>配置中心</li>
+</ul>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<p><a href="https://zh.wikipedia.org/wiki/%E5%BE%AE%E6%9C%8D%E5%8B%99" target="_blank" rel="noopener">维基百科：微服务</a><br>
+<a href="https://www.zhihu.com/question/65502802" target="_blank" rel="noopener">什么是微服务架构？</a><br>
+<a href="https://www.edureka.co/blog/what-is-microservices/" target="_blank" rel="noopener">What Is Microservices – Introduction To Microservice Architecture</a><br>
+<a href="https://wumansgy.github.io/2018/12/22/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%BB%8B%E7%BB%8D/" target="_blank" rel="noopener">微服务介绍</a></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://dreamerjonson.com/2020/01/31/Microservices-1/" title="微服务理论与实践[1]-什么是微服务" target="_blank" rel="external">https://dreamerjonson.com/2020/01/31/Microservices-1/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <!-- <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！ -->
+      <strong>技术交流群： </strong> <a href="https://jq.qq.com/?_wv=1027&k=5NeekOk" target="_blank" rel="external">群号:713385260，点此进群</a>
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/dreamerjackson" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/jonson.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/dreamerjackson" target="_blank"><span class="text-dark">郑建勋（jonson）</span><small class="ml-1x">区块链工程师 &amp; Web工程师</small></a></h3>
+        <div>灾难总是接踵而至，这正是世间的常理。你以为只要哭诉一下，就会有谁来救你？如果失败了，就只能说明我不过是如此程度的男人</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+           
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/02/02/distributed-systerm-4-Zookeeper/" title="distributed-systerm[4]-Zookeeper"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2020/01/28/distributed-systerm-3-replication/" title="6.824分布式系统[3]-主从复制"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫">
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫">
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/dreamerjackson" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://twitter.com/zhuimengshaoni2" target="_blank" title="Twitter" data-toggle="tooltip" data-placement="top"><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	<!-- Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>. -->
+						天下风云出我辈，一入江湖岁月催。<br>皇图霸业谈笑中，不胜人生一场醉 
+			  </div>
+    </div>
+</footer>
+
+  <!-- <script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>　
+<script src="https://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
+<!-- <script data-ad-client="ca-pub-9425496202910941" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+<script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+
+<script src="/js/mrmy.js"></script>
+
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+  <script src="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: 'c22fa591ad87e1b03638',
+    clientSecret: '0646579e4dd8a301be7a42bcf3f5dd39ce803dcb',
+    repo: 'dreamerjackson.github.io',
+    owner: 'dreamerjackson',
+    admin: ['dreamerjackson'],
+    id: md5(location.pathname),
+    distractionFreeMode: true
+  })
+  gitalk.render('comments')
+  </script>
+
+      
+
+
+
+
+
+
+
+
+</body>
+</html>
