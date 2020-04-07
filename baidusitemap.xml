@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://dreamerjonson.com/2018/12/14/Whisper/</loc>
-    <lastmod>2020-02-16T02:43:35.102Z</lastmod>
+    <loc>https://dreamerjonson.com/2018/11/17/golang-4-scope/</loc>
+    <lastmod>2020-03-11T03:47:57.965Z</lastmod>
+  </url>  <url>
+    <loc>https://dreamerjonson.com/2019/05/20/golang-77-sed/</loc>
+    <lastmod>2020-02-20T06:48:54.841Z</lastmod>
   </url>  <url>
     <loc>https://dreamerjonson.com/2020/02/02/distributed-systerm-4-Zookeeper/</loc>
-    <lastmod>2020-02-16T01:55:53.569Z</lastmod>
+    <lastmod>2020-02-16T12:59:49.285Z</lastmod>
+  </url>  <url>
+    <loc>https://dreamerjonson.com/2018/12/14/Whisper/</loc>
+    <lastmod>2020-02-16T02:43:35.102Z</lastmod>
   </url>  <url>
     <loc>https://dreamerjonson.com/2020/01/14/6-s081-2-Memory-allocation/</loc>
     <lastmod>2020-02-05T04:05:18.664Z</lastmod>
@@ -195,9 +201,6 @@
   </url>  <url>
     <loc>https://dreamerjonson.com/2019/05/16/golang-75-useDocker/</loc>
     <lastmod>2019-05-28T05:59:33.057Z</lastmod>
-  </url>  <url>
-    <loc>https://dreamerjonson.com/2019/05/20/golang-77-sed/</loc>
-    <lastmod>2019-05-28T05:58:34.569Z</lastmod>
   </url>  <url>
     <loc>https://dreamerjonson.com/2019/05/24/golang-78-alfred-awgo/</loc>
     <lastmod>2019-05-24T03:25:41.030Z</lastmod>
@@ -855,9 +858,6 @@
   </url>  <url>
     <loc>https://dreamerjonson.com/2018/11/18/golang-9-doubleloop/</loc>
     <lastmod>2018-11-20T02:43:37.442Z</lastmod>
-  </url>  <url>
-    <loc>https://dreamerjonson.com/2018/11/17/golang-4-scope/</loc>
-    <lastmod>2018-11-20T02:17:13.182Z</lastmod>
   </url>  <url>
     <loc>https://dreamerjonson.com/2018/11/17/golang-6-operator/</loc>
     <lastmod>2018-11-20T02:17:01.109Z</lastmod>
