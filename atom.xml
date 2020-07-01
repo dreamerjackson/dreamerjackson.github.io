@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dreamerjonson.com/"/>
-  <updated>2020-07-01T07:07:39.340Z</updated>
+  <updated>2020-07-01T07:42:08.173Z</updated>
   <id>https://dreamerjonson.com/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>thewaytogolang2</title>
+    <title>golang快速入门[2.1]-go语言开发环境配置-windows</title>
     <link href="https://dreamerjonson.com/2020/07/01/thewaytogolang2/"/>
     <id>https://dreamerjonson.com/2020/07/01/thewaytogolang2/</id>
     <published>2020-07-01T06:56:54.000Z</published>
-    <updated>2020-07-01T07:07:39.340Z</updated>
+    <updated>2020-07-01T07:42:08.173Z</updated>
     
     <content type="html"><![CDATA[<h1 id="golang快速入门21-go语言开发环境配置-windows"><a class="markdownIt-Anchor" href="#golang快速入门21-go语言开发环境配置-windows"></a> golang快速入门[2.1]-go语言开发环境配置-windows</h1><ul><li>本文将讲解在windows系统下构建go语言的开发环境</li></ul><h2 id="windows安装go语言开发包"><a class="markdownIt-Anchor" href="#windows安装go语言开发包"></a> windows安装Go语言开发包</h2><ul><li>配置go语言的开发环境的第一步是要在<a href="https://golang.google.cn/dl/" target="_blank" rel="noopener">go官网下载页面</a>下载开发包</li><li>windows系统下需要下载msi后缀文件，msi是windows下的安装包文件格式,用于安装，存储和删除程序</li></ul><img src="/2020/07/01/thewaytogolang2/8.png" title="golang"><ul><li>上图中是 64 位的开发包，如果读者的电脑是 32 位系统或者有特殊的软件需求，则需要下载 32 位的开发包</li><li>如下图所示为windows下32位系统的开发包</li></ul><img src="/2020/07/01/thewaytogolang2/9.png" title="golang"><ul><li>双击后即可启动程序，如下图所示，这是Go语言的用户许可协议，直接点击勾选即可。</li></ul><img src="/2020/07/01/thewaytogolang2/10.png" title="golang"><ul><li>Go语言开发包会默认安装到 C 盘的 Go 目录下，这就是叫做GOROOT的目录，推荐使用此目录，也可以选择任意的目录。如下图所示，确认无误后点击“Next”</li></ul><img src="/2020/07/01/thewaytogolang2/11.png" title="golang"><ul><li>如下图所示，点击“Install”即可开始安装，没有其他需要配置的操作</li></ul><img src="/2020/07/01/thewaytogolang2/12.png" title="golang"><ul><li>等待程序完成安装，点击“Finish”完成安装。</li></ul><img src="/2020/07/01/thewaytogolang2/13.png" title="golang"><ul><li>安装完成后，在我们所设置的安装目录下(c:/go)将生成特定的文件和文件夹，如下图所示：</li></ul><img src="/2020/07/01/thewaytogolang2/14.png" title="golang"><h2 id="设置环境变量"><a class="markdownIt-Anchor" href="#设置环境变量"></a> 设置环境变量</h2><ul><li>开始写 go 项目代码之前，需要我们先配置好GOPATH环境变量，GOPATH是go中的一个重要概念，我们在之后的文章中会详细介绍</li><li>如下图所示，在桌面或者资源管理器右键 我的电脑 - 属性 - 高级系统设置 - 环境变量。</li></ul><img src="/2020/07/01/thewaytogolang2/15.png" title="golang"><ul><li>在弹出的界面里点击 GOPATH 对应的选项，点击编辑之后就可以对GOPATH进行修改。</li><li>如果没有GOPATH环境变量，则可以点击新建进行创建。</li><li>GOPATH可以设置为任何目录，但是尽量选择新的空目录，例如 :\Go。</li></ul><img src="/2020/07/01/thewaytogolang2/16.png" title="golang"><ul><li>提示：填写完成后，每个打开的窗口都需要点击“确定”来保存设置。</li><li>其它的Go环境变量会由安装包自动设置。</li><li>在任意目录下使用终端执行 go env 命令，输出如下结果说明Go语言开发包已经安装成功</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">C:\Windows\system32&gt; go env</span><br><span class="line">set GO111MODULE=</span><br><span class="line">set GOARCH=amd64</span><br><span class="line">set GOBIN=</span><br><span class="line">set GOCACHE=C:\Users\jackson\AppData\Local\go-build</span><br><span class="line">set GOENV=C:\Users\jackson\AppData\Roaming\go\env</span><br><span class="line">set GOEXE=.exe</span><br><span class="line">set GOFLAGS=</span><br><span class="line">set GOHOSTARCH=amd64</span><br><span class="line">set GOHOSTOS=windows</span><br><span class="line">set GONOPROXY=</span><br><span class="line">set GONOSUMDB=</span><br><span class="line">set GOOS=windows</span><br><span class="line">set GOPATH=C:\Users\jackson\go</span><br><span class="line">set GOPRIVATE=</span><br><span class="line">set GOPROXY=https://proxy.golang.org,direct</span><br><span class="line">set GOROOT=c:\go</span><br><span class="line">...</span><br></pre></td></tr></table></figure><h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2><ul><li><a href="http://c.biancheng.net/view/3992.html" target="_blank" rel="noopener">在Windows上安装Go语言开发包</a></li></ul>]]></content>
     
