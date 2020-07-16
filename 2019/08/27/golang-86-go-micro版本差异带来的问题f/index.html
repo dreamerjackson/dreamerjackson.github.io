@@ -1,44 +1,46 @@
 <!DOCTYPE html>
 <html lang=zh>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
   <meta name="renderer" content="webkit">
-  <meta http-equiv="Cache-Control" content="no-transform">
-  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="format-detection" content="telephone=no,email=no,adress=no">
   <!-- Color theme for statusbar -->
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#000000" />
   <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
-  <meta http-equiv="window-target" content="_top">
+  <meta http-equiv="window-target" content="_top" />
   
   
   <title>golang[86]-go-micro版本差异带来的问题f | 郑建勋的个人网站</title>
-  <meta name="description" content="起因 问题的起因在我的新项目中使用最新microv1.9.1版本调用发送邮件的follow.srv.push服务出现问题： 1&amp;#123;&amp;quot;id&amp;quot;:&amp;quot;go.micro.client&amp;quot;,&amp;quot;code&amp;quot;:500,&amp;quot;detail&amp;quot;:&amp;quot;&amp;quot;,&amp;quot;status&amp;quot;:&amp;quot;Internal">
-<meta name="keywords" content="go">
+  <meta name="description" content="起因 问题的起因在我的新项目中使用最新microv1.9.1版本调用发送邮件的follow.srv.push服务出现问题： 1&amp;#123;&quot;id&quot;:&quot;go.micro.client&quot;,&quot;code&quot;:500,&quot;detail&quot;:&quot;&quot;,&quot;status&quot;:&quot;Internal">
 <meta property="og:type" content="article">
 <meta property="og:title" content="golang[86]-go-micro版本差异带来的问题f">
-<meta property="og:url" content="https://dreamerjonson.com/2019/08/27/golang-86-go-micro版本差异带来的问题f/index.html">
+<meta property="og:url" content="https://dreamerjonson.com/2019/08/27/golang-86-go-micro%E7%89%88%E6%9C%AC%E5%B7%AE%E5%BC%82%E5%B8%A6%E6%9D%A5%E7%9A%84%E9%97%AE%E9%A2%98f/index.html">
 <meta property="og:site_name" content="Jonson">
-<meta property="og:description" content="起因 问题的起因在我的新项目中使用最新microv1.9.1版本调用发送邮件的follow.srv.push服务出现问题： 1&amp;#123;&amp;quot;id&amp;quot;:&amp;quot;go.micro.client&amp;quot;,&amp;quot;code&amp;quot;:500,&amp;quot;detail&amp;quot;:&amp;quot;&amp;quot;,&amp;quot;status&amp;quot;:&amp;quot;Internal">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-28T02:16:10.912Z">
+<meta property="og:description" content="起因 问题的起因在我的新项目中使用最新microv1.9.1版本调用发送邮件的follow.srv.push服务出现问题： 1&amp;#123;&quot;id&quot;:&quot;go.micro.client&quot;,&quot;code&quot;:500,&quot;detail&quot;:&quot;&quot;,&quot;status&quot;:&quot;Internal">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-08-27T12:03:54.000Z">
+<meta property="article:modified_time" content="2019-08-28T02:16:10.912Z">
+<meta property="article:author" content="Jonson">
+<meta property="article:tag" content="go">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="golang[86]-go-micro版本差异带来的问题f">
-<meta name="twitter:description" content="起因 问题的起因在我的新项目中使用最新microv1.9.1版本调用发送邮件的follow.srv.push服务出现问题： 1&amp;#123;&amp;quot;id&amp;quot;:&amp;quot;go.micro.client&amp;quot;,&amp;quot;code&amp;quot;:500,&amp;quot;detail&amp;quot;:&amp;quot;&amp;quot;,&amp;quot;status&amp;quot;:&amp;quot;Internal">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://dreamerjonson.com/2019/08/27/golang-86-go-micro版本差异带来的问题f/index.html">
+  <link rel="canonical" href="https://dreamerjonson.com/2019/08/27/golang-86-go-micro%E7%89%88%E6%9C%AC%E5%B7%AE%E5%BC%82%E5%B8%A6%E6%9D%A5%E7%9A%84%E9%97%AE%E9%A2%98f/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Jonson" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png" type="image/x-icon">
   
-  <link rel="stylesheet" href="/css/style.css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
   
   
   
@@ -49,7 +51,7 @@
 
 
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 
 <body class="main-center" itemscope itemtype="http://schema.org/WebPage">
@@ -171,8 +173,8 @@
               <div  class="content">
                   <!-- <p>I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.</p> -->
                   <!--  -->
-                  <!-- 能够改变未来的权利，每个人都是平等的。&lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--黑帮 贝吉&lt;/p&gt; -->
-                    <!-- 能够改变未来的权利，每个人都是平等的。<br/><p align="right">--黑帮 贝吉</p> -->
+                  <!-- 所谓的弱，就是一种罪，所谓理想，只是拥有实力的人才能说的“现实”。 &lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--克罗克达尔&lt;/p&gt; -->
+                    <!-- 所谓的弱，就是一种罪，所谓理想，只是拥有实力的人才能说的“现实”。 <br/><p align="right">--克罗克达尔</p> -->
                 公众号：唯识相链，来关注我吧~<br/>
                 <div><img src="/images/xingqiu-qrcode.jpg" width="150" height="150"></div>
                 go语言交流2群：713385260<br/>
@@ -186,7 +188,7 @@
   <div class="widget">
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/emacs/">emacs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/git/mac环境配置/">mac环境配置</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">162</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/数据结构/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-数据结构/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/macOS/">macOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/unix/">unix</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链原理/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发配置/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/智能合约-solidity语法/">智能合约 solidity语法</a><span class="category-list-count">60</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/置顶/">置顶</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/emacs/">emacs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/git/mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">mac环境配置</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">163</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/macOS/">macOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/unix/">unix</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-solidity%E8%AF%AD%E6%B3%95/">智能合约 solidity语法</a><span class="category-list-count">60</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%AE%E9%A1%B6/">置顶</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -196,7 +198,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emacs/">emacs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">162</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-数据结构/">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macOS/">macOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac环境配置/">mac环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-前端/">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unix/">unix</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链原理/">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发配置/">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置顶/">置顶</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/" rel="tag">bootstrap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emacs/" rel="tag">emacs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/" rel="tag">go</a><span class="tag-list-count">163</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/" rel="tag">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/" rel="tag">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macOS/" rel="tag">macOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">mac环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-%E5%89%8D%E7%AB%AF/" rel="tag">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/" rel="tag">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/" rel="tag">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unix/" rel="tag">unix</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" rel="tag">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86/" rel="tag">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/" rel="tag">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/" rel="tag">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%AE%E9%A1%B6/" rel="tag">置顶</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -206,7 +208,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/bootstrap/" style="font-size: 13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.38px;">docker</a> <a href="/tags/emacs/" style="font-size: 13px;">emacs</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-数据结构/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/linux/" style="font-size: 13.13px;">linux</a> <a href="/tags/mac/" style="font-size: 13.25px;">mac</a> <a href="/tags/macOS/" style="font-size: 13px;">macOS</a> <a href="/tags/mac环境配置/" style="font-size: 13.13px;">mac环境配置</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-前端/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/unix/" style="font-size: 13.13px;">unix</a> <a href="/tags/以太坊/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/前端/" style="font-size: 13.38px;">前端</a> <a href="/tags/区块链/" style="font-size: 13px;">区块链</a> <a href="/tags/区块链原理/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/开发配置/" style="font-size: 13px;">开发配置</a> <a href="/tags/数据结构/" style="font-size: 13px;">数据结构</a> <a href="/tags/智能合约/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/置顶/" style="font-size: 13px;">置顶</a>
+      <a href="/tags/bootstrap/" style="font-size: 13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.38px;">docker</a> <a href="/tags/emacs/" style="font-size: 13px;">emacs</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/linux/" style="font-size: 13.13px;">linux</a> <a href="/tags/mac/" style="font-size: 13.25px;">mac</a> <a href="/tags/macOS/" style="font-size: 13px;">macOS</a> <a href="/tags/mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 13.13px;">mac环境配置</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-%E5%89%8D%E7%AB%AF/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/unix/" style="font-size: 13.13px;">unix</a> <a href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13.38px;">前端</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13px;">区块链</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/" style="font-size: 13px;">开发配置</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13px;">数据结构</a> <a href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/%E7%BD%AE%E9%A1%B6/" style="font-size: 13px;">置顶</a>
     </div>
   </div>
 
@@ -215,7 +217,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -227,6 +229,21 @@
     <div class="widget-body">
       <ul class="recent-post-list list-unstyled no-thumbnail">
         
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/07/02/kafka-golang/" class="title">实战Kafka—术语</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-07-02T06:50:37.000Z" itemprop="datePublished">2020-07-02</time>
+              </p>
+            </div>
+          </li>
+          
           <li>
             
             <div class="item-inner">
@@ -287,21 +304,6 @@
             </div>
           </li>
           
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/go/">go</a>
-              </p>
-              <p class="item-title">
-                <a href="/2020/01/31/Microservices-1/" class="title">微服务理论与实践[1]-什么是微服务</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-01-31T02:37:33.000Z" itemprop="datePublished">2020-01-31</time>
-              </p>
-            </div>
-          </li>
-          
       </ul>
     </div>
   </div>
@@ -317,7 +319,7 @@
   <div class="slimContent">
     <nav id="toc" class="article-toc">
       <h3 class="toc-title">文章目录</h3>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#起因"><span class="toc-number">1.</span> <span class="toc-text"> 起因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#问题追踪"><span class="toc-number">2.</span> <span class="toc-text"> 问题追踪</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决办法"><span class="toc-number">3.</span> <span class="toc-text"> 解决办法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#问题为何高版本不能调用push"><span class="toc-number">4.</span> <span class="toc-text"> 问题：为何高版本不能调用Push？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-number">5.</span> <span class="toc-text"> </span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#起因"><span class="toc-number">1.</span> <span class="toc-text"> 起因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#问题追踪"><span class="toc-number">2.</span> <span class="toc-text"> 问题追踪</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决办法"><span class="toc-number">3.</span> <span class="toc-text"> 解决办法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#问题为何高版本不能调用push"><span class="toc-number">4.</span> <span class="toc-text"> 问题：为何高版本不能调用Push？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">5.</span> <span class="toc-text"> </span></a></li></ol>
     </nav>
   </div>
 </aside>
@@ -339,7 +341,7 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2019/08/27/golang-86-go-micro版本差异带来的问题f/" class="article-date">
+	<a href="/2019/08/27/golang-86-go-micro%E7%89%88%E6%9C%AC%E5%B7%AE%E5%BC%82%E5%B8%A6%E6%9D%A5%E7%9A%84%E9%97%AE%E9%A2%98f/" class="article-date">
 	  <time datetime="2019-08-27T12:03:54.000Z" itemprop="datePublished">2019-08-27</time>
 	</a>
 </span>
@@ -352,7 +354,7 @@
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/go/">go</a>
+	<a class="article-tag-link" href="/tags/go/" rel="tag">go</a>
   </span>
 
 
@@ -365,10 +367,10 @@
 	</span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/08/27/golang-86-go-micro版本差异带来的问题f/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/08/27/golang-86-go-micro%E7%89%88%E6%9C%AC%E5%B7%AE%E5%BC%82%E5%B8%A6%E6%9D%A5%E7%9A%84%E9%97%AE%E9%A2%98f/#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 850(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 852(字)</span>
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4(分)</span>
@@ -381,35 +383,35 @@
         <h2 id="起因"><a class="markdownIt-Anchor" href="#起因"></a> 起因</h2>
 <p>问题的起因在我的新项目中使用最新microv1.9.1版本调用发送邮件的follow.srv.push服务出现问题：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;id&quot;:&quot;go.micro.client&quot;,&quot;code&quot;:500,&quot;detail&quot;:&quot;&quot;,&quot;status&quot;:&quot;Internal Server Error&quot;&#125;</span><br></pre></td></tr></table></figure>
-<p>经过排查发现 go-micro 1.7以上含1.7   client发送给服务器端的fullmethod发生了改变。<br>
-从 /push.PushSrv/Push =&gt; /followme.srv.push.PushSrv/Push<br>
+<p>经过排查发现 go-micro 1.7以上含1.7   client发送给服务器端的fullmethod发生了改变。<br />
+从 /push.PushSrv/Push =&gt; /followme.srv.push.PushSrv/Push<br />
 从 /followme.trade-engine.TradeEngine/Close  到 /tradeengine.TradeEngine/Close</p>
 <h2 id="问题追踪"><a class="markdownIt-Anchor" href="#问题追踪"></a> 问题追踪</h2>
-<p>具体出现在<br>
-122行  <a href="http://github.com/micro/go-plugins1.0/client/grpc/grpc.go" target="_blank" rel="noopener">github.com/micro/go-plugins1.0/client/grpc/grpc.go</a><br>
+<p>具体出现在<br />
+122行  <a href="http://github.com/micro/go-plugins1.0/client/grpc/grpc.go" target="_blank" rel="noopener">github.com/micro/go-plugins1.0/client/grpc/grpc.go</a><br />
 //method：/PushSrv.Push</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">err := cc.Invoke(ctx, methodToGRPC(req.Endpoint(), req.Body()), req.Body(), rsp, grpc.CallContentSubtype(cf.String()))</span><br></pre></td></tr></table></figure>
-<p>变为了：<br>
-go-micro@1.9/client/grpc/grpc.go<br>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">err :&#x3D; cc.Invoke(ctx, methodToGRPC(req.Endpoint(), req.Body()), req.Body(), rsp, grpc.CallContentSubtype(cf.String()))</span><br></pre></td></tr></table></figure>
+<p>变为了：<br />
+go-micro@1.9/client/grpc/grpc.go<br />
 //method：/followme.srv.push.PushSrv/Push</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">err := cc.Invoke(ctx, methodToGRPC(req.Service(), req.Endpoint()), req.Body(), rsp, grpc.CallContentSubtype(cf.Name()))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">err :&#x3D; cc.Invoke(ctx, methodToGRPC(req.Service(), req.Endpoint()), req.Body(), rsp, grpc.CallContentSubtype(cf.Name()))</span><br></pre></td></tr></table></figure>
 <p>导致访问出现问题。</p>
 <p>go-micro代码改变commit地址：<a href="https://github.com/micro/go-micro/commit/d3a6297b17cb78602875440b62d88971346a0f05" target="_blank" rel="noopener">https://github.com/micro/go-micro/commit/d3a6297b17cb78602875440b62d88971346a0f05</a></p>
 <h2 id="解决办法"><a class="markdownIt-Anchor" href="#解决办法"></a> 解决办法</h2>
-<p>由于新版本的micro，req.Service()其实是注册的microName，那么是否可以将其变为Push？这样传递到服务器的fullmethod就变为了/push.PushSrv/Push。<br>
+<p>由于新版本的micro，req.Service()其实是注册的microName，那么是否可以将其变为Push？这样传递到服务器的fullmethod就变为了/push.PushSrv/Push。<br />
 但是，由于在micro的代码中，registery又需要microName从consul中拿到服务地址，因此可以从这里下手hook去consul中访问的服务名。</p>
 <p>下面给出一段micro1.9 调用push的代码：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"context"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"github.com/micro/go-micro"</span></span><br><span class="line">	<span class="string">"github.com/micro/go-micro/client/selector"</span></span><br><span class="line">	<span class="string">"github.com/micro/go-micro/registry"</span></span><br><span class="line">	<span class="string">"github.com/micro/go-micro/registry/consul"</span></span><br><span class="line">	<span class="string">"github.com/micro/go-micro/service/grpc"</span></span><br><span class="line">	<span class="string">"gitlab.followme.com/CopyTradingGo/proto/src/push"</span></span><br><span class="line">	<span class="string">"strconv"</span></span><br><span class="line">	<span class="string">"time"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> NewRegistry <span class="keyword">struct</span> &#123;</span><br><span class="line">	C  registry.Registry</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c NewRegistry)</span> <span class="title">Init</span><span class="params">(opts...registry.Option)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> c.C.Init(opts...)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c NewRegistry)</span> <span class="title">Options</span><span class="params">()</span> <span class="title">registry</span>.<span class="title">Options</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> c.C.Options()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c NewRegistry)</span> <span class="title">Register</span><span class="params">(srv *registry.Service,opts ...registry.RegisterOption)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> c.C.Register(srv,opts...)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c NewRegistry)</span> <span class="title">Deregister</span><span class="params">(srv*registry.Service)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> c.C.Deregister(srv)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c NewRegistry)</span> <span class="title">GetService</span><span class="params">(s <span class="keyword">string</span>)</span> <span class="params">([]*registry.Service, error)</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> c.C.GetService(<span class="string">"followme.srv.push"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c NewRegistry)</span> <span class="title">ListServices</span><span class="params">()</span> <span class="params">([]*registry.Service, error)</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> c.C.ListServices()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c NewRegistry)</span> <span class="title">Watch</span><span class="params">(opts...registry.WatchOption)</span> <span class="params">(registry.Watcher, error)</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> c.C.Watch(opts...)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c NewRegistry)</span> <span class="title">String</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> c.C.String()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	reg := consul.NewRegistry(<span class="function"><span class="keyword">func</span><span class="params">(op *registry.Options)</span></span> &#123;</span><br><span class="line">		op.Addrs = []<span class="keyword">string</span>&#123;</span><br><span class="line">			<span class="string">"192.168.8.6:8500"</span>,</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">	service:= grpc.NewService(</span><br><span class="line">		micro.Registry(reg),</span><br><span class="line">		)</span><br><span class="line"></span><br><span class="line">	newreg:=  NewRegistry&#123;C:reg&#125;</span><br><span class="line">	service.Client().Options().Selector.Init(selector.Registry(newreg))</span><br><span class="line">	srv:= push.NewPushSrvService(<span class="string">"push"</span>, service.Client())</span><br><span class="line">	smsParams := []<span class="keyword">string</span>&#123;</span><br><span class="line">		<span class="string">"demo"</span>,</span><br><span class="line">		strconv.FormatInt(<span class="keyword">int64</span>(<span class="number">1</span>), <span class="number">10</span>),</span><br><span class="line">		strconv.FormatFloat(<span class="number">99.99</span>, <span class="string">'f'</span>, <span class="number">-1</span>, <span class="number">64</span>),</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> req = <span class="built_in">new</span>(push.PushRequest)</span><br><span class="line">	req.Type = push.PushType_SMS</span><br><span class="line">	req.Sender = <span class="string">"guard"</span></span><br><span class="line">	req.ToUserId = <span class="number">80</span></span><br><span class="line">	<span class="keyword">var</span> sms = <span class="built_in">new</span>(push.SMSRequest)</span><br><span class="line">	sms.TemplateId = <span class="number">100401</span></span><br><span class="line">	sms.Params = smsParams</span><br><span class="line">	req.Sms = sms</span><br><span class="line">	ctx:=context.Background()</span><br><span class="line">	cc,_:= context.WithTimeout(ctx,<span class="number">5</span>*time.Minute)</span><br><span class="line">	result,err:= srv.Push(cc,req)</span><br><span class="line">	fmt.Println(result,err)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>一开始以为所有高版本的micro 调用低版本的micro都会出现问题。 但是我经过多次实验发现，micro1.9调用 trade-engine micro1.1版本ok。<br>
-我接着怀疑是不是trade-engine做了特殊处理。查看代码未发现问题。<br>
-我接着自己实验了用1.9版本micro 去调用自己的1.1版本 helloworld服务，仍然OK。<br>
-接着查看代码发现，1.9版本传递过来的fullmethod确实是/followme.trade-engine.Say/Hello<br>
-但是fullmethod拆分为了servise：Say 以及method：Hello。  只用到了这两个参数。<br>
-也就是说不管是1.9版本传递的/followme.trade-engine.Say/Hello 还是1.1版本传递的 /tradeEngine.Say/Hello,服务器只需要最后的Say/Hello。<br>
+<p>一开始以为所有高版本的micro 调用低版本的micro都会出现问题。 但是我经过多次实验发现，micro1.9调用 trade-engine micro1.1版本ok。<br />
+我接着怀疑是不是trade-engine做了特殊处理。查看代码未发现问题。<br />
+我接着自己实验了用1.9版本micro 去调用自己的1.1版本 helloworld服务，仍然OK。<br />
+接着查看代码发现，1.9版本传递过来的fullmethod确实是/followme.trade-engine.Say/Hello<br />
+但是fullmethod拆分为了servise：Say 以及method：Hello。  只用到了这两个参数。<br />
+也就是说不管是1.9版本传递的/followme.trade-engine.Say/Hello 还是1.1版本传递的 /tradeEngine.Say/Hello,服务器只需要最后的Say/Hello。<br />
 所以即便是修改了fullmethod，仍然可以用高版本调用低版本。</p>
 <h2 id="问题为何高版本不能调用push"><a class="markdownIt-Anchor" href="#问题为何高版本不能调用push"></a> 问题：为何高版本不能调用Push？</h2>
 <p>push是C#维护，推测是C#对传递过去的fullmethod做了处理，必须要保证匹配。</p>
-<h2 id><a class="markdownIt-Anchor" href="#"></a> </h2>
+<h2 id=""><a class="markdownIt-Anchor" href="#"></a> </h2>
 
       
     </div>
@@ -419,7 +421,7 @@ go-micro@1.9/client/grpc/grpc.go<br>
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://dreamerjonson.com/2019/08/27/golang-86-go-micro版本差异带来的问题f/" title="golang[86]-go-micro版本差异带来的问题f" target="_blank" rel="external">https://dreamerjonson.com/2019/08/27/golang-86-go-micro版本差异带来的问题f/</a>
+      <a href="https://dreamerjonson.com/2019/08/27/golang-86-go-micro%E7%89%88%E6%9C%AC%E5%B7%AE%E5%BC%82%E5%B8%A6%E6%9D%A5%E7%9A%84%E9%97%AE%E9%A2%98f/" title="golang[86]-go-micro版本差异带来的问题f" target="_blank" rel="external">https://dreamerjonson.com/2019/08/27/golang-86-go-micro%E7%89%88%E6%9C%AC%E5%B7%AE%E5%BC%82%E5%B8%A6%E6%9D%A5%E7%9A%84%E9%97%AE%E9%A2%98f/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -467,12 +469,12 @@ go-micro@1.9/client/grpc/grpc.go<br>
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2019/09/05/golang-87-git提交的模版写法/" title="golang[87]-git commit提交的模版写法"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2019/09/05/golang-87-git%E6%8F%90%E4%BA%A4%E7%9A%84%E6%A8%A1%E7%89%88%E5%86%99%E6%B3%95/" title="golang[87]-git commit提交的模版写法"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2019/08/26/docker-push到-dockerhub-Harbor/" title="docker-push到 dockerhub-Harbor"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2019/08/26/docker-push%E5%88%B0-dockerhub-Harbor/" title="docker-push到 dockerhub-Harbor"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
@@ -579,11 +581,17 @@ go-micro@1.9/client/grpc/grpc.go<br>
 <script>
 window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 </script>
+
 <script src="/js/plugin.min.js"></script>
+
+
 <script src="/js/application.js"></script>
 
 
+
+
 <script src="/js/mrmy.js"></script>
+
 
 
 
@@ -603,7 +611,9 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
     window.INSIGHT_CONFIG = INSIGHT_CONFIG;
 })(window);
 </script>
+
 <script src="/js/insight.js"></script>
+
 
 
 

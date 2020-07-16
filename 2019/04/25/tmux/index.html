@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html lang=zh>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
   <meta name="renderer" content="webkit">
-  <meta http-equiv="Cache-Control" content="no-transform">
-  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="format-detection" content="telephone=no,email=no,adress=no">
   <!-- Color theme for statusbar -->
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#000000" />
   <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
-  <meta http-equiv="window-target" content="_top">
+  <meta http-equiv="window-target" content="_top" />
   
   
   <title>MAC环境配置 | 郑建勋的个人网站</title>
-  <meta name="description" content="注意：本文内容适用于 Tmux 2.3 及以上的版本，但是绝大部分的特性低版本也都适用，鼠标支持、VI 模式、插件管理在低版本可能会与本文不兼容。  Tmux 快捷键 &amp;amp; 速查表 启动新会话： tmux [new -s 会话名 -n 窗口名]  恢复会话： tmux at [-t 会话名]  列出所有会话： tmux ls  关闭会话： tmux kill-session -t 会话名">
-<meta name="keywords" content="开发配置">
+  <meta name="description" content="注意：本文内容适用于 Tmux 2.3 及以上的版本，但是绝大部分的特性低版本也都适用，鼠标支持、VI 模式、插件管理在低版本可能会与本文不兼容。  Tmux 快捷键 &amp; 速查表 启动新会话： tmux [new -s 会话名 -n 窗口名]  恢复会话： tmux at [-t 会话名]  列出所有会话： tmux ls  关闭会话： tmux kill-session -t 会话名">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MAC环境配置">
 <meta property="og:url" content="https://dreamerjonson.com/2019/04/25/tmux/index.html">
 <meta property="og:site_name" content="Jonson">
-<meta property="og:description" content="注意：本文内容适用于 Tmux 2.3 及以上的版本，但是绝大部分的特性低版本也都适用，鼠标支持、VI 模式、插件管理在低版本可能会与本文不兼容。  Tmux 快捷键 &amp;amp; 速查表 启动新会话： tmux [new -s 会话名 -n 窗口名]  恢复会话： tmux at [-t 会话名]  列出所有会话： tmux ls  关闭会话： tmux kill-session -t 会话名">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-26T14:17:42.123Z">
+<meta property="og:description" content="注意：本文内容适用于 Tmux 2.3 及以上的版本，但是绝大部分的特性低版本也都适用，鼠标支持、VI 模式、插件管理在低版本可能会与本文不兼容。  Tmux 快捷键 &amp; 速查表 启动新会话： tmux [new -s 会话名 -n 窗口名]  恢复会话： tmux at [-t 会话名]  列出所有会话： tmux ls  关闭会话： tmux kill-session -t 会话名">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-04-25T05:44:19.000Z">
+<meta property="article:modified_time" content="2019-07-26T14:17:42.123Z">
+<meta property="article:author" content="Jonson">
+<meta property="article:tag" content="开发配置">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MAC环境配置">
-<meta name="twitter:description" content="注意：本文内容适用于 Tmux 2.3 及以上的版本，但是绝大部分的特性低版本也都适用，鼠标支持、VI 模式、插件管理在低版本可能会与本文不兼容。  Tmux 快捷键 &amp;amp; 速查表 启动新会话： tmux [new -s 会话名 -n 窗口名]  恢复会话： tmux at [-t 会话名]  列出所有会话： tmux ls  关闭会话： tmux kill-session -t 会话名">
   <!-- Canonical links -->
   <link rel="canonical" href="https://dreamerjonson.com/2019/04/25/tmux/index.html">
   
@@ -38,7 +38,9 @@
   
     <link rel="icon" href="/favicon.png" type="image/x-icon">
   
-  <link rel="stylesheet" href="/css/style.css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
   
   
   
@@ -49,7 +51,7 @@
 
 
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 
 <body class="main-center" itemscope itemtype="http://schema.org/WebPage">
@@ -171,8 +173,8 @@
               <div  class="content">
                   <!-- <p>I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.</p> -->
                   <!--  -->
-                  <!-- 能够改变未来的权利，每个人都是平等的。&lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--黑帮 贝吉&lt;/p&gt; -->
-                    <!-- 能够改变未来的权利，每个人都是平等的。<br/><p align="right">--黑帮 贝吉</p> -->
+                  <!-- 所谓的弱，就是一种罪，所谓理想，只是拥有实力的人才能说的“现实”。 &lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--克罗克达尔&lt;/p&gt; -->
+                    <!-- 所谓的弱，就是一种罪，所谓理想，只是拥有实力的人才能说的“现实”。 <br/><p align="right">--克罗克达尔</p> -->
                 公众号：唯识相链，来关注我吧~<br/>
                 <div><img src="/images/xingqiu-qrcode.jpg" width="150" height="150"></div>
                 go语言交流2群：713385260<br/>
@@ -186,7 +188,7 @@
   <div class="widget">
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/emacs/">emacs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/git/mac环境配置/">mac环境配置</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">162</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/数据结构/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-数据结构/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/macOS/">macOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/unix/">unix</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链原理/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发配置/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/智能合约-solidity语法/">智能合约 solidity语法</a><span class="category-list-count">60</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/置顶/">置顶</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/emacs/">emacs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/git/mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">mac环境配置</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">163</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/macOS/">macOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/unix/">unix</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-solidity%E8%AF%AD%E6%B3%95/">智能合约 solidity语法</a><span class="category-list-count">60</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%AE%E9%A1%B6/">置顶</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -196,7 +198,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emacs/">emacs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">162</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-数据结构/">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macOS/">macOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac环境配置/">mac环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-前端/">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unix/">unix</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链原理/">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发配置/">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置顶/">置顶</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/" rel="tag">bootstrap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emacs/" rel="tag">emacs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/" rel="tag">go</a><span class="tag-list-count">163</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/" rel="tag">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/" rel="tag">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macOS/" rel="tag">macOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">mac环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-%E5%89%8D%E7%AB%AF/" rel="tag">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/" rel="tag">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/" rel="tag">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unix/" rel="tag">unix</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" rel="tag">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86/" rel="tag">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/" rel="tag">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/" rel="tag">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%AE%E9%A1%B6/" rel="tag">置顶</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -206,7 +208,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/bootstrap/" style="font-size: 13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.38px;">docker</a> <a href="/tags/emacs/" style="font-size: 13px;">emacs</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-数据结构/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/linux/" style="font-size: 13.13px;">linux</a> <a href="/tags/mac/" style="font-size: 13.25px;">mac</a> <a href="/tags/macOS/" style="font-size: 13px;">macOS</a> <a href="/tags/mac环境配置/" style="font-size: 13.13px;">mac环境配置</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-前端/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/unix/" style="font-size: 13.13px;">unix</a> <a href="/tags/以太坊/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/前端/" style="font-size: 13.38px;">前端</a> <a href="/tags/区块链/" style="font-size: 13px;">区块链</a> <a href="/tags/区块链原理/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/开发配置/" style="font-size: 13px;">开发配置</a> <a href="/tags/数据结构/" style="font-size: 13px;">数据结构</a> <a href="/tags/智能合约/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/置顶/" style="font-size: 13px;">置顶</a>
+      <a href="/tags/bootstrap/" style="font-size: 13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.38px;">docker</a> <a href="/tags/emacs/" style="font-size: 13px;">emacs</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/linux/" style="font-size: 13.13px;">linux</a> <a href="/tags/mac/" style="font-size: 13.25px;">mac</a> <a href="/tags/macOS/" style="font-size: 13px;">macOS</a> <a href="/tags/mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 13.13px;">mac环境配置</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-%E5%89%8D%E7%AB%AF/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/unix/" style="font-size: 13.13px;">unix</a> <a href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13.38px;">前端</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13px;">区块链</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/" style="font-size: 13px;">开发配置</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13px;">数据结构</a> <a href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/%E7%BD%AE%E9%A1%B6/" style="font-size: 13px;">置顶</a>
     </div>
   </div>
 
@@ -215,7 +217,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -227,6 +229,21 @@
     <div class="widget-body">
       <ul class="recent-post-list list-unstyled no-thumbnail">
         
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/07/02/kafka-golang/" class="title">实战Kafka—术语</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-07-02T06:50:37.000Z" itemprop="datePublished">2020-07-02</time>
+              </p>
+            </div>
+          </li>
+          
           <li>
             
             <div class="item-inner">
@@ -287,21 +304,6 @@
             </div>
           </li>
           
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/go/">go</a>
-              </p>
-              <p class="item-title">
-                <a href="/2020/01/31/Microservices-1/" class="title">微服务理论与实践[1]-什么是微服务</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-01-31T02:37:33.000Z" itemprop="datePublished">2020-01-31</time>
-              </p>
-            </div>
-          </li>
-          
       </ul>
     </div>
   </div>
@@ -317,7 +319,7 @@
   <div class="slimContent">
     <nav id="toc" class="article-toc">
       <h3 class="toc-title">文章目录</h3>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tmux-快捷键-速查表"><span class="toc-number">1.</span> <span class="toc-text"> Tmux 快捷键 &amp; 速查表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#在-tmux-中按下-tmux-前缀-ctrlb然后"><span class="toc-number">1.1.</span> <span class="toc-text"> 在 Tmux 中，按下 Tmux 前缀 ctrl+b，然后：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#会话"><span class="toc-number">1.2.</span> <span class="toc-text"> 会话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#a-namewindowstabsa窗口-标签页"><span class="toc-number">1.3.</span> <span class="toc-text"> 窗口 (标签页)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调整窗口排序"><span class="toc-number">2.</span> <span class="toc-text"> 调整窗口排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-namepanessplitsa窗格分割窗口"><span class="toc-number">2.1.</span> <span class="toc-text"> 窗格（分割窗口）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#a-namesyncpanesa同步窗格"><span class="toc-number">2.2.</span> <span class="toc-text"> 同步窗格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调整窗格尺寸"><span class="toc-number">2.3.</span> <span class="toc-text"> 调整窗格尺寸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文本复制模式"><span class="toc-number">2.4.</span> <span class="toc-text"> 文本复制模式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#杂项"><span class="toc-number">2.5.</span> <span class="toc-text"> 杂项：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置选项"><span class="toc-number">2.6.</span> <span class="toc-text"> 配置选项：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考配置文件~tmuxconf"><span class="toc-number">2.7.</span> <span class="toc-text"> 参考配置文件（~/.tmux.conf）：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fzf"><span class="toc-number">3.</span> <span class="toc-text"> fzf</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#set-alias"><span class="toc-number"></span> <span class="toc-text"> set alias</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#iterm2"><span class="toc-number">1.</span> <span class="toc-text"> ITerm2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mac系统快捷键进阶"><span class="toc-number">2.</span> <span class="toc-text"> MAC系统快捷键进阶</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#max连接-visulbox中的ubuntu-使用ssh服务器"><span class="toc-number">3.</span> <span class="toc-text"> max连接 visulBOX中的Ubuntu   使用ssh服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#virsualbox共享文件夹"><span class="toc-number">4.</span> <span class="toc-text"> virsualBox共享文件夹</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mac-通过ssh连接windwos-windwos-的环境配置"><span class="toc-number">5.</span> <span class="toc-text"> mac 通过ssh连接windwos &amp; windwos 的环境配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前面我们介绍的-ssh-命令都是通过密码认证连接服务器的下面介绍通过秘钥认证的方式登录服务器"><span class="toc-number">6.</span> <span class="toc-text"> 前面我们介绍的 ssh 命令都是通过密码认证连接服务器的，下面介绍通过秘钥认证的方式登录服务器。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后"><span class="toc-number">7.</span> <span class="toc-text"> 最后</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">8.</span> <span class="toc-text"> 参考</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tmux-快捷键-速查表"><span class="toc-number">1.</span> <span class="toc-text"> Tmux 快捷键 &amp; 速查表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#在-tmux-中按下-tmux-前缀-ctrlb然后"><span class="toc-number">1.1.</span> <span class="toc-text"> 在 Tmux 中，按下 Tmux 前缀 ctrl+b，然后：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#会话"><span class="toc-number">1.2.</span> <span class="toc-text"> 会话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#a-namewindowstabsa窗口-标签页"><span class="toc-number">1.3.</span> <span class="toc-text"> 窗口 (标签页)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调整窗口排序"><span class="toc-number">2.</span> <span class="toc-text"> 调整窗口排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-namepanessplitsa窗格分割窗口"><span class="toc-number">2.1.</span> <span class="toc-text"> 窗格（分割窗口）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#a-namesyncpanesa同步窗格"><span class="toc-number">2.2.</span> <span class="toc-text"> 同步窗格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调整窗格尺寸"><span class="toc-number">2.3.</span> <span class="toc-text"> 调整窗格尺寸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文本复制模式"><span class="toc-number">2.4.</span> <span class="toc-text"> 文本复制模式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#杂项"><span class="toc-number">2.5.</span> <span class="toc-text"> 杂项：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置选项"><span class="toc-number">2.6.</span> <span class="toc-text"> 配置选项：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考配置文件~tmuxconf"><span class="toc-number">2.7.</span> <span class="toc-text"> 参考配置文件（~&#x2F;.tmux.conf）：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fzf"><span class="toc-number">3.</span> <span class="toc-text"> fzf</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#set-alias"><span class="toc-number"></span> <span class="toc-text"> set alias</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#iterm2"><span class="toc-number">1.</span> <span class="toc-text"> ITerm2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mac系统快捷键进阶"><span class="toc-number">2.</span> <span class="toc-text"> MAC系统快捷键进阶</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#max连接-visulbox中的ubuntu-使用ssh服务器"><span class="toc-number">3.</span> <span class="toc-text"> max连接 visulBOX中的Ubuntu   使用ssh服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#virsualbox共享文件夹"><span class="toc-number">4.</span> <span class="toc-text"> virsualBox共享文件夹</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mac-通过ssh连接windwos-windwos-的环境配置"><span class="toc-number">5.</span> <span class="toc-text"> mac 通过ssh连接windwos &amp; windwos 的环境配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前面我们介绍的-ssh-命令都是通过密码认证连接服务器的下面介绍通过秘钥认证的方式登录服务器"><span class="toc-number">6.</span> <span class="toc-text"> 前面我们介绍的 ssh 命令都是通过密码认证连接服务器的，下面介绍通过秘钥认证的方式登录服务器。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后"><span class="toc-number">7.</span> <span class="toc-text"> 最后</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">8.</span> <span class="toc-text"> 参考</span></a></li></ol>
     </nav>
   </div>
 </aside>
@@ -346,13 +348,13 @@
         
   <span class="article-category">
     <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/开发配置/">开发配置</a>
+    <a class="article-category-link" href="/categories/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/">开发配置</a>
   </span>
 
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/开发配置/">开发配置</a>
+	<a class="article-tag-link" href="/tags/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/" rel="tag">开发配置</a>
   </span>
 
 
@@ -429,8 +431,8 @@ z 切换窗格最大化/最小化
 <h3 id="a-namesyncpanesa同步窗格"><a class="markdownIt-Anchor" href="#a-namesyncpanesa同步窗格"></a> <a name="syncPanes"></a>同步窗格</h3>
 <p>这么做可以切换到想要的窗口，输入 Tmux 前缀和一个冒号呼出命令提示行，然后输入：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:setw synchronize-panes</span><br></pre></td></tr></table></figure>
-<p>你可以指定开或关，否则重复执行命令会在两者间切换。<br>
-这个选项值针对某个窗口有效，不会影响别的会话和窗口。<br>
+<p>你可以指定开或关，否则重复执行命令会在两者间切换。<br />
+这个选项值针对某个窗口有效，不会影响别的会话和窗口。<br />
 完事儿之后再次执行命令来关闭。<a href="http://blog.sanctum.geek.nz/sync-tmux-panes/" target="_blank" rel="noopener">帮助</a></p>
 <h3 id="调整窗格尺寸"><a class="markdownIt-Anchor" href="#调整窗格尺寸"></a> 调整窗格尺寸</h3>
 <p>如果你不喜欢默认布局，可以重调窗格的尺寸。虽然这很容易实现，但一般不需要这么干。这几个命令用来调整窗格：</p>
@@ -510,8 +512,8 @@ bind Down last-window \; swap-pane -s tmp.1 \; kill-window -t tmp
 <p>下面这份配置是我使用 Tmux 几年来逐渐精简后的配置，请自取。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -----------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># Tmux 基本配置 - 要求 Tmux &gt;= 2.3</span></span><br><span class="line"><span class="comment"># 如果不想使用插件，只需要将此节的内容写入 ~/.tmux.conf 即可</span></span><br><span class="line"><span class="comment"># -----------------------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># C-b 和 VIM 冲突，修改 Prefix 组合键为 Control-Z，按键距离近</span></span><br><span class="line"><span class="built_in">set</span> -g prefix C-z</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -g base-index         1     <span class="comment"># 窗口编号从 1 开始计数</span></span><br><span class="line"><span class="built_in">set</span> -g display-panes-time 10000 <span class="comment"># PREFIX-Q 显示编号的驻留时长，单位 ms</span></span><br><span class="line"><span class="built_in">set</span> -g mouse              on    <span class="comment"># 开启鼠标</span></span><br><span class="line"><span class="built_in">set</span> -g pane-base-index    1     <span class="comment"># 窗格编号从 1 开始计数</span></span><br><span class="line"><span class="built_in">set</span> -g renumber-windows   on    <span class="comment"># 关掉某个窗口后，编号重排</span></span><br><span class="line"></span><br><span class="line">setw -g allow-rename      off   <span class="comment"># 禁止活动进程修改窗口名</span></span><br><span class="line">setw -g automatic-rename  off   <span class="comment"># 禁止自动命名新窗口</span></span><br><span class="line">setw -g mode-keys         vi    <span class="comment"># 进入复制模式的时候使用 vi 键位（默认是 EMACS）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -----------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 使用插件 - via tpm</span></span><br><span class="line"><span class="comment">#   1. 执行 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm</span></span><br><span class="line"><span class="comment">#   2. 执行 bash ~/.tmux/plugins/tpm/bin/install_plugins</span></span><br><span class="line"><span class="comment"># -----------------------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line">setenv -g TMUX_PLUGIN_MANAGER_PATH <span class="string">'~/.tmux/plugins'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 推荐的插件（请去每个插件的仓库下读一读使用教程）</span></span><br><span class="line"><span class="built_in">set</span> -g @plugin <span class="string">'seebi/tmux-colors-solarized'</span></span><br><span class="line"><span class="built_in">set</span> -g @plugin <span class="string">'tmux-plugins/tmux-pain-control'</span></span><br><span class="line"><span class="built_in">set</span> -g @plugin <span class="string">'tmux-plugins/tmux-prefix-highlight'</span></span><br><span class="line"><span class="built_in">set</span> -g @plugin <span class="string">'tmux-plugins/tmux-resurrect'</span></span><br><span class="line"><span class="built_in">set</span> -g @plugin <span class="string">'tmux-plugins/tmux-sensible'</span></span><br><span class="line"><span class="built_in">set</span> -g @plugin <span class="string">'tmux-plugins/tmux-yank'</span></span><br><span class="line"><span class="built_in">set</span> -g @plugin <span class="string">'tmux-plugins/tpm'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># tmux-resurrect</span></span><br><span class="line"><span class="built_in">set</span> -g @resurrect-dir <span class="string">'~/.tmux/resurrect'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># tmux-prefix-highlight</span></span><br><span class="line"><span class="built_in">set</span> -g status-right <span class="string">'#&#123;prefix_highlight&#125; #H | %a %Y-%m-%d %H:%M'</span></span><br><span class="line"><span class="built_in">set</span> -g @prefix_highlight_show_copy_mode <span class="string">'on'</span></span><br><span class="line"><span class="built_in">set</span> -g @prefix_highlight_copy_mode_attr <span class="string">'fg=white,bg=blue'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化 TPM 插件管理器 (放在配置文件的最后)</span></span><br><span class="line">run <span class="string">'~/.tmux/plugins/tpm/tpm'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -----------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 结束</span></span><br><span class="line"><span class="comment"># -----------------------------------------------------------------------------</span></span><br></pre></td></tr></table></figure>
 <h2 id="fzf"><a class="markdownIt-Anchor" href="#fzf"></a> fzf</h2>
-<p>官方文档给的基本操作是 cd<code>**</code>+Tab生成列表+Enter生成命令+Enter执行 快捷键可以把4步变成两步 还是很Nice<br>
-ctrl+R<br>
+<p>官方文档给的基本操作是 cd<code>**</code>+Tab生成列表+Enter生成命令+Enter执行 快捷键可以把4步变成两步 还是很Nice<br />
+ctrl+R<br />
 ctrl+T</p>
 <p>特别介绍一下Preview 功能</p>
 <p>我们知道在Unix环境下 我们要看文件的时候 必须一个个打开 当文件数量较大的场景</p>
@@ -519,91 +521,91 @@ ctrl+T</p>
 <p>当然 你可以写个bash脚本 把所有的文件合到一个文件 然后 只看一个file就行了</p>
 <p>fzf给出了另外一个炫酷的解决方案</p>
 <h1 id="set-alias"><a class="markdownIt-Anchor" href="#set-alias"></a> set alias</h1>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ vim ~/.zshrc</span><br><span class="line">alias pp=&apos;fzf --preview &apos;&quot;&apos;&quot;&apos;[[ $(file --mime &#123;&#125;) =~ binary ]] &amp;&amp; echo &#123;&#125; is a binary file || (highlight -O ansi -l &#123;&#125; || coderay &#123;&#125; || rougify &#123;&#125; || cat &#123;&#125;) 2&gt; /dev/null | head -500&apos;&quot;&apos;&quot;</span><br><span class="line">alias oo=&apos;fzf --preview &apos;&quot;&apos;&quot;&apos;[[ $(file --mime &#123;&#125;) =~ binary ]] &amp;&amp; echo &#123;&#125; is a binary file || (highlight -O ansi -l &#123;&#125; || coderay &#123;&#125; || rougify &#123;&#125; || tac &#123;&#125;) 2&gt; /dev/null | head -500&apos;&quot;&apos;&quot;  # flashback</span><br><span class="line">$ source ~/.zshrc</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ vim ~&#x2F;.zshrc</span><br><span class="line">alias pp&#x3D;&#39;fzf --preview &#39;&quot;&#39;&quot;&#39;[[ $(file --mime &#123;&#125;) &#x3D;~ binary ]] &amp;&amp; echo &#123;&#125; is a binary file || (highlight -O ansi -l &#123;&#125; || coderay &#123;&#125; || rougify &#123;&#125; || cat &#123;&#125;) 2&gt; &#x2F;dev&#x2F;null | head -500&#39;&quot;&#39;&quot;</span><br><span class="line">alias oo&#x3D;&#39;fzf --preview &#39;&quot;&#39;&quot;&#39;[[ $(file --mime &#123;&#125;) &#x3D;~ binary ]] &amp;&amp; echo &#123;&#125; is a binary file || (highlight -O ansi -l &#123;&#125; || coderay &#123;&#125; || rougify &#123;&#125; || tac &#123;&#125;) 2&gt; &#x2F;dev&#x2F;null | head -500&#39;&quot;&#39;&quot;  # flashback</span><br><span class="line">$ source ~&#x2F;.zshrc</span><br></pre></td></tr></table></figure>
 <h2 id="iterm2"><a class="markdownIt-Anchor" href="#iterm2"></a> ITerm2</h2>
-<p>可定制化Hotkey, 一键召出iTerm2 (不再需要⌘+Tab 或者 通过spotlight切换)<br>
-快捷的组合键<br>
-⌘+Shift+E 召唤时间线<br>
-⌘+Option+b 时光机<br>
-⌘+T 新Tab<br>
-⌘+D 水平分屏<br>
-⌘+← 切换Tab / ⌘+shift+← 切换分屏<br>
+<p>可定制化Hotkey, 一键召出iTerm2 (不再需要⌘+Tab 或者 通过spotlight切换)<br />
+快捷的组合键<br />
+⌘+Shift+E 召唤时间线<br />
+⌘+Option+b 时光机<br />
+⌘+T 新Tab<br />
+⌘+D 水平分屏<br />
+⌘+← 切换Tab / ⌘+shift+← 切换分屏<br />
 关闭panel：⌘ + w</p>
 <p>最大化Tab中的pane，隐藏本Tab中的其他pane：⌘+ shift +enter , 再次还原</p>
 <p>按下 Command + T 可以新建一个 Tab，每个标签页的后面都会标记一个序号，通过 Command + 序号 就可以在多个页面之间切换了，或者用 Command + [ 和 Command + ] 来切换到左侧或者右侧的标签页。</p>
 <p>同一个 Tab 内，还可以切分出多个 Pane，有两种切分方式：</p>
-<p>Command + D：水平切分，切分出一左一右两个 Pane<br>
-Command + Shift + D：垂直切分，切分出一上一下两个 Pane<br>
+<p>Command + D：水平切分，切分出一左一右两个 Pane<br />
+Command + Shift + D：垂直切分，切分出一上一下两个 Pane<br />
 通过 Command + Ctrl + 方向键 可以调整每个 Pane 的大小，通过 Command + Option + 方向键 可以切换 Pane。</p>
 <h2 id="mac系统快捷键进阶"><a class="markdownIt-Anchor" href="#mac系统快捷键进阶"></a> MAC系统快捷键进阶</h2>
 <p>除了 Command + C/V 这种入门必备的快捷键，还有一些系统级的常用快捷键是有必要掌握一下的。</p>
-<p>光标移动<br>
+<p>光标移动<br />
 这里比较推荐使用 Emacs 系的快捷键而不是传统的 Command + ←/→/Delete之类的。因为后者并不通用，比如在终端中就无法使用，而 Emacs 系的快捷键则在几乎所有系统级别的输入框内都通用。</p>
 <p>常见的几个行级别操作有：</p>
-<p>Ctrl + A：移动到行首<br>
-Ctrl + E：移动到行尾<br>
-Ctrl + K：删除到行尾<br>
-Ctrl + N：移动到下一行<br>
-Ctrl + P：移动到上一行<br>
+<p>Ctrl + A：移动到行首<br />
+Ctrl + E：移动到行尾<br />
+Ctrl + K：删除到行尾<br />
+Ctrl + N：移动到下一行<br />
+Ctrl + P：移动到上一行<br />
 前三个命令在终端中非常常用，能大幅度提高工作效率。后两个命令则在 Vim 系列中很常见，多用于上下切换列表中的选项。</p>
 <p>几个比较常见的字母级别操作有：</p>
-<p>Ctrl + F：向右（Forward）移动一个字母，等价于方向键 →<br>
-Ctrl + B：向左（Backward）移动一个字母，等价于方向键 ←<br>
-Ctrl + D：向右删除一个字母，等价于 → + Delete这个快捷键也很常用<br>
-Ctrl + H：向左删除一个字母，等价于 Delete<br>
-使用 Option 键<br>
+<p>Ctrl + F：向右（Forward）移动一个字母，等价于方向键 →<br />
+Ctrl + B：向左（Backward）移动一个字母，等价于方向键 ←<br />
+Ctrl + D：向右删除一个字母，等价于 → + Delete这个快捷键也很常用<br />
+Ctrl + H：向左删除一个字母，等价于 Delete<br />
+使用 Option 键<br />
 如果觉得按字母操作太过于细粒度，按行操作又太粗粒度，那么 Option 键绝对算得上神器，因为它可以按单词操作。</p>
-<p>Option + ←：光标向左移动一个单词<br>
-Option + →：光标向右移动一个单词<br>
-Option + Delete：删除一个单词<br>
-使用 Shift 键<br>
+<p>Option + ←：光标向左移动一个单词<br />
+Option + →：光标向右移动一个单词<br />
+Option + Delete：删除一个单词<br />
+使用 Shift 键<br />
 Shift 键类似于可视模式，比如在某个位置点击光标并按住 shift 键不松开，再去另一个位置点击一次，就可以选中两次点击位置之间的文本内容。</p>
 <p>注意，shift 键可视模式还可以和 Option 键一起合用，感兴趣的读者可以自行尝试。</p>
 <h2 id="max连接-visulbox中的ubuntu-使用ssh服务器"><a class="markdownIt-Anchor" href="#max连接-visulbox中的ubuntu-使用ssh服务器"></a> max连接 visulBOX中的Ubuntu   使用ssh服务器</h2>
 <p>在ubuntu中使用桥接模式</p>
-<p>步骤	             命令	                         说明<br>
-步骤1	            sudo su	             切换至root用户，ubuntu缺省下root用户有所限制，使用sudo su可以使用当前管理用户的密码切换至root用户，也可以在需要安装权限的命令前加sudo<br>
-步骤2	            apt install openssh-server	安装openssh-server<br>
-步骤3	            ssh -V                 	确认openssh-server版本<br>
-步骤4           	/etc/init.d/ssh status	确认openssh-server状态<br>
+<p>步骤	             命令	                         说明<br />
+步骤1	            sudo su	             切换至root用户，ubuntu缺省下root用户有所限制，使用sudo su可以使用当前管理用户的密码切换至root用户，也可以在需要安装权限的命令前加sudo<br />
+步骤2	            apt install openssh-server	安装openssh-server<br />
+步骤3	            ssh -V                 	确认openssh-server版本<br />
+步骤4           	/etc/init.d/ssh status	确认openssh-server状态<br />
 步骤5	            /etc/init.d/ssh restart	重新启动 openssh-server</p>
 <p>vim  /etc/ssh/sshd.config</p>
-<p>permisionRootLogin YES<br>
+<p>permisionRootLogin YES<br />
 修改unixpassword</p>
-<p>ifconfig获取ip<br>
-从终端使用ssh命令连接确认ssh -p 22 <a href="mailto:userkunyu@119.29.37.63" target="_blank" rel="noopener">userkunyu@119.29.37.63</a>  输入密码：</p>
+<p>ifconfig获取ip<br />
+从终端使用ssh命令连接确认ssh -p 22 <a href="mailto:userkunyu@119.29.37.63">userkunyu@119.29.37.63</a>  输入密码：</p>
 <h2 id="virsualbox共享文件夹"><a class="markdownIt-Anchor" href="#virsualbox共享文件夹"></a> virsualBox共享文件夹</h2>
-<p>共享文件夹为：go文件<br>
-sudo su<br>
-挂载：mount -t vboxsf go /mnt<br>
+<p>共享文件夹为：go文件<br />
+sudo su<br />
+挂载：mount -t vboxsf go /mnt<br />
 软连接：ln -s   /mnt/go /home/jackson/go</p>
 <h2 id="mac-通过ssh连接windwos-windwos-的环境配置"><a class="markdownIt-Anchor" href="#mac-通过ssh连接windwos-windwos-的环境配置"></a> mac 通过ssh连接windwos &amp; windwos 的环境配置</h2>
-<p>1、安装 OpenSSH Server<br>
-2、开启服务<br>
-安装完成后打开服务管理器，把 OpenSSH Authentication Agent 服务和 OpenSSH SSH Server 服务都设置为自启动，并启动这两个服务：<br>
-OPENSSH Authentication<br>
-OpenSSH SSH server<br>
-3、监听端口<br>
+<p>1、安装 OpenSSH Server<br />
+2、开启服务<br />
+安装完成后打开服务管理器，把 OpenSSH Authentication Agent 服务和 OpenSSH SSH Server 服务都设置为自启动，并启动这两个服务：<br />
+OPENSSH Authentication<br />
+OpenSSH SSH server<br />
+3、监听端口<br />
 启动服务后可以通过 netstat 命令查看 SSH Server 服务是不是已经开始监听默认的 22 号端口了：</p>
-<p>4、防火墙规则 或者关闭所有防火墙<br>
+<p>4、防火墙规则 或者关闭所有防火墙<br />
 在安装 OpenSSH Server 的时候会在防火墙的入站规则中添加一条记录让防火墙放行对 22 号端口的访问：</p>
-<p>服务器端的配置文件目录<br>
+<p>服务器端的配置文件目录<br />
 服务器端的配置文件在 C:\ProgramData\ssh 目录中，注意 C:\ProgramData 是一个隐藏目录：</p>
-<p>5、安装目录<br>
-Windows 系统中 OpenSSH 的安装目录为 C:\Windows\System32\OpenSSH，不管是客户端程序还是服务器端程序都这这个目录中：<br>
+<p>5、安装目录<br />
+Windows 系统中 OpenSSH 的安装目录为 C:\Windows\System32\OpenSSH，不管是客户端程序还是服务器端程序都这这个目录中：<br />
 OpenSSH 服务器端程序的默认配置文件 sshd_config_default 也在这个目录中。这个目录会被添加到 PATH 环境变量中：</p>
 <h2 id="前面我们介绍的-ssh-命令都是通过密码认证连接服务器的下面介绍通过秘钥认证的方式登录服务器"><a class="markdownIt-Anchor" href="#前面我们介绍的-ssh-命令都是通过密码认证连接服务器的下面介绍通过秘钥认证的方式登录服务器"></a> 前面我们介绍的 ssh 命令都是通过密码认证连接服务器的，下面介绍通过秘钥认证的方式登录服务器。</h2>
-<p>1、在 PowerShell 中执行 notepad .ssh\authorized_keys 命令创建文本文件，把客户端的公钥复制到这个文件中并保存。<br>
-把文本文件的名称修改为 authorized_keys：<br>
-2、修改 ssh 服务的配置文件<br>
-以管理员权限打开 PowerShell，执行命令 notepad C:\ProgramData\ssh\sshd_config。<br>
-注释掉配置文件中的最后两行然后保存：<br>
-Match Group administrators<br>
-AuthorizedKeysFile <strong>PROGRAMDATA</strong>/ssh/administrators_authorized_keys<br>
+<p>1、在 PowerShell 中执行 notepad .ssh\authorized_keys 命令创建文本文件，把客户端的公钥复制到这个文件中并保存。<br />
+把文本文件的名称修改为 authorized_keys：<br />
+2、修改 ssh 服务的配置文件<br />
+以管理员权限打开 PowerShell，执行命令 notepad C:\ProgramData\ssh\sshd_config。<br />
+注释掉配置文件中的最后两行然后保存：<br />
+Match Group administrators<br />
+AuthorizedKeysFile <strong>PROGRAMDATA</strong>/ssh/administrators_authorized_keys<br />
 3、最后在服务管理器器中重启 OpenSSH SSH Server 服务，然后客户端就可以通过公钥认证的方式登录到远程服务器了。</p>
 <h2 id="最后"><a class="markdownIt-Anchor" href="#最后"></a> 最后</h2>
-<p>在 Windows 系统中，PowerShell 已逐渐成为主流，我们可以把默认的 shell 设置为 PowerShell。其实就是在运行 OpenSSH Server 的 Windows 系统的注册表中添加一个配置项，注册表路径为 HKEY_LOCAL_MACHINE\SOFTWARE\OpenSSH，项的名称为 DefaultShell，项的值为<br>
-<code>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe。我们可以以管理员身份启动 PowerShell</code><br>
+<p>在 Windows 系统中，PowerShell 已逐渐成为主流，我们可以把默认的 shell 设置为 PowerShell。其实就是在运行 OpenSSH Server 的 Windows 系统的注册表中添加一个配置项，注册表路径为 HKEY_LOCAL_MACHINE\SOFTWARE\OpenSSH，项的名称为 DefaultShell，项的值为<br />
+<code>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe。我们可以以管理员身份启动 PowerShell</code><br />
 然后执行下面的命令完成注册表项的添加：</p>
 <h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
 <p><a href="https://www.cnblogs.com/sparkdev/p/10166061.html" target="_blank" rel="noopener">https://www.cnblogs.com/sparkdev/p/10166061.html</a></p>
@@ -664,7 +666,7 @@ AuthorizedKeysFile <strong>PROGRAMDATA</strong>/ssh/administrators_authorized_ke
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2019/05/02/windwos远程登陆/" title="mac远程windwos"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2019/05/02/windwos%E8%BF%9C%E7%A8%8B%E7%99%BB%E9%99%86/" title="mac远程windwos"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
@@ -776,11 +778,17 @@ AuthorizedKeysFile <strong>PROGRAMDATA</strong>/ssh/administrators_authorized_ke
 <script>
 window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 </script>
+
 <script src="/js/plugin.min.js"></script>
+
+
 <script src="/js/application.js"></script>
 
 
+
+
 <script src="/js/mrmy.js"></script>
+
 
 
 
@@ -800,7 +808,9 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
     window.INSIGHT_CONFIG = INSIGHT_CONFIG;
 })(window);
 </script>
+
 <script src="/js/insight.js"></script>
+
 
 
 

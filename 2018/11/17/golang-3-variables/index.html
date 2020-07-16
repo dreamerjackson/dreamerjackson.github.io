@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html lang=zh>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
   <meta name="renderer" content="webkit">
-  <meta http-equiv="Cache-Control" content="no-transform">
-  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="format-detection" content="telephone=no,email=no,adress=no">
   <!-- Color theme for statusbar -->
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#000000" />
   <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
-  <meta http-equiv="window-target" content="_top">
+  <meta http-equiv="window-target" content="_top" />
   
   
   <title>go语言渐入佳境[3]-变量声明与赋值 | 郑建勋的个人网站</title>
   <meta name="description" content="变量 变量是内存当中一段空间的抽象描述。变量的类型明确了空间的大小以及空间如何解析。  Go中的变量类型 1bool byte complex64 complex128 error float32 float64 int int8 int16 int32 int64 rune string uint uint8 uint16 uint32 uint64 uintptr  变量的声明与赋值  方式">
-<meta name="keywords" content="go">
 <meta property="og:type" content="article">
 <meta property="og:title" content="go语言渐入佳境[3]-变量声明与赋值">
 <meta property="og:url" content="https://dreamerjonson.com/2018/11/17/golang-3-variables/index.html">
 <meta property="og:site_name" content="Jonson">
 <meta property="og:description" content="变量 变量是内存当中一段空间的抽象描述。变量的类型明确了空间的大小以及空间如何解析。  Go中的变量类型 1bool byte complex64 complex128 error float32 float64 int int8 int16 int32 int64 rune string uint uint8 uint16 uint32 uint64 uintptr  变量的声明与赋值  方式">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-19T00:25:15.142Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-11-17T02:23:33.000Z">
+<meta property="article:modified_time" content="2019-03-19T00:25:15.142Z">
+<meta property="article:author" content="Jonson">
+<meta property="article:tag" content="go">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="go语言渐入佳境[3]-变量声明与赋值">
-<meta name="twitter:description" content="变量 变量是内存当中一段空间的抽象描述。变量的类型明确了空间的大小以及空间如何解析。  Go中的变量类型 1bool byte complex64 complex128 error float32 float64 int int8 int16 int32 int64 rune string uint uint8 uint16 uint32 uint64 uintptr  变量的声明与赋值  方式">
   <!-- Canonical links -->
   <link rel="canonical" href="https://dreamerjonson.com/2018/11/17/golang-3-variables/index.html">
   
@@ -38,7 +38,9 @@
   
     <link rel="icon" href="/favicon.png" type="image/x-icon">
   
-  <link rel="stylesheet" href="/css/style.css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
   
   
   
@@ -49,7 +51,7 @@
 
 
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 
 <body class="main-center" itemscope itemtype="http://schema.org/WebPage">
@@ -171,8 +173,8 @@
               <div  class="content">
                   <!-- <p>I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.</p> -->
                   <!--  -->
-                  <!-- 能够改变未来的权利，每个人都是平等的。&lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--黑帮 贝吉&lt;/p&gt; -->
-                    <!-- 能够改变未来的权利，每个人都是平等的。<br/><p align="right">--黑帮 贝吉</p> -->
+                  <!-- 所谓的弱，就是一种罪，所谓理想，只是拥有实力的人才能说的“现实”。 &lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--克罗克达尔&lt;/p&gt; -->
+                    <!-- 所谓的弱，就是一种罪，所谓理想，只是拥有实力的人才能说的“现实”。 <br/><p align="right">--克罗克达尔</p> -->
                 公众号：唯识相链，来关注我吧~<br/>
                 <div><img src="/images/xingqiu-qrcode.jpg" width="150" height="150"></div>
                 go语言交流2群：713385260<br/>
@@ -186,7 +188,7 @@
   <div class="widget">
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/emacs/">emacs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/git/mac环境配置/">mac环境配置</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">162</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/数据结构/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-数据结构/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/macOS/">macOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/unix/">unix</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链原理/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发配置/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/智能合约-solidity语法/">智能合约 solidity语法</a><span class="category-list-count">60</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/置顶/">置顶</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/emacs/">emacs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/git/mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">mac环境配置</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">163</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/macOS/">macOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/unix/">unix</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-solidity%E8%AF%AD%E6%B3%95/">智能合约 solidity语法</a><span class="category-list-count">60</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%AE%E9%A1%B6/">置顶</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -196,7 +198,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emacs/">emacs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">162</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-数据结构/">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macOS/">macOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac环境配置/">mac环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-前端/">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unix/">unix</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链原理/">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发配置/">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置顶/">置顶</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/" rel="tag">bootstrap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emacs/" rel="tag">emacs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/" rel="tag">go</a><span class="tag-list-count">163</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/" rel="tag">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/" rel="tag">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macOS/" rel="tag">macOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">mac环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-%E5%89%8D%E7%AB%AF/" rel="tag">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/" rel="tag">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/" rel="tag">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unix/" rel="tag">unix</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" rel="tag">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86/" rel="tag">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/" rel="tag">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/" rel="tag">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%AE%E9%A1%B6/" rel="tag">置顶</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -206,7 +208,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/bootstrap/" style="font-size: 13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.38px;">docker</a> <a href="/tags/emacs/" style="font-size: 13px;">emacs</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-数据结构/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/linux/" style="font-size: 13.13px;">linux</a> <a href="/tags/mac/" style="font-size: 13.25px;">mac</a> <a href="/tags/macOS/" style="font-size: 13px;">macOS</a> <a href="/tags/mac环境配置/" style="font-size: 13.13px;">mac环境配置</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-前端/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/unix/" style="font-size: 13.13px;">unix</a> <a href="/tags/以太坊/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/前端/" style="font-size: 13.38px;">前端</a> <a href="/tags/区块链/" style="font-size: 13px;">区块链</a> <a href="/tags/区块链原理/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/开发配置/" style="font-size: 13px;">开发配置</a> <a href="/tags/数据结构/" style="font-size: 13px;">数据结构</a> <a href="/tags/智能合约/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/置顶/" style="font-size: 13px;">置顶</a>
+      <a href="/tags/bootstrap/" style="font-size: 13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.38px;">docker</a> <a href="/tags/emacs/" style="font-size: 13px;">emacs</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/linux/" style="font-size: 13.13px;">linux</a> <a href="/tags/mac/" style="font-size: 13.25px;">mac</a> <a href="/tags/macOS/" style="font-size: 13px;">macOS</a> <a href="/tags/mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 13.13px;">mac环境配置</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-%E5%89%8D%E7%AB%AF/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/unix/" style="font-size: 13.13px;">unix</a> <a href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13.38px;">前端</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13px;">区块链</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/" style="font-size: 13px;">开发配置</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13px;">数据结构</a> <a href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/%E7%BD%AE%E9%A1%B6/" style="font-size: 13px;">置顶</a>
     </div>
   </div>
 
@@ -215,7 +217,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -227,6 +229,21 @@
     <div class="widget-body">
       <ul class="recent-post-list list-unstyled no-thumbnail">
         
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/07/02/kafka-golang/" class="title">实战Kafka—术语</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-07-02T06:50:37.000Z" itemprop="datePublished">2020-07-02</time>
+              </p>
+            </div>
+          </li>
+          
           <li>
             
             <div class="item-inner">
@@ -287,21 +304,6 @@
             </div>
           </li>
           
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/go/">go</a>
-              </p>
-              <p class="item-title">
-                <a href="/2020/01/31/Microservices-1/" class="title">微服务理论与实践[1]-什么是微服务</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-01-31T02:37:33.000Z" itemprop="datePublished">2020-01-31</time>
-              </p>
-            </div>
-          </li>
-          
       </ul>
     </div>
   </div>
@@ -352,7 +354,7 @@
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/go/">go</a>
+	<a class="article-tag-link" href="/tags/go/" rel="tag">go</a>
   </span>
 
 
@@ -386,7 +388,7 @@
 <h3 id="方式1"><a class="markdownIt-Anchor" href="#方式1"></a> 方式1</h3>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  <span class="keyword">var</span> x <span class="keyword">string</span></span><br><span class="line">  x = <span class="string">"Hello World"</span></span><br><span class="line">  fmt.Println(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="方式2"><a class="markdownIt-Anchor" href="#方式2"></a> 方式2</h3>
-<p>注意，x := “Hello World” 等价于 var x = “Hello World”<br>
+<p>注意，x := “Hello World” 等价于 var x = “Hello World”<br />
 自动推断类型，并且必须在函数体内部</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  x := <span class="number">1</span></span><br><span class="line">  fmt.Println(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="多样的赋值"><a class="markdownIt-Anchor" href="#多样的赋值"></a> 多样的赋值</h2>
@@ -394,13 +396,13 @@
 <p>例子：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> a,b <span class="keyword">string</span>= <span class="string">"jonson"</span>,<span class="string">"jackson"</span></span><br><span class="line"></span><br><span class="line">	c,d := <span class="literal">true</span>,<span class="literal">false</span></span><br><span class="line"></span><br><span class="line">	e,f,g := <span class="string">"jonson"</span>,<span class="literal">true</span>,<span class="number">123</span></span><br><span class="line">	fmt.Println(<span class="string">"a:"</span>,a)</span><br><span class="line">	fmt.Println(<span class="string">"b:"</span>,b)</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">"c:"</span>,c)</span><br><span class="line">	fmt.Println(<span class="string">"d:"</span>,d)</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">"e:"</span>,e)</span><br><span class="line">	fmt.Println(<span class="string">"f:"</span>,f)</span><br><span class="line">	fmt.Println(<span class="string">"g:"</span>,g)</span><br><span class="line"></span><br><span class="line">  <span class="comment">//和普通var形式的变量声明语句一样，简短变量声明语句也可以用函数的返回值来声明和初始化变量，像下面的os.Open函数调用将返回两个值：</span></span><br><span class="line"><span class="comment">//f, err := os.Open(name)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="元祖赋值"><a class="markdownIt-Anchor" href="#元祖赋值"></a> 元祖赋值</h2>
-<p>元组赋值是另一种形式的赋值语句，它允许同时更新多个变量的值。在赋值之前，赋值语句右边的所有表达式将会先进行求值，然后再统一更新左边对应变量的值。这对于处理有些同时出现在元组赋值语句左右两边的变量很有帮助，例如我们可以这样交换两个变量的值：<br>
+<p>元组赋值是另一种形式的赋值语句，它允许同时更新多个变量的值。在赋值之前，赋值语句右边的所有表达式将会先进行求值，然后再统一更新左边对应变量的值。这对于处理有些同时出现在元组赋值语句左右两边的变量很有帮助，例如我们可以这样交换两个变量的值：<br />
 x, y = y, x</p>
-<p>a[i], a[j] = a[j], a[i]<br>
+<p>a[i], a[j] = a[j], a[i]<br />
 或者是计算两个整数值的的最大公约数（GCD）（译注：GCD不是那个敏感字，而是greatest common divisor的缩写，欧几里德的GCD是最早的非平凡算法）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">func gcd(x, y int) int &#123;</span><br><span class="line">    for y != 0 &#123;</span><br><span class="line">        x, y = y, x%y</span><br><span class="line">    &#125;</span><br><span class="line">    return x</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">func gcd(x, y int) int &#123;</span><br><span class="line">    for y !&#x3D; 0 &#123;</span><br><span class="line">        x, y &#x3D; y, x%y</span><br><span class="line">    &#125;</span><br><span class="line">    return x</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>或者是计算斐波纳契数列（Fibonacci）的第N个数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">func fib(n int) int &#123;</span><br><span class="line">    x, y := 0, 1</span><br><span class="line">    for i := 0; i &lt; n; i++ &#123;</span><br><span class="line">        x, y = y, x+y</span><br><span class="line">    &#125;</span><br><span class="line">    return x</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">func fib(n int) int &#123;</span><br><span class="line">    x, y :&#x3D; 0, 1</span><br><span class="line">    for i :&#x3D; 0; i &lt; n; i++ &#123;</span><br><span class="line">        x, y &#x3D; y, x+y</span><br><span class="line">    &#125;</span><br><span class="line">    return x</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="零值问题"><a class="markdownIt-Anchor" href="#零值问题"></a> 零值问题</h2>
 <p>变量初始化不赋值的情况，默认为空。</p>
 <p>例子：</p>
@@ -410,95 +412,95 @@ x, y = y, x</p>
 <p>有效：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	m  =  <span class="number">1</span></span><br><span class="line">	n  =  <span class="number">2</span></span><br><span class="line">)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> k = <span class="number">8</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>常量表达式的值在编译期计算，而不是在运行期。每种常量的潜在类型都是基础类型：boolean、string或数字。</p>
-<p>一个常量的声明语句定义了常量的名字，和变量的声明语法类似，常量的值不可修改，这样可以防止在运行期被意外或恶意的修改。例如，常量比变量更适合用于表达像π之类的数学常数，因为它们的值不会发生变化：<br>
-const pi = 3.14159 // approximately; math.Pi is a better approximation<br>
-和变量声明一样，可以批量声明多个常量；这比较适合声明一组相关的常量：<br>
-const (<br>
-e  = 2.71828182845904523536028747135266249775724709369995957496696763<br>
-pi = 3.14159265358979323846264338327950288419716939937510582097494459<br>
-)<br>
-所有常量的运算都可以在编译期完成，这样可以减少运行时的工作，也方便其他编译优化。当操作数是常量时，一些运行时的错误也可以在编译时被发现，例如整数除零、字符串索引越界、任何导致无效浮点数的操作等。<br>
-常量间的所有算术运算、逻辑运算和比较运算的结果也是常量，对常量的类型转换操作或以下函数调用都是返回常量结果：len、cap、real、imag、complex和unsafe.Sizeof。<br>
-因为它们的值是在编译期就确定的，因此常量可以是构成类型的一部分，例如用于指定数组类型的长度：<br>
+<p>一个常量的声明语句定义了常量的名字，和变量的声明语法类似，常量的值不可修改，这样可以防止在运行期被意外或恶意的修改。例如，常量比变量更适合用于表达像π之类的数学常数，因为它们的值不会发生变化：<br />
+const pi = 3.14159 // approximately; math.Pi is a better approximation<br />
+和变量声明一样，可以批量声明多个常量；这比较适合声明一组相关的常量：<br />
+const (<br />
+e  = 2.71828182845904523536028747135266249775724709369995957496696763<br />
+pi = 3.14159265358979323846264338327950288419716939937510582097494459<br />
+)<br />
+所有常量的运算都可以在编译期完成，这样可以减少运行时的工作，也方便其他编译优化。当操作数是常量时，一些运行时的错误也可以在编译时被发现，例如整数除零、字符串索引越界、任何导致无效浮点数的操作等。<br />
+常量间的所有算术运算、逻辑运算和比较运算的结果也是常量，对常量的类型转换操作或以下函数调用都是返回常量结果：len、cap、real、imag、complex和unsafe.Sizeof。<br />
+因为它们的值是在编译期就确定的，因此常量可以是构成类型的一部分，例如用于指定数组类型的长度：<br />
 const IPv4Len = 4</p>
-<p>// parseIPv4 parses an IPv4 address (d.d.d.d).<br>
-func parseIPv4(s string) IP {<br>
-var p [IPv4Len]byte<br>
-// …<br>
-}<br>
-一个常量的声明也可以包含一个类型和一个值，但是如果没有显式指明类型，那么将从右边的表达式推断类型。在下面的代码中，time.Duration是一个命名类型，底层类型是int64，time.Minute是对应类型的常量。下面声明的两个常量都是time.Duration类型，可以通过%T参数打印类型信息：<br>
-const noDelay time.Duration = 0<br>
-const timeout = 5 * time.Minute<br>
-fmt.Printf(&quot;%T %[1]v\n&quot;, noDelay)     // “time.Duration 0”<br>
-fmt.Printf(&quot;%T %[1]v\n&quot;, timeout)     // “time.Duration 5m0s”<br>
-fmt.Printf(&quot;%T %[1]v\n&quot;, time.Minute) // “time.Duration 1m0s”<br>
-如果是批量声明的常量，除了第一个外其它的常量右边的初始化表达式都可以省略，如果省略初始化表达式则表示使用前面常量的初始化表达式写法，对应的常量类型也一样的。例如：<br>
-const (<br>
-a = 1<br>
-b<br>
-c = 2<br>
-d<br>
+<p>// parseIPv4 parses an IPv4 address (d.d.d.d).<br />
+func parseIPv4(s string) IP {<br />
+var p [IPv4Len]byte<br />
+// …<br />
+}<br />
+一个常量的声明也可以包含一个类型和一个值，但是如果没有显式指明类型，那么将从右边的表达式推断类型。在下面的代码中，time.Duration是一个命名类型，底层类型是int64，time.Minute是对应类型的常量。下面声明的两个常量都是time.Duration类型，可以通过%T参数打印类型信息：<br />
+const noDelay time.Duration = 0<br />
+const timeout = 5 * time.Minute<br />
+fmt.Printf(&quot;%T %[1]v\n&quot;, noDelay)     // “time.Duration 0”<br />
+fmt.Printf(&quot;%T %[1]v\n&quot;, timeout)     // “time.Duration 5m0s”<br />
+fmt.Printf(&quot;%T %[1]v\n&quot;, time.Minute) // “time.Duration 1m0s”<br />
+如果是批量声明的常量，除了第一个外其它的常量右边的初始化表达式都可以省略，如果省略初始化表达式则表示使用前面常量的初始化表达式写法，对应的常量类型也一样的。例如：<br />
+const (<br />
+a = 1<br />
+b<br />
+c = 2<br />
+d<br />
 )</p>
-<p>fmt.Println(a, b, c, d) // “1 1 2 2”<br>
+<p>fmt.Println(a, b, c, d) // “1 1 2 2”<br />
 如果只是简单地复制右边的常量表达式，其实并没有太实用的价值。但是它可以带来其它的特性，那就是iota常量生成器语法。</p>
 <h2 id="iota-使用"><a class="markdownIt-Anchor" href="#iota-使用"></a> iota 使用</h2>
-<p>常量声明可以使用iota常量生成器初始化，它用于生成一组以相似规则初始化的常量，但是不用每行都写一遍初始化表达式。在一个const声明语句中，在第一个声明的常量所在的行，iota将会被置为0，然后在每一个有常量声明的行加一。<br>
-下面是来自time包的例子，它首先定义了一个Weekday命名类型，然后为一周的每天定义了一个常量，从周日0开始。在其它编程语言中，这种类型一般被称为枚举类型。<br>
+<p>常量声明可以使用iota常量生成器初始化，它用于生成一组以相似规则初始化的常量，但是不用每行都写一遍初始化表达式。在一个const声明语句中，在第一个声明的常量所在的行，iota将会被置为0，然后在每一个有常量声明的行加一。<br />
+下面是来自time包的例子，它首先定义了一个Weekday命名类型，然后为一周的每天定义了一个常量，从周日0开始。在其它编程语言中，这种类型一般被称为枚举类型。<br />
 type Weekday int</p>
-<p>const (<br>
-Sunday Weekday = iota<br>
-Monday<br>
-Tuesday<br>
-Wednesday<br>
-Thursday<br>
-Friday<br>
-Saturday<br>
-)<br>
-周一将对应0，周一为1，如此等等。<br>
-我们也可以在复杂的常量表达式中使用iota，下面是来自net包的例子，用于给一个无符号整数的最低5bit的每个bit指定一个名字：<br>
+<p>const (<br />
+Sunday Weekday = iota<br />
+Monday<br />
+Tuesday<br />
+Wednesday<br />
+Thursday<br />
+Friday<br />
+Saturday<br />
+)<br />
+周一将对应0，周一为1，如此等等。<br />
+我们也可以在复杂的常量表达式中使用iota，下面是来自net包的例子，用于给一个无符号整数的最低5bit的每个bit指定一个名字：<br />
 type Flags uint</p>
-<p>const (<br>
-FlagUp Flags = 1 &lt;&lt; iota // is up<br>
-FlagBroadcast            // supports broadcast access capability<br>
-FlagLoopback             // is a loopback interface<br>
-FlagPointToPoint         // belongs to a point-to-point link<br>
-FlagMulticast            // supports multicast access capability<br>
-)<br>
+<p>const (<br />
+FlagUp Flags = 1 &lt;&lt; iota // is up<br />
+FlagBroadcast            // supports broadcast access capability<br />
+FlagLoopback             // is a loopback interface<br />
+FlagPointToPoint         // belongs to a point-to-point link<br />
+FlagMulticast            // supports multicast access capability<br />
+)<br />
 随着iota的递增，每个常量对应表达式1 &lt;&lt; iota，是连续的2的幂，分别对应一个bit位置。使用这些常量可以用于测试、设置或清除对应的bit位的值：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">func IsUp(v Flags) bool     &#123; return v&amp;FlagUp == FlagUp &#125;</span><br><span class="line">func TurnDown(v *Flags)     &#123; *v &amp;^= FlagUp &#125;</span><br><span class="line">func SetBroadcast(v *Flags) &#123; *v |= FlagBroadcast &#125;</span><br><span class="line">func IsCast(v Flags) bool   &#123; return v&amp;(FlagBroadcast|FlagMulticast) != 0 &#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    var v Flags = FlagMulticast | FlagUp</span><br><span class="line">    fmt.Printf(&quot;%b %t\n&quot;, v, IsUp(v)) // &quot;10001 true&quot;</span><br><span class="line">    TurnDown(&amp;v)</span><br><span class="line">    fmt.Printf(&quot;%b %t\n&quot;, v, IsUp(v)) // &quot;10000 false&quot;</span><br><span class="line">    SetBroadcast(&amp;v)</span><br><span class="line">    fmt.Printf(&quot;%b %t\n&quot;, v, IsUp(v))   // &quot;10010 false&quot;</span><br><span class="line">    fmt.Printf(&quot;%b %t\n&quot;, v, IsCast(v)) // &quot;10010 true&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>下面是一个更复杂的例子，每个常量都是1024的幂：<br>
-const (<br>
-_ = 1 &lt;&lt; (10 * iota)<br>
-KiB // 1024<br>
-MiB // 1048576<br>
-GiB // 1073741824<br>
-TiB // 1099511627776             (exceeds 1 &lt;&lt; 32)<br>
-PiB // 1125899906842624<br>
-EiB // 1152921504606846976<br>
-ZiB // 1180591620717411303424    (exceeds 1 &lt;&lt; 64)<br>
-YiB // 1208925819614629174706176<br>
-)<br>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">func IsUp(v Flags) bool     &#123; return v&amp;FlagUp &#x3D;&#x3D; FlagUp &#125;</span><br><span class="line">func TurnDown(v *Flags)     &#123; *v &amp;^&#x3D; FlagUp &#125;</span><br><span class="line">func SetBroadcast(v *Flags) &#123; *v |&#x3D; FlagBroadcast &#125;</span><br><span class="line">func IsCast(v Flags) bool   &#123; return v&amp;(FlagBroadcast|FlagMulticast) !&#x3D; 0 &#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    var v Flags &#x3D; FlagMulticast | FlagUp</span><br><span class="line">    fmt.Printf(&quot;%b %t\n&quot;, v, IsUp(v)) &#x2F;&#x2F; &quot;10001 true&quot;</span><br><span class="line">    TurnDown(&amp;v)</span><br><span class="line">    fmt.Printf(&quot;%b %t\n&quot;, v, IsUp(v)) &#x2F;&#x2F; &quot;10000 false&quot;</span><br><span class="line">    SetBroadcast(&amp;v)</span><br><span class="line">    fmt.Printf(&quot;%b %t\n&quot;, v, IsUp(v))   &#x2F;&#x2F; &quot;10010 false&quot;</span><br><span class="line">    fmt.Printf(&quot;%b %t\n&quot;, v, IsCast(v)) &#x2F;&#x2F; &quot;10010 true&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面是一个更复杂的例子，每个常量都是1024的幂：<br />
+const (<br />
+_ = 1 &lt;&lt; (10 * iota)<br />
+KiB // 1024<br />
+MiB // 1048576<br />
+GiB // 1073741824<br />
+TiB // 1099511627776             (exceeds 1 &lt;&lt; 32)<br />
+PiB // 1125899906842624<br />
+EiB // 1152921504606846976<br />
+ZiB // 1180591620717411303424    (exceeds 1 &lt;&lt; 64)<br />
+YiB // 1208925819614629174706176<br />
+)<br />
 不过iota常量生成规则也有其局限性。例如，它并不能用于产生1000的幂（KB、MB等），因为Go语言并没有计算幂的运算符。</p>
 <p>iota从0开始循环</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const (</span><br><span class="line">    a = iota</span><br><span class="line">    b = iota</span><br><span class="line">    c = iota</span><br><span class="line">    d = iota</span><br><span class="line">)</span><br><span class="line">等价于：</span><br><span class="line">const (</span><br><span class="line">    a = iota</span><br><span class="line">    b</span><br><span class="line">    c</span><br><span class="line">    d</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const (</span><br><span class="line">    a &#x3D; iota</span><br><span class="line">    b &#x3D; iota</span><br><span class="line">    c &#x3D; iota</span><br><span class="line">    d &#x3D; iota</span><br><span class="line">)</span><br><span class="line">等价于：</span><br><span class="line">const (</span><br><span class="line">    a &#x3D; iota</span><br><span class="line">    b</span><br><span class="line">    c</span><br><span class="line">    d</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <p>使用案例：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">const</span> (</span><br><span class="line">		a = <span class="literal">iota</span>   <span class="comment">//0</span></span><br><span class="line">		b          <span class="comment">//1</span></span><br><span class="line">		c          <span class="comment">//2</span></span><br><span class="line">		d = <span class="string">"ha"</span>   <span class="comment">//独立值，iota += 1</span></span><br><span class="line">		e          <span class="comment">//"ha"   iota += 1</span></span><br><span class="line">		f = <span class="number">100</span>    <span class="comment">//iota +=1</span></span><br><span class="line">		g          <span class="comment">//100  iota +=1</span></span><br><span class="line">		h = <span class="literal">iota</span>   <span class="comment">//7,恢复计数</span></span><br><span class="line">		i          <span class="comment">//8</span></span><br><span class="line">	)</span><br><span class="line">	fmt.Println(a,b,c,d,e,f,g,h,i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="变态iota"><a class="markdownIt-Anchor" href="#变态iota"></a> 变态iota</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    i=<span class="number">1</span>&lt;&lt;<span class="literal">iota</span></span><br><span class="line">    j=<span class="number">3</span>&lt;&lt;<span class="literal">iota</span></span><br><span class="line">    k</span><br><span class="line">    l</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">"i="</span>,i)</span><br><span class="line">    fmt.Println(<span class="string">"j="</span>,j)</span><br><span class="line">    fmt.Println(<span class="string">"k="</span>,k)</span><br><span class="line">    fmt.Println(<span class="string">"l="</span>,l)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>结果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">i= 1</span><br><span class="line">j= 6</span><br><span class="line">k= 12</span><br><span class="line">l= 24</span><br></pre></td></tr></table></figure>
-<p>iota表示从0开始自动加1，所以 i=1&lt;&lt;0, j=3&lt;&lt;1（&lt;&lt;表示左移的意思），即：i=1,j=6，这没问题，关键在k和l，从输出结果看 k=3&lt;&lt;2，l=3&lt;&lt;3。<br>
-简单表述:<br>
-•	i=1：左移 0 位,不变仍为 1;<br>
-•	j=3：左移 1 位,变为二进制 110, 即 6;<br>
-•	k=3：左移 2 位,变为二进制 1100, 即 12;<br>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">i&#x3D; 1</span><br><span class="line">j&#x3D; 6</span><br><span class="line">k&#x3D; 12</span><br><span class="line">l&#x3D; 24</span><br></pre></td></tr></table></figure>
+<p>iota表示从0开始自动加1，所以 i=1&lt;&lt;0, j=3&lt;&lt;1（&lt;&lt;表示左移的意思），即：i=1,j=6，这没问题，关键在k和l，从输出结果看 k=3&lt;&lt;2，l=3&lt;&lt;3。<br />
+简单表述:<br />
+•	i=1：左移 0 位,不变仍为 1;<br />
+•	j=3：左移 1 位,变为二进制 110, 即 6;<br />
+•	k=3：左移 2 位,变为二进制 1100, 即 12;<br />
 •	l=3：左移 3 位,变为二进制 11000,即 24。</p>
 <h2 id="go语言中的byte和rune"><a class="markdownIt-Anchor" href="#go语言中的byte和rune"></a> Go语言中的byte和rune</h2>
 <p>Go语言中byte和rune实质上就是uint8和int32类型。byte用来强调数据是raw data，而不是数字；而rune用来表示Unicode的code point。参考规范：</p>
-<p>uint8       the set of all unsigned  8-bit integers (0 to 255)<br>
+<p>uint8       the set of all unsigned  8-bit integers (0 to 255)<br />
 int32       the set of all signed 32-bit integers (-2147483648 to 2147483647)</p>
-<p>byte        alias for uint8<br>
-rune        alias for int32<br>
+<p>byte        alias for uint8<br />
+rune        alias for int32<br />
 可以通过下面程序验证：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">byteSlice</span><span class="params">(b []<span class="keyword">byte</span>)</span> []<span class="title">byte</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">runeSlice</span><span class="params">(r []<span class="keyword">rune</span>)</span> []<span class="title">rune</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    b := []<span class="keyword">byte</span>&#123;<span class="number">0</span>, <span class="number">1</span>&#125;</span><br><span class="line">    u8 := []<span class="keyword">uint8</span>&#123;<span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line">    fmt.Printf(<span class="string">"%T %T \n"</span>, b, u8)</span><br><span class="line">    fmt.Println(byteSlice(b))</span><br><span class="line">    fmt.Println(byteSlice(u8))</span><br><span class="line"></span><br><span class="line">    r := []<span class="keyword">rune</span>&#123;<span class="number">4</span>, <span class="number">5</span>&#125;</span><br><span class="line">    i32 := []<span class="keyword">int32</span>&#123;<span class="number">6</span>, <span class="number">7</span>&#125;</span><br><span class="line">    fmt.Printf(<span class="string">"%T %T \n"</span>, r, i32)</span><br><span class="line">    fmt.Println(runeSlice(r))</span><br><span class="line">    fmt.Println(runeSlice(i32))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>执行结果如下：</p>
@@ -674,11 +676,17 @@ rune        alias for int32<br>
 <script>
 window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 </script>
+
 <script src="/js/plugin.min.js"></script>
+
+
 <script src="/js/application.js"></script>
 
 
+
+
 <script src="/js/mrmy.js"></script>
+
 
 
 
@@ -698,7 +706,9 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
     window.INSIGHT_CONFIG = INSIGHT_CONFIG;
 })(window);
 </script>
+
 <script src="/js/insight.js"></script>
+
 
 
 

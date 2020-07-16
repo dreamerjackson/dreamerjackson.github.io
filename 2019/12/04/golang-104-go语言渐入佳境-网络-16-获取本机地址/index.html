@@ -1,44 +1,46 @@
 <!DOCTYPE html>
 <html lang=zh>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
   <meta name="renderer" content="webkit">
-  <meta http-equiv="Cache-Control" content="no-transform">
-  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="format-detection" content="telephone=no,email=no,adress=no">
   <!-- Color theme for statusbar -->
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#000000" />
   <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
-  <meta http-equiv="window-target" content="_top">
+  <meta http-equiv="window-target" content="_top" />
   
   
   <title>golang[104]-go语言渐入佳境-网络[16]-获取本机地址 | 郑建勋的个人网站</title>
-  <meta name="description" content="什么是外网IP和内网IP? tcp/ip协议中，专门保留了三个IP地址区域作为私有地址，其地址范围如下： 10.0.0.0/8：10.0.0.0～10.255.255.255 172.16.0.0/12：172.16.0.0～172.31.255.255 192.168.0.0/16：192.168.0.0～192.168.255.255 什么是内网IP 一些小型企业或者学校，通常都是申请一个固">
-<meta name="keywords" content="go">
+  <meta name="description" content="什么是外网IP和内网IP? tcp&#x2F;ip协议中，专门保留了三个IP地址区域作为私有地址，其地址范围如下： 10.0.0.0&#x2F;8：10.0.0.0～10.255.255.255 172.16.0.0&#x2F;12：172.16.0.0～172.31.255.255 192.168.0.0&#x2F;16：192.168.0.0～192.168.255.255 什么是内网IP 一些小型企业或者学校，通常都是申请一个固">
 <meta property="og:type" content="article">
 <meta property="og:title" content="golang[104]-go语言渐入佳境-网络[16]-获取本机地址">
-<meta property="og:url" content="https://dreamerjonson.com/2019/12/04/golang-104-go语言渐入佳境-网络-16-获取本机地址/index.html">
+<meta property="og:url" content="https://dreamerjonson.com/2019/12/04/golang-104-go%E8%AF%AD%E8%A8%80%E6%B8%90%E5%85%A5%E4%BD%B3%E5%A2%83-%E7%BD%91%E7%BB%9C-16-%E8%8E%B7%E5%8F%96%E6%9C%AC%E6%9C%BA%E5%9C%B0%E5%9D%80/index.html">
 <meta property="og:site_name" content="Jonson">
-<meta property="og:description" content="什么是外网IP和内网IP? tcp/ip协议中，专门保留了三个IP地址区域作为私有地址，其地址范围如下： 10.0.0.0/8：10.0.0.0～10.255.255.255 172.16.0.0/12：172.16.0.0～172.31.255.255 192.168.0.0/16：192.168.0.0～192.168.255.255 什么是内网IP 一些小型企业或者学校，通常都是申请一个固">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-04T06:26:43.026Z">
+<meta property="og:description" content="什么是外网IP和内网IP? tcp&#x2F;ip协议中，专门保留了三个IP地址区域作为私有地址，其地址范围如下： 10.0.0.0&#x2F;8：10.0.0.0～10.255.255.255 172.16.0.0&#x2F;12：172.16.0.0～172.31.255.255 192.168.0.0&#x2F;16：192.168.0.0～192.168.255.255 什么是内网IP 一些小型企业或者学校，通常都是申请一个固">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-12-04T06:15:17.000Z">
+<meta property="article:modified_time" content="2019-12-04T06:26:43.026Z">
+<meta property="article:author" content="Jonson">
+<meta property="article:tag" content="go">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="golang[104]-go语言渐入佳境-网络[16]-获取本机地址">
-<meta name="twitter:description" content="什么是外网IP和内网IP? tcp/ip协议中，专门保留了三个IP地址区域作为私有地址，其地址范围如下： 10.0.0.0/8：10.0.0.0～10.255.255.255 172.16.0.0/12：172.16.0.0～172.31.255.255 192.168.0.0/16：192.168.0.0～192.168.255.255 什么是内网IP 一些小型企业或者学校，通常都是申请一个固">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://dreamerjonson.com/2019/12/04/golang-104-go语言渐入佳境-网络-16-获取本机地址/index.html">
+  <link rel="canonical" href="https://dreamerjonson.com/2019/12/04/golang-104-go%E8%AF%AD%E8%A8%80%E6%B8%90%E5%85%A5%E4%BD%B3%E5%A2%83-%E7%BD%91%E7%BB%9C-16-%E8%8E%B7%E5%8F%96%E6%9C%AC%E6%9C%BA%E5%9C%B0%E5%9D%80/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Jonson" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png" type="image/x-icon">
   
-  <link rel="stylesheet" href="/css/style.css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
   
   
   
@@ -49,7 +51,7 @@
 
 
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 
 <body class="main-center" itemscope itemtype="http://schema.org/WebPage">
@@ -171,8 +173,8 @@
               <div  class="content">
                   <!-- <p>I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.</p> -->
                   <!--  -->
-                  <!-- 能够改变未来的权利，每个人都是平等的。&lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--黑帮 贝吉&lt;/p&gt; -->
-                    <!-- 能够改变未来的权利，每个人都是平等的。<br/><p align="right">--黑帮 贝吉</p> -->
+                  <!-- 所谓的弱，就是一种罪，所谓理想，只是拥有实力的人才能说的“现实”。 &lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--克罗克达尔&lt;/p&gt; -->
+                    <!-- 所谓的弱，就是一种罪，所谓理想，只是拥有实力的人才能说的“现实”。 <br/><p align="right">--克罗克达尔</p> -->
                 公众号：唯识相链，来关注我吧~<br/>
                 <div><img src="/images/xingqiu-qrcode.jpg" width="150" height="150"></div>
                 go语言交流2群：713385260<br/>
@@ -186,7 +188,7 @@
   <div class="widget">
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/emacs/">emacs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/git/mac环境配置/">mac环境配置</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">162</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/数据结构/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-数据结构/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/macOS/">macOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/unix/">unix</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链原理/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发配置/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/智能合约-solidity语法/">智能合约 solidity语法</a><span class="category-list-count">60</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/置顶/">置顶</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/emacs/">emacs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/git/mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">mac环境配置</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">163</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/macOS/">macOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/unix/">unix</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-solidity%E8%AF%AD%E6%B3%95/">智能合约 solidity语法</a><span class="category-list-count">60</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%AE%E9%A1%B6/">置顶</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -196,7 +198,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emacs/">emacs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">162</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-数据结构/">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macOS/">macOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac环境配置/">mac环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-前端/">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unix/">unix</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链原理/">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发配置/">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置顶/">置顶</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/" rel="tag">bootstrap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emacs/" rel="tag">emacs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/" rel="tag">go</a><span class="tag-list-count">163</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/" rel="tag">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/" rel="tag">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macOS/" rel="tag">macOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">mac环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-%E5%89%8D%E7%AB%AF/" rel="tag">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/" rel="tag">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/" rel="tag">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unix/" rel="tag">unix</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" rel="tag">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86/" rel="tag">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/" rel="tag">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/" rel="tag">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%AE%E9%A1%B6/" rel="tag">置顶</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -206,7 +208,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/bootstrap/" style="font-size: 13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.38px;">docker</a> <a href="/tags/emacs/" style="font-size: 13px;">emacs</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-数据结构/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/linux/" style="font-size: 13.13px;">linux</a> <a href="/tags/mac/" style="font-size: 13.25px;">mac</a> <a href="/tags/macOS/" style="font-size: 13px;">macOS</a> <a href="/tags/mac环境配置/" style="font-size: 13.13px;">mac环境配置</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-前端/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/unix/" style="font-size: 13.13px;">unix</a> <a href="/tags/以太坊/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/前端/" style="font-size: 13.38px;">前端</a> <a href="/tags/区块链/" style="font-size: 13px;">区块链</a> <a href="/tags/区块链原理/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/开发配置/" style="font-size: 13px;">开发配置</a> <a href="/tags/数据结构/" style="font-size: 13px;">数据结构</a> <a href="/tags/智能合约/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/置顶/" style="font-size: 13px;">置顶</a>
+      <a href="/tags/bootstrap/" style="font-size: 13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.38px;">docker</a> <a href="/tags/emacs/" style="font-size: 13px;">emacs</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/linux/" style="font-size: 13.13px;">linux</a> <a href="/tags/mac/" style="font-size: 13.25px;">mac</a> <a href="/tags/macOS/" style="font-size: 13px;">macOS</a> <a href="/tags/mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 13.13px;">mac环境配置</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-%E5%89%8D%E7%AB%AF/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/unix/" style="font-size: 13.13px;">unix</a> <a href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13.38px;">前端</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13px;">区块链</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/" style="font-size: 13px;">开发配置</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13px;">数据结构</a> <a href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/%E7%BD%AE%E9%A1%B6/" style="font-size: 13px;">置顶</a>
     </div>
   </div>
 
@@ -215,7 +217,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -227,6 +229,21 @@
     <div class="widget-body">
       <ul class="recent-post-list list-unstyled no-thumbnail">
         
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/07/02/kafka-golang/" class="title">实战Kafka—术语</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-07-02T06:50:37.000Z" itemprop="datePublished">2020-07-02</time>
+              </p>
+            </div>
+          </li>
+          
           <li>
             
             <div class="item-inner">
@@ -287,21 +304,6 @@
             </div>
           </li>
           
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/go/">go</a>
-              </p>
-              <p class="item-title">
-                <a href="/2020/01/31/Microservices-1/" class="title">微服务理论与实践[1]-什么是微服务</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-01-31T02:37:33.000Z" itemprop="datePublished">2020-01-31</time>
-              </p>
-            </div>
-          </li>
-          
       </ul>
     </div>
   </div>
@@ -339,7 +341,7 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2019/12/04/golang-104-go语言渐入佳境-网络-16-获取本机地址/" class="article-date">
+	<a href="/2019/12/04/golang-104-go%E8%AF%AD%E8%A8%80%E6%B8%90%E5%85%A5%E4%BD%B3%E5%A2%83-%E7%BD%91%E7%BB%9C-16-%E8%8E%B7%E5%8F%96%E6%9C%AC%E6%9C%BA%E5%9C%B0%E5%9D%80/" class="article-date">
 	  <time datetime="2019-12-04T06:15:17.000Z" itemprop="datePublished">2019-12-04</time>
 	</a>
 </span>
@@ -352,7 +354,7 @@
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/go/">go</a>
+	<a class="article-tag-link" href="/tags/go/" rel="tag">go</a>
   </span>
 
 
@@ -365,10 +367,10 @@
 	</span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/12/04/golang-104-go语言渐入佳境-网络-16-获取本机地址/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/12/04/golang-104-go%E8%AF%AD%E8%A8%80%E6%B8%90%E5%85%A5%E4%BD%B3%E5%A2%83-%E7%BD%91%E7%BB%9C-16-%E8%8E%B7%E5%8F%96%E6%9C%AC%E6%9C%BA%E5%9C%B0%E5%9D%80/#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.3k(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.4k(字)</span>
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 6(分)</span>
@@ -379,16 +381,16 @@
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <h2 id="什么是外网ip和内网ip"><a class="markdownIt-Anchor" href="#什么是外网ip和内网ip"></a> 什么是外网IP和内网IP?</h2>
-<p>tcp/ip协议中，专门保留了三个IP地址区域作为私有地址，其地址范围如下：<br>
-10.0.0.0/8：10.0.0.0～10.255.255.255<br>
-172.16.0.0/12：172.16.0.0～172.31.255.255<br>
+<p>tcp/ip协议中，专门保留了三个IP地址区域作为私有地址，其地址范围如下：<br />
+10.0.0.0/8：10.0.0.0～10.255.255.255<br />
+172.16.0.0/12：172.16.0.0～172.31.255.255<br />
 192.168.0.0/16：192.168.0.0～192.168.255.255</p>
 <p>什么是内网IP</p>
 <p>一些小型企业或者学校，通常都是申请一个固定的IP地址，然后通过IP共享（IP Sharing），使用整个公司或学校的机器都能够访问互联网。而这些企业或学校的机器使用的IP地址就是内网IP，内网IP是在规划IPv4协议时，考虑到IP地址资源可能不足，就专门为内部网设计私有IP地址（或称之为保留地址），一般常用内网IP地址都是这种形式的：10.X.X.X、172.16.X.X-172.31.X.X、192.168.X.X等。需要注意的是，内网的计算机可向Internet上的其他计算机发送连接请求，但Internet上其他的计算机无法向内网的计算机发送连接请求。我们平时可能在内网机器上搭建过网站或者FTP服务器，而在外网是不能访问该网站和FTP服务器的，原因就在于此。</p>
 <p>什么是公网IP</p>
 <p>公网IP就是除了保留IP地址以外的IP地址，可以与Internet上的其他计算机随意互相访问。我们通常所说的IP地址，其实就是指的公网IP。互联网上的每台计算机都有一个独立的IP地址，该IP地址唯一确定互联网上的一台计算机。这里的IP地址就是指的公网IP地址。</p>
 <p>怎样理解互联网上的每台计算机都有一个唯一的IP地址</p>
-<p>其实，互联网上的计算机是通过“公网IP＋内网IP”来唯一确定的，就像很多大楼都是201房间一样，房间号可能一样，但是大楼肯定是唯一的。公网IP地址和内网IP地址也是同样，不同企业或学校的机器可能有相同的内网IP地址，但是他们的公网IP地址肯定不同。那么这些企业或学校的计算机是怎样IP地址共享的呢？这就需要使用NAT（Network Address Translation,网络地址转换）功能。当内部计算机要连接互联网时，首先需要通过NAT技术，将内部计算机数据包中有关IP地址的设置都设成NAT主机的公共IP地址，然后再传送到Internet，虽然内部计算机使用的是私有IP地址，但在连接Internet时，就可以通过NAT主机的NAT技术，将内网我IP地址修改为公网IP地址，如此一来，内网计算机就可以向Internet请求数据了。<br>
+<p>其实，互联网上的计算机是通过“公网IP＋内网IP”来唯一确定的，就像很多大楼都是201房间一样，房间号可能一样，但是大楼肯定是唯一的。公网IP地址和内网IP地址也是同样，不同企业或学校的机器可能有相同的内网IP地址，但是他们的公网IP地址肯定不同。那么这些企业或学校的计算机是怎样IP地址共享的呢？这就需要使用NAT（Network Address Translation,网络地址转换）功能。当内部计算机要连接互联网时，首先需要通过NAT技术，将内部计算机数据包中有关IP地址的设置都设成NAT主机的公共IP地址，然后再传送到Internet，虽然内部计算机使用的是私有IP地址，但在连接Internet时，就可以通过NAT主机的NAT技术，将内网我IP地址修改为公网IP地址，如此一来，内网计算机就可以向Internet请求数据了。<br />
 ————————————————</p>
 <h2 id="what-is-a-network-interface"><a class="markdownIt-Anchor" href="#what-is-a-network-interface"></a> What Is a Network Interface?</h2>
 <p>A network interface is the point of interconnection between a computer and a private or public network. A network interface is generally a network interface card (NIC), but does not have to have a physical form. Instead, the network interface can be implemented in software. For example, the loopback interface (127.0.0.1 for IPv4 and ::1 for IPv6) is not a physical device but a piece of software simulating a network interface. The loopback interface is commonly used in test environments.</p>
@@ -397,9 +399,9 @@
 <h2 id="获取外网ip"><a class="markdownIt-Anchor" href="#获取外网ip"></a> 获取外网ip</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">get_external</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	resp, err := http.Get(<span class="string">"http://myexternalip.com/raw"</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">""</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> resp.Body.Close()</span><br><span class="line">	content, _ := ioutil.ReadAll(resp.Body)</span><br><span class="line">	buf := <span class="built_in">new</span>(bytes.Buffer)</span><br><span class="line">	buf.ReadFrom(resp.Body)</span><br><span class="line">	<span class="comment">//s := buf.String()</span></span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">string</span>(content)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="10进制与ip相互转换"><a class="markdownIt-Anchor" href="#10进制与ip相互转换"></a> 10进制与ip相互转换</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">func inet_ntoa(ipnr int64) net.IP &#123;</span><br><span class="line">	var bytes [4]byte</span><br><span class="line">	bytes[0] = byte(ipnr &amp; 0xFF)</span><br><span class="line">	bytes[1] = byte((ipnr &gt;&gt; 8) &amp; 0xFF)</span><br><span class="line">	bytes[2] = byte((ipnr &gt;&gt; 16) &amp; 0xFF)</span><br><span class="line">	bytes[3] = byte((ipnr &gt;&gt; 24) &amp; 0xFF)</span><br><span class="line"></span><br><span class="line">	return net.IPv4(bytes[3], bytes[2], bytes[1], bytes[0])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func inet_aton(ipnr net.IP) int64 &#123;</span><br><span class="line">	bits := strings.Split(ipnr.String(), &quot;.&quot;)</span><br><span class="line"></span><br><span class="line">	b0, _ := strconv.Atoi(bits[0])</span><br><span class="line">	b1, _ := strconv.Atoi(bits[1])</span><br><span class="line">	b2, _ := strconv.Atoi(bits[2])</span><br><span class="line">	b3, _ := strconv.Atoi(bits[3])</span><br><span class="line"></span><br><span class="line">	var sum int64</span><br><span class="line"></span><br><span class="line">	sum += int64(b0) &lt;&lt; 24</span><br><span class="line">	sum += int64(b1) &lt;&lt; 16</span><br><span class="line">	sum += int64(b2) &lt;&lt; 8</span><br><span class="line">	sum += int64(b3)</span><br><span class="line"></span><br><span class="line">	return sum</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">func inet_ntoa(ipnr int64) net.IP &#123;</span><br><span class="line">	var bytes [4]byte</span><br><span class="line">	bytes[0] &#x3D; byte(ipnr &amp; 0xFF)</span><br><span class="line">	bytes[1] &#x3D; byte((ipnr &gt;&gt; 8) &amp; 0xFF)</span><br><span class="line">	bytes[2] &#x3D; byte((ipnr &gt;&gt; 16) &amp; 0xFF)</span><br><span class="line">	bytes[3] &#x3D; byte((ipnr &gt;&gt; 24) &amp; 0xFF)</span><br><span class="line"></span><br><span class="line">	return net.IPv4(bytes[3], bytes[2], bytes[1], bytes[0])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func inet_aton(ipnr net.IP) int64 &#123;</span><br><span class="line">	bits :&#x3D; strings.Split(ipnr.String(), &quot;.&quot;)</span><br><span class="line"></span><br><span class="line">	b0, _ :&#x3D; strconv.Atoi(bits[0])</span><br><span class="line">	b1, _ :&#x3D; strconv.Atoi(bits[1])</span><br><span class="line">	b2, _ :&#x3D; strconv.Atoi(bits[2])</span><br><span class="line">	b3, _ :&#x3D; strconv.Atoi(bits[3])</span><br><span class="line"></span><br><span class="line">	var sum int64</span><br><span class="line"></span><br><span class="line">	sum +&#x3D; int64(b0) &lt;&lt; 24</span><br><span class="line">	sum +&#x3D; int64(b1) &lt;&lt; 16</span><br><span class="line">	sum +&#x3D; int64(b2) &lt;&lt; 8</span><br><span class="line">	sum +&#x3D; int64(b3)</span><br><span class="line"></span><br><span class="line">	return sum</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="判断是否公网ip"><a class="markdownIt-Anchor" href="#判断是否公网ip"></a> 判断是否公网ip</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">func IsPublicIP(IP net.IP) bool &#123;</span><br><span class="line">	if IP.IsLoopback() || IP.IsLinkLocalMulticast() || IP.IsLinkLocalUnicast() &#123;</span><br><span class="line">		return false</span><br><span class="line">	&#125;</span><br><span class="line">	if ip4 := IP.To4(); ip4 != nil &#123;</span><br><span class="line">		switch true &#123;</span><br><span class="line">		case ip4[0] == 10:</span><br><span class="line">			return false</span><br><span class="line">		case ip4[0] == 172 &amp;&amp; ip4[1] &gt;= 16 &amp;&amp; ip4[1] &lt;= 31:</span><br><span class="line">			return false</span><br><span class="line">		case ip4[0] == 192 &amp;&amp; ip4[1] == 168:</span><br><span class="line">			return false</span><br><span class="line">		default:</span><br><span class="line">			return true</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">func IsPublicIP(IP net.IP) bool &#123;</span><br><span class="line">	if IP.IsLoopback() || IP.IsLinkLocalMulticast() || IP.IsLinkLocalUnicast() &#123;</span><br><span class="line">		return false</span><br><span class="line">	&#125;</span><br><span class="line">	if ip4 :&#x3D; IP.To4(); ip4 !&#x3D; nil &#123;</span><br><span class="line">		switch true &#123;</span><br><span class="line">		case ip4[0] &#x3D;&#x3D; 10:</span><br><span class="line">			return false</span><br><span class="line">		case ip4[0] &#x3D;&#x3D; 172 &amp;&amp; ip4[1] &gt;&#x3D; 16 &amp;&amp; ip4[1] &lt;&#x3D; 31:</span><br><span class="line">			return false</span><br><span class="line">		case ip4[0] &#x3D;&#x3D; 192 &amp;&amp; ip4[1] &#x3D;&#x3D; 168:</span><br><span class="line">			return false</span><br><span class="line">		default:</span><br><span class="line">			return true</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="ip在区间内"><a class="markdownIt-Anchor" href="#ip在区间内"></a> ip在区间内</h2>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">IpBetween</span><span class="params">(from net.IP, to net.IP, test net.IP)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> from == <span class="literal">nil</span> || to == <span class="literal">nil</span> || test == <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"An ip input is nil"</span>) <span class="comment">// or return an error!?</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	from16 := from.To16()</span><br><span class="line">	to16 := to.To16()</span><br><span class="line">	test16 := test.To16()</span><br><span class="line">	<span class="keyword">if</span> from16 == <span class="literal">nil</span> || to16 == <span class="literal">nil</span> || test16 == <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"An ip did not convert to a 16 byte"</span>) <span class="comment">// or return an error!?</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> bytes.Compare(test16, from16) &gt;= <span class="number">0</span> &amp;&amp; bytes.Compare(test16, to16) &lt;= <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -411,7 +413,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://dreamerjonson.com/2019/12/04/golang-104-go语言渐入佳境-网络-16-获取本机地址/" title="golang[104]-go语言渐入佳境-网络[16]-获取本机地址" target="_blank" rel="external">https://dreamerjonson.com/2019/12/04/golang-104-go语言渐入佳境-网络-16-获取本机地址/</a>
+      <a href="https://dreamerjonson.com/2019/12/04/golang-104-go%E8%AF%AD%E8%A8%80%E6%B8%90%E5%85%A5%E4%BD%B3%E5%A2%83-%E7%BD%91%E7%BB%9C-16-%E8%8E%B7%E5%8F%96%E6%9C%AC%E6%9C%BA%E5%9C%B0%E5%9D%80/" title="golang[104]-go语言渐入佳境-网络[16]-获取本机地址" target="_blank" rel="external">https://dreamerjonson.com/2019/12/04/golang-104-go%E8%AF%AD%E8%A8%80%E6%B8%90%E5%85%A5%E4%BD%B3%E5%A2%83-%E7%BD%91%E7%BB%9C-16-%E8%8E%B7%E5%8F%96%E6%9C%AC%E6%9C%BA%E5%9C%B0%E5%9D%80/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -464,7 +466,7 @@
     
     
     <li class="next">
-      <a href="/2019/12/03/golang-103-ldflags技巧/" title="golang[103]-ldflags技巧"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2019/12/03/golang-103-ldflags%E6%8A%80%E5%B7%A7/" title="golang[103]-ldflags技巧"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
@@ -571,11 +573,17 @@
 <script>
 window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 </script>
+
 <script src="/js/plugin.min.js"></script>
+
+
 <script src="/js/application.js"></script>
 
 
+
+
 <script src="/js/mrmy.js"></script>
+
 
 
 
@@ -595,7 +603,9 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
     window.INSIGHT_CONFIG = INSIGHT_CONFIG;
 })(window);
 </script>
+
 <script src="/js/insight.js"></script>
+
 
 
 

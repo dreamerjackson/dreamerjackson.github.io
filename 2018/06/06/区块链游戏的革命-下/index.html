@@ -1,46 +1,48 @@
 <!DOCTYPE html>
 <html lang=zh>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
   <meta name="renderer" content="webkit">
-  <meta http-equiv="Cache-Control" content="no-transform">
-  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="format-detection" content="telephone=no,email=no,adress=no">
   <!-- Color theme for statusbar -->
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#000000" />
   <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
-  <meta http-equiv="window-target" content="_top">
+  <meta http-equiv="window-target" content="_top" />
   
   
   <title>区块链游戏的革命(下) | 郑建勋的个人网站</title>
-  <meta name="description" content="Vitalik Buterin &amp;gt; 在2007到2010年，我痴迷于玩“魔兽世界”这款游戏，但是突然有一天，暴雪移除了我心爱术士的虹吸生命术技能所具有的的伤害。 我哭着到睡着了。从那一天起，我意识到了中心化服务器带来的可怕后果。我很快决定退出这一切... ——Vitalik Buterin 以太坊创始人 在上一篇文章中，我们介绍了区块链由于其代码的可验证性，对于赌博游戏带来了新的生机。但是区块链">
-<meta name="keywords" content="区块链原理">
+  <meta name="description" content="Vitalik Buterin &gt; 在2007到2010年，我痴迷于玩“魔兽世界”这款游戏，但是突然有一天，暴雪移除了我心爱术士的虹吸生命术技能所具有的的伤害。 我哭着到睡着了。从那一天起，我意识到了中心化服务器带来的可怕后果。我很快决定退出这一切... ——Vitalik Buterin 以太坊创始人 在上一篇文章中，我们介绍了区块链由于其代码的可验证性，对于赌博游戏带来了新的生机。但是区块链">
 <meta property="og:type" content="article">
 <meta property="og:title" content="区块链游戏的革命(下)">
-<meta property="og:url" content="https://dreamerjonson.com/2018/06/06/区块链游戏的革命-下/index.html">
+<meta property="og:url" content="https://dreamerjonson.com/2018/06/06/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%B8%B8%E6%88%8F%E7%9A%84%E9%9D%A9%E5%91%BD-%E4%B8%8B/index.html">
 <meta property="og:site_name" content="Jonson">
-<meta property="og:description" content="Vitalik Buterin &amp;gt; 在2007到2010年，我痴迷于玩“魔兽世界”这款游戏，但是突然有一天，暴雪移除了我心爱术士的虹吸生命术技能所具有的的伤害。 我哭着到睡着了。从那一天起，我意识到了中心化服务器带来的可怕后果。我很快决定退出这一切... ——Vitalik Buterin 以太坊创始人 在上一篇文章中，我们介绍了区块链由于其代码的可验证性，对于赌博游戏带来了新的生机。但是区块链">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://dreamerjonson.com/2018/06/06/区块链游戏的革命-下/Vshen.png">
-<meta property="og:updated_time" content="2018-11-06T12:53:40.049Z">
+<meta property="og:description" content="Vitalik Buterin &gt; 在2007到2010年，我痴迷于玩“魔兽世界”这款游戏，但是突然有一天，暴雪移除了我心爱术士的虹吸生命术技能所具有的的伤害。 我哭着到睡着了。从那一天起，我意识到了中心化服务器带来的可怕后果。我很快决定退出这一切... ——Vitalik Buterin 以太坊创始人 在上一篇文章中，我们介绍了区块链由于其代码的可验证性，对于赌博游戏带来了新的生机。但是区块链">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://dreamerjonson.com/2018/06/06/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%B8%B8%E6%88%8F%E7%9A%84%E9%9D%A9%E5%91%BD-%E4%B8%8B/Vshen.png">
+<meta property="article:published_time" content="2018-06-06T12:28:55.000Z">
+<meta property="article:modified_time" content="2018-11-06T12:53:40.049Z">
+<meta property="article:author" content="Jonson">
+<meta property="article:tag" content="区块链原理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="区块链游戏的革命(下)">
-<meta name="twitter:description" content="Vitalik Buterin &amp;gt; 在2007到2010年，我痴迷于玩“魔兽世界”这款游戏，但是突然有一天，暴雪移除了我心爱术士的虹吸生命术技能所具有的的伤害。 我哭着到睡着了。从那一天起，我意识到了中心化服务器带来的可怕后果。我很快决定退出这一切... ——Vitalik Buterin 以太坊创始人 在上一篇文章中，我们介绍了区块链由于其代码的可验证性，对于赌博游戏带来了新的生机。但是区块链">
-<meta name="twitter:image" content="https://dreamerjonson.com/2018/06/06/区块链游戏的革命-下/Vshen.png">
+<meta name="twitter:image" content="https://dreamerjonson.com/2018/06/06/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%B8%B8%E6%88%8F%E7%9A%84%E9%9D%A9%E5%91%BD-%E4%B8%8B/Vshen.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://dreamerjonson.com/2018/06/06/区块链游戏的革命-下/index.html">
+  <link rel="canonical" href="https://dreamerjonson.com/2018/06/06/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%B8%B8%E6%88%8F%E7%9A%84%E9%9D%A9%E5%91%BD-%E4%B8%8B/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Jonson" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png" type="image/x-icon">
   
-  <link rel="stylesheet" href="/css/style.css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
   
   
   
@@ -51,7 +53,7 @@
 
 
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 
 <body class="main-center" itemscope itemtype="http://schema.org/WebPage">
@@ -173,8 +175,8 @@
               <div  class="content">
                   <!-- <p>I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.</p> -->
                   <!--  -->
-                  <!-- 能够改变未来的权利，每个人都是平等的。&lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--黑帮 贝吉&lt;/p&gt; -->
-                    <!-- 能够改变未来的权利，每个人都是平等的。<br/><p align="right">--黑帮 贝吉</p> -->
+                  <!-- 所谓的弱，就是一种罪，所谓理想，只是拥有实力的人才能说的“现实”。 &lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--克罗克达尔&lt;/p&gt; -->
+                    <!-- 所谓的弱，就是一种罪，所谓理想，只是拥有实力的人才能说的“现实”。 <br/><p align="right">--克罗克达尔</p> -->
                 公众号：唯识相链，来关注我吧~<br/>
                 <div><img src="/images/xingqiu-qrcode.jpg" width="150" height="150"></div>
                 go语言交流2群：713385260<br/>
@@ -188,7 +190,7 @@
   <div class="widget">
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/emacs/">emacs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/git/mac环境配置/">mac环境配置</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">162</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/数据结构/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-数据结构/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/macOS/">macOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/unix/">unix</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链原理/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发配置/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/智能合约-solidity语法/">智能合约 solidity语法</a><span class="category-list-count">60</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/置顶/">置顶</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/emacs/">emacs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/git/mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">mac环境配置</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">163</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/macOS/">macOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/unix/">unix</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-solidity%E8%AF%AD%E6%B3%95/">智能合约 solidity语法</a><span class="category-list-count">60</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%AE%E9%A1%B6/">置顶</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -198,7 +200,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emacs/">emacs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">162</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-数据结构/">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macOS/">macOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac环境配置/">mac环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-前端/">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unix/">unix</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链原理/">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发配置/">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置顶/">置顶</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/" rel="tag">bootstrap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emacs/" rel="tag">emacs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/" rel="tag">go</a><span class="tag-list-count">163</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/" rel="tag">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/" rel="tag">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macOS/" rel="tag">macOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">mac环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-%E5%89%8D%E7%AB%AF/" rel="tag">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/" rel="tag">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/" rel="tag">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unix/" rel="tag">unix</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" rel="tag">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86/" rel="tag">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/" rel="tag">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/" rel="tag">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%AE%E9%A1%B6/" rel="tag">置顶</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -208,7 +210,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/bootstrap/" style="font-size: 13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.38px;">docker</a> <a href="/tags/emacs/" style="font-size: 13px;">emacs</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-数据结构/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/linux/" style="font-size: 13.13px;">linux</a> <a href="/tags/mac/" style="font-size: 13.25px;">mac</a> <a href="/tags/macOS/" style="font-size: 13px;">macOS</a> <a href="/tags/mac环境配置/" style="font-size: 13.13px;">mac环境配置</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-前端/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/unix/" style="font-size: 13.13px;">unix</a> <a href="/tags/以太坊/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/前端/" style="font-size: 13.38px;">前端</a> <a href="/tags/区块链/" style="font-size: 13px;">区块链</a> <a href="/tags/区块链原理/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/开发配置/" style="font-size: 13px;">开发配置</a> <a href="/tags/数据结构/" style="font-size: 13px;">数据结构</a> <a href="/tags/智能合约/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/置顶/" style="font-size: 13px;">置顶</a>
+      <a href="/tags/bootstrap/" style="font-size: 13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.38px;">docker</a> <a href="/tags/emacs/" style="font-size: 13px;">emacs</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/linux/" style="font-size: 13.13px;">linux</a> <a href="/tags/mac/" style="font-size: 13.25px;">mac</a> <a href="/tags/macOS/" style="font-size: 13px;">macOS</a> <a href="/tags/mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 13.13px;">mac环境配置</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-%E5%89%8D%E7%AB%AF/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/unix/" style="font-size: 13.13px;">unix</a> <a href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13.38px;">前端</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13px;">区块链</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/" style="font-size: 13px;">开发配置</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13px;">数据结构</a> <a href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/%E7%BD%AE%E9%A1%B6/" style="font-size: 13px;">置顶</a>
     </div>
   </div>
 
@@ -217,7 +219,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -229,6 +231,21 @@
     <div class="widget-body">
       <ul class="recent-post-list list-unstyled no-thumbnail">
         
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/07/02/kafka-golang/" class="title">实战Kafka—术语</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-07-02T06:50:37.000Z" itemprop="datePublished">2020-07-02</time>
+              </p>
+            </div>
+          </li>
+          
           <li>
             
             <div class="item-inner">
@@ -289,21 +306,6 @@
             </div>
           </li>
           
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/go/">go</a>
-              </p>
-              <p class="item-title">
-                <a href="/2020/01/31/Microservices-1/" class="title">微服务理论与实践[1]-什么是微服务</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-01-31T02:37:33.000Z" itemprop="datePublished">2020-01-31</time>
-              </p>
-            </div>
-          </li>
-          
       </ul>
     </div>
   </div>
@@ -332,20 +334,20 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2018/06/06/区块链游戏的革命-下/" class="article-date">
+	<a href="/2018/06/06/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%B8%B8%E6%88%8F%E7%9A%84%E9%9D%A9%E5%91%BD-%E4%B8%8B/" class="article-date">
 	  <time datetime="2018-06-06T12:28:55.000Z" itemprop="datePublished">2018-06-06</time>
 	</a>
 </span>
         
   <span class="article-category">
     <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/区块链原理/">区块链原理</a>
+    <a class="article-category-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86/">区块链原理</a>
   </span>
 
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/区块链原理/">区块链原理</a>
+	<a class="article-tag-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86/" rel="tag">区块链原理</a>
   </span>
 
 
@@ -358,7 +360,7 @@
 	</span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/06/06/区块链游戏的革命-下/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/06/06/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%B8%B8%E6%88%8F%E7%9A%84%E9%9D%A9%E5%91%BD-%E4%B8%8B/#comments" class="article-comment-link">评论</a></span>
         
 	
 		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.3k(字)</span>
@@ -371,7 +373,7 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <img src="/2018/06/06/区块链游戏的革命-下/Vshen.png" title="This is an example image">
+        <img src="/2018/06/06/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%B8%B8%E6%88%8F%E7%9A%84%E9%9D%A9%E5%91%BD-%E4%B8%8B/Vshen.png" class="" title="This is an example image">
 <center><div>Vitalik Buterin</div></center>
 > 在2007到2010年，我痴迷于玩“魔兽世界”这款游戏，但是突然有一天，暴雪移除了我心爱术士的虹吸生命术技能所具有的的伤害。
 我哭着到睡着了。从那一天起，我意识到了中心化服务器带来的可怕后果。我很快决定退出这一切...
@@ -380,20 +382,20 @@
 <h2 id="永远不会被关闭"><a class="markdownIt-Anchor" href="#永远不会被关闭"></a> 永远不会被关闭</h2>
 <p>当我们在玩一款游戏的时候，我们常常会担心这款游戏在几年以后突然就关闭了，自己为游戏中的所有物品、为这款游戏倾注的心血都会随此全部消失。我们也常常会担心这款游戏轻易的就会被黑客所袭击、或是服务器故障所带来的致命问题。但是！在区块链的世界中完全不用担心这些问题。由于数据存储在区块链之上，而网络中的所有节点都存储了完整的区块信息。意味着一个节点的奔溃或是欺骗不会对于系统带来冲击。蓦然回首，数据就一直在那里等着你。</p>
 <h2 id="稀有性"><a class="markdownIt-Anchor" href="#稀有性"></a> 稀有性</h2>
-<p>当我们在玩一款游戏的时候，我们会因为开到了一个及其稀有的卡牌或是装备而兴奋<br>
+<p>当我们在玩一款游戏的时候，我们会因为开到了一个及其稀有的卡牌或是装备而兴奋<br />
 (比如在吃鸡游戏中开到的衣服，或是炉石传说中的稀有卡牌)。但是，我们很快就发现随着时间的推移这些装备甚至会变得一文不值。但是，在一款优秀的区块链游戏中，我们能够验证到我们的装备是真正的稀有，意味着从这款游戏从出生到结束，这个装备的数量都会被验证为有限多个。玩家能够真正知道自己获得了稀有的装备。激动吧！！</p>
 <h2 id="独一无二的所有权"><a class="markdownIt-Anchor" href="#独一无二的所有权"></a> 独一无二的所有权</h2>
 <p>区块链的特性之一就是异常安全，一款运行在区块链之上的游戏将会比传统游戏拥有更强的安全性。自己可以宣誓主权，证明自己对于物品独一无二的所有权。除非你自己愿意转移给其他人。</p>
 <h2 id="可交易"><a class="markdownIt-Anchor" href="#可交易"></a> 可交易</h2>
 <p>独一无二的所有权与稀有性就为游戏倾注了更多激动人心的元素，那就是可交易。在区块链之上，同一款游戏的代币甚至于不同游戏的代币之间只要满足相同的协议(如ERC721代币协议)，就能够很方便的实现交易。同时，游戏的代币也会很容易的同以太币、比特币等高价值货币进行交换。这意味着玩家投入的时间、玩家拥有的稀有物品将能够真正的变现。从而开启了游戏赚钱的时代。</p>
 <h2 id="分叉带来自由"><a class="markdownIt-Anchor" href="#分叉带来自由"></a> 分叉带来自由</h2>
-<p>当我们玩魔兽、英雄联盟的时候，我们会知道游戏的生产商常常会有巨大的版本升级、这对于一些玩家的游戏体验来说是毁灭性的，他们因此退出了这款游戏。更重要的是，我们需要相信游戏的生产商是站在玩家的立场上来考虑问题的，但是很显然，这也是一群唯利是图的人。区块链游戏所带来的变革在于，一款优秀的产品即便是游戏的设计者也不能够随意的修改游戏的属性。决定游戏走向的真正的变成了游戏的玩家和社区。如果我希望削弱剑圣这个英雄，而其他玩家不愿意这样做，那我们就分道扬镳好了，一个游戏分叉为了两个世界，在第一个世界中你有你的标准，在第二个世界中我有我的标准。区块链的分叉为我们带来了自由。<br>
+<p>当我们玩魔兽、英雄联盟的时候，我们会知道游戏的生产商常常会有巨大的版本升级、这对于一些玩家的游戏体验来说是毁灭性的，他们因此退出了这款游戏。更重要的是，我们需要相信游戏的生产商是站在玩家的立场上来考虑问题的，但是很显然，这也是一群唯利是图的人。区块链游戏所带来的变革在于，一款优秀的产品即便是游戏的设计者也不能够随意的修改游戏的属性。决定游戏走向的真正的变成了游戏的玩家和社区。如果我希望削弱剑圣这个英雄，而其他玩家不愿意这样做，那我们就分道扬镳好了，一个游戏分叉为了两个世界，在第一个世界中你有你的标准，在第二个世界中我有我的标准。区块链的分叉为我们带来了自由。<br />
 还有太多太多理由……但是我们已经有理由相信，游戏行业将会迎来的第二春。</p>
 <h2 id="zombie-battleground"><a class="markdownIt-Anchor" href="#zombie-battleground"></a> Zombie Battleground</h2>
-<p>2017年末的迷恋猫游戏（CryptoKitties）算是区块链游戏的很好尝试，但这还远远不够。毕竟迷恋猫游戏设计逻辑简单，变化太少，页面交互还太差，代码中还留有过多的后门。<br>
-现在越来越多的公司开始盯上了区块链游戏，Loom network公司无疑走在了世界的前列。其目前设计的Zombie Battleground将会是一个大型区块链游戏很好的尝试。<br>
+<p>2017年末的迷恋猫游戏（CryptoKitties）算是区块链游戏的很好尝试，但这还远远不够。毕竟迷恋猫游戏设计逻辑简单，变化太少，页面交互还太差，代码中还留有过多的后门。<br />
+现在越来越多的公司开始盯上了区块链游戏，Loom network公司无疑走在了世界的前列。其目前设计的Zombie Battleground将会是一个大型区块链游戏很好的尝试。<br />
 Zombie Battleground是一款运行在以太坊侧链上的游戏，预计在下周发布正式版。其风格类似于炉石传说，基于五行相生相克的独特的游戏规则设计。</p>
-<p>在当前（2018年6月17日17:37:30），这款游戏在国外最大的众筹平台上，3天之内募集的资金超过了17万美元，可见市场对其的关注程度。<br>
+<p>在当前（2018年6月17日17:37:30），这款游戏在国外最大的众筹平台上，3天之内募集的资金超过了17万美元，可见市场对其的关注程度。<br />
 走在时代的风口浪尖、区块链游戏会掀起多大的风浪，让我们拭目以待…</p>
 
       
@@ -404,7 +406,7 @@ Zombie Battleground是一款运行在以太坊侧链上的游戏，预计在下�
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://dreamerjonson.com/2018/06/06/区块链游戏的革命-下/" title="区块链游戏的革命(下)" target="_blank" rel="external">https://dreamerjonson.com/2018/06/06/区块链游戏的革命-下/</a>
+      <a href="https://dreamerjonson.com/2018/06/06/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%B8%B8%E6%88%8F%E7%9A%84%E9%9D%A9%E5%91%BD-%E4%B8%8B/" title="区块链游戏的革命(下)" target="_blank" rel="external">https://dreamerjonson.com/2018/06/06/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%B8%B8%E6%88%8F%E7%9A%84%E9%9D%A9%E5%91%BD-%E4%B8%8B/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -457,7 +459,7 @@ Zombie Battleground是一款运行在以太坊侧链上的游戏，预计在下�
     
     
     <li class="next">
-      <a href="/2018/06/06/区块链游戏的革命/" title="区块链游戏的革命(上)"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2018/06/06/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%B8%B8%E6%88%8F%E7%9A%84%E9%9D%A9%E5%91%BD/" title="区块链游戏的革命(上)"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
@@ -555,11 +557,17 @@ Zombie Battleground是一款运行在以太坊侧链上的游戏，预计在下�
 <script>
 window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 </script>
+
 <script src="/js/plugin.min.js"></script>
+
+
 <script src="/js/application.js"></script>
 
 
+
+
 <script src="/js/mrmy.js"></script>
+
 
 
 
@@ -579,7 +587,9 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
     window.INSIGHT_CONFIG = INSIGHT_CONFIG;
 })(window);
 </script>
+
 <script src="/js/insight.js"></script>
+
 
 
 

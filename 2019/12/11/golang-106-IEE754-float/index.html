@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html lang=zh>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
   <meta name="renderer" content="webkit">
-  <meta http-equiv="Cache-Control" content="no-transform">
-  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="format-detection" content="telephone=no,email=no,adress=no">
   <!-- Color theme for statusbar -->
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#000000" />
   <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
-  <meta http-equiv="window-target" content="_top">
+  <meta http-equiv="window-target" content="_top" />
   
   
   <title>golang[106]-深入浮点数 | 郑建勋的个人网站</title>
-  <meta name="description" content="引言 下面的一段简单程序 0.3 + 0.6 结果是什么？ 123var f1 float64 = 0.3var f2 float64 = 0.6fmt.Println(f1 + f2) 有人会天真的认为是0.9，但实际输出却是0.8999999999999999（go 1.13.5） 问题在于大多数小数表示成二进制之后是近似且无限的。 以0.1为例。它可能是你能想到的最简单的十进制之一，但是二">
-<meta name="keywords" content="go">
+  <meta name="description" content="引言 下面的一段简单程序 0.3 + 0.6 结果是什么？ 123var f1 float64 &#x3D; 0.3var f2 float64 &#x3D; 0.6fmt.Println(f1 + f2) 有人会天真的认为是0.9，但实际输出却是0.8999999999999999（go 1.13.5） 问题在于大多数小数表示成二进制之后是近似且无限的。 以0.1为例。它可能是你能想到的最简单的十进制之一，但是二">
 <meta property="og:type" content="article">
 <meta property="og:title" content="golang[106]-深入浮点数">
 <meta property="og:url" content="https://dreamerjonson.com/2019/12/11/golang-106-IEE754-float/index.html">
 <meta property="og:site_name" content="Jonson">
-<meta property="og:description" content="引言 下面的一段简单程序 0.3 + 0.6 结果是什么？ 123var f1 float64 = 0.3var f2 float64 = 0.6fmt.Println(f1 + f2) 有人会天真的认为是0.9，但实际输出却是0.8999999999999999（go 1.13.5） 问题在于大多数小数表示成二进制之后是近似且无限的。 以0.1为例。它可能是你能想到的最简单的十进制之一，但是二">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:description" content="引言 下面的一段简单程序 0.3 + 0.6 结果是什么？ 123var f1 float64 &#x3D; 0.3var f2 float64 &#x3D; 0.6fmt.Println(f1 + f2) 有人会天真的认为是0.9，但实际输出却是0.8999999999999999（go 1.13.5） 问题在于大多数小数表示成二进制之后是近似且无限的。 以0.1为例。它可能是你能想到的最简单的十进制之一，但是二">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://dreamerjonson.com/2019/12/11/golang-106-IEE754-float/1.png">
-<meta property="og:updated_time" content="2020-01-10T10:13:17.105Z">
+<meta property="article:published_time" content="2019-12-11T07:49:51.000Z">
+<meta property="article:modified_time" content="2020-01-10T10:13:17.105Z">
+<meta property="article:author" content="Jonson">
+<meta property="article:tag" content="go">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="golang[106]-深入浮点数">
-<meta name="twitter:description" content="引言 下面的一段简单程序 0.3 + 0.6 结果是什么？ 123var f1 float64 = 0.3var f2 float64 = 0.6fmt.Println(f1 + f2) 有人会天真的认为是0.9，但实际输出却是0.8999999999999999（go 1.13.5） 问题在于大多数小数表示成二进制之后是近似且无限的。 以0.1为例。它可能是你能想到的最简单的十进制之一，但是二">
 <meta name="twitter:image" content="https://dreamerjonson.com/2019/12/11/golang-106-IEE754-float/1.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://dreamerjonson.com/2019/12/11/golang-106-IEE754-float/index.html">
@@ -40,7 +40,9 @@
   
     <link rel="icon" href="/favicon.png" type="image/x-icon">
   
-  <link rel="stylesheet" href="/css/style.css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
   
   
   
@@ -51,7 +53,7 @@
 
 
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 
 <body class="main-center" itemscope itemtype="http://schema.org/WebPage">
@@ -173,8 +175,8 @@
               <div  class="content">
                   <!-- <p>I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.</p> -->
                   <!--  -->
-                  <!-- 能够改变未来的权利，每个人都是平等的。&lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--黑帮 贝吉&lt;/p&gt; -->
-                    <!-- 能够改变未来的权利，每个人都是平等的。<br/><p align="right">--黑帮 贝吉</p> -->
+                  <!-- 所谓的弱，就是一种罪，所谓理想，只是拥有实力的人才能说的“现实”。 &lt;br/&gt;&lt;p align=&#34;right&#34;&gt;--克罗克达尔&lt;/p&gt; -->
+                    <!-- 所谓的弱，就是一种罪，所谓理想，只是拥有实力的人才能说的“现实”。 <br/><p align="right">--克罗克达尔</p> -->
                 公众号：唯识相链，来关注我吧~<br/>
                 <div><img src="/images/xingqiu-qrcode.jpg" width="150" height="150"></div>
                 go语言交流2群：713385260<br/>
@@ -188,7 +190,7 @@
   <div class="widget">
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/emacs/">emacs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/git/mac环境配置/">mac环境配置</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">162</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/数据结构/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-数据结构/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/macOS/">macOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/unix/">unix</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链原理/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发配置/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/智能合约-solidity语法/">智能合约 solidity语法</a><span class="category-list-count">60</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/置顶/">置顶</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DAPP/">DAPP</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bootstrap/">bootstrap</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/emacs/">emacs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/git/mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">mac环境配置</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">163</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/go/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/go-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">go 数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali/">kali</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kali-linux/">kali-linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/macOS/">macOS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/network/">network</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">32</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/server/">server</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/unix/">unix</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86/">区块链原理</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/">开发配置</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-solidity%E8%AF%AD%E6%B3%95/">智能合约 solidity语法</a><span class="category-list-count">60</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%AE%E9%A1%B6/">置顶</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -198,7 +200,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emacs/">emacs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">162</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-数据结构/">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macOS/">macOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac环境配置/">mac环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-前端/">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unix/">unix</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链原理/">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发配置/">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/置顶/">置顶</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/" rel="tag">bootstrap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emacs/" rel="tag">emacs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/" rel="tag">go</a><span class="tag-list-count">163</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">go 数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali/" rel="tag">kali</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kali-linux/" rel="tag">kali-linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/" rel="tag">mac</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macOS/" rel="tag">macOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">mac环境配置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs-%E5%89%8D%E7%AB%AF/" rel="tag">nodejs 前端</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/server/" rel="tag">server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity/" rel="tag">solidity</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unix/" rel="tag">unix</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" rel="tag">以太坊</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86/" rel="tag">区块链原理</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/" rel="tag">开发配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/" rel="tag">智能合约</a><span class="tag-list-count">64</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%AE%E9%A1%B6/" rel="tag">置顶</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -208,7 +210,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/bootstrap/" style="font-size: 13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.38px;">docker</a> <a href="/tags/emacs/" style="font-size: 13px;">emacs</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-数据结构/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/linux/" style="font-size: 13.13px;">linux</a> <a href="/tags/mac/" style="font-size: 13.25px;">mac</a> <a href="/tags/macOS/" style="font-size: 13px;">macOS</a> <a href="/tags/mac环境配置/" style="font-size: 13.13px;">mac环境配置</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-前端/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/unix/" style="font-size: 13.13px;">unix</a> <a href="/tags/以太坊/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/前端/" style="font-size: 13.38px;">前端</a> <a href="/tags/区块链/" style="font-size: 13px;">区块链</a> <a href="/tags/区块链原理/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/开发配置/" style="font-size: 13px;">开发配置</a> <a href="/tags/数据结构/" style="font-size: 13px;">数据结构</a> <a href="/tags/智能合约/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/置顶/" style="font-size: 13px;">置顶</a>
+      <a href="/tags/bootstrap/" style="font-size: 13px;">bootstrap</a> <a href="/tags/css/" style="font-size: 13px;">css</a> <a href="/tags/docker/" style="font-size: 13.38px;">docker</a> <a href="/tags/emacs/" style="font-size: 13px;">emacs</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/go/" style="font-size: 14px;">go</a> <a href="/tags/go-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13.13px;">go 数据结构</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/js/" style="font-size: 13.13px;">js</a> <a href="/tags/kali/" style="font-size: 13px;">kali</a> <a href="/tags/kali-linux/" style="font-size: 13px;">kali-linux</a> <a href="/tags/linux/" style="font-size: 13.13px;">linux</a> <a href="/tags/mac/" style="font-size: 13.25px;">mac</a> <a href="/tags/macOS/" style="font-size: 13px;">macOS</a> <a href="/tags/mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 13.13px;">mac环境配置</a> <a href="/tags/network/" style="font-size: 13px;">network</a> <a href="/tags/nodejs/" style="font-size: 13.63px;">nodejs</a> <a href="/tags/nodejs-%E5%89%8D%E7%AB%AF/" style="font-size: 13.75px;">nodejs 前端</a> <a href="/tags/python/" style="font-size: 13px;">python</a> <a href="/tags/server/" style="font-size: 13.25px;">server</a> <a href="/tags/solidity/" style="font-size: 13.88px;">solidity</a> <a href="/tags/unix/" style="font-size: 13.13px;">unix</a> <a href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" style="font-size: 13.88px;">以太坊</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13.38px;">前端</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13px;">区块链</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86/" style="font-size: 13.5px;">区块链原理</a> <a href="/tags/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/" style="font-size: 13px;">开发配置</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13px;">数据结构</a> <a href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/" style="font-size: 13.88px;">智能合约</a> <a href="/tags/%E7%BD%AE%E9%A1%B6/" style="font-size: 13px;">置顶</a>
     </div>
   </div>
 
@@ -217,7 +219,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">44</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">119</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -229,6 +231,21 @@
     <div class="widget-body">
       <ul class="recent-post-list list-unstyled no-thumbnail">
         
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/go/">go</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/07/02/kafka-golang/" class="title">实战Kafka—术语</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-07-02T06:50:37.000Z" itemprop="datePublished">2020-07-02</time>
+              </p>
+            </div>
+          </li>
+          
           <li>
             
             <div class="item-inner">
@@ -289,21 +306,6 @@
             </div>
           </li>
           
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/go/">go</a>
-              </p>
-              <p class="item-title">
-                <a href="/2020/01/31/Microservices-1/" class="title">微服务理论与实践[1]-什么是微服务</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-01-31T02:37:33.000Z" itemprop="datePublished">2020-01-31</time>
-              </p>
-            </div>
-          </li>
-          
       </ul>
     </div>
   </div>
@@ -354,7 +356,7 @@
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/go/">go</a>
+	<a class="article-tag-link" href="/tags/go/" rel="tag">go</a>
   </span>
 
 
@@ -370,10 +372,10 @@
         <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/12/11/golang-106-IEE754-float/#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 4.6k(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 4.7k(字)</span>
 	
 	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 20(分)</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 21(分)</span>
 	
 
       </div>
@@ -384,10 +386,10 @@
 <p>下面的一段简单程序 0.3 + 0.6 结果是什么？</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> f1 <span class="keyword">float64</span> = <span class="number">0.3</span></span><br><span class="line"><span class="keyword">var</span> f2 <span class="keyword">float64</span> = <span class="number">0.6</span></span><br><span class="line">fmt.Println(f1 + f2)</span><br></pre></td></tr></table></figure>
 <p>有人会天真的认为是0.9，但实际输出却是0.8999999999999999（go 1.13.5）</p>
-<p>问题在于大多数小数表示成二进制之后是近似且无限的。<br>
-以0.1为例。它可能是你能想到的最简单的十进制之一，但是二进制看起来却非常复杂：0.0001100110011001100…<br>
-其是一串连续循环无限的数字（涉及到10进制转换为2进制,暂不介绍）。<br>
-结果的荒诞性告诉我们，必须深入理解浮点数在计算机中的存储方式及其性质，才能正确处理数字的计算。<br>
+<p>问题在于大多数小数表示成二进制之后是近似且无限的。<br />
+以0.1为例。它可能是你能想到的最简单的十进制之一，但是二进制看起来却非常复杂：0.0001100110011001100…<br />
+其是一串连续循环无限的数字（涉及到10进制转换为2进制,暂不介绍）。<br />
+结果的荒诞性告诉我们，必须深入理解浮点数在计算机中的存储方式及其性质，才能正确处理数字的计算。<br />
 golang 与其他很多语言（C、C++、Python…）一样，使用了IEEE-754标准存储浮点数。</p>
 <h2 id="ieee-754-如何存储浮点数"><a class="markdownIt-Anchor" href="#ieee-754-如何存储浮点数"></a> IEEE-754 如何存储浮点数</h2>
 <p>IEEE-754规范使用特殊的以2为基数的科学表示法表示浮点数。</p>
@@ -479,8 +481,8 @@ golang 与其他很多语言（C、C++、Python…）一样，使用了IEEE-754�
 </tr>
 </tbody>
 </table>
-<p>符号位： 1 为 负数， 0 为正数。<br>
-指数位： 存储 指数加上偏移量，偏移量是为了表达负数而设计的。<br>
+<p>符号位： 1 为 负数， 0 为正数。<br />
+指数位： 存储 指数加上偏移量，偏移量是为了表达负数而设计的。<br />
 小数位： 存储系数的小数位的准确或者最接近的值。</p>
 <p>以 数字 0.085 为例。</p>
 <table>
@@ -500,8 +502,8 @@ golang 与其他很多语言（C、C++、Python…）一样，使用了IEEE-754�
 </tbody>
 </table>
 <h2 id="小数位的表达方式"><a class="markdownIt-Anchor" href="#小数位的表达方式"></a> 小数位的表达方式</h2>
-<p>以0.36 为例:<br>
-010 1110 0001 0100 0111 1011 = 0.36  (第一位数字代表1/2,第二位数字是1/4…，0.36 是所有位相加)<br>
+<p>以0.36 为例:<br />
+010 1110 0001 0100 0111 1011 = 0.36  (第一位数字代表1/2,第二位数字是1/4…，0.36 是所有位相加)<br />
 分解后的计算步骤为:</p>
 <table>
 <thead>
@@ -601,136 +603,136 @@ golang 与其他很多语言（C、C++、Python…）一样，使用了IEEE-754�
 </tbody>
 </table>
 <h2 id="go语言显示浮点数-验证之前的理论"><a class="markdownIt-Anchor" href="#go语言显示浮点数-验证之前的理论"></a> go语言显示浮点数 -  验证之前的理论</h2>
-<p>接下来用一个案例有助于我们理解并验证IEEE-754 浮点数的表示方式。<br>
-math.Float32bits 可以为我们打印出32位数据的二进制表示。(注：math.Float64bits可以打印64位数据的二进制)<br>
+<p>接下来用一个案例有助于我们理解并验证IEEE-754 浮点数的表示方式。<br />
+math.Float32bits 可以为我们打印出32位数据的二进制表示。(注：math.Float64bits可以打印64位数据的二进制)<br />
 下面的go代码将输出0.085的浮点数二进制表达，并且为了验证之前理论的正确性，根据二进制表示反向推导出其所表示的原始十进制0.085</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> number <span class="keyword">float32</span> = <span class="number">0.085</span></span><br><span class="line"><span class="comment">// 打印出32位数据的二进制表示。</span></span><br><span class="line">bits := math.Float32bits(number)</span><br><span class="line">binary := fmt.Sprintf(<span class="string">"%.32b"</span>, bits)</span><br><span class="line"> <span class="comment">// 打印浮点数的符号位、指数位 、小数位</span></span><br><span class="line">fmt.Printf(<span class="string">"Bit Pattern: %s | %s %s | %s %s %s %s %s %s\n\n"</span>,</span><br><span class="line">	binary[<span class="number">0</span>:<span class="number">1</span>],</span><br><span class="line">	binary[<span class="number">1</span>:<span class="number">5</span>], binary[<span class="number">5</span>:<span class="number">9</span>],</span><br><span class="line">	binary[<span class="number">9</span>:<span class="number">12</span>], binary[<span class="number">12</span>:<span class="number">16</span>], binary[<span class="number">16</span>:<span class="number">20</span>],</span><br><span class="line">	binary[<span class="number">20</span>:<span class="number">24</span>], binary[<span class="number">24</span>:<span class="number">28</span>], binary[<span class="number">28</span>:<span class="number">32</span>])</span><br><span class="line"> <span class="comment">// 偏移量</span></span><br><span class="line">bias := <span class="number">127</span></span><br><span class="line"> <span class="comment">// 获取符号位</span></span><br><span class="line">sign := bits &amp; (<span class="number">1</span> &lt;&lt; <span class="number">31</span>)</span><br><span class="line">exponentRaw := <span class="keyword">int</span>(bits &gt;&gt; <span class="number">23</span>)</span><br><span class="line"> <span class="comment">// 获取指数位</span></span><br><span class="line">exponent := exponentRaw - bias</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> mantissa <span class="keyword">float64</span></span><br><span class="line"> <span class="comment">// 小数位求和</span></span><br><span class="line"><span class="keyword">for</span> index, bit := <span class="keyword">range</span> binary[<span class="number">9</span>:<span class="number">32</span>] &#123;</span><br><span class="line">	<span class="keyword">if</span> bit == <span class="number">49</span> &#123;</span><br><span class="line">		position := index + <span class="number">1</span></span><br><span class="line">		bitValue := math.Pow(<span class="number">2</span>, <span class="keyword">float64</span>(position))</span><br><span class="line">		fractional := <span class="number">1</span> / bitValue</span><br><span class="line">		mantissa = mantissa + fractional</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"> <span class="comment">// 反向求出最终10进制表示</span></span><br><span class="line">value := (<span class="number">1</span> + mantissa) * math.Pow(<span class="number">2</span>, <span class="keyword">float64</span>(exponent))</span><br><span class="line"></span><br><span class="line">fmt.Printf(<span class="string">"Sign: %d Exponent: %d (%d) Mantissa: %f Value: %f\n\n"</span>,</span><br><span class="line">	sign,</span><br><span class="line">	exponentRaw,</span><br><span class="line">	exponent,</span><br><span class="line">	mantissa,</span><br><span class="line">	value)</span><br></pre></td></tr></table></figure>
 <p>输出： 表明我们对于浮点数的理解正确。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Starting Number: 0.085000</span><br><span class="line">Bit Pattern: 0 | 0111 1011 | 010 1110 0001 0100 0111 1011</span><br><span class="line">Sign: 0 Exponent: 123 (-4) Mantissa: 0.360000 Value: 0.085000</span><br></pre></td></tr></table></figure>
 <h2 id="经典问题如何判断一个浮点数其实存储的是整数"><a class="markdownIt-Anchor" href="#经典问题如何判断一个浮点数其实存储的是整数"></a> 经典问题：如何判断一个浮点数其实存储的是整数</h2>
-<p>下面是一个有趣的问题，如何判断一个浮点数其实存储的是整数？<br>
-思考10秒钟…<br>
-下面是一段判断浮点数是否为整数的go代码实现，我们接下来逐行分析函数。<br>
+<p>下面是一个有趣的问题，如何判断一个浮点数其实存储的是整数？<br />
+思考10秒钟…<br />
+下面是一段判断浮点数是否为整数的go代码实现，我们接下来逐行分析函数。<br />
 它可以加深对于浮点数的理解。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">IsInt</span><span class="params">(bits <span class="keyword">uint32</span>, bias <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    exponent := <span class="keyword">int</span>(bits &gt;&gt; <span class="number">23</span>) - bias - <span class="number">23</span></span><br><span class="line">    coefficient := (bits &amp; ((<span class="number">1</span> &lt;&lt; <span class="number">23</span>) - <span class="number">1</span>)) | (<span class="number">1</span> &lt;&lt; <span class="number">23</span>)</span><br><span class="line">    intTest := (coefficient &amp; (<span class="number">1</span> &lt;&lt; <span class="keyword">uint32</span>(-exponent) - <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">    fmt.Printf(<span class="string">"\nExponent: %d Coefficient: %d IntTest: %d\n"</span>,</span><br><span class="line">        exponent,</span><br><span class="line">        coefficient,</span><br><span class="line">        intTest)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> exponent &lt; <span class="number">-23</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">"NOT INTEGER\n"</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> exponent &lt; <span class="number">0</span> &amp;&amp; intTest != <span class="number">0</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">"NOT INTEGER\n"</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fmt.Printf(<span class="string">"INTEGER\n"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>1、要保证是整数，一个重要的条件是必须要指数位大于127。指数位大于127，代表指数大于0， 反之指数小于0.</p>
 <p>下面我们以数字234523为例子：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Starting Number: 234523.000000</span><br><span class="line">Bit Pattern: 0 | 1001 0000 | 110 0101 0000 0110 1100 0000</span><br><span class="line">Sign: 0 Exponent: 144 (17) Mantissa: 0.789268 Value: 234523.000000</span><br><span class="line">Exponent: -6 Coefficient: 15009472 IntTest: 0</span><br><span class="line">INTEGER</span><br></pre></td></tr></table></figure>
-<p>第一步,计算指数。 由于exponent多减去了23，所以在第一个判断中 判断条件为  exponent &lt; -23<br>
+<p>第一步,计算指数。 由于exponent多减去了23，所以在第一个判断中 判断条件为  exponent &lt; -23<br />
 exponent := int(bits &gt;&gt; 23) - bias - 23</p>
-<p>第二步，<br>
+<p>第二步，<br />
 (bits &amp; ((1 &lt;&lt; 23) - 1)) 计算小数位。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">coefficient := (bits &amp; ((1 &lt;&lt; 23) - 1)) | (1 &lt;&lt; 23)</span><br><span class="line"></span><br><span class="line">Bits:                   01001000011001010000011011000000</span><br><span class="line">(1 &lt;&lt; 23) - 1:          00000000011111111111111111111111</span><br><span class="line">bits &amp; ((1 &lt;&lt; 23) - 1): 00000000011001010000011011000000</span><br></pre></td></tr></table></figure>
-<p>| (1 &lt;&lt; 23) 代表 将1加在前方。<br>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">coefficient :&#x3D; (bits &amp; ((1 &lt;&lt; 23) - 1)) | (1 &lt;&lt; 23)</span><br><span class="line"></span><br><span class="line">Bits:                   01001000011001010000011011000000</span><br><span class="line">(1 &lt;&lt; 23) - 1:          00000000011111111111111111111111</span><br><span class="line">bits &amp; ((1 &lt;&lt; 23) - 1): 00000000011001010000011011000000</span><br></pre></td></tr></table></figure>
+<p>| (1 &lt;&lt; 23) 代表 将1加在前方。<br />
 1 + 小数 = 系数。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bits &amp; ((1 &lt;&lt; 23) - 1): 00000000011001010000011011000000</span><br><span class="line">(1 &lt;&lt; 23):              00000000100000000000000000000000</span><br><span class="line">coefficient:            00000000111001010000011011000000</span><br></pre></td></tr></table></figure>
-<p>第三步，计算intTest 只有当指数的倍数可以弥补最小的小数位的时候，才是一个整数。<br>
-如下，指数是17位，其不能够弥补最后6位的小数。即不能弥补1/2^18 以后的小数。<br>
+<p>第三步，计算intTest 只有当指数的倍数可以弥补最小的小数位的时候，才是一个整数。<br />
+如下，指数是17位，其不能够弥补最后6位的小数。即不能弥补1/2^18 以后的小数。<br />
 但是由于代表2^18的位之后为0.所以是整数。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">exponent:                     (144 - 127 - 23) = -6</span><br><span class="line">1 &lt;&lt; uint32(-exponent):       000000</span><br><span class="line">(1 &lt;&lt; uint32(-exponent)) - 1: 111111</span><br><span class="line"></span><br><span class="line">coefficient:                 00000000111001010000011011000000</span><br><span class="line">1 &lt;&lt; uint32(-exponent)) - 1: 00000000000000000000000000111111</span><br><span class="line">intTest:                     00000000000000000000000000000000</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">exponent:                     (144 - 127 - 23) &#x3D; -6</span><br><span class="line">1 &lt;&lt; uint32(-exponent):       000000</span><br><span class="line">(1 &lt;&lt; uint32(-exponent)) - 1: 111111</span><br><span class="line"></span><br><span class="line">coefficient:                 00000000111001010000011011000000</span><br><span class="line">1 &lt;&lt; uint32(-exponent)) - 1: 00000000000000000000000000111111</span><br><span class="line">intTest:                     00000000000000000000000000000000</span><br></pre></td></tr></table></figure>
 <h2 id="golang-decimal-包详解"><a class="markdownIt-Anchor" href="#golang-decimal-包详解"></a> golang decimal 包详解</h2>
 <p>要理解decimal包，首先需要知道两个重要的概念，Normal number、denormal (or subnormal) number 以及精度。</p>
 <h3 id="normal-number-and-denormal-or-subnormal-number"><a class="markdownIt-Anchor" href="#normal-number-and-denormal-or-subnormal-number"></a> Normal number and denormal (or subnormal) number</h3>
 <p>wiki的解释是：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">In computing, a normal number is a non-zero number in a floating-point representation which is within the balanced range supported by a given floating-point format: it is a floating point number that can be represented without leading zeros in its significand.</span><br></pre></td></tr></table></figure>
-<p>什么意思呢？在IEEE-754中指数位有一个偏移量，偏移量是为了表达负数而设计的。 比如单精度中的0.085，实际的指数是 -3， 存储到浮点数的指数位是123。<br>
-所以表达的负数就是有上限的。这个上限就是2^-126。 如果比这个负数还要小，例如2^-127,这个时候应该表达为0.1 * 2 ^ -126.   这时系数变为了不是1为前导的数，这个数就叫做denormal (or subnormal) number。<br>
+<p>什么意思呢？在IEEE-754中指数位有一个偏移量，偏移量是为了表达负数而设计的。 比如单精度中的0.085，实际的指数是 -3， 存储到浮点数的指数位是123。<br />
+所以表达的负数就是有上限的。这个上限就是2^-126。 如果比这个负数还要小，例如2^-127,这个时候应该表达为0.1 * 2 ^ -126.   这时系数变为了不是1为前导的数，这个数就叫做denormal (or subnormal) number。<br />
 正常的系数是以1为前导的数就叫做Normal number。</p>
 <h3 id="概念精度"><a class="markdownIt-Anchor" href="#概念精度"></a> 概念：精度</h3>
-<p>精度是一个非常复杂的概念，在这里笔者讨论的是2进制浮点数的10进制精度。<br>
-精度为d表示的是在一个范围内，如果我们将d位10进制（按照科学计数法表达）转换为二进制。再将二进制转换为d位10进制。如果数据没有不损失意味着在此范围内是有d精度的。<br>
-精度的原因在于，数据在进制之间相互转换时，是不能够精准匹配的，而是只能匹配到一个最近的数。如图所示：<br>
-<center><img src="/2019/12/11/golang-106-IEE754-float/1.png"></center><br>
-<center><div>精度转换</div></center><br>
-在这里暂时不深入探讨，而是给出结论：（注：精度是动态变化的，不同的范围可能有不同的精度。这是由于 2的幂 与 10的幂之间的交错是不同的。）<br>
-float32的精度为6-8位，<br>
+<p>精度是一个非常复杂的概念，在这里笔者讨论的是2进制浮点数的10进制精度。<br />
+精度为d表示的是在一个范围内，如果我们将d位10进制（按照科学计数法表达）转换为二进制。再将二进制转换为d位10进制。如果数据没有不损失意味着在此范围内是有d精度的。<br />
+精度的原因在于，数据在进制之间相互转换时，是不能够精准匹配的，而是只能匹配到一个最近的数。如图所示：<br />
+<center><img src="/2019/12/11/golang-106-IEE754-float/1.png" class=""></center><br />
+<center><div>精度转换</div></center><br />
+在这里暂时不深入探讨，而是给出结论：（注：精度是动态变化的，不同的范围可能有不同的精度。这是由于 2的幂 与 10的幂之间的交错是不同的。）<br />
+float32的精度为6-8位，<br />
 float64的精度为15-17位</p>
-<p>目前使用比较多的精准操作浮点数的decimal包是shopspring/decimal。链接:<a href="https://github.com/shopspring/decimal" target="_blank" rel="noopener">https://github.com/shopspring/decimal</a><br>
-decimal包使用math/big包存储大整数并进行大整数的计算。<br>
+<p>目前使用比较多的精准操作浮点数的decimal包是shopspring/decimal。链接:<a href="https://github.com/shopspring/decimal" target="_blank" rel="noopener">https://github.com/shopspring/decimal</a><br />
+decimal包使用math/big包存储大整数并进行大整数的计算。<br />
 比如对于字符串 “123.45” 我们可以将其转换为12345这个大整数，以及-2代表指数。参考decimal结构体：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">type Decimal struct &#123;</span><br><span class="line">	value *big.Int</span><br><span class="line">	exp int32</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在本文中，笔者不会探讨math/big是如何进行大整数运算的，而是探讨decimal包一个非常重要的函数：<br>
-NewFromFloat(value float64) Decimal<br>
+<p>在本文中，笔者不会探讨math/big是如何进行大整数运算的，而是探讨decimal包一个非常重要的函数：<br />
+NewFromFloat(value float64) Decimal<br />
 其主要调用了下面的函数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">func newFromFloat(val float64, bits uint64, flt *floatInfo) Decimal &#123;</span><br><span class="line">	if math.IsNaN(val) || math.IsInf(val, 0) &#123;</span><br><span class="line">		panic(fmt.Sprintf(&quot;Cannot create a Decimal from %v&quot;, val))</span><br><span class="line">	&#125;</span><br><span class="line">	exp := int(bits&gt;&gt;flt.mantbits) &amp; (1&lt;&lt;flt.expbits - 1)</span><br><span class="line">	mant := bits &amp; (uint64(1)&lt;&lt;flt.mantbits - 1)</span><br><span class="line">	switch exp &#123;</span><br><span class="line">	case 0:</span><br><span class="line">		exp++</span><br><span class="line">	default:</span><br><span class="line">		mant |= uint64(1) &lt;&lt; flt.mantbits</span><br><span class="line">	&#125;</span><br><span class="line">	exp += flt.bias</span><br><span class="line">	var d decimal</span><br><span class="line">	d.Assign(mant)</span><br><span class="line">	d.Shift(exp - int(flt.mantbits))</span><br><span class="line">	d.neg = bits&gt;&gt;(flt.expbits+flt.mantbits) != 0</span><br><span class="line">	roundShortest(&amp;d, mant, exp, flt)</span><br><span class="line">	if d.nd &lt; 19 &#123;</span><br><span class="line">		tmp := int64(0)</span><br><span class="line">		m := int64(1)</span><br><span class="line">		for i := d.nd - 1; i &gt;= 0; i-- &#123;</span><br><span class="line">			tmp += m * int64(d.d[i]-&apos;0&apos;)</span><br><span class="line">			m *= 10</span><br><span class="line">		&#125;</span><br><span class="line">		if d.neg &#123;</span><br><span class="line">			tmp *= -1</span><br><span class="line">		&#125;</span><br><span class="line">		return Decimal&#123;value: big.NewInt(tmp), exp: int32(d.dp) - int32(d.nd)&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	dValue := new(big.Int)</span><br><span class="line">	dValue, ok := dValue.SetString(string(d.d[:d.nd]), 10)</span><br><span class="line">	if ok &#123;</span><br><span class="line">		return Decimal&#123;value: dValue, exp: int32(d.dp) - int32(d.nd)&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return NewFromFloatWithExponent(val, int32(d.dp)-int32(d.nd))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此函数会将浮点数转换为Decimal结构。<br>
-读者想象一下这个问题：如果存储到浮点数中的值（例如0.1）本身就是一个近似值，为什么decimal包能够解决计算的准确性？<br>
-原因在于，deciimal包可以精准的将一个浮点数转换为10进制。这就是NewFromFloat为我们做的事情。<br>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">func newFromFloat(val float64, bits uint64, flt *floatInfo) Decimal &#123;</span><br><span class="line">	if math.IsNaN(val) || math.IsInf(val, 0) &#123;</span><br><span class="line">		panic(fmt.Sprintf(&quot;Cannot create a Decimal from %v&quot;, val))</span><br><span class="line">	&#125;</span><br><span class="line">	exp :&#x3D; int(bits&gt;&gt;flt.mantbits) &amp; (1&lt;&lt;flt.expbits - 1)</span><br><span class="line">	mant :&#x3D; bits &amp; (uint64(1)&lt;&lt;flt.mantbits - 1)</span><br><span class="line">	switch exp &#123;</span><br><span class="line">	case 0:</span><br><span class="line">		exp++</span><br><span class="line">	default:</span><br><span class="line">		mant |&#x3D; uint64(1) &lt;&lt; flt.mantbits</span><br><span class="line">	&#125;</span><br><span class="line">	exp +&#x3D; flt.bias</span><br><span class="line">	var d decimal</span><br><span class="line">	d.Assign(mant)</span><br><span class="line">	d.Shift(exp - int(flt.mantbits))</span><br><span class="line">	d.neg &#x3D; bits&gt;&gt;(flt.expbits+flt.mantbits) !&#x3D; 0</span><br><span class="line">	roundShortest(&amp;d, mant, exp, flt)</span><br><span class="line">	if d.nd &lt; 19 &#123;</span><br><span class="line">		tmp :&#x3D; int64(0)</span><br><span class="line">		m :&#x3D; int64(1)</span><br><span class="line">		for i :&#x3D; d.nd - 1; i &gt;&#x3D; 0; i-- &#123;</span><br><span class="line">			tmp +&#x3D; m * int64(d.d[i]-&#39;0&#39;)</span><br><span class="line">			m *&#x3D; 10</span><br><span class="line">		&#125;</span><br><span class="line">		if d.neg &#123;</span><br><span class="line">			tmp *&#x3D; -1</span><br><span class="line">		&#125;</span><br><span class="line">		return Decimal&#123;value: big.NewInt(tmp), exp: int32(d.dp) - int32(d.nd)&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	dValue :&#x3D; new(big.Int)</span><br><span class="line">	dValue, ok :&#x3D; dValue.SetString(string(d.d[:d.nd]), 10)</span><br><span class="line">	if ok &#123;</span><br><span class="line">		return Decimal&#123;value: dValue, exp: int32(d.dp) - int32(d.nd)&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return NewFromFloatWithExponent(val, int32(d.dp)-int32(d.nd))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此函数会将浮点数转换为Decimal结构。<br />
+读者想象一下这个问题：如果存储到浮点数中的值（例如0.1）本身就是一个近似值，为什么decimal包能够解决计算的准确性？<br />
+原因在于，deciimal包可以精准的将一个浮点数转换为10进制。这就是NewFromFloat为我们做的事情。<br />
 下面我将对此函数做逐行分析。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//2-4行判断浮点数有效性，不能为NAN或INF</span><br><span class="line">   if math.IsNaN(val) || math.IsInf(val, 0) &#123;</span><br><span class="line">	panic(fmt.Sprintf(&quot;Cannot create a Decimal from %v&quot;, val))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>第5行：剥离出IEEE浮点数的指数位<br>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;2-4行判断浮点数有效性，不能为NAN或INF</span><br><span class="line">   if math.IsNaN(val) || math.IsInf(val, 0) &#123;</span><br><span class="line">	panic(fmt.Sprintf(&quot;Cannot create a Decimal from %v&quot;, val))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第5行：剥离出IEEE浮点数的指数位<br />
 exp := int(bits&gt;&gt;flt.mantbits) &amp; (1&lt;&lt;flt.expbits - 1)</p>
-<p>第6行：剥离出浮点数的系数的小数位<br>
+<p>第6行：剥离出浮点数的系数的小数位<br />
 mant := bits &amp; (uint64(1)&lt;&lt;flt.mantbits - 1)</p>
-<p>第7行：如果是指数位为0，代表浮点数是denormal (or subnormal) number；<br>
-默认情况下会在mant之前加上1，因为mant只是系数的小数，在前面加上1后，代表真正的小数位。<br>
+<p>第7行：如果是指数位为0，代表浮点数是denormal (or subnormal) number；<br />
+默认情况下会在mant之前加上1，因为mant只是系数的小数，在前面加上1后，代表真正的小数位。<br />
 现在 mant = IEEE浮点数系数 * 2^53</p>
-<p>第13行： 加上偏移量，exp现在代表真正的指数。<br>
+<p>第13行： 加上偏移量，exp现在代表真正的指数。<br />
 第14行： 引入了一个中间结构<code>decimal</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">type decimal struct &#123;</span><br><span class="line">	d     [800]byte</span><br><span class="line">	nd    int</span><br><span class="line">	dp    int</span><br><span class="line">	neg   bool</span><br><span class="line">	trunc bool</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>第15行： 调用d.Assign(mant) , 将mant作为10进制数，存起来。<br>
+<p>第15行： 调用d.Assign(mant) , 将mant作为10进制数，存起来。<br />
 10进制数的每一位都作为一个字符存储到 decimal的byte数组中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">func (a *decimal) Assign(v uint64) &#123;</span><br><span class="line">	var buf [24]byte</span><br><span class="line"></span><br><span class="line">	// Write reversed decimal in buf.</span><br><span class="line">	n := 0</span><br><span class="line">	for v &gt; 0 &#123;</span><br><span class="line">		v1 := v / 10</span><br><span class="line">		v -= 10 * v1</span><br><span class="line">		buf[n] = byte(v + &apos;0&apos;)</span><br><span class="line">		n++</span><br><span class="line">		v = v1</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// Reverse again to produce forward decimal in a.d.</span><br><span class="line">	a.nd = 0</span><br><span class="line">	for n--; n &gt;= 0; n-- &#123;</span><br><span class="line">		a.d[a.nd] = buf[n]</span><br><span class="line">		a.nd++</span><br><span class="line">	&#125;</span><br><span class="line">	a.dp = a.nd</span><br><span class="line">	trim(a)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">func (a *decimal) Assign(v uint64) &#123;</span><br><span class="line">	var buf [24]byte</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F; Write reversed decimal in buf.</span><br><span class="line">	n :&#x3D; 0</span><br><span class="line">	for v &gt; 0 &#123;</span><br><span class="line">		v1 :&#x3D; v &#x2F; 10</span><br><span class="line">		v -&#x3D; 10 * v1</span><br><span class="line">		buf[n] &#x3D; byte(v + &#39;0&#39;)</span><br><span class="line">		n++</span><br><span class="line">		v &#x3D; v1</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F; Reverse again to produce forward decimal in a.d.</span><br><span class="line">	a.nd &#x3D; 0</span><br><span class="line">	for n--; n &gt;&#x3D; 0; n-- &#123;</span><br><span class="line">		a.d[a.nd] &#x3D; buf[n]</span><br><span class="line">		a.nd++</span><br><span class="line">	&#125;</span><br><span class="line">	a.dp &#x3D; a.nd</span><br><span class="line">	trim(a)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>第16行： 调用shift函数，这个函数非常难理解。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">func (a *decimal) Shift(k int) &#123;</span><br><span class="line">	switch &#123;</span><br><span class="line">	case a.nd == 0:</span><br><span class="line">	case k &gt; 0:</span><br><span class="line">		for k &gt; maxShift &#123;</span><br><span class="line">			leftShift(a, maxShift)</span><br><span class="line">			k -= maxShift</span><br><span class="line">		&#125;</span><br><span class="line">		leftShift(a, uint(k))</span><br><span class="line">	case k &lt; 0:</span><br><span class="line">		for k &lt; -maxShift &#123;</span><br><span class="line">			rightShift(a, maxShift)</span><br><span class="line">			k += maxShift</span><br><span class="line">		&#125;</span><br><span class="line">		rightShift(a, uint(-k))</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此函数的功能是为了获取此浮点数代表的10进制数据的整数位个数以及小数位个数，此函数的完整证明附后。（注1)<br>
-exp是真实的指数，其也是能够覆盖小数部分2进制位的个数。（参考前面如何判断浮点数是整数）<br>
-exp - int(flt.mantbits)代表不能被exp覆盖的2进制位的个数<br>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">func (a *decimal) Shift(k int) &#123;</span><br><span class="line">	switch &#123;</span><br><span class="line">	case a.nd &#x3D;&#x3D; 0:</span><br><span class="line">	case k &gt; 0:</span><br><span class="line">		for k &gt; maxShift &#123;</span><br><span class="line">			leftShift(a, maxShift)</span><br><span class="line">			k -&#x3D; maxShift</span><br><span class="line">		&#125;</span><br><span class="line">		leftShift(a, uint(k))</span><br><span class="line">	case k &lt; 0:</span><br><span class="line">		for k &lt; -maxShift &#123;</span><br><span class="line">			rightShift(a, maxShift)</span><br><span class="line">			k +&#x3D; maxShift</span><br><span class="line">		&#125;</span><br><span class="line">		rightShift(a, uint(-k))</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此函数的功能是为了获取此浮点数代表的10进制数据的整数位个数以及小数位个数，此函数的完整证明附后。（注1)<br />
+exp是真实的指数，其也是能够覆盖小数部分2进制位的个数。（参考前面如何判断浮点数是整数）<br />
+exp - int(flt.mantbits)代表不能被exp覆盖的2进制位的个数<br />
 如果exp - int(flt.mantbits)  &gt; 0  代表exp能够完全覆盖小数位 因此 浮点数是一个非常大的整数，这时会调用leftShift(a, uint(k))。否则将调用rightShift(a, uint(-k)), 常规rightShift会调用得更多。因此我们来看看rightShift函数的实现。</p>
-<p>第5行： 此for循环将计算浮点数10进制表示的小数部分的有效位为 r-1 。<br>
+<p>第5行： 此for循环将计算浮点数10进制表示的小数部分的有效位为 r-1 。<br />
 n &gt;&gt; k  是一个重要的衡量指标，代表了小数部分与整数部分的分割。 此函数的完整证明附后。（注1)</p>
-<p>第21行：此时整数部分所占的有效位数为a.dp -=（r-1）<br>
-第24行：这两个循环做了2件事情：<br>
-1、计算10进制表示的有效位数<br>
+<p>第21行：此时整数部分所占的有效位数为a.dp -=（r-1）<br />
+第24行：这两个循环做了2件事情：<br />
+1、计算10进制表示的有效位数<br />
 2、将10进制表示存入bytes数组中。例如对于浮点数64.125，现在byte数组存储的前5位就是64125</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">func rightShift(a *decimal, k uint) &#123;</span><br><span class="line">	r := 0</span><br><span class="line">	w := 0</span><br><span class="line">	var n uint</span><br><span class="line">	for ; n&gt;&gt;k == 0; r++ &#123;</span><br><span class="line">		if r &gt;= a.nd &#123;</span><br><span class="line">			if n == 0 &#123;</span><br><span class="line">				a.nd = 0</span><br><span class="line">				return</span><br><span class="line">			&#125;</span><br><span class="line">			for n&gt;&gt;k == 0 &#123;</span><br><span class="line">				n = n * 10</span><br><span class="line">				r++</span><br><span class="line">			&#125;</span><br><span class="line">			break</span><br><span class="line">		&#125;</span><br><span class="line">		c := uint(a.d[r])</span><br><span class="line">		n = n*10 + c - &apos;0&apos;</span><br><span class="line">	&#125;</span><br><span class="line">	// 整数部分的有效位数</span><br><span class="line">	a.dp -= r - 1</span><br><span class="line"></span><br><span class="line">	var mask uint = (1 &lt;&lt; k) - 1</span><br><span class="line">    // 整数部分</span><br><span class="line">	for ; r &lt; a.nd; r++ &#123;</span><br><span class="line">		c := uint(a.d[r])</span><br><span class="line">		dig := n &gt;&gt; k</span><br><span class="line">		n &amp;= mask</span><br><span class="line">		a.d[w] = byte(dig + &apos;0&apos;)</span><br><span class="line">		w++</span><br><span class="line">		n = n*10 + c - &apos;0&apos;</span><br><span class="line">	&#125;</span><br><span class="line">    // 小数部分</span><br><span class="line">	for n &gt; 0 &#123;</span><br><span class="line">		dig := n &gt;&gt; k</span><br><span class="line">		n &amp;= mask</span><br><span class="line">		if w &lt; len(a.d) &#123;</span><br><span class="line">			a.d[w] = byte(dig + &apos;0&apos;)</span><br><span class="line">			w++</span><br><span class="line">		&#125; else if dig &gt; 0 &#123;</span><br><span class="line">			a.trunc = true</span><br><span class="line">		&#125;</span><br><span class="line">		n = n * 10</span><br><span class="line">	&#125;</span><br><span class="line">    // 有效位</span><br><span class="line">	a.nd = w</span><br><span class="line">	trim(a)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>继续回到newFromFloat函数，第18行，调用了roundShortest函数，<br>
-此函数非常关键。其会将浮点数转换为离其最近的十进制数。<br>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">func rightShift(a *decimal, k uint) &#123;</span><br><span class="line">	r :&#x3D; 0</span><br><span class="line">	w :&#x3D; 0</span><br><span class="line">	var n uint</span><br><span class="line">	for ; n&gt;&gt;k &#x3D;&#x3D; 0; r++ &#123;</span><br><span class="line">		if r &gt;&#x3D; a.nd &#123;</span><br><span class="line">			if n &#x3D;&#x3D; 0 &#123;</span><br><span class="line">				a.nd &#x3D; 0</span><br><span class="line">				return</span><br><span class="line">			&#125;</span><br><span class="line">			for n&gt;&gt;k &#x3D;&#x3D; 0 &#123;</span><br><span class="line">				n &#x3D; n * 10</span><br><span class="line">				r++</span><br><span class="line">			&#125;</span><br><span class="line">			break</span><br><span class="line">		&#125;</span><br><span class="line">		c :&#x3D; uint(a.d[r])</span><br><span class="line">		n &#x3D; n*10 + c - &#39;0&#39;</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F; 整数部分的有效位数</span><br><span class="line">	a.dp -&#x3D; r - 1</span><br><span class="line"></span><br><span class="line">	var mask uint &#x3D; (1 &lt;&lt; k) - 1</span><br><span class="line">    &#x2F;&#x2F; 整数部分</span><br><span class="line">	for ; r &lt; a.nd; r++ &#123;</span><br><span class="line">		c :&#x3D; uint(a.d[r])</span><br><span class="line">		dig :&#x3D; n &gt;&gt; k</span><br><span class="line">		n &amp;&#x3D; mask</span><br><span class="line">		a.d[w] &#x3D; byte(dig + &#39;0&#39;)</span><br><span class="line">		w++</span><br><span class="line">		n &#x3D; n*10 + c - &#39;0&#39;</span><br><span class="line">	&#125;</span><br><span class="line">    &#x2F;&#x2F; 小数部分</span><br><span class="line">	for n &gt; 0 &#123;</span><br><span class="line">		dig :&#x3D; n &gt;&gt; k</span><br><span class="line">		n &amp;&#x3D; mask</span><br><span class="line">		if w &lt; len(a.d) &#123;</span><br><span class="line">			a.d[w] &#x3D; byte(dig + &#39;0&#39;)</span><br><span class="line">			w++</span><br><span class="line">		&#125; else if dig &gt; 0 &#123;</span><br><span class="line">			a.trunc &#x3D; true</span><br><span class="line">		&#125;</span><br><span class="line">		n &#x3D; n * 10</span><br><span class="line">	&#125;</span><br><span class="line">    &#x2F;&#x2F; 有效位</span><br><span class="line">	a.nd &#x3D; w</span><br><span class="line">	trim(a)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>继续回到newFromFloat函数，第18行，调用了roundShortest函数，<br />
+此函数非常关键。其会将浮点数转换为离其最近的十进制数。<br />
 这是为什么decimal.NewFromFloat(0.1)能够精准表达0.1的原因。</p>
-<p>参考上面的精度，此函数主要考察了2的幂与10的幂之间的交错关系。四舍五入到最接近的10进制值。<br>
-此函数实质实现的是Grisu3 算法,有想深入了解的可以去看看论文。笔者在这里提示几点：<br>
-1、2^exp &lt;= d &lt; 10^dp。<br>
-2、10进制数之间至少相聚10^(dp-nd)<br>
-3、2的幂之间的最小间距至少为2^(exp-mantbits)<br>
-4、什么时候d就是最接近2进制的10进制数？<br>
+<p>参考上面的精度，此函数主要考察了2的幂与10的幂之间的交错关系。四舍五入到最接近的10进制值。<br />
+此函数实质实现的是Grisu3 算法,有想深入了解的可以去看看论文。笔者在这里提示几点：<br />
+1、2^exp &lt;= d &lt; 10^dp。<br />
+2、10进制数之间至少相聚10^(dp-nd)<br />
+3、2的幂之间的最小间距至少为2^(exp-mantbits)<br />
+4、什么时候d就是最接近2进制的10进制数？<br />
 如果10^(dp-nd) &gt; 2^(exp-mantbits)，表明 当十进制下降一个最小位数时，匹配到的是更小的数字value -  2^(exp-mantbits)，所以d就是最接近浮点数的10进制数。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">func roundShortest(d *decimal, mant uint64, exp int, flt *floatInfo) &#123;</span><br><span class="line">		if mant == 0 &#123;</span><br><span class="line">			d.nd = 0</span><br><span class="line">			return</span><br><span class="line">		&#125;</span><br><span class="line">        // d 是否就是最接近的2进制数。</span><br><span class="line">		minexp := flt.bias + 1 // minimum possible exponent</span><br><span class="line">		if exp &gt; minexp &amp;&amp; 332*(d.dp-d.nd) &gt;= 100*(exp-int(flt.mantbits)) &#123;</span><br><span class="line">			// The number is already shortest.</span><br><span class="line">			return</span><br><span class="line">		&#125;</span><br><span class="line">        // 计算最接近的大于d的10进制数</span><br><span class="line">		upper := new(decimal)</span><br><span class="line">		upper.Assign(mant*2 + 1)</span><br><span class="line">		upper.Shift(exp - int(flt.mantbits) - 1)</span><br><span class="line"></span><br><span class="line">		var mantlo uint64</span><br><span class="line">		var explo int</span><br><span class="line">		if mant &gt; 1&lt;&lt;flt.mantbits || exp == minexp &#123;</span><br><span class="line">			mantlo = mant - 1</span><br><span class="line">			explo = exp</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			mantlo = mant*2 - 1</span><br><span class="line">			explo = exp - 1</span><br><span class="line">		&#125;</span><br><span class="line">        // 计算最接近的小于d的10进制数</span><br><span class="line">		lower := new(decimal)</span><br><span class="line">		lower.Assign(mantlo*2 + 1)</span><br><span class="line">		lower.Shift(explo - int(flt.mantbits) - 1)</span><br><span class="line"></span><br><span class="line">		inclusive := mant%2 == 0</span><br><span class="line"></span><br><span class="line">		//进行四舍五入</span><br><span class="line">    ...</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>继续回到newFromFloat函数，第19行  如果精度小于19，是位于int64范围内的，可以使用快速路径，否则使用math/big包进行赋值操作，效率稍微要慢一些。<br>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">func roundShortest(d *decimal, mant uint64, exp int, flt *floatInfo) &#123;</span><br><span class="line">		if mant &#x3D;&#x3D; 0 &#123;</span><br><span class="line">			d.nd &#x3D; 0</span><br><span class="line">			return</span><br><span class="line">		&#125;</span><br><span class="line">        &#x2F;&#x2F; d 是否就是最接近的2进制数。</span><br><span class="line">		minexp :&#x3D; flt.bias + 1 &#x2F;&#x2F; minimum possible exponent</span><br><span class="line">		if exp &gt; minexp &amp;&amp; 332*(d.dp-d.nd) &gt;&#x3D; 100*(exp-int(flt.mantbits)) &#123;</span><br><span class="line">			&#x2F;&#x2F; The number is already shortest.</span><br><span class="line">			return</span><br><span class="line">		&#125;</span><br><span class="line">        &#x2F;&#x2F; 计算最接近的大于d的10进制数</span><br><span class="line">		upper :&#x3D; new(decimal)</span><br><span class="line">		upper.Assign(mant*2 + 1)</span><br><span class="line">		upper.Shift(exp - int(flt.mantbits) - 1)</span><br><span class="line"></span><br><span class="line">		var mantlo uint64</span><br><span class="line">		var explo int</span><br><span class="line">		if mant &gt; 1&lt;&lt;flt.mantbits || exp &#x3D;&#x3D; minexp &#123;</span><br><span class="line">			mantlo &#x3D; mant - 1</span><br><span class="line">			explo &#x3D; exp</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			mantlo &#x3D; mant*2 - 1</span><br><span class="line">			explo &#x3D; exp - 1</span><br><span class="line">		&#125;</span><br><span class="line">        &#x2F;&#x2F; 计算最接近的小于d的10进制数</span><br><span class="line">		lower :&#x3D; new(decimal)</span><br><span class="line">		lower.Assign(mantlo*2 + 1)</span><br><span class="line">		lower.Shift(explo - int(flt.mantbits) - 1)</span><br><span class="line"></span><br><span class="line">		inclusive :&#x3D; mant%2 &#x3D;&#x3D; 0</span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F;进行四舍五入</span><br><span class="line">    ...</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>继续回到newFromFloat函数，第19行  如果精度小于19，是位于int64范围内的，可以使用快速路径，否则使用math/big包进行赋值操作，效率稍微要慢一些。<br />
 第36行，正常情况几乎不会发生。如果setstring在异常的情况下会调用NewFromFloatWithExponent 指定精度进行四舍五入截断。</p>
 <h2 id="注一证明shift函数快速的获取一个浮点数代表的十进制"><a class="markdownIt-Anchor" href="#注一证明shift函数快速的获取一个浮点数代表的十进制"></a> 注一：证明shift函数：快速的获取一个浮点数代表的十进制</h2>
-<p>以典型的数字64.125 为例 ， 它可以被浮点数二进制精准表达为：<br>
-Bit Patterns: 0 | 10000000101        | 0000000010000000000000000000000000000000000000000000<br>
+<p>以典型的数字64.125 为例 ， 它可以被浮点数二进制精准表达为：<br />
+Bit Patterns: 0 | 10000000101        | 0000000010000000000000000000000000000000000000000000<br />
 Sign: 0         | Exponent: 1029 (6) |  Mantissa: 0.001953</p>
-<p>即 64.125 = 1.001953125 * 2^6<br>
+<p>即 64.125 = 1.001953125 * 2^6<br />
 注意观察浮点数的小数位在第九位有1, 代表2^-9  即 0.001953125.</p>
 <p>我们在浮点数的小数位前 附上数字1，10000000010000000000000000000000000000000000000000000  代表其为1 / 2^0 .</p>
 <p>此时我们可以认为这个数代表的是1.001953125. 那么这样长的二进制数变为10进制又是多少呢:4512395720392704。</p>
 <p>即 1.001953125 = 4512395720392704 * 2^(-52)</p>
-<p>所以64.125 = 4512395720392704 * 2^(-52) * 2^6 =  4512395720392704 * 2^(-46)<br>
-在这里，有一种重要的等式。 即 (2 ^ -46) 等价于向左移动了46位。  并且移动后剩下的部分即为64,而舍弃的部分其实是小数部分0.125。<br>
+<p>所以64.125 = 4512395720392704 * 2^(-52) * 2^6 =  4512395720392704 * 2^(-46)<br />
+在这里，有一种重要的等式。 即 (2 ^ -46) 等价于向左移动了46位。  并且移动后剩下的部分即为64,而舍弃的部分其实是小数部分0.125。<br />
 这个等式看似复杂其实很好证明，即第46位其实代表的是2^45。 其除以2^46后是一个小数。依次类推…</p>
-<p>因此对于数字 4512395720392704 ， 我们可以用4，45，451，4512 … 依次除以 2 ^ 46. 一直到找到数451239572039270 其除以2^46不为0。这个不为0的数一定为6。<br>
+<p>因此对于数字 4512395720392704 ， 我们可以用4，45，451，4512 … 依次除以 2 ^ 46. 一直到找到数451239572039270 其除以2^46不为0。这个不为0的数一定为6。<br />
 接着我们保留后46位，其实是保留了小数位。</p>
-<p>假设 4512395720392704 / 2^46  = (6 + num)<br>
+<p>假设 4512395720392704 / 2^46  = (6 + num)<br />
 64.125 =(6 + num) * 10 + C = 60 + 10* num + C</p>
-<p>当我们将通过位运算保留后46位，设为A, 则 A / 2^46 = num<br>
-所以 (A * 10 + C) / 2 ^46 =(num * 10 +C) = 4.125<br>
-因此此我们又可以把4提取出来，实在精彩。<br>
-10进制小数位的提取是一样的，留给读者自己探索。<br>
+<p>当我们将通过位运算保留后46位，设为A, 则 A / 2^46 = num<br />
+所以 (A * 10 + C) / 2 ^46 =(num * 10 +C) = 4.125<br />
+因此此我们又可以把4提取出来，实在精彩。<br />
+10进制小数位的提取是一样的，留给读者自己探索。<br />
 这样，就可以快速的把对应的10进制数的每一位都找出来…</p>
 <h2 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
-<p>1、本文介绍了go语言使用的IEEE-754标准存储浮点数的具体存储方式。<br>
-2、本文通过实际代码片段和一个脑筋急转弯帮助读者理解浮点数的存储方式。<br>
-3、本文介绍了normal number 以及精度这两个重要概念。<br>
-4、本文详细介绍了shopspring/decimal的实现方式，即借助了big.int，以及进制的巧妙精准转换。<br>
-5、shopspring/decimal其实在精度的巧妙转换方面参考了go源码ftoa函数的实现。 读者可以参考go源码<br>
-6、shopspring/decimal目前roundShortest函数有一个bug，笔者已经提交了pr，此bug已在go源码中得到了修复。<br>
-7、big.int计算存在效率问题，如果遇到特殊的快速大量计算的场景可能不太适合。<br>
-8、还有一些decimal的实现，例如tibd/decimal,代码实在不忍淬读。<br>
+<p>1、本文介绍了go语言使用的IEEE-754标准存储浮点数的具体存储方式。<br />
+2、本文通过实际代码片段和一个脑筋急转弯帮助读者理解浮点数的存储方式。<br />
+3、本文介绍了normal number 以及精度这两个重要概念。<br />
+4、本文详细介绍了shopspring/decimal的实现方式，即借助了big.int，以及进制的巧妙精准转换。<br />
+5、shopspring/decimal其实在精度的巧妙转换方面参考了go源码ftoa函数的实现。 读者可以参考go源码<br />
+6、shopspring/decimal目前roundShortest函数有一个bug，笔者已经提交了pr，此bug已在go源码中得到了修复。<br />
+7、big.int计算存在效率问题，如果遇到特殊的快速大量计算的场景可能不太适合。<br />
+8、还有一些decimal的实现，例如tibd/decimal,代码实在不忍淬读。<br />
 9、浮点数计算，除了要解决进制的转换外，还需要解决重要的溢出问题，例如相乘常常要超过int64的范围，这就是为什么shopspring/decimal使用了big.int,而tibd/decimal将数据转换为了很多的word（int32），导致其计算非常复杂。</p>
 <h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
-<p><a href="https://dreamerjonson.com/2019/12/11/golang-106-IEE754-float/">深入浮点数</a><br>
-我将此文章放在了github上：<a href="https://github.com/dreamerjackson/theWayToGolang/blob/master/3-agrs/8_IEEE754%20Float%20introduce.md" target="_blank" rel="noopener">github地址</a><br>
+<p><a href="https://dreamerjonson.com/2019/12/11/golang-106-IEE754-float/">深入浮点数</a><br />
+我将此文章放在了github上：<a href="https://github.com/dreamerjackson/theWayToGolang/blob/master/3-agrs/8_IEEE754%20Float%20introduce.md" target="_blank" rel="noopener">github地址</a><br />
 <a href="https://www.exploringbinary.com/why-0-point-1-does-not-exist-in-floating-point/" target="_blank" rel="noopener">Why 0.1 Does Not Exist In Floating-Point</a></p>
 <p><a href="https://en.wikipedia.org/wiki/Normal_number" target="_blank" rel="noopener">Normal number</a></p>
 <p><a href="https://www.exploringbinary.com/7-bits-are-not-enough-for-2-digit-accuracy/" target="_blank" rel="noopener">7-bits-are-not-enough-for-2-digit-accuracy</a></p>
@@ -905,11 +907,17 @@ Sign: 0         | Exponent: 1029 (6) |  Mantissa: 0.001953</p>
 <script>
 window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 </script>
+
 <script src="/js/plugin.min.js"></script>
+
+
 <script src="/js/application.js"></script>
 
 
+
+
 <script src="/js/mrmy.js"></script>
+
 
 
 
@@ -929,7 +937,9 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
     window.INSIGHT_CONFIG = INSIGHT_CONFIG;
 })(window);
 </script>
+
 <script src="/js/insight.js"></script>
+
 
 
 

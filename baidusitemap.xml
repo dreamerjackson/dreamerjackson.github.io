@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://dreamerjonson.com/2020/07/02/kafka-golang/</loc>
+    <lastmod>2020-07-16T07:04:50.338Z</lastmod>
+  </url>  <url>
     <loc>https://dreamerjonson.com/2020/07/01/thewaytogolang2/</loc>
     <lastmod>2020-07-01T07:42:08.173Z</lastmod>
   </url>  <url>
